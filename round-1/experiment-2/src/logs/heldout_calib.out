@@ -1,0 +1,25 @@
+11:47:24|INFO   |=== stage HELDOUT:calib starting ===
+11:47:24|INFO   |screen freeze verified: 45f68ce11719992d90030caae9bd87667aaccec5d8f8e14e4694b9e4c3e24a33
+11:47:24|INFO   |--- heldout_calib: start
+11:47:52|INFO   |calibration null B=48/B_coinc=48: maxdev 0.000345+-0.000031; chi2 499587.6+-1042.7; Zmax 5.090+-0.272
+11:48:29|INFO   |wrote partial_heldout_calib.json (17.6 KiB)
+11:48:29|INFO   |calib S0     maxdev 0.000337+-0.000032 | FO fires 0/8 | coinc(prereg) fires 0/8 | coinc(loose p99) fires 0/8
+11:49:53|INFO   |wrote partial_heldout_calib.json (32.6 KiB)
+11:49:53|INFO   |calib S1h    maxdev 0.000345+-0.000023 | FO fires 0/8 | coinc(prereg) fires 0/8 | coinc(loose p99) fires 0/8
+11:50:10|INFO   |wrote partial_heldout_calib.json (47.7 KiB)
+11:50:10|INFO   |calib S2     maxdev 0.000339+-0.000029 | FO fires 0/8 | coinc(prereg) fires 0/8 | coinc(loose p99) fires 1/8
+11:50:27|INFO   |wrote partial_heldout_calib.json (62.8 KiB)
+11:50:27|INFO   |calib S2f    maxdev 0.000339+-0.000029 | FO fires 0/8 | coinc(prereg) fires 0/8 | coinc(loose p99) fires 1/8
+11:50:44|INFO   |wrote partial_heldout_calib.json (77.9 KiB)
+11:50:44|INFO   |calib S2v    maxdev 0.000339+-0.000029 | FO fires 0/8 | coinc(prereg) fires 0/8 | coinc(loose p99) fires 1/8
+11:52:37|INFO   |wrote partial_heldout_calib.json (92.9 KiB)
+11:52:37|INFO   |calib S3     maxdev 0.000334+-0.000031 | FO fires 0/8 | coinc(prereg) fires 0/8 | coinc(loose p99) fires 1/8
+11:52:46|INFO   |wrote partial_heldout_calib.json (107.8 KiB)
+11:52:46|INFO   |calib S5e    maxdev 0.000276+-0.000063 | FO fires 0/8 | coinc(prereg) fires 8/8 | coinc(loose p99) fires 8/8
+11:53:09|INFO   |wrote partial_heldout_calib.json (122.7 KiB)
+11:53:09|INFO   |calib S5g    maxdev 0.000315+-0.000045 | FO fires 0/8 | coinc(prereg) fires 8/8 | coinc(loose p99) fires 8/8
+11:53:16|INFO   |wrote partial_heldout_calib.json (137.7 KiB)
+11:53:16|INFO   |calib S6sys  maxdev 0.000287+-0.000039 | FO fires 0/8 | coinc(prereg) fires 8/8 | coinc(loose p99) fires 8/8
+11:53:16|INFO   |--- heldout_calib: done in 352.3s
+11:53:16|INFO   |wrote heldout_calib.json (146.0 KiB)
+11:53:16|INFO   |wrote heldout_calib.json (146.0 KiB)

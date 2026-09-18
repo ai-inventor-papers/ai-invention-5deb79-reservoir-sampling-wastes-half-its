@@ -1,0 +1,18 @@
+11:42:49|INFO   |=== stage HELDOUT:granularity starting ===
+11:42:49|INFO   |screen freeze verified: 45f68ce11719992d90030caae9bd87667aaccec5d8f8e14e4694b9e4c3e24a33
+11:42:49|INFO   |--- heldout_granularity: start
+11:42:50|INFO   |granularity n=10000 k=10 done
+11:42:51|INFO   |granularity n=10000 k=100 done
+11:42:52|INFO   |granularity n=10000 k=1000 done
+11:42:52|INFO   |wrote partial_heldout_granularity.json (4.5 KiB)
+11:43:00|INFO   |granularity n=100000 k=10 done
+11:43:08|INFO   |granularity n=100000 k=100 done
+11:43:16|INFO   |granularity n=100000 k=1000 done
+11:43:16|INFO   |wrote partial_heldout_granularity.json (9.0 KiB)
+11:44:31|INFO   |granularity n=1000000 k=10 done
+11:45:47|INFO   |granularity n=1000000 k=100 done
+11:47:04|INFO   |granularity n=1000000 k=1000 done
+11:47:04|INFO   |wrote partial_heldout_granularity.json (13.5 KiB)
+11:47:04|INFO   |--- heldout_granularity: done in 255.1s
+11:47:04|INFO   |wrote heldout_granularity.json (16.2 KiB)
+11:47:04|INFO   |wrote heldout_granularity.json (16.3 KiB)

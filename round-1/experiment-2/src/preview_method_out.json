@@ -1,0 +1,3750 @@
+{
+  "metadata": {
+    "method_name": "Counting the coin flips a stream sampler spends",
+    "description": "A reservoir-sampling bench that measures (a) the randomness cost of every candidate sampler under three accounting regimes on IDENTICAL streams, and (b) the uniformity of the resulting k-subset distri...",
+    "manifest": {
+      "python": "3.12.14",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "mpmath": "1.4.1",
+      "platform": "Linux-6.8.0-52-generic-x86_64-with-glibc2.36",
+      "processor": "x86_64",
+      "cpus_detected": 4,
+      "container_ram_gb": 32.0,
+      "git": "",
+      "cost_usd": 0.0,
+      "llm_calls": 0,
+      "note": "No LLM, no GPU and no network are used anywhere in this artifact.",
+      "assembly_wall_s": 1.45,
+      "stage_times_s": {
+        "GATE2_budget": 0.08,
+        "exact_screen": 0.19,
+        "mc_screen": 12.6,
+        "bits_screen": 9.39,
+        "prng_screen": 20.04,
+        "algol_screen": 32.03
+      },
+      "heldout_mc_used": true
+    },
+    "headline": {
+      "question": "max deviation from the expected frequency k/n, over many trials",
+      "config": {
+        "n": 1000,
+        "k": 10,
+        "T": 1000000,
+        "prng": "PCG64",
+        "expected_freq_k_over_n": 0.01
+      },
+      "maxdev_raw": 0.00036800000000000027,
+      "maxdev_pct_points": 0.03680000000000003,
+      "maxdev_relative_to_k_over_n": 0.03680000000000003,
+      "null_band_mean": 0.00034835937499999993,
+      "null_band_sd": 3.5826463211847106e-05,
+      "null_band_p99": 0.00044496000000000005,
+      "analytic_maxdev_mean": 0.0003698290882608429,
+      "maxdev_in_null_band_units_z": 0.548215571374223,
+      "null_band_exceedance_pct": 76.5625,
+      "interpretation": "A PERFECTLY uniform sampler has a strictly positive expected max deviation because the statistic maximises over n bins. The number above is therefore only interpretable next to its band: a bare 'max d...",
+      "verdict_scoreboard": {
+        "baseline": {
+          "TP": 6,
+          "TN": 6,
+          "FP": 0,
+          "FN": 3,
+          "n": 15,
+          "accuracy": 0.8,
+          "recall_on_broken": 0.6666666666666666,
+          "false_alarm_on_correct": 0.0
+        },
+        "ours": {
+          "TP": 9,
+          "TN": 6,
+          "FP": 0,
+          "FN": 0,
+          "n": 15,
+          "accuracy": 1.0,
+          "recall_on_broken": 1.0,
+          "false_alarm_on_correct": 0.0
+        },
+        "combined": {
+          "TP": 9,
+          "TN": 6,
+          "FP": 0,
+          "FN": 0,
+          "n": 15,
+          "accuracy": 1.0,
+          "recall_on_broken": 1.0,
+          "false_alarm_on_correct": 0.0
+        }
+      },
+      "replication_scoreboard": {
+        "known_correct": {
+          "n_runs": 48,
+          "n_samplers": 6,
+          "seeds_per_sampler": 8,
+          "baseline_first_order_fire_rate": 0.0,
+          "ours_coinclusion_calibrated_fire_rate": 0.0,
+          "ours_coinclusion_nominal_p_fire_rate": 0.0,
+          "ours_coinclusion_loose_p99_fire_rate": 0.08333333333333333,
+          "maxdev_mean": 0.0003389166666666666,
+          "maxdev_sd": 2.756642525643166e-05,
+          "coinc_chi2_z_mean": 0.0948818081778565,
+          "coinc_chi2_z_min": -2.088361909899304,
+          "coinc_chi2_z_max": 2.279234481979227
+        },
+        "blind_spot": {
+          "n_runs": 24,
+          "n_samplers": 3,
+          "seeds_per_sampler": 8,
+          "baseline_first_order_fire_rate": 0.0,
+          "ours_coinclusion_calibrated_fire_rate": 1.0,
+          "ours_coinclusion_nominal_p_fire_rate": 1.0,
+          "ours_coinclusion_loose_p99_fire_rate": 1.0,
+          "maxdev_mean": 0.0002927499999999998,
+          "maxdev_sd": 5.079220241421875e-05,
+          "coinc_chi2_z_mean": 3339445.795577589,
+          "coinc_chi2_z_min": 523270.2840523979,
+          "coinc_chi2_z_max": 4747656.78594046
+        },
+        "interpretation": "'known_correct' is the FALSE-ALARM rate and 'blind_spot' is the DETECTION rate, each replicated over independent seeds. The calibrated co-inclusion rule (chi-square statistic >= 5 simulated-null sd) i..."
+      },
+      "anytime_overhead_by_k_at_n1e6": {
+        "1": 7.845409519118345,
+        "2": 7.976872023502583,
+        "10": 8.413904095695935,
+        "100": 9.173920748044445,
+        "1000": 9.849000914603193
+      },
+      "evict_frac_by_k_at_n1e6": {
+        "1": 0.0,
+        "2": 0.08317720247357695,
+        "10": 0.254953661471764,
+        "100": 0.4540102420306275,
+        "1000": 0.6130060668647782
+      },
+      "recoverable_fraction_by_k_at_n1e6": {
+        "1": 0.0,
+        "2": 0.08317720247357695,
+        "10": 0.254953661471764,
+        "100": 0.4540102420306275,
+        "1000": 0.6130060668647782
+      }
+    },
+    "verdicts": {
+      "co_inclusion_rule": {
+        "pre_registered_rule": "nominal chi-square p < 1e-6",
+        "rule_actually_used": "the same chi-square statistic referred to its OWN SIMULATED null: z = (chi2 - null_mean)/null_sd >= 5",
+        "why_the_deviation": "The C(n,2) pair counts are constrained to sum to T*C(k,2) and are therefore strongly negatively correlated, so the chi-square reference distribution is not the right null once k/n stops being small. T...",
+        "separation_on_the_grid": {
+          "max_calibrated_z_among_provably_correct": 2.2340376853606894,
+          "min_calibrated_z_among_broken": 21.383308927851225,
+          "threshold": 5.0,
+          "note": "A clean gap with no overlap: the threshold sits between the two, so the verdicts do not depend on where in the gap it is placed."
+        },
+        "nominal_rule_false_alarms_on_the_grid": [
+          "S0@n2000k100 (p=7.929308663329203e-16)",
+          "S1h@n2000k100 (p=9.440984961380265e-08)"
+        ]
+      },
+      "MAIN": {
+        "verdict": "CONFIRMED-IN-TABLE-EXACT-FORM",
+        "margin_ratio": 1.1549675407229452,
+        "margin_ratio_screen_S1h_arm": 0.5179534082526652,
+        "reason": "S1's closed-form mixture repair is NOT exact -- exact rational verification puts its first failure at prefix i=5 (k=2), i=7 (k=3), i=9 (k=4) -- so the MAIN arm falls back exactly as the plan anticipat...",
+        "disconfirmation_trigger_fired": false,
+        "disconfirmation_trigger_note": "The trigger was: minimum per-acceptance eviction entropy >= c*log2(k) with c bounded away from 0 across screened i. The exactly-solved tables give H_evict(i,k) ~ 1.132*k*log2(k)/i, i.e. c -> 0 like 1/...",
+        "screen_panel": {
+          "ratio": 0.5179534082526652,
+          "threshold": 0.2,
+          "measured_saving_frac": 0.10359068165053305,
+          "zero_eviction_upper_bound_frac": 0.28823737069139554,
+          "main_variant_used": "S1h",
+          "S1_exact": false,
+          "basis": "matched R-recycle, n=10000, k=10, net bits",
+          "S0_net_bits": 666.3958464710737,
+          "main_net_bits": 597.3634464860512,
+          "S1n_net_bits": 474.3156598445845
+        },
+        "heldout_n1e6": {
+          "10": {
+            "S0_net": 1568.1309782697454,
+            "S1h_net": 1502.668993328555,
+            "S1n_net": 1200.3133447087278,
+            "S1h_saving_frac": 0.0417452278210971,
+            "zero_eviction_upper_bound_frac": 0.23455797931296699
+          },
+          "100": {
+            "S0_net": 13554.814270645898,
+            "S1h_net": 13878.023688628056,
+            "S1n_net": 7443.694014033622,
+            "S1h_saving_frac": -0.023844621661994688,
+            "zero_eviction_upper_bound_frac": 0.450845001236677
+          },
+          "1000": {
+            "S0_net": 111437.76045395888,
+            "S1h_net": 111638.27790274676,
+            "S1n_net": 43049.298910322286,
+            "S1h_saving_frac": -0.00179936718012857,
+            "zero_eviction_upper_bound_frac": 0.6136919951105053
+          }
+        },
+        "s1t_closed_form_budget": [
+          {
+            "n": 1000000,
+            "k": 10,
+            "basis": "extrapolated-from-exact (fit of exactly-solved minimum-randomisation tables; the most CONSERVATIVE fitted C across k=2..5 is used, C=1.1321 from k=2, so the saving is understated not overstated)",
+            "fit_C": 1.1320786053523462,
+            "fit_source_k": 2,
+            "fit_C_range": {
+              "C_min": 0.767430347455377,
+              "C_max": 1.1320786053523462,
+              "by_k": [
+                {
+                  "k": 2,
+                  "C": 1.1320786053523462,
+                  "R2": 0.8916260297541964,
+                  "n_points": 86
+                },
+                {
+                  "k": 3,
+                  "C": 0.9244827454253741,
+                  "R2": 0.8478302243964838,
+                  "n_points": 29
+                },
+                {
+                  "k": 4,
+                  "C": 0.767430347455377,
+                  "R2": 0.742663093022558,
+                  "n_points": 18
+                }
+              ]
+            },
+            "accept_H": 1112.8568062676225,
+            "S1t_evict_bits": 35.788672905949674,
+            "S1t_evict_bits_n_to_infinity": 35.78904897413411,
+            "classical_evict_bits": 380.81781330833445,
+            "evict_ratio_S1t_over_classical": 0.093978463336674,
+            "S0_total_bits": 1493.674619575957,
+            "S1t_total_bits": 1148.645479173572,
+            "total_saving_frac": 0.23099350814458905,
+            "eviction_saving_frac": 0.906021536663326
+          },
+          {
+            "n": 10000000,
+            "k": 10,
+            "basis": "extrapolated-from-exact (fit of exactly-solved minimum-randomisation tables; the most CONSERVATIVE fitted C across k=2..5 is used, C=1.1321 from k=2, so the saving is understated not overstated)",
+            "fit_C": 1.1320786053523462,
+            "fit_source_k": 2,
+            "fit_C_range": {
+              "C_min": 0.767430347455377,
+              "C_max": 1.1320786053523462,
+              "by_k": [
+                {
+                  "k": 2,
+                  "C": 1.1320786053523462,
+                  "R2": 0.8916260297541964,
+                  "n_points": 86
+                },
+                {
+                  "k": 3,
+                  "C": 0.9244827454253741,
+                  "R2": 0.8478302243964838,
+                  "n_points": 29
+                },
+                {
+                  "k": 4,
+                  "C": 0.767430347455377,
+                  "R2": 0.742663093022558,
+                  "n_points": 18
+                }
+              ]
+            },
+            "accept_H": 1566.7721588413203,
+            "S1t_evict_bits": 35.78901136729874,
+            "S1t_evict_bits_n_to_infinity": 35.78904897413411,
+            "classical_evict_bits": 457.30801947251825,
+            "evict_ratio_S1t_over_classical": 0.07826018753963589,
+            "S0_total_bits": 2024.0801783138386,
+            "S1t_total_bits": 1602.5611702086192,
+            "total_saving_frac": 0.20825212984219146,
+            "eviction_saving_frac": 0.9217398124603642
+          },
+          {
+            "n": 1000000,
+            "k": 100,
+            "basis": "extrapolated-from-exact (fit of exactly-solved minimum-randomisation tables; the most CONSERVATIVE fitted C across k=2..5 is used, C=1.1321 from k=2, so the saving is understated not overstated)",
+            "fit_C": 1.1320786053523462,
+            "fit_source_k": 2,
+            "fit_C_range": {
+              "C_min": 0.767430347455377,
+              "C_max": 1.1320786053523462,
+              "by_k": [
+                {
+                  "k": 2,
+                  "C": 1.1320786053523462,
+                  "R2": 0.8916260297541964,
+                  "n_points": 86
+                },
+                {
+                  "k": 3,
+                  "C": 0.9244827454253741,
+                  "R2": 0.8478302243964838,
+                  "n_points": 29
+                },
+                {
+                  "k": 4,
+                  "C": 0.767430347455377,
+                  "R2": 0.742663093022558,
+                  "n_points": 18
+                }
+              ]
+            },
+            "accept_H": 7354.943438245872,
+            "S1t_evict_bits": 748.3133829482649,
+            "S1t_evict_bits_n_to_infinity": 748.3885965851529,
+            "classical_evict_bits": 6115.901629617931,
+            "evict_ratio_S1t_over_classical": 0.12235536610405115,
+            "S0_total_bits": 13470.845067863804,
+            "S1t_total_bits": 8103.256821194137,
+            "total_saving_frac": 0.39845965265198124,
+            "eviction_saving_frac": 0.8776446338959488
+          }
+        ],
+        "s1t_fit_C_range": {
+          "C_min": 0.767430347455377,
+          "C_max": 1.1320786053523462,
+          "by_k": [
+            {
+              "k": 2,
+              "C": 1.1320786053523462,
+              "R2": 0.8916260297541964,
+              "n_points": 86
+            },
+            {
+              "k": 3,
+              "C": 0.9244827454253741,
+              "R2": 0.8478302243964838,
+              "n_points": 29
+            },
+            {
+              "k": 4,
+              "C": 0.767430347455377,
+              "R2": 0.742663093022558,
+              "n_points": 18
+            }
+          ]
+        },
+        "s1t": {
+          "available": true,
+          "exact_uniform_at_every_prefix": true,
+          "verify": [
+            {
+              "n": 12,
+              "k": 2,
+              "max_abs_dev": 0.0,
+              "max_rel_dev": 0.0,
+              "support_size": 66,
+              "n_subsets": 66,
+              "first_prefix_failure": null,
+              "exact_uniform_at_all_prefixes": true,
+              "per_prefix": [
+                {
+                  "prefix": 3,
+                  "max_abs_dev": 0.0,
+                  "max_rel_dev": 0.0,
+                  "support_size": 3,
+                  "n_subsets": 3,
+                  "exact_uniform": true
+                },
+                {
+                  "prefix": 4,
+                  "max_abs_dev": 0.0,
+                  "max_rel_dev": 0.0,
+                  "support_size": 6,
+                  "n_subsets": 6,
+                  "exact_uniform": true
+                },
+                {
+                  "prefix": 5,
+                  "max_abs_dev": 0.0,
+                  "max_rel_dev": 0.0,
+                  "support_size": 10,
+                  "n_subsets": 10,
+                  "exact_uniform": true
+                }
+              ]
+            },
+            {
+              "n": 12,
+              "k": 3,
+              "max_abs_dev": 0.0,
+              "max_rel_dev": 0.0,
+              "support_size": 220,
+              "n_subsets": 220,
+              "first_prefix_failure": null,
+              "exact_uniform_at_all_prefixes": true,
+              "per_prefix": [
+                {
+                  "prefix": 4,
+                  "max_abs_dev": 0.0,
+                  "max_rel_dev": 0.0,
+                  "support_size": 4,
+                  "n_subsets": 4,
+                  "exact_uniform": true
+                },
+                {
+                  "prefix": 5,
+                  "max_abs_dev": 0.0,
+                  "max_rel_dev": 0.0,
+                  "support_size": 10,
+                  "n_subsets": 10,
+                  "exact_uniform": true
+                },
+                {
+                  "prefix": 6,
+                  "max_abs_dev": 0.0,
+                  "max_rel_dev": 0.0,
+                  "support_size": 20,
+                  "n_subsets": 20,
+                  "exact_uniform": true
+                }
+              ]
+            },
+            {
+              "n": 12,
+              "k": 4,
+              "max_abs_dev": 0.0,
+              "max_rel_dev": 0.0,
+              "support_size": 495,
+              "n_subsets": 495,
+              "first_prefix_failure": null,
+              "exact_uniform_at_all_prefixes": true,
+              "per_prefix": [
+                {
+                  "prefix": 5,
+                  "max_abs_dev": 0.0,
+                  "max_rel_dev": 0.0,
+                  "support_size": 5,
+                  "n_subsets": 5,
+                  "exact_uniform": true
+                },
+                {
+                  "prefix": 6,
+                  "max_abs_dev": 0.0,
+                  "max_rel_dev": 0.0,
+                  "support_size": 15,
+                  "n_subsets": 15,
+                  "exact_uniform": true
+                },
+                {
+                  "prefix": 7,
+                  "max_abs_dev": 0.0,
+                  "max_rel_dev": 0.0,
+                  "support_size": 35,
+                  "n_subsets": 35,
+                  "exact_uniform": true
+                }
+              ]
+            }
+          ],
+          "extrapolation": [
+            {
+              "k": 10,
+              "n": 1000000,
+              "fit_C_used": 0.7719068728945562,
+              "exact": {
+                "basis": "exact",
+                "i_max_sources": 20000,
+                "i_cap": 300,
+                "max_i_solved": 18,
+                "n_points_solved": 8,
+                "partial_sum_evict_bits_over_solved_i": 9.942061751038896
+              },
+              "extrapolated": {
+                "basis": "extrapolated-from-exact",
+                "model": "H_evict_hat(i,k) = fit_C * k*log2(k) / i",
+                "total_evict_bits_at_n": 24.40247740507349,
+                "total_evict_bits_as_n_to_infinity": 24.40273382685805,
+                "classical_evict_H_bits_at_n": 380.81781330833445,
+                "ratio_s1t_over_classical_at_n": 0.06407913850740928,
+                "ratio_s1t_over_classical_as_n_to_infinity": 0.06407981185244618
+              }
+            },
+            {
+              "k": 10,
+              "n": 10000000,
+              "fit_C_used": 0.7719068728945562,
+              "exact": {
+                "basis": "exact",
+                "i_max_sources": 20000,
+                "i_cap": 300,
+                "max_i_solved": 18,
+                "n_points_solved": 8,
+                "partial_sum_evict_bits_over_solved_i": 9.942061751038896
+              },
+              "extrapolated": {
+                "basis": "extrapolated-from-exact",
+                "model": "H_evict_hat(i,k) = fit_C * k*log2(k) / i",
+                "total_evict_bits_at_n": 24.402708184668054,
+                "total_evict_bits_as_n_to_infinity": 24.40273382685805,
+                "classical_evict_H_bits_at_n": 457.30801947251825,
+                "ratio_s1t_over_classical_at_n": 0.05336164498671016,
+                "ratio_s1t_over_classical_as_n_to_infinity": 0.05336170105874236
+              }
+            },
+            {
+              "k": 100,
+              "n": 1000000,
+              "fit_C_used": 0.7719068728945562,
+              "exact": {
+                "basis": "exact",
+                "i_max_sources": 20000,
+                "i_cap": 300,
+                "max_i_solved": 103,
+                "n_points_solved": 3,
+                "partial_sum_evict_bits_over_solved_i": 17.040597660065018
+              },
+              "extrapolated": {
+                "basis": "extrapolated-from-exact",
+                "model": "H_evict_hat(i,k) = fit_C * k*log2(k) / i",
+                "total_evict_bits_at_n": 510.23686928255455,
+                "total_evict_bits_as_n_to_infinity": 510.28815363946643,
+                "classical_evict_H_bits_at_n": 6115.901629617931,
+                "ratio_s1t_over_classical_at_n": 0.08342790649404702,
+                "ratio_s1t_over_classical_as_n_to_infinity": 0.0834362919063734
+              }
+            }
+          ],
+          "fit": [
+            {
+              "k": 2,
+              "fit_C": 1.1320786053523462,
+              "r2": 0.8916260297541964,
+              "n_randomised_points": 86,
+              "n_rows": 172,
+              "max_i_solved": 174,
+              "avg_H_evict_bits_all_i": 0.023593211023055574,
+              "i_max_sources": 15000,
+              "i_cap": 220
+            },
+            {
+              "k": 3,
+              "fit_C": 0.9244827454253741,
+              "r2": 0.8478302243964838,
+              "n_randomised_points": 29,
+              "n_rows": 43,
+              "max_i_solved": 46,
+              "avg_H_evict_bits_all_i": 0.1533723166625921,
+              "i_max_sources": 15000,
+              "i_cap": 220
+            },
+            {
+              "k": 4,
+              "fit_C": 0.767430347455377,
+              "r2": 0.742663093022558,
+              "n_randomised_points": 18,
+              "n_rows": 23,
+              "max_i_solved": 27,
+              "avg_H_evict_bits_all_i": 0.3265453317323063,
+              "i_max_sources": 15000,
+              "i_cap": 220
+            }
+          ],
+          "caveat": "The stage-1 b-matching uses a generic max-flow solver with bounded relabelling retries, so d_achieved sometimes falls short of floor(m/k). Every measured H_evict is therefore an UPPER BOUND on the tru..."
+        }
+      },
+      "C1_sharper_finding": {
+        "claim": "The blind spot is worse than 'undetected': on the standard first-order max-deviation test the DEGENERATE samplers score BETTER than the provably-correct one.",
+        "S0_z_band": 0.548215571374223,
+        "blind_spot_z_bands": {
+          "S5e": -3.6665459892943546,
+          "S5g": -0.5961898854960831,
+          "S6sys": -1.0427871369576165
+        },
+        "n_blind_spot_members_scoring_better_than_S0": 3,
+        "mechanism": "The max-deviation statistic is an extreme value over n bins, but a sampler whose support is a partition into blocks has only n/k (BLOCK-LOCK, systematic) or n/2 (PAIR-LOCK) INDEPENDENT bins -- every i..."
+      },
+      "C1": {
+        "verdict": "CONFIRMED",
+        "margin_ratio": 1.0,
+        "reason": "3 sampler(s) pass the first-order max-deviation test at the simulated p99 band at T=1e6 while failing the co-inclusion test: ['S5e', 'S5g', 'S6sys']. Their exact first-order marginals are uniform to t...",
+        "members": [
+          {
+            "candidate": "S5e",
+            "label": "BLOCK-LOCK",
+            "maxdev_raw": 0.00021700000000000018,
+            "z_band": -3.6665459892943546,
+            "coinc_Zmax": 1065.6145307192498,
+            "coinc_p": 0.0,
+            "coinc_chi2_over_df": 9931.521519153272
+          },
+          {
+            "candidate": "S5g",
+            "label": "PAIR-LOCK",
+            "maxdev_raw": 0.00032699999999999917,
+            "z_band": -0.5961898854960831,
+            "coinc_Zmax": 1078.5739686068705,
+            "coinc_p": 0.0,
+            "coinc_chi2_over_df": 1095.570608002803
+          },
+          {
+            "candidate": "S6sys",
+            "label": "SYSTEMATIC(oracle n)",
+            "maxdev_raw": 0.0003110000000000005,
+            "z_band": -1.0427871369576165,
+            "coinc_Zmax": 1067.5110338247555,
+            "coinc_p": 0.0,
+            "coinc_chi2_over_df": 9931.807993859598
+          }
+        ],
+        "screen_members": [
+          {
+            "candidate": "S5e",
+            "first_order_exact_all_prefixes": true,
+            "support_size": 6,
+            "n_subsets": 66,
+            "passes_first_order_at_p99": true,
+            "coinc_fails_at_p99": true,
+            "coinc_p": 0.0,
+            "qualifies": true
+          },
+          {
+            "candidate": "S5g",
+            "first_order_exact_all_prefixes": true,
+            "support_size": 6,
+            "n_subsets": 66,
+            "passes_first_order_at_p99": true,
+            "coinc_fails_at_p99": true,
+            "coinc_p": 0.0,
+            "qualifies": true
+          },
+          {
+            "candidate": "S1n",
+            "first_order_exact_all_prefixes": false,
+            "support_size": 56,
+            "n_subsets": 66,
+            "passes_first_order_at_p99": false,
+            "coinc_fails_at_p99": true,
+            "coinc_p": 0.0,
+            "qualifies": false
+          }
+        ]
+      },
+      "C2": {
+        "verdict": "REFUTED-BY-MAGNITUDE",
+        "margin_ratio": 0.285353991709938,
+        "reason": "The float64 skip-rate error is real and follows a quantified law, but it is far below any achievable Monte Carlo sensitivity at realistic n. TWO CORRECTIONS are delivered instead: (a) the 'catastrophi...",
+        "realistic_regime": [
+          {
+            "k": 1024,
+            "n": 1000.0,
+            "regime": "realistic_W_eq_k_over_n",
+            "status": "SKIPPED_n_le_2k",
+            "reason": "W = k/n would be >= 0.5; not a stream-position regime"
+          },
+          {
+            "k": 1024,
+            "n": 1000000.0,
+            "W_target": 0.001024,
+            "n_draws": 2000,
+            "disagree_rate_shipped": 0.0,
+            "disagree_rate_fixed": 0.0,
+            "disagree_rate_logdomain": 0.0,
+            "rel_rate_err_shipped": 2.4339726779559884e-14,
+            "rel_rate_err_fixed": 3.612558941952564e-15,
+            "rel_rate_err_logdomain": 4.2329959616625883e-16,
+            "predicted_rel_rate_err_law": 1.0842021724855044e-13,
+            "ratio_measured_over_predicted_shipped": 0.22449435536327797,
+            "inclusion_bias_shipped": 0.0,
+            "trials_needed_to_detect": "inf"
+          },
+          {
+            "k": 1024,
+            "n": 1000000000.0,
+            "W_target": 1.024e-06,
+            "n_draws": 2000,
+            "disagree_rate_shipped": 0.0,
+            "disagree_rate_fixed": 0.0,
+            "disagree_rate_logdomain": 0.0,
+            "rel_rate_err_shipped": 1.5745374898309433e-11,
+            "rel_rate_err_fixed": 1.141666340771625e-12,
+            "rel_rate_err_logdomain": 0.0,
+            "predicted_rel_rate_err_law": 1.0842021724855044e-10,
+            "ratio_measured_over_predicted_shipped": 0.14522545054686234,
+            "inclusion_bias_shipped": 0.0,
+            "trials_needed_to_detect": "inf"
+          }
+        ],
+        "error_law_thresholds": [
+          {
+            "k": 1024,
+            "fit_scale_c_measured_over_predicted": 0.3720368547763342,
+            "n_theoretical_rel_err_1e-3_c1": 9223372036854776.0,
+            "n_theoretical_rel_err_1_0_c1": 9.223372036854776e+18,
+            "n_measured_law_rel_err_1e-3": 2.479155470336346e+16,
+            "n_measured_law_rel_err_1_0": 2.4791554703363457e+19
+          },
+          {
+            "k": 4096,
+            "fit_scale_c_measured_over_predicted": 0.4881474191050991,
+            "n_theoretical_rel_err_1e-3_c1": 3.68934881474191e+16,
+            "n_theoretical_rel_err_1_0_c1": 3.6893488147419103e+19,
+            "n_measured_law_rel_err_1e-3": 7.557857873151197e+16,
+            "n_measured_law_rel_err_1_0": 7.557857873151197e+19
+          },
+          {
+            "k": 16384,
+            "fit_scale_c_measured_over_predicted": 0.04741032357521632,
+            "n_theoretical_rel_err_1e-3_c1": 1.475739525896764e+17,
+            "n_theoretical_rel_err_1_0_c1": 1.4757395258967641e+20,
+            "n_measured_law_rel_err_1e-3": 3.112696591398513e+18,
+            "n_measured_law_rel_err_1_0": 3.112696591398513e+21
+          }
+        ],
+        "max_disagreement_rate_over_all_cells": 0.0,
+        "edge_cases": [
+          {
+            "case": "u2_equals_zero_exact",
+            "variant": "shipped",
+            "input": {
+              "W": 0.9990234375,
+              "u2": 0.0
+            },
+            "result": null,
+            "exception": "ValueError: math domain error",
+            "severity": "crash"
+          },
+          {
+            "case": "u2_equals_zero_exact",
+            "variant": "fixed",
+            "input": {
+              "V": 0.0009765625,
+              "u2": 0.0
+            },
+            "result": "0.0",
+            "exception": null,
+            "severity": "ok"
+          },
+          {
+            "case": "u2_equals_zero_exact",
+            "variant": "logdomain",
+            "input": {
+              "logW": -0.0009770396478266127,
+              "u2": 0.0
+            },
+            "result": null,
+            "exception": "ValueError: math domain error",
+            "severity": "crash"
+          }
+        ],
+        "notes": {
+          "sterbenz_correction_original_and_wrong": "[SUPERSEDED -- kept for the record, see 'w_to_zero_correction' for the corrected diagnosis] The common story that '1.0 - W' suffers catastrophic cancellation is wrong; by Sterbenz's lemma, for W in [0...",
+          "w_to_zero_correction": "BLUNT CORRECTION: the common 'catastrophic cancellation in 1-W' story is WRONG. By Sterbenz's lemma, 1.0 - W is computed EXACTLY in float64 for W in [0.5, 2] -- there is no cancellation there at all. ...",
+          "metric_definitions": {
+            "disagree_rate_f64 / disagree_rate_fixed / disagree_rate_logdomain": "P(skip_variant != skip_exact(kind=variant)) over the (possibly subsampled) exact-reference pairs, one probability per float64 variant against its OWN mpmath dps=80 exact counterpart.",
+            "rel_skip_err_mean/max_{f64,fixed,logdomain}": "mean / max of |S_variant - S_exact_variant| / max(S_exact_variant, 1).",
+            "rel_rate_err_mean/max_{f64,fixed,logdomain}": "relative error of the float64 skip rate (log(1.0-W) for shipped, log1p(-V) for fixed, log1mexp(logW) for logdomain) vs its own mpmath dps=80 reference -- the continuous error underlying skip disagreem...",
+            "inclusion_bias / inclusion_bias_fixed / inclusion_bias_logdomain": "(E[S_variant_float64] - E[S_exact_variant]) / max(E[S_exact_variant], 1)**2.",
+            "trials_needed_to_detect": "(1.96*sqrt(p*(1-p))/bias)**2 with p = k/1000 and bias = |inclusion_bias| (the shipped path's bias); 'inf' when bias == 0. In `realistic_cells` this is computed from that cell's own realistic-regime bi...",
+            "fix_improvement_factor / fix_improvement_factor_logdomain": "disagree_rate_f64 / max(disagree_rate_{fixed,logdomain}, 1/n_draws) -- how many times more often the shipped path disagrees with its exact reference than the fixed/logdomain path disagrees with its ow...",
+            "n_exact_pairs": "size of the mpmath dps=80 reference subsample actually used for this trajectory cell: <= min(n_draws, 20000), further capped so the total mpmath op count (now x3 variants) stays bounded as position_st...",
+            "realistic_cells[*].W_target": "W = k/n, the value Algorithm-L theory predicts W takes at stream position n for reservoir size k; injected directly rather than reached via a random trajectory.",
+            "realistic_cells[*].predicted_rel_rate_err_law": "the coordinator's predicted law 2**-53 * n / k for the shipped variant's relative rate error at that (k, n).",
+            "realistic_cells[*].ratio_measured_over_predicted_shipped": "rel_rate_err_shipped / predicted_rel_rate_err_law -- 1.0 means the predicted law is exactly right.",
+            "error_law_thresholds[*]": "per-k fit of the measured law (c = measured/predicted ratio at the largest available n) plus the smallest n at which shipped's rate error is predicted to cross 1e-3 and 1.0, under both the naive theor..."
+          },
+          "paired_draw_convention": "shipped, fixed, and logdomain consume the SAME raw float64 uniform stream (np.random.default_rng(seed).random(...)) so any difference between them is attributable to floating-point formulation, not to...",
+          "position_semantics": "position_steps counts state-advance steps applied before the skip is measured in `cells` (the random-trajectory audit). Under the literal recurrence W *= exp(log(U)/k) with U in (0,1), W DECREASES tow..."
+        }
+      },
+      "C3": {
+        "verdict": "CONFIRMED-WITH-REVERSED-ORDERING",
+        "margin_ratio": 2.396798629613228,
+        "reason": "Generator quality separates the ALGORITHMS by up to 2.40 orders of magnitude (worst generator: LCG-low16), measured as amplification relative to that SAME generator's own exact k-subset null -- which ...",
+        "log10_amplification_separation_by_prng": {
+          "R250": 0.04428960183771937,
+          "MT19937": 0.13017757554892145,
+          "ChaCha20": 0.13644389901362564,
+          "LCG-low16": 2.396798629613228,
+          "xorshift32": 0.12429581349769007,
+          "PCG64": 0.11007145906602513
+        },
+        "detail": {
+          "R250": {
+            "S0": {
+              "maxdev": 0.00032899999999999943,
+              "amp": 0.9467625899280555,
+              "coinc_Zmax": 5.363933458063716
+            },
+            "S1h": {
+              "maxdev": 0.0003610000000000002,
+              "amp": 1.0388489208633096,
+              "coinc_Zmax": 5.047849607146141
+            },
+            "S2": {
+              "maxdev": 0.00032800000000000017,
+              "amp": 0.943884892086331,
+              "coinc_Zmax": 5.785378592620483
+            },
+            "S2f": {
+              "maxdev": 0.00032800000000000017,
+              "amp": 0.943884892086331,
+              "coinc_Zmax": 5.785378592620483
+            },
+            "S3": {
+              "maxdev": 0.0003259999999999999,
+              "amp": 0.938129496402877,
+              "coinc_Zmax": 5.469294741702908
+            }
+          },
+          "MT19937": {
+            "S0": {
+              "maxdev": 0.00041699999999999897,
+              "amp": 1.2319054652880315,
+              "coinc_Zmax": 5.363933458063716
+            },
+            "S1h": {
+              "maxdev": 0.0003169999999999996,
+              "amp": 0.9364844903988163,
+              "coinc_Zmax": 4.837127039867757
+            },
+            "S2": {
+              "maxdev": 0.00030900000000000025,
+              "amp": 0.912850812407681,
+              "coinc_Zmax": 5.574656025342099
+            },
+            "S2f": {
+              "maxdev": 0.00030900000000000025,
+              "amp": 0.912850812407681,
+              "coinc_Zmax": 5.574656025342099
+            },
+            "S3": {
+              "maxdev": 0.0003259999999999999,
+              "amp": 0.9630723781388468,
+              "coinc_Zmax": 5.363933458063716
+            }
+          },
+          "ChaCha20": {
+            "S0": {
+              "maxdev": 0.0003449999999999998,
+              "amp": 1.0391566265060235,
+              "coinc_Zmax": 5.047849607146141
+            },
+            "S1h": {
+              "maxdev": 0.0004019999999999996,
+              "amp": 1.2108433734939745,
+              "coinc_Zmax": 4.837127039867757
+            },
+            "S2": {
+              "maxdev": 0.00029799999999999965,
+              "amp": 0.897590361445782,
+              "coinc_Zmax": 4.942488323506949
+            },
+            "S2f": {
+              "maxdev": 0.0004080000000000004,
+              "amp": 1.2289156626506035,
+              "coinc_Zmax": 4.961472338577073
+            },
+            "S3": {
+              "maxdev": 0.00032399999999999964,
+              "amp": 0.9759036144578301,
+              "coinc_Zmax": 5.047849607146141
+            }
+          },
+          "LCG-low16": {
+            "S0": {
+              "maxdev": 0.95,
+              "amp": 17.423200366804217,
+              "coinc_Zmax": 6642.45603841096
+            },
+            "S1h": {
+              "maxdev": 0.04689,
+              "amp": 0.8599724896836314,
+              "coinc_Zmax": 89.53482080603813
+            },
+            "S2": {
+              "maxdev": 0.95,
+              "amp": 17.423200366804217,
+              "coinc_Zmax": 6642.45603841096
+            },
+            "S2f": {
+              "maxdev": 0.95,
+              "amp": 17.423200366804217,
+              "coinc_Zmax": 6642.45603841096
+            },
+            "S3": {
+              "maxdev": 0.003810000000000001,
+              "amp": 0.06987620357634115,
+              "coinc_Zmax": 57.911644929392644
+            }
+          },
+          "xorshift32": {
+            "S0": {
+              "maxdev": 0.002250000000000002,
+              "amp": 1.1486917677089998,
+              "coinc_Zmax": 4.584984135302051
+            },
+            "S1h": {
+              "maxdev": 0.0018900000000000028,
+              "amp": 0.9649010848755605,
+              "coinc_Zmax": 4.252108599758414
+            },
+            "S2": {
+              "maxdev": 0.002120000000000004,
+              "amp": 1.0823229100191476,
+              "coinc_Zmax": 4.451833921084596
+            },
+            "S2f": {
+              "maxdev": 0.002120000000000004,
+              "amp": 1.0823229100191476,
+              "coinc_Zmax": 4.451833921084596
+            },
+            "S3": {
+              "maxdev": 0.001689999999999997,
+              "amp": 0.8627951499680909,
+              "coinc_Zmax": 3.985808171323505
+            }
+          },
+          "PCG64": {
+            "S0": {
+              "maxdev": 0.0016499999999999987,
+              "amp": 0.7512805919180414,
+              "coinc_Zmax": 3.652932635779868
+            },
+            "S1h": {
+              "maxdev": 0.002009999999999998,
+              "amp": 0.915196357427432,
+              "coinc_Zmax": 3.803479360397592
+            },
+            "S2": {
+              "maxdev": 0.0015600000000000058,
+              "amp": 0.7103016505406969,
+              "coinc_Zmax": 4.185533492649687
+            },
+            "S2f": {
+              "maxdev": 0.0015600000000000058,
+              "amp": 0.7103016505406969,
+              "coinc_Zmax": 4.185533492649687
+            },
+            "S3": {
+              "maxdev": 0.0018400000000000014,
+              "amp": 0.8377916903813323,
+              "coinc_Zmax": 4.185533492649687
+            }
+          }
+        }
+      },
+      "C4": {
+        "verdict": "CONFIRMED",
+        "margin_ratio": 15.759842495065584,
+        "reason": "Representation dominates coupling by more than an order of magnitude at every k measured: moving from a 64-bit word per decision to an entropy-optimal-per-decision coder saves far more than moving fro...",
+        "screen_panel": {
+          "ratio": 15.759842495065584,
+          "naive64_bits": 643968.0,
+          "KY_bits": 20381.4,
+          "recycle_S0_bits": 666.3958464710737,
+          "main_bits": 597.3634464860512,
+          "representation_gap": 623586.6,
+          "coupling_gap": 19784.03655351395
+        },
+        "heldout_n1e6": {
+          "10": {
+            "S0_naive64": 64006165.333333336,
+            "S0_KY": 2000446.6666666667,
+            "S0_recycle": 1568.1309782697454,
+            "algoL_recycle": 12750.903016308686,
+            "bottomk_recycle": 53000000.0,
+            "representation_gap_naive64_minus_KY": 62005718.66666667,
+            "coupling_gap_KY_minus_recycle": 1998878.535688397,
+            "ratio_representation_over_coupling": 31.020253386888474
+          },
+          "100": {
+            "S0_naive64": 64052522.666666664,
+            "S0_KY": 2006456.6666666667,
+            "S0_recycle": 13554.814270645898,
+            "algoL_recycle": 104001.18335903595,
+            "bottomk_recycle": 53000000.0,
+            "representation_gap_naive64_minus_KY": 62046066.0,
+            "coupling_gap_KY_minus_recycle": 1992901.852396021,
+            "ratio_representation_over_coupling": 31.133528189260005
+          },
+          "1000": {
+            "S0_naive64": 64377642.666666664,
+            "S0_KY": 2067829.6666666667,
+            "S0_recycle": 111437.76045395888,
+            "algoL_recycle": 794123.7249970846,
+            "bottomk_recycle": 53000000.0,
+            "representation_gap_naive64_minus_KY": 62309813.0,
+            "coupling_gap_KY_minus_recycle": 1956391.906212708,
+            "ratio_representation_over_coupling": 31.849351248146796
+          }
+        }
+      }
+    },
+    "replicated_verdict_scoreboard": {
+      "baseline": {
+        "TP": 0,
+        "TN": 48,
+        "FP": 0,
+        "FN": 24,
+        "n": 72,
+        "accuracy": 0.6666666666666666,
+        "recall_on_broken": 0.0,
+        "false_alarm_on_correct": 0.0
+      },
+      "ours": {
+        "TP": 24,
+        "TN": 48,
+        "FP": 0,
+        "FN": 0,
+        "n": 72,
+        "accuracy": 1.0,
+        "recall_on_broken": 1.0,
+        "false_alarm_on_correct": 0.0
+      },
+      "combined": {
+        "TP": 24,
+        "TN": 48,
+        "FP": 0,
+        "FN": 0,
+        "n": 72,
+        "accuracy": 1.0,
+        "recall_on_broken": 1.0,
+        "false_alarm_on_correct": 0.0
+      }
+    },
+    "screen_ranking": {
+      "content_sha256": "45f68ce11719992d90030caae9bd87667aaccec5d8f8e14e4694b9e4c3e24a33",
+      "timestamp_utc": "2026-09-18T11:29:04Z",
+      "config": {
+        "exact_n": 12,
+        "exact_ks": [
+          2,
+          4
+        ],
+        "mc_n": 200,
+        "mc_k": 10,
+        "mc_Ts": [
+          1000,
+          10000,
+          100000
+        ],
+        "mc_null_B": 128,
+        "bit_ns": [
+          1000,
+          10000
+        ],
+        "bit_ks": [
+          2,
+          10
+        ],
+        "prngs": [
+          "LCG-low16",
+          "xorshift32",
+          "PCG64"
+        ],
+        "algol_ks": [
+          2,
+          10,
+          100
+        ]
+      },
+      "gates": [
+        {
+          "gate": "2-budget",
+          "pass": true,
+          "detail": "k=10: evict_frac=0.2550 (expect 0.255); k=100: evict_frac=0.4540 (expect 0.454); k=1000: evict_frac=0.6130 (expect 0.613)"
+        },
+        {
+          "gate": "3-exact",
+          "pass": true,
+          "detail": "S0 exact at 2 cells; 10 negative controls all nonzero; S1 exact=False"
+        },
+        {
+          "gate": "6-mc-scaling",
+          "pass": true,
+          "detail": "S0 mean z_band over 8 seeds = -0.05 (draws [0.86, -0.4, -0.79, -0.12, 0.48, -0.51, 0.06, 0.06]); S0 maxdev ~ T^-0.494 (expect -0.5); S5g coinc Zmax ~ T^0.445 (expect +0.5) while its first-order maxdev..."
+        }
+      ],
+      "ranking": [
+        {
+          "candidate": "C4",
+          "margin_ratio": 15.759842495065584
+        },
+        {
+          "candidate": "C3",
+          "margin_ratio": 2.396798629613228
+        },
+        {
+          "candidate": "C1",
+          "margin_ratio": 1.0
+        }
+      ],
+      "margin_ratios": {
+        "MAIN": {
+          "ratio": 0.5179534082526652,
+          "threshold": 0.2,
+          "measured_saving_frac": 0.10359068165053305,
+          "zero_eviction_upper_bound_frac": 0.28823737069139554,
+          "main_variant_used": "S1h",
+          "S1_exact": false,
+          "basis": "matched R-recycle, n=10000, k=10, net bits",
+          "S0_net_bits": 666.3958464710737,
+          "main_net_bits": 597.3634464860512,
+          "S1n_net_bits": 474.3156598445845
+        },
+        "C1": {
+          "ratio": 1.0,
+          "members": [
+            {
+              "candidate": "S5e",
+              "first_order_exact_all_prefixes": true,
+              "support_size": 6,
+              "n_subsets": 66,
+              "passes_first_order_at_p99": true,
+              "coinc_fails_at_p99": true,
+              "coinc_p": 0.0,
+              "qualifies": true
+            },
+            {
+              "candidate": "S5g",
+              "first_order_exact_all_prefixes": true,
+              "support_size": 6,
+              "n_subsets": 66,
+              "passes_first_order_at_p99": true,
+              "coinc_fails_at_p99": true,
+              "coinc_p": 0.0,
+              "qualifies": true
+            },
+            {
+              "candidate": "S1n",
+              "first_order_exact_all_prefixes": false,
+              "support_size": 56,
+              "n_subsets": 66,
+              "passes_first_order_at_p99": false,
+              "coinc_fails_at_p99": true,
+              "coinc_p": 0.0,
+              "qualifies": false
+            }
+          ]
+        },
+        "C2": {
+          "ratio": 0.285353991709938,
+          "worst_rel_rate_err_f64": 1.0,
+          "sigma_per_bin": 0.0006892024376045111
+        },
+        "C3": {
+          "ratio": 2.396798629613228,
+          "log10_separation_by_prng": {
+            "LCG-low16": 2.396798629613228,
+            "xorshift32": 0.12429581349769007,
+            "PCG64": 0.11007145906602521
+          }
+        },
+        "C4": {
+          "ratio": 15.759842495065584,
+          "naive64_bits": 643968.0,
+          "KY_bits": 20381.4,
+          "recycle_S0_bits": 666.3958464710737,
+          "main_bits": 597.3634464860512,
+          "representation_gap": 623586.6,
+          "coupling_gap": 19784.03655351395
+        }
+      },
+      "mc_scaling": {
+        "T": [
+          1000,
+          10000,
+          100000
+        ],
+        "S0_maxdev": [
+          0.020000000000000004,
+          0.006399999999999996,
+          0.0020599999999999993
+        ],
+        "S0_maxdev_slope": -0.4935813876474139,
+        "S5g_coinc_Zmax": [
+          42.434103445582785,
+          111.45128817044996,
+          329.47150682589137
+        ],
+        "S5g_coinc_Zmax_slope": 0.4450514156847127,
+        "S5g_first_order_maxdev": [
+          0.016,
+          0.006100000000000001,
+          0.0017499999999999946
+        ],
+        "S5g_first_order_slope": -0.480540966984816,
+        "S0_z_band_8_seeds": [
+          0.8640274369570008,
+          -0.401528325756879,
+          -0.7882259199194432
+        ],
+        "S0_z_band_mean": -0.045590767493604134
+      },
+      "mc_timings": [
+        {
+          "T": 1000,
+          "band_s": 0.06,
+          "total_s": 0.53,
+          "s_per_candidate": 0.031
+        },
+        {
+          "T": 10000,
+          "band_s": 0.48,
+          "total_s": 1.08,
+          "s_per_candidate": 0.04
+        },
+        {
+          "T": 100000,
+          "band_s": 5.12,
+          "total_s": 8.61,
+          "s_per_candidate": 0.233
+        }
+      ]
+    },
+    "budget_closed_form": [
+      {
+        "n": 1000,
+        "k": 1,
+        "accept_H": 43.15014810553281,
+        "evict_H": 0.0,
+        "total_H": 43.15014810553281,
+        "output_H": 9.965784284662087,
+        "ky_accept": 1998.0,
+        "naive64_total": 64351.07013507522,
+        "naive53_total": 53290.72995560917,
+        "expected_accepts": 6.485470860550345,
+        "evict_frac": 0.0,
+        "anytime_overhead": 4.329829632369562
+      },
+      {
+        "n": 1000,
+        "k": 2,
+        "accept_H": 71.59442004830343,
+        "evict_H": 11.97094172110069,
+        "total_H": 83.56536176940412,
+        "output_H": 18.930125152454504,
+        "ky_accept": 1996.0,
+        "naive64_total": 64638.14027015044,
+        "naive53_total": 53528.459911218335,
+        "expected_accepts": 11.97094172110069,
+        "evict_frac": 0.14325243698620144,
+        "anytime_overhead": 4.414411478868058
+      },
+      {
+        "n": 1000,
+        "k": 10,
+        "accept_H": 210.16412576217527,
+        "evict_H": 151.36374023232548,
+        "total_H": 361.52786599450076,
+        "output_H": 77.80165389163612,
+        "ky_accept": 1980.0,
+        "naive64_total": 66276.16166821253,
+        "naive53_total": 54884.94638148851,
+        "expected_accepts": 45.565026065820916,
+        "evict_frac": 0.41867793459281477,
+        "anytime_overhead": 4.6467889551299875
+      }
+    ],
+    "montecarlo": [
+      {
+        "candidate": "S0",
+        "label": "CLASSICAL-R",
+        "family": "baseline",
+        "n": 1000,
+        "k": 10,
+        "T": 1000000,
+        "prng": "PCG64",
+        "seed": 99001,
+        "wall_s": 4.61,
+        "maxdev_raw": 0.00036800000000000027,
+        "maxdev_argmax_item": 561,
+        "meanabsdev": 7.8946e-05,
+        "rmsdev": 9.862092070144144e-05,
+        "chi2_first_order": 982.4329292929293,
+        "n_items_never_seen": 0,
+        "sigma_per_bin": 9.9498743710662e-05,
+        "analytic_maxdev_mean": 0.0003698290882608429,
+        "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+        "coinc_expected_per_pair": 90.09009009009009,
+        "coinc_q": 9.009009009009009e-05,
+        "coinc_n_pairs": 499500,
+        "coinc_pairs_observed": 499500,
+        "coinc_chi2": 498569.60298044863,
+        "coinc_df": 498501,
+        "coinc_chi2_over_df": 1.000137618541284,
+        "coinc_p": 0.47234733216066316,
+        "coinc_Zmax": 5.153210890785332,
+        "coinc_Zmax_pos": 5.153210890785332,
+        "coinc_Zmax_neg": -4.118582069463539,
+        "maxdev_null_mean": 0.00034835937499999993,
+        "maxdev_null_sd": 3.5826463211847106e-05,
+        "maxdev_null_p95": 0.0004169499999999999,
+        "maxdev_null_p99": 0.00044496000000000005,
+        "z_band": 0.548215571374223,
+        "exceedance_pct": 76.5625,
+        "passes_first_order_at_p99": true,
+        "coinc_Zmax_null_p99": 5.543047640250341,
+        "coinc_chi2_null_mean": 499489.99383604375,
+        "coinc_chi2_null_p99": 500566.0456901522,
+        "coinc_fails_at_p99": false,
+        "blind_spot": false,
+        "coinc_chi2_null_sd": 663.9705456477371,
+        "coinc_chi2_z": -1.3861922966736906,
+        "coinc_fails_nominal_p": false,
+        "coinc_fails_calibrated": false,
+        "coinc_fails_prereg": false,
+        "blind_spot_nominal_p_rule": false,
+        "blind_spot_loose_rule": false
+      },
+      {
+        "candidate": "S1",
+        "label": "SUMMODK+REPAIR",
+        "family": "main",
+        "n": 1000,
+        "k": 10,
+        "T": 1000000,
+        "prng": "PCG64",
+        "seed": 99001,
+        "wall_s": 9.83,
+        "maxdev_raw": 0.002013000000000001,
+        "maxdev_argmax_item": 1,
+        "meanabsdev": 9.972599999999999e-05,
+        "rmsdev": 0.00019541205694634096,
+        "chi2_first_order": 3857.1587878787877,
+        "n_items_never_seen": 0,
+        "sigma_per_bin": 9.9498743710662e-05,
+        "analytic_maxdev_mean": 0.0003698290882608429,
+        "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+        "coinc_expected_per_pair": 90.09009009009009,
+        "coinc_q": 9.009009009009009e-05,
+        "coinc_n_pairs": 499500,
+        "coinc_pairs_observed": 499500,
+        "coinc_chi2": 525033.2104892333,
+        "coinc_df": 498501,
+        "coinc_chi2_over_df": 1.0532239864899635,
+        "coinc_p": 1.2177817096911657e-150,
+        "coinc_Zmax": 5.5936400404122235,
+        "coinc_Zmax_pos": 4.942488323506949,
+        "coinc_Zmax_neg": -5.5936400404122235,
+        "maxdev_null_mean": 0.00034835937499999993,
+        "maxdev_null_sd": 3.5826463211847106e-05,
+        "maxdev_null_p95": 0.0004169499999999999,
+        "maxdev_null_p99": 0.00044496000000000005,
+        "z_band": 46.463995487267,
+        "exceedance_pct": 100.0,
+        "passes_first_order_at_p99": false,
+        "coinc_Zmax_null_p99": 5.543047640250341,
+        "coinc_chi2_null_mean": 499489.99383604375,
+        "coinc_chi2_null_p99": 500566.0456901522,
+        "coinc_fails_at_p99": true,
+        "blind_spot": false,
+        "coinc_chi2_null_sd": 663.9705456477371,
+        "coinc_chi2_z": 38.47040628627704,
+        "coinc_fails_nominal_p": true,
+        "coinc_fails_calibrated": true,
+        "coinc_fails_prereg": true,
+        "blind_spot_nominal_p_rule": false,
+        "blind_spot_loose_rule": false
+      },
+      {
+        "candidate": "S1h",
+        "label": "SUMMODK-HYBRID",
+        "family": "main",
+        "n": 1000,
+        "k": 10,
+        "T": 1000000,
+        "prng": "PCG64",
+        "seed": 99001,
+        "wall_s": 9.53,
+        "maxdev_raw": 0.0003759999999999996,
+        "maxdev_argmax_item": 999,
+        "meanabsdev": 8.264200000000001e-05,
+        "rmsdev": 0.00010322157720166844,
+        "chi2_first_order": 1076.2317171717173,
+        "n_items_never_seen": 0,
+        "sigma_per_bin": 9.9498743710662e-05,
+        "analytic_maxdev_mean": 0.0003698290882608429,
+        "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+        "coinc_expected_per_pair": 90.09009009009009,
+        "coinc_q": 9.009009009009009e-05,
+        "coinc_n_pairs": 499500,
+        "coinc_pairs_observed": 499500,
+        "coinc_chi2": 501430.7525416704,
+        "coinc_df": 498501,
+        "coinc_chi2_over_df": 1.005877124703201,
+        "coinc_p": 0.0016997635797007373,
+        "coinc_Zmax": 4.837127039867757,
+        "coinc_Zmax_pos": 4.837127039867757,
+        "coinc_Zmax_neg": -4.22394335310273,
+        "maxdev_null_mean": 0.00034835937499999993,
+        "maxdev_null_sd": 3.5826463211847106e-05,
+        "maxdev_null_p95": 0.0004169499999999999,
+        "maxdev_null_p99": 0.00044496000000000005,
+        "z_band": 0.7715141971049897,
+        "exceedance_pct": 79.6875,
+        "passes_first_order_at_p99": true,
+        "coinc_Zmax_null_p99": 5.543047640250341,
+        "coinc_chi2_null_mean": 499489.99383604375,
+        "coinc_chi2_null_p99": 500566.0456901522,
+        "coinc_fails_at_p99": true,
+        "blind_spot": false,
+        "coinc_chi2_null_sd": 663.9705456477371,
+        "coinc_chi2_z": 2.9229590353791073,
+        "coinc_fails_nominal_p": false,
+        "coinc_fails_calibrated": false,
+        "coinc_fails_prereg": false,
+        "blind_spot_nominal_p_rule": false,
+        "blind_spot_loose_rule": true
+      }
+    ],
+    "montecarlo_null_band": {
+      "null_B": 64,
+      "null_T": 1000000,
+      "maxdev_null_mean": 0.00034835937499999993,
+      "maxdev_null_sd": 3.5826463211847106e-05,
+      "maxdev_null_p50": 0.0003445000000000002,
+      "maxdev_null_p95": 0.0004169499999999999,
+      "maxdev_null_p99": 0.00044496000000000005,
+      "maxdev_null_min": 0.0002920000000000006,
+      "maxdev_null_max": 0.00045000000000000075,
+      "maxdev_null_draws": [
+        0.00029900000000000065,
+        0.00032399999999999964,
+        0.00033799999999999976
+      ],
+      "sigma_per_bin": 9.9498743710662e-05,
+      "analytic_maxdev_mean": 0.0003698290882608429,
+      "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+      "maxdev_null_vs_analytic_ratio": 0.9419469318603186,
+      "coinc_null_B": 16,
+      "coinc_chi2_null_mean": 499489.99383604375,
+      "coinc_chi2_null_sd": 663.9705456477371,
+      "coinc_chi2_null_p99": 500566.0456901522,
+      "coinc_Zmax_null_mean": 5.014924206008894,
+      "coinc_Zmax_null_sd": 0.22340153589087045,
+      "coinc_Zmax_null_p99": 5.543047640250341,
+      "coinc_Zmax_null_max": 5.574656025342099
+    },
+    "bits_measured": [
+      {
+        "candidate": "S0",
+        "label": "CLASSICAL-R",
+        "n": 100000,
+        "k": 10,
+        "regime": "naive64",
+        "prng": "PCG64",
+        "n_seeds": 3,
+        "wall_s": 1.25,
+        "flips_total_raw_mean": 6404970.666666667,
+        "flips_total_raw_sd": 532.90649586333,
+        "flips_total_net_mean": 6404970.666666667,
+        "flips_total_net_sd": 532.90649586333,
+        "raw_by_tag": {
+          "accept": 6399360.0,
+          "evict": 5610.666666666667,
+          "repair": 0.0,
+          "representation": 0.0,
+          "other": 0.0
+        },
+        "net_by_tag": {
+          "accept": 6399360.0,
+          "evict": 5610.666666666667,
+          "repair": 0.0,
+          "representation": 0.0,
+          "other": 0.0
+        },
+        "flips_per_item_net": 64.04970666666667,
+        "closed_form_accept_H": 735.4328257895902,
+        "closed_form_evict_H": 304.32774168196715,
+        "closed_form_total_H": 1039.7605674715574,
+        "closed_form_naive64": 6405223.153840573,
+        "closed_form_ky": 200284.32774168198,
+        "ratio_to_closed_form_entropy": 6160.0438283998255
+      },
+      {
+        "candidate": "S1",
+        "label": "SUMMODK+REPAIR",
+        "n": 100000,
+        "k": 10,
+        "regime": "naive64",
+        "prng": "PCG64",
+        "n_seeds": 3,
+        "wall_s": 1.21,
+        "flips_total_raw_mean": 6404906.666666667,
+        "flips_total_raw_sd": 462.987400836495,
+        "flips_total_net_mean": 6404906.666666667,
+        "flips_total_net_sd": 462.987400836495,
+        "raw_by_tag": {
+          "accept": 6399360.0,
+          "evict": 0.0,
+          "repair": 5546.666666666667,
+          "representation": 0.0,
+          "other": 0.0
+        },
+        "net_by_tag": {
+          "accept": 6399360.0,
+          "evict": 0.0,
+          "repair": 5546.666666666667,
+          "representation": 0.0,
+          "other": 0.0
+        },
+        "flips_per_item_net": 64.04906666666668,
+        "closed_form_accept_H": 735.4328257895902,
+        "closed_form_evict_H": 304.32774168196715,
+        "closed_form_total_H": 1039.7605674715574,
+        "closed_form_naive64": 6405223.153840573,
+        "closed_form_ky": 200284.32774168198,
+        "ratio_to_closed_form_entropy": 6159.982275767419
+      },
+      {
+        "candidate": "S1h",
+        "label": "SUMMODK-HYBRID",
+        "n": 100000,
+        "k": 10,
+        "regime": "naive64",
+        "prng": "PCG64",
+        "n_seeds": 3,
+        "wall_s": 1.21,
+        "flips_total_raw_mean": 6404394.666666667,
+        "flips_total_raw_sd": 385.7736814938693,
+        "flips_total_net_mean": 6404394.666666667,
+        "flips_total_net_sd": 385.7736814938693,
+        "raw_by_tag": {
+          "accept": 6399360.0,
+          "evict": 5034.666666666667,
+          "repair": 0.0,
+          "representation": 0.0,
+          "other": 0.0
+        },
+        "net_by_tag": {
+          "accept": 6399360.0,
+          "evict": 5034.666666666667,
+          "repair": 0.0,
+          "representation": 0.0,
+          "other": 0.0
+        },
+        "flips_per_item_net": 64.04394666666667,
+        "closed_form_accept_H": 735.4328257895902,
+        "closed_form_evict_H": 304.32774168196715,
+        "closed_form_total_H": 1039.7605674715574,
+        "closed_form_naive64": 6405223.153840573,
+        "closed_form_ky": 200284.32774168198,
+        "ratio_to_closed_form_entropy": 6159.48985470817
+      }
+    ],
+    "exact_check": [
+      {
+        "candidate": "S0",
+        "label": "CLASSICAL-R",
+        "n": 12,
+        "k": 2,
+        "max_abs_dev": 0.0,
+        "max_rel_dev": 0.0,
+        "tv": 0.0,
+        "support_size": 66,
+        "n_subsets": 66,
+        "first_order_max_dev": 0.0,
+        "first_order_exact_at_n": true,
+        "exact_uniform_at_n": true,
+        "first_prefix_failure": null,
+        "worst_prefix": 2,
+        "worst_max_abs_dev": 0.0,
+        "worst_max_rel_dev": 0.0,
+        "first_order_exact_all_prefixes": true,
+        "prefixes": [
+          {
+            "prefix": 3,
+            "max_abs_dev": 0.0,
+            "max_rel_dev": 0.0,
+            "tv": 0.0,
+            "support_size": 3,
+            "n_subsets": 3,
+            "first_order_max_dev": 0.0,
+            "first_order_exact": true,
+            "exact_uniform": true
+          },
+          {
+            "prefix": 4,
+            "max_abs_dev": 0.0,
+            "max_rel_dev": 0.0,
+            "tv": 0.0,
+            "support_size": 6,
+            "n_subsets": 6,
+            "first_order_max_dev": 0.0,
+            "first_order_exact": true,
+            "exact_uniform": true
+          },
+          {
+            "prefix": 5,
+            "max_abs_dev": 0.0,
+            "max_rel_dev": 0.0,
+            "tv": 0.0,
+            "support_size": 10,
+            "n_subsets": 10,
+            "first_order_max_dev": 0.0,
+            "first_order_exact": true,
+            "exact_uniform": true
+          }
+        ]
+      },
+      {
+        "candidate": "S0",
+        "label": "CLASSICAL-R",
+        "n": 12,
+        "k": 4,
+        "max_abs_dev": 0.0,
+        "max_rel_dev": 0.0,
+        "tv": 0.0,
+        "support_size": 495,
+        "n_subsets": 495,
+        "first_order_max_dev": 0.0,
+        "first_order_exact_at_n": true,
+        "exact_uniform_at_n": true,
+        "first_prefix_failure": null,
+        "worst_prefix": 4,
+        "worst_max_abs_dev": 0.0,
+        "worst_max_rel_dev": 0.0,
+        "first_order_exact_all_prefixes": true,
+        "prefixes": [
+          {
+            "prefix": 5,
+            "max_abs_dev": 0.0,
+            "max_rel_dev": 0.0,
+            "tv": 0.0,
+            "support_size": 5,
+            "n_subsets": 5,
+            "first_order_max_dev": 0.0,
+            "first_order_exact": true,
+            "exact_uniform": true
+          },
+          {
+            "prefix": 6,
+            "max_abs_dev": 0.0,
+            "max_rel_dev": 0.0,
+            "tv": 0.0,
+            "support_size": 15,
+            "n_subsets": 15,
+            "first_order_max_dev": 0.0,
+            "first_order_exact": true,
+            "exact_uniform": true
+          },
+          {
+            "prefix": 7,
+            "max_abs_dev": 0.0,
+            "max_rel_dev": 0.0,
+            "tv": 0.0,
+            "support_size": 35,
+            "n_subsets": 35,
+            "first_order_max_dev": 0.0,
+            "first_order_exact": true,
+            "exact_uniform": true
+          }
+        ]
+      },
+      {
+        "candidate": "S1",
+        "label": "SUMMODK+REPAIR",
+        "n": 12,
+        "k": 2,
+        "max_abs_dev": 0.0038642916949795255,
+        "max_rel_dev": 0.2550432518686487,
+        "tv": 0.049315441020320504,
+        "support_size": 66,
+        "n_subsets": 66,
+        "first_order_max_dev": 0.02445986699954954,
+        "first_order_exact_at_n": false,
+        "exact_uniform_at_n": false,
+        "first_prefix_failure": 5,
+        "worst_prefix": 5,
+        "worst_max_abs_dev": 0.022222222222222223,
+        "worst_max_rel_dev": 0.2222222222222222,
+        "first_order_exact_all_prefixes": false,
+        "prefixes": [
+          {
+            "prefix": 3,
+            "max_abs_dev": 0.0,
+            "max_rel_dev": 0.0,
+            "tv": 0.0,
+            "support_size": 3,
+            "n_subsets": 3,
+            "first_order_max_dev": 0.0,
+            "first_order_exact": true,
+            "exact_uniform": true
+          },
+          {
+            "prefix": 4,
+            "max_abs_dev": 0.0,
+            "max_rel_dev": 0.0,
+            "tv": 0.0,
+            "support_size": 6,
+            "n_subsets": 6,
+            "first_order_max_dev": 0.0,
+            "first_order_exact": true,
+            "exact_uniform": true
+          },
+          {
+            "prefix": 5,
+            "max_abs_dev": 0.022222222222222223,
+            "max_rel_dev": 0.2222222222222222,
+            "tv": 0.044444444444444446,
+            "support_size": 10,
+            "n_subsets": 10,
+            "first_order_max_dev": 0.022222222222222223,
+            "first_order_exact": false,
+            "exact_uniform": false
+          }
+        ]
+      }
+    ],
+    "algol_audit": {
+      "cells": [
+        {
+          "k": 1024,
+          "position": 0,
+          "n_draws": 20000,
+          "n_exact_pairs": 20000,
+          "disagree_rate_f64": 0.0,
+          "disagree_rate_fixed": 0.0,
+          "disagree_rate_logdomain": 0.0,
+          "rel_skip_err_mean_f64": 0.0,
+          "rel_skip_err_max_f64": 0.0,
+          "rel_skip_err_mean_fixed": 0.0,
+          "rel_skip_err_max_fixed": 0.0,
+          "rel_skip_err_mean_logdomain": 0.0,
+          "rel_skip_err_max_logdomain": 0.0,
+          "rel_rate_err_mean_f64": 2.6857792966178127e-14,
+          "rel_rate_err_max_f64": 3.3550182083016407e-11,
+          "rel_rate_err_mean_fixed": 3.400516682586816e-18,
+          "rel_rate_err_max_fixed": 2.2164717123653094e-16,
+          "rel_rate_err_mean_logdomain": 6.99319817698797e-18,
+          "rel_rate_err_max_logdomain": 2.2145623112993687e-16,
+          "inclusion_bias": 0.0,
+          "inclusion_bias_fixed": 0.0,
+          "inclusion_bias_logdomain": 0.0,
+          "trials_needed_to_detect": "inf",
+          "fix_improvement_factor": 0.0,
+          "fix_improvement_factor_logdomain": 0.0,
+          "mean_skip_exact_shipped": 0.00095,
+          "mean_skip_exact_fixed": 16381.61405,
+          "mean_skip_exact_logdomain": 0.001
+        },
+        {
+          "k": 1024,
+          "position": 50,
+          "n_draws": 20000,
+          "n_exact_pairs": 1633,
+          "disagree_rate_f64": 0.0,
+          "disagree_rate_fixed": 0.0,
+          "disagree_rate_logdomain": 0.0,
+          "rel_skip_err_mean_f64": 0.0,
+          "rel_skip_err_max_f64": 0.0,
+          "rel_skip_err_mean_fixed": 0.0,
+          "rel_skip_err_max_fixed": 0.0,
+          "rel_skip_err_mean_logdomain": 0.0,
+          "rel_skip_err_max_logdomain": 0.0,
+          "rel_rate_err_mean_f64": 1.971382819489536e-15,
+          "rel_rate_err_max_f64": 1.0000822238971599e-14,
+          "rel_rate_err_mean_fixed": 2.2584919463927487e-16,
+          "rel_rate_err_max_fixed": 1.0456448911288817e-15,
+          "rel_rate_err_mean_logdomain": 5.0561763169035836e-17,
+          "rel_rate_err_max_logdomain": 2.9674781744496294e-16,
+          "inclusion_bias": 0.0,
+          "inclusion_bias_fixed": 0.0,
+          "inclusion_bias_logdomain": 0.0,
+          "trials_needed_to_detect": "inf",
+          "fix_improvement_factor": 0.0,
+          "fix_improvement_factor_logdomain": 0.0,
+          "mean_skip_exact_shipped": 0.05388854868340478,
+          "mean_skip_exact_fixed": 20.06307409675444,
+          "mean_skip_exact_logdomain": 0.06062461726883037
+        },
+        {
+          "k": 4096,
+          "position": 0,
+          "n_draws": 20000,
+          "n_exact_pairs": 20000,
+          "disagree_rate_f64": 0.0,
+          "disagree_rate_fixed": 0.0,
+          "disagree_rate_logdomain": 0.0,
+          "rel_skip_err_mean_f64": 0.0,
+          "rel_skip_err_max_f64": 0.0,
+          "rel_skip_err_mean_fixed": 0.0,
+          "rel_skip_err_max_fixed": 0.0,
+          "rel_skip_err_mean_logdomain": 0.0,
+          "rel_skip_err_max_logdomain": 0.0,
+          "rel_rate_err_mean_f64": 1.0423762109585056e-13,
+          "rel_rate_err_max_f64": 3.105561419632736e-10,
+          "rel_rate_err_mean_fixed": 1.2606321356334463e-18,
+          "rel_rate_err_max_fixed": 2.2164717123653094e-16,
+          "rel_rate_err_mean_logdomain": 5.866353495783749e-18,
+          "rel_rate_err_max_logdomain": 2.219429820562947e-16,
+          "inclusion_bias": 0.0,
+          "inclusion_bias_fixed": 0.0,
+          "inclusion_bias_logdomain": 0.0,
+          "trials_needed_to_detect": "inf",
+          "fix_improvement_factor": 0.0,
+          "fix_improvement_factor_logdomain": 0.0,
+          "mean_skip_exact_shipped": 0.0002,
+          "mean_skip_exact_fixed": 65527.95145,
+          "mean_skip_exact_logdomain": 0.0002
+        }
+      ],
+      "realistic_cells": [
+        {
+          "k": 1024,
+          "n": 1000.0,
+          "regime": "realistic_W_eq_k_over_n",
+          "status": "SKIPPED_n_le_2k",
+          "reason": "W = k/n would be >= 0.5; not a stream-position regime"
+        },
+        {
+          "k": 1024,
+          "n": 1000000.0,
+          "W_target": 0.001024,
+          "n_draws": 2000,
+          "disagree_rate_shipped": 0.0,
+          "disagree_rate_fixed": 0.0,
+          "disagree_rate_logdomain": 0.0,
+          "rel_rate_err_shipped": 2.4339726779559884e-14,
+          "rel_rate_err_fixed": 3.612558941952564e-15,
+          "rel_rate_err_logdomain": 4.2329959616625883e-16,
+          "predicted_rel_rate_err_law": 1.0842021724855044e-13,
+          "ratio_measured_over_predicted_shipped": 0.22449435536327797,
+          "inclusion_bias_shipped": 0.0,
+          "trials_needed_to_detect": "inf"
+        },
+        {
+          "k": 1024,
+          "n": 1000000000.0,
+          "W_target": 1.024e-06,
+          "n_draws": 2000,
+          "disagree_rate_shipped": 0.0,
+          "disagree_rate_fixed": 0.0,
+          "disagree_rate_logdomain": 0.0,
+          "rel_rate_err_shipped": 1.5745374898309433e-11,
+          "rel_rate_err_fixed": 1.141666340771625e-12,
+          "rel_rate_err_logdomain": 0.0,
+          "predicted_rel_rate_err_law": 1.0842021724855044e-10,
+          "ratio_measured_over_predicted_shipped": 0.14522545054686234,
+          "inclusion_bias_shipped": 0.0,
+          "trials_needed_to_detect": "inf"
+        }
+      ],
+      "error_law_thresholds": [
+        {
+          "k": 1024,
+          "fit_scale_c_measured_over_predicted": 0.3720368547763342,
+          "n_theoretical_rel_err_1e-3_c1": 9223372036854776.0,
+          "n_theoretical_rel_err_1_0_c1": 9.223372036854776e+18,
+          "n_measured_law_rel_err_1e-3": 2.479155470336346e+16,
+          "n_measured_law_rel_err_1_0": 2.4791554703363457e+19
+        },
+        {
+          "k": 4096,
+          "fit_scale_c_measured_over_predicted": 0.4881474191050991,
+          "n_theoretical_rel_err_1e-3_c1": 3.68934881474191e+16,
+          "n_theoretical_rel_err_1_0_c1": 3.6893488147419103e+19,
+          "n_measured_law_rel_err_1e-3": 7.557857873151197e+16,
+          "n_measured_law_rel_err_1_0": 7.557857873151197e+19
+        },
+        {
+          "k": 16384,
+          "fit_scale_c_measured_over_predicted": 0.04741032357521632,
+          "n_theoretical_rel_err_1e-3_c1": 1.475739525896764e+17,
+          "n_theoretical_rel_err_1_0_c1": 1.4757395258967641e+20,
+          "n_measured_law_rel_err_1e-3": 3.112696591398513e+18,
+          "n_measured_law_rel_err_1_0": 3.112696591398513e+21
+        }
+      ],
+      "edge_cases": [
+        {
+          "case": "u2_equals_zero_exact",
+          "variant": "shipped",
+          "input": {
+            "W": 0.9990234375,
+            "u2": 0.0
+          },
+          "result": null,
+          "exception": "ValueError: math domain error",
+          "severity": "crash"
+        },
+        {
+          "case": "u2_equals_zero_exact",
+          "variant": "fixed",
+          "input": {
+            "V": 0.0009765625,
+            "u2": 0.0
+          },
+          "result": "0.0",
+          "exception": null,
+          "severity": "ok"
+        },
+        {
+          "case": "u2_equals_zero_exact",
+          "variant": "logdomain",
+          "input": {
+            "logW": -0.0009770396478266127,
+            "u2": 0.0
+          },
+          "result": null,
+          "exception": "ValueError: math domain error",
+          "severity": "crash"
+        }
+      ],
+      "notes": {
+        "sterbenz_correction_original_and_wrong": "[SUPERSEDED -- kept for the record, see 'w_to_zero_correction' for the corrected diagnosis] The common story that '1.0 - W' suffers catastrophic cancellation is wrong; by Sterbenz's lemma, for W in [0...",
+        "w_to_zero_correction": "BLUNT CORRECTION: the common 'catastrophic cancellation in 1-W' story is WRONG. By Sterbenz's lemma, 1.0 - W is computed EXACTLY in float64 for W in [0.5, 2] -- there is no cancellation there at all. ...",
+        "metric_definitions": {
+          "disagree_rate_f64 / disagree_rate_fixed / disagree_rate_logdomain": "P(skip_variant != skip_exact(kind=variant)) over the (possibly subsampled) exact-reference pairs, one probability per float64 variant against its OWN mpmath dps=80 exact counterpart.",
+          "rel_skip_err_mean/max_{f64,fixed,logdomain}": "mean / max of |S_variant - S_exact_variant| / max(S_exact_variant, 1).",
+          "rel_rate_err_mean/max_{f64,fixed,logdomain}": "relative error of the float64 skip rate (log(1.0-W) for shipped, log1p(-V) for fixed, log1mexp(logW) for logdomain) vs its own mpmath dps=80 reference -- the continuous error underlying skip disagreem...",
+          "inclusion_bias / inclusion_bias_fixed / inclusion_bias_logdomain": "(E[S_variant_float64] - E[S_exact_variant]) / max(E[S_exact_variant], 1)**2.",
+          "trials_needed_to_detect": "(1.96*sqrt(p*(1-p))/bias)**2 with p = k/1000 and bias = |inclusion_bias| (the shipped path's bias); 'inf' when bias == 0. In `realistic_cells` this is computed from that cell's own realistic-regime bi...",
+          "fix_improvement_factor / fix_improvement_factor_logdomain": "disagree_rate_f64 / max(disagree_rate_{fixed,logdomain}, 1/n_draws) -- how many times more often the shipped path disagrees with its exact reference than the fixed/logdomain path disagrees with its ow...",
+          "n_exact_pairs": "size of the mpmath dps=80 reference subsample actually used for this trajectory cell: <= min(n_draws, 20000), further capped so the total mpmath op count (now x3 variants) stays bounded as position_st...",
+          "realistic_cells[*].W_target": "W = k/n, the value Algorithm-L theory predicts W takes at stream position n for reservoir size k; injected directly rather than reached via a random trajectory.",
+          "realistic_cells[*].predicted_rel_rate_err_law": "the coordinator's predicted law 2**-53 * n / k for the shipped variant's relative rate error at that (k, n).",
+          "realistic_cells[*].ratio_measured_over_predicted_shipped": "rel_rate_err_shipped / predicted_rel_rate_err_law -- 1.0 means the predicted law is exactly right.",
+          "error_law_thresholds[*]": "per-k fit of the measured law (c = measured/predicted ratio at the largest available n) plus the smallest n at which shipped's rate error is predicted to cross 1e-3 and 1.0, under both the naive theor..."
+        },
+        "paired_draw_convention": "shipped, fixed, and logdomain consume the SAME raw float64 uniform stream (np.random.default_rng(seed).random(...)) so any difference between them is attributable to floating-point formulation, not to...",
+        "position_semantics": "position_steps counts state-advance steps applied before the skip is measured in `cells` (the random-trajectory audit). Under the literal recurrence W *= exp(log(U)/k) with U in (0,1), W DECREASES tow..."
+      }
+    },
+    "prng_panel": [
+      {
+        "candidate": "S0",
+        "label": "CLASSICAL-R",
+        "family": "baseline",
+        "n": 1000,
+        "k": 10,
+        "T": 1000000,
+        "prng": "R250",
+        "seed": 7000,
+        "wall_s": 28.46,
+        "maxdev_raw": 0.00032899999999999943,
+        "maxdev_argmax_item": 404,
+        "meanabsdev": 7.850199999999999e-05,
+        "rmsdev": 9.850599981726998e-05,
+        "chi2_first_order": 980.1446464646465,
+        "n_items_never_seen": 0,
+        "sigma_per_bin": 9.9498743710662e-05,
+        "analytic_maxdev_mean": 0.0003698290882608429,
+        "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+        "coinc_expected_per_pair": 90.09009009009009,
+        "coinc_q": 9.009009009009009e-05,
+        "coinc_n_pairs": 499500,
+        "coinc_pairs_observed": 499500,
+        "coinc_chi2": 498557.8803243536,
+        "coinc_df": 498501,
+        "coinc_chi2_over_df": 1.0001141027286877,
+        "coinc_p": 0.47702116836316927,
+        "coinc_Zmax": 5.363933458063716,
+        "coinc_Zmax_pos": 5.363933458063716,
+        "coinc_Zmax_neg": -4.645388487659497,
+        "maxdev_null_mean": 0.00034484374999999994,
+        "maxdev_null_sd": 2.9635538142030412e-05,
+        "maxdev_null_p95": 0.00038535000000000045,
+        "maxdev_null_p99": 0.0003890699999999999,
+        "z_band": -0.5346199527090824,
+        "exceedance_pct": 37.5,
+        "passes_first_order_at_p99": true,
+        "coinc_Zmax_null_p99": 5.3533973296997965,
+        "coinc_chi2_null_mean": 499553.5808271016,
+        "coinc_chi2_null_p99": 501449.43552482204,
+        "coinc_fails_at_p99": true,
+        "blind_spot": true,
+        "prng_matched_null_maxdev_mean": 0.00034750000000000015,
+        "prng_matched_null_maxdev_p99": 0.0003929300000000009,
+        "prng_matched_null_coinc_Zmax_mean": 4.942488323506948,
+        "amplification_vs_matched_null": 0.9467625899280555
+      },
+      {
+        "candidate": "S1h",
+        "label": "SUMMODK-HYBRID",
+        "family": "main",
+        "n": 1000,
+        "k": 10,
+        "T": 1000000,
+        "prng": "R250",
+        "seed": 7000,
+        "wall_s": 33.79,
+        "maxdev_raw": 0.0003610000000000002,
+        "maxdev_argmax_item": 320,
+        "meanabsdev": 8.0062e-05,
+        "rmsdev": 0.00010173922547375716,
+        "chi2_first_order": 1045.5424242424242,
+        "n_items_never_seen": 0,
+        "sigma_per_bin": 9.9498743710662e-05,
+        "analytic_maxdev_mean": 0.0003698290882608429,
+        "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+        "coinc_expected_per_pair": 90.09009009009009,
+        "coinc_q": 9.009009009009009e-05,
+        "coinc_n_pairs": 499500,
+        "coinc_pairs_observed": 499500,
+        "coinc_chi2": 499982.005423912,
+        "coinc_df": 498501,
+        "coinc_chi2_over_df": 1.0029709176589656,
+        "coinc_p": 0.06911273925909293,
+        "coinc_Zmax": 5.047849607146141,
+        "coinc_Zmax_pos": 5.047849607146141,
+        "coinc_Zmax_neg": -4.22394335310273,
+        "maxdev_null_mean": 0.00034484374999999994,
+        "maxdev_null_sd": 2.9635538142030412e-05,
+        "maxdev_null_p95": 0.00038535000000000045,
+        "maxdev_null_p99": 0.0003890699999999999,
+        "z_band": 0.5451647249518569,
+        "exceedance_pct": 65.625,
+        "passes_first_order_at_p99": true,
+        "coinc_Zmax_null_p99": 5.3533973296997965,
+        "coinc_chi2_null_mean": 499553.5808271016,
+        "coinc_chi2_null_p99": 501449.43552482204,
+        "coinc_fails_at_p99": false,
+        "blind_spot": false,
+        "prng_matched_null_maxdev_mean": 0.00034750000000000015,
+        "prng_matched_null_maxdev_p99": 0.0003929300000000009,
+        "prng_matched_null_coinc_Zmax_mean": 4.942488323506948,
+        "amplification_vs_matched_null": 1.0388489208633096
+      },
+      {
+        "candidate": "S2",
+        "label": "ALGO-L-float64",
+        "family": "algol",
+        "n": 1000,
+        "k": 10,
+        "T": 1000000,
+        "prng": "R250",
+        "seed": 7000,
+        "wall_s": 5.29,
+        "maxdev_raw": 0.00032800000000000017,
+        "maxdev_argmax_item": 98,
+        "meanabsdev": 7.932e-05,
+        "rmsdev": 9.864714897045935e-05,
+        "chi2_first_order": 982.9555555555555,
+        "n_items_never_seen": 0,
+        "sigma_per_bin": 9.9498743710662e-05,
+        "analytic_maxdev_mean": 0.0003698290882608429,
+        "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+        "coinc_expected_per_pair": 90.09009009009009,
+        "coinc_q": 9.009009009009009e-05,
+        "coinc_n_pairs": 499500,
+        "coinc_pairs_observed": 499500,
+        "coinc_chi2": 500450.24560771236,
+        "coinc_df": 498501,
+        "coinc_chi2_over_df": 1.003910214037108,
+        "coinc_p": 0.025570014835018286,
+        "coinc_Zmax": 5.785378592620483,
+        "coinc_Zmax_pos": 5.785378592620483,
+        "coinc_Zmax_neg": -4.434665920381114,
+        "maxdev_null_mean": 0.00034484374999999994,
+        "maxdev_null_sd": 2.9635538142030412e-05,
+        "maxdev_null_p95": 0.00038535000000000045,
+        "maxdev_null_p99": 0.0003890699999999999,
+        "z_band": -0.568363223885961,
+        "exceedance_pct": 37.5,
+        "passes_first_order_at_p99": true,
+        "coinc_Zmax_null_p99": 5.3533973296997965,
+        "coinc_chi2_null_mean": 499553.5808271016,
+        "coinc_chi2_null_p99": 501449.43552482204,
+        "coinc_fails_at_p99": true,
+        "blind_spot": true,
+        "prng_matched_null_maxdev_mean": 0.00034750000000000015,
+        "prng_matched_null_maxdev_p99": 0.0003929300000000009,
+        "prng_matched_null_coinc_Zmax_mean": 4.942488323506948,
+        "amplification_vs_matched_null": 0.943884892086331
+      }
+    ],
+    "s1t_table_exact": {
+      "status": "RUN",
+      "verify": [
+        {
+          "n": 12,
+          "k": 2,
+          "max_abs_dev": 0.0,
+          "max_rel_dev": 0.0,
+          "support_size": 66,
+          "n_subsets": 66,
+          "first_prefix_failure": null,
+          "exact_uniform_at_all_prefixes": true,
+          "per_prefix": [
+            {
+              "prefix": 3,
+              "max_abs_dev": 0.0,
+              "max_rel_dev": 0.0,
+              "support_size": 3,
+              "n_subsets": 3,
+              "exact_uniform": true
+            },
+            {
+              "prefix": 4,
+              "max_abs_dev": 0.0,
+              "max_rel_dev": 0.0,
+              "support_size": 6,
+              "n_subsets": 6,
+              "exact_uniform": true
+            },
+            {
+              "prefix": 5,
+              "max_abs_dev": 0.0,
+              "max_rel_dev": 0.0,
+              "support_size": 10,
+              "n_subsets": 10,
+              "exact_uniform": true
+            }
+          ]
+        },
+        {
+          "n": 12,
+          "k": 3,
+          "max_abs_dev": 0.0,
+          "max_rel_dev": 0.0,
+          "support_size": 220,
+          "n_subsets": 220,
+          "first_prefix_failure": null,
+          "exact_uniform_at_all_prefixes": true,
+          "per_prefix": [
+            {
+              "prefix": 4,
+              "max_abs_dev": 0.0,
+              "max_rel_dev": 0.0,
+              "support_size": 4,
+              "n_subsets": 4,
+              "exact_uniform": true
+            },
+            {
+              "prefix": 5,
+              "max_abs_dev": 0.0,
+              "max_rel_dev": 0.0,
+              "support_size": 10,
+              "n_subsets": 10,
+              "exact_uniform": true
+            },
+            {
+              "prefix": 6,
+              "max_abs_dev": 0.0,
+              "max_rel_dev": 0.0,
+              "support_size": 20,
+              "n_subsets": 20,
+              "exact_uniform": true
+            }
+          ]
+        },
+        {
+          "n": 12,
+          "k": 4,
+          "max_abs_dev": 0.0,
+          "max_rel_dev": 0.0,
+          "support_size": 495,
+          "n_subsets": 495,
+          "first_prefix_failure": null,
+          "exact_uniform_at_all_prefixes": true,
+          "per_prefix": [
+            {
+              "prefix": 5,
+              "max_abs_dev": 0.0,
+              "max_rel_dev": 0.0,
+              "support_size": 5,
+              "n_subsets": 5,
+              "exact_uniform": true
+            },
+            {
+              "prefix": 6,
+              "max_abs_dev": 0.0,
+              "max_rel_dev": 0.0,
+              "support_size": 15,
+              "n_subsets": 15,
+              "exact_uniform": true
+            },
+            {
+              "prefix": 7,
+              "max_abs_dev": 0.0,
+              "max_rel_dev": 0.0,
+              "support_size": 35,
+              "n_subsets": 35,
+              "exact_uniform": true
+            }
+          ]
+        }
+      ],
+      "curves": [
+        {
+          "k": 2,
+          "i_max_sources": 15000,
+          "i_cap": 220,
+          "n_rows": 172,
+          "n_randomised_points": 86,
+          "fit_C": 1.1320786053523462,
+          "fit_R2": 0.8916260297541964,
+          "avg_H_evict_bits_all_i": 0.023593211023055574,
+          "max_i_solved": 174,
+          "rows": [
+            {
+              "i": 3,
+              "k": 2,
+              "m": 1,
+              "d_target": 0,
+              "d_achieved": 0,
+              "s": 1,
+              "n_sources": 1,
+              "n_targets": 2,
+              "frac_randomised": 1.0,
+              "H_evict_bits": 1.0,
+              "max_rank_entropy": 1.0,
+              "feasible": true,
+              "stage2_flow_value": 2,
+              "stage2_demand": 2,
+              "table_n_entries": 1
+            },
+            {
+              "i": 4,
+              "k": 2,
+              "m": 2,
+              "d_target": 1,
+              "d_achieved": 1,
+              "s": 0,
+              "n_sources": 3,
+              "n_targets": 3,
+              "frac_randomised": 0.0,
+              "H_evict_bits": 0.0,
+              "max_rank_entropy": 1.0,
+              "feasible": true,
+              "stage2_flow_value": 0,
+              "stage2_demand": 0,
+              "table_n_entries": 3
+            },
+            {
+              "i": 5,
+              "k": 2,
+              "m": 3,
+              "d_target": 1,
+              "d_achieved": 1,
+              "s": 1,
+              "n_sources": 6,
+              "n_targets": 4,
+              "frac_randomised": 0.3333333333333333,
+              "H_evict_bits": 0.3333333333333333,
+              "max_rank_entropy": 1.0,
+              "feasible": true,
+              "stage2_flow_value": 4,
+              "stage2_demand": 4,
+              "table_n_entries": 6
+            }
+          ]
+        },
+        {
+          "k": 3,
+          "i_max_sources": 15000,
+          "i_cap": 220,
+          "n_rows": 43,
+          "n_randomised_points": 29,
+          "fit_C": 0.9244827454253741,
+          "fit_R2": 0.8478302243964838,
+          "avg_H_evict_bits_all_i": 0.1533723166625921,
+          "max_i_solved": 46,
+          "rows": [
+            {
+              "i": 4,
+              "k": 3,
+              "m": 1,
+              "d_target": 0,
+              "d_achieved": 0,
+              "s": 1,
+              "n_sources": 1,
+              "n_targets": 3,
+              "frac_randomised": 1.0,
+              "H_evict_bits": 1.584962500721156,
+              "max_rank_entropy": 1.584962500721156,
+              "feasible": true,
+              "stage2_flow_value": 3,
+              "stage2_demand": 3,
+              "table_n_entries": 1
+            },
+            {
+              "i": 5,
+              "k": 3,
+              "m": 2,
+              "d_target": 0,
+              "d_achieved": 0,
+              "s": 2,
+              "n_sources": 4,
+              "n_targets": 6,
+              "frac_randomised": 1.0,
+              "H_evict_bits": 0.9182958340544896,
+              "max_rank_entropy": 1.584962500721156,
+              "feasible": true,
+              "stage2_flow_value": 12,
+              "stage2_demand": 12,
+              "table_n_entries": 4
+            },
+            {
+              "i": 6,
+              "k": 3,
+              "m": 3,
+              "d_target": 1,
+              "d_achieved": 1,
+              "s": 0,
+              "n_sources": 10,
+              "n_targets": 10,
+              "frac_randomised": 0.0,
+              "H_evict_bits": 0.0,
+              "max_rank_entropy": 1.584962500721156,
+              "feasible": true,
+              "stage2_flow_value": 0,
+              "stage2_demand": 0,
+              "table_n_entries": 10
+            }
+          ]
+        },
+        {
+          "k": 4,
+          "i_max_sources": 15000,
+          "i_cap": 220,
+          "n_rows": 23,
+          "n_randomised_points": 18,
+          "fit_C": 0.767430347455377,
+          "fit_R2": 0.742663093022558,
+          "avg_H_evict_bits_all_i": 0.3265453317323063,
+          "max_i_solved": 27,
+          "rows": [
+            {
+              "i": 5,
+              "k": 4,
+              "m": 1,
+              "d_target": 0,
+              "d_achieved": 0,
+              "s": 1,
+              "n_sources": 1,
+              "n_targets": 4,
+              "frac_randomised": 1.0,
+              "H_evict_bits": 2.0,
+              "max_rank_entropy": 2.0,
+              "feasible": true,
+              "stage2_flow_value": 4,
+              "stage2_demand": 4,
+              "table_n_entries": 1
+            },
+            {
+              "i": 6,
+              "k": 4,
+              "m": 2,
+              "d_target": 0,
+              "d_achieved": 0,
+              "s": 2,
+              "n_sources": 5,
+              "n_targets": 10,
+              "frac_randomised": 1.0,
+              "H_evict_bits": 1.0,
+              "max_rank_entropy": 2.0,
+              "feasible": true,
+              "stage2_flow_value": 20,
+              "stage2_demand": 20,
+              "table_n_entries": 5
+            },
+            {
+              "i": 7,
+              "k": 4,
+              "m": 3,
+              "d_target": 0,
+              "d_achieved": 0,
+              "s": 3,
+              "n_sources": 15,
+              "n_targets": 20,
+              "frac_randomised": 1.0,
+              "H_evict_bits": 0.8490224995673061,
+              "max_rank_entropy": 2.0,
+              "feasible": true,
+              "stage2_flow_value": 60,
+              "stage2_demand": 60,
+              "table_n_entries": 15
+            }
+          ]
+        }
+      ],
+      "extrapolation": [
+        {
+          "k": 10,
+          "n": 1000000,
+          "fit_C_used": 0.7719068728945562,
+          "exact": {
+            "basis": "exact",
+            "i_max_sources": 20000,
+            "i_cap": 300,
+            "max_i_solved": 18,
+            "n_points_solved": 8,
+            "partial_sum_evict_bits_over_solved_i": 9.942061751038896
+          },
+          "extrapolated": {
+            "basis": "extrapolated-from-exact",
+            "model": "H_evict_hat(i,k) = fit_C * k*log2(k) / i",
+            "total_evict_bits_at_n": 24.40247740507349,
+            "total_evict_bits_as_n_to_infinity": 24.40273382685805,
+            "classical_evict_H_bits_at_n": 380.81781330833445,
+            "ratio_s1t_over_classical_at_n": 0.06407913850740928,
+            "ratio_s1t_over_classical_as_n_to_infinity": 0.06407981185244618
+          }
+        },
+        {
+          "k": 10,
+          "n": 10000000,
+          "fit_C_used": 0.7719068728945562,
+          "exact": {
+            "basis": "exact",
+            "i_max_sources": 20000,
+            "i_cap": 300,
+            "max_i_solved": 18,
+            "n_points_solved": 8,
+            "partial_sum_evict_bits_over_solved_i": 9.942061751038896
+          },
+          "extrapolated": {
+            "basis": "extrapolated-from-exact",
+            "model": "H_evict_hat(i,k) = fit_C * k*log2(k) / i",
+            "total_evict_bits_at_n": 24.402708184668054,
+            "total_evict_bits_as_n_to_infinity": 24.40273382685805,
+            "classical_evict_H_bits_at_n": 457.30801947251825,
+            "ratio_s1t_over_classical_at_n": 0.05336164498671016,
+            "ratio_s1t_over_classical_as_n_to_infinity": 0.05336170105874236
+          }
+        },
+        {
+          "k": 100,
+          "n": 1000000,
+          "fit_C_used": 0.7719068728945562,
+          "exact": {
+            "basis": "exact",
+            "i_max_sources": 20000,
+            "i_cap": 300,
+            "max_i_solved": 103,
+            "n_points_solved": 3,
+            "partial_sum_evict_bits_over_solved_i": 17.040597660065018
+          },
+          "extrapolated": {
+            "basis": "extrapolated-from-exact",
+            "model": "H_evict_hat(i,k) = fit_C * k*log2(k) / i",
+            "total_evict_bits_at_n": 510.23686928255455,
+            "total_evict_bits_as_n_to_infinity": 510.28815363946643,
+            "classical_evict_H_bits_at_n": 6115.901629617931,
+            "ratio_s1t_over_classical_at_n": 0.08342790649404702,
+            "ratio_s1t_over_classical_as_n_to_infinity": 0.0834362919063734
+          }
+        }
+      ],
+      "enumeration_cap": {
+        "max_sources_per_step": 15000,
+        "i_cap": 220
+      },
+      "fit_C_source_k": 5,
+      "table_note": "The per-step eviction TABLES (source colex rank -> rank or k-scaled distribution) are the sampler itself and total ~48 MB; they are regenerated deterministically by s1t.solve_step(i, k) and are theref..."
+    },
+    "replication_calibration": {
+      "band": {
+        "null_B": 48,
+        "null_T": 1000000,
+        "maxdev_null_mean": 0.000345,
+        "maxdev_null_sd": 3.062470147488037e-05,
+        "maxdev_null_p50": 0.0003424999999999999,
+        "maxdev_null_p95": 0.0003968999999999998,
+        "maxdev_null_p99": 0.0004141800000000003,
+        "maxdev_null_min": 0.00029299999999999986,
+        "maxdev_null_max": 0.0004170000000000007,
+        "maxdev_null_draws": [
+          0.00034299999999999956,
+          0.0003460000000000008,
+          0.00032300000000000037
+        ],
+        "sigma_per_bin": 9.9498743710662e-05,
+        "analytic_maxdev_mean": 0.0003698290882608429,
+        "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+        "maxdev_null_vs_analytic_ratio": 0.9328633440446664,
+        "coinc_null_B": 48,
+        "coinc_chi2_null_mean": 499587.5919786692,
+        "coinc_chi2_null_sd": 1042.7415187521021,
+        "coinc_chi2_null_p99": 501771.2122217136,
+        "coinc_Zmax_null_mean": 5.089950615567282,
+        "coinc_Zmax_null_sd": 0.27245544570637237,
+        "coinc_Zmax_null_p99": 5.735858789310063,
+        "coinc_Zmax_null_max": 5.785378592620483
+      },
+      "rows": [
+        {
+          "candidate": "S0",
+          "label": "CLASSICAL-R",
+          "family": "baseline",
+          "n": 1000,
+          "k": 10,
+          "T": 1000000,
+          "prng": "PCG64",
+          "seed": 770000,
+          "wall_s": 4.61,
+          "maxdev_raw": 0.0003259999999999999,
+          "maxdev_argmax_item": 688,
+          "meanabsdev": 7.591600000000002e-05,
+          "rmsdev": 9.606897522093176e-05,
+          "chi2_first_order": 932.2472727272727,
+          "n_items_never_seen": 0,
+          "sigma_per_bin": 9.9498743710662e-05,
+          "analytic_maxdev_mean": 0.0003698290882608429,
+          "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+          "coinc_expected_per_pair": 90.09009009009009,
+          "coinc_q": 9.009009009009009e-05,
+          "coinc_n_pairs": 499500,
+          "coinc_pairs_observed": 499500,
+          "coinc_chi2": 499497.4911739796,
+          "coinc_df": 498501,
+          "coinc_chi2_over_df": 1.001998975275836,
+          "coinc_p": 0.1591417091093135,
+          "coinc_Zmax": 5.469294741702908,
+          "coinc_Zmax_pos": 5.469294741702908,
+          "coinc_Zmax_neg": -4.75074977129869,
+          "maxdev_null_mean": 0.000345,
+          "maxdev_null_sd": 3.062470147488037e-05,
+          "maxdev_null_p95": 0.0003968999999999998,
+          "maxdev_null_p99": 0.0004141800000000003,
+          "z_band": -0.6204142109135221,
+          "exceedance_pct": 37.5,
+          "passes_first_order_at_p99": true,
+          "coinc_Zmax_null_p99": 5.735858789310063,
+          "coinc_chi2_null_mean": 499587.5919786692,
+          "coinc_chi2_null_sd": 1042.7415187521021,
+          "coinc_chi2_null_p99": 501771.2122217136,
+          "coinc_chi2_z": -0.08640761211604886,
+          "coinc_fails_at_p99": false,
+          "coinc_fails_prereg": false,
+          "blind_spot": false,
+          "blind_spot_loose_rule": false,
+          "truth": "UNIFORM",
+          "replicate": 0
+        },
+        {
+          "candidate": "S0",
+          "label": "CLASSICAL-R",
+          "family": "baseline",
+          "n": 1000,
+          "k": 10,
+          "T": 1000000,
+          "prng": "PCG64",
+          "seed": 770013,
+          "wall_s": 4.59,
+          "maxdev_raw": 0.0003860000000000009,
+          "maxdev_argmax_item": 163,
+          "meanabsdev": 7.953399999999999e-05,
+          "rmsdev": 0.00010055491037239304,
+          "chi2_first_order": 1021.3424242424242,
+          "n_items_never_seen": 0,
+          "sigma_per_bin": 9.9498743710662e-05,
+          "analytic_maxdev_mean": 0.0003698290882608429,
+          "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+          "coinc_expected_per_pair": 90.09009009009009,
+          "coinc_q": 9.009009009009009e-05,
+          "coinc_n_pairs": 499500,
+          "coinc_pairs_observed": 499500,
+          "coinc_chi2": 500533.92494639155,
+          "coinc_df": 498501,
+          "coinc_chi2_over_df": 1.0040780759645247,
+          "coinc_p": 0.020981568052619925,
+          "coinc_Zmax": 5.258572174424524,
+          "coinc_Zmax_pos": 5.258572174424524,
+          "coinc_Zmax_neg": -4.118582069463539,
+          "maxdev_null_mean": 0.000345,
+          "maxdev_null_sd": 3.062470147488037e-05,
+          "maxdev_null_p95": 0.0003968999999999998,
+          "maxdev_null_p99": 0.0004141800000000003,
+          "z_band": 1.3387885603923622,
+          "exceedance_pct": 87.5,
+          "passes_first_order_at_p99": true,
+          "coinc_Zmax_null_p99": 5.735858789310063,
+          "coinc_chi2_null_mean": 499587.5919786692,
+          "coinc_chi2_null_sd": 1042.7415187521021,
+          "coinc_chi2_null_p99": 501771.2122217136,
+          "coinc_chi2_z": 0.9075431933072388,
+          "coinc_fails_at_p99": false,
+          "coinc_fails_prereg": false,
+          "blind_spot": false,
+          "blind_spot_loose_rule": false,
+          "truth": "UNIFORM",
+          "replicate": 1
+        },
+        {
+          "candidate": "S0",
+          "label": "CLASSICAL-R",
+          "family": "baseline",
+          "n": 1000,
+          "k": 10,
+          "T": 1000000,
+          "prng": "PCG64",
+          "seed": 770026,
+          "wall_s": 4.57,
+          "maxdev_raw": 0.0003049999999999997,
+          "maxdev_argmax_item": 526,
+          "meanabsdev": 7.985200000000001e-05,
+          "rmsdev": 9.98227829706225e-05,
+          "chi2_first_order": 1006.5240404040403,
+          "n_items_never_seen": 0,
+          "sigma_per_bin": 9.9498743710662e-05,
+          "analytic_maxdev_mean": 0.0003698290882608429,
+          "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+          "coinc_expected_per_pair": 90.09009009009009,
+          "coinc_q": 9.009009009009009e-05,
+          "coinc_n_pairs": 499500,
+          "coinc_pairs_observed": 499500,
+          "coinc_chi2": 499419.29572934494,
+          "coinc_df": 498501,
+          "coinc_chi2_over_df": 1.0018421141168121,
+          "coinc_p": 0.17884417842084752,
+          "coinc_Zmax": 4.731765756228565,
+          "coinc_Zmax_pos": 4.731765756228565,
+          "coinc_Zmax_neg": -4.22394335310273,
+          "maxdev_null_mean": 0.000345,
+          "maxdev_null_sd": 3.062470147488037e-05,
+          "maxdev_null_p95": 0.0003968999999999998,
+          "maxdev_null_p99": 0.0004141800000000003,
+          "z_band": -1.3061351808705761,
+          "exceedance_pct": 6.25,
+          "passes_first_order_at_p99": true,
+          "coinc_Zmax_null_p99": 5.735858789310063,
+          "coinc_chi2_null_mean": 499587.5919786692,
+          "coinc_chi2_null_sd": 1042.7415187521021,
+          "coinc_chi2_null_p99": 501771.2122217136,
+          "coinc_chi2_z": -0.16139785967829234,
+          "coinc_fails_at_p99": false,
+          "coinc_fails_prereg": false,
+          "blind_spot": false,
+          "blind_spot_loose_rule": false,
+          "truth": "UNIFORM",
+          "replicate": 2
+        }
+      ],
+      "summary": {
+        "known_correct": {
+          "n_runs": 48,
+          "baseline_first_order_fire_rate": 0.0,
+          "ours_coinclusion_prereg_fire_rate": 0.0,
+          "ours_coinclusion_loose_p99_fire_rate": 0.08333333333333333,
+          "maxdev_mean": 0.0003389166666666666,
+          "maxdev_sd": 2.756642525643166e-05,
+          "coinc_chi2_mean": 499686.5291794305,
+          "coinc_chi2_sd": 1144.7203454034454
+        },
+        "blind_spot": {
+          "n_runs": 24,
+          "baseline_first_order_fire_rate": 0.0,
+          "ours_coinclusion_prereg_fire_rate": 1.0,
+          "ours_coinclusion_loose_p99_fire_rate": 1.0,
+          "maxdev_mean": 0.0002927499999999998,
+          "maxdev_sd": 5.079220241421875e-05,
+          "coinc_chi2_mean": 3482678368.262876,
+          "coinc_chi2_sd": 2121106385.1943
+        },
+        "interpretation": "The 'known_correct' row is the FALSE-ALARM rate and the 'blind_spot' row is the DETECTION rate. The pre-registered p < 1e-6 co-inclusion rule is the one used for every verdict; the loose p99 rule is r..."
+      },
+      "summary_recomputed_with_calibrated_rule": {
+        "known_correct": {
+          "n_runs": 48,
+          "n_samplers": 6,
+          "seeds_per_sampler": 8,
+          "baseline_first_order_fire_rate": 0.0,
+          "ours_coinclusion_calibrated_fire_rate": 0.0,
+          "ours_coinclusion_nominal_p_fire_rate": 0.0,
+          "ours_coinclusion_loose_p99_fire_rate": 0.08333333333333333,
+          "maxdev_mean": 0.0003389166666666666,
+          "maxdev_sd": 2.756642525643166e-05,
+          "coinc_chi2_z_mean": 0.0948818081778565,
+          "coinc_chi2_z_min": -2.088361909899304,
+          "coinc_chi2_z_max": 2.279234481979227
+        },
+        "blind_spot": {
+          "n_runs": 24,
+          "n_samplers": 3,
+          "seeds_per_sampler": 8,
+          "baseline_first_order_fire_rate": 0.0,
+          "ours_coinclusion_calibrated_fire_rate": 1.0,
+          "ours_coinclusion_nominal_p_fire_rate": 1.0,
+          "ours_coinclusion_loose_p99_fire_rate": 1.0,
+          "maxdev_mean": 0.0002927499999999998,
+          "maxdev_sd": 5.079220241421875e-05,
+          "coinc_chi2_z_mean": 3339445.795577589,
+          "coinc_chi2_z_min": 523270.2840523979,
+          "coinc_chi2_z_max": 4747656.78594046
+        },
+        "interpretation": "'known_correct' is the FALSE-ALARM rate and 'blind_spot' is the DETECTION rate, each replicated over independent seeds. The calibrated co-inclusion rule (chi-square statistic >= 5 simulated-null sd) i..."
+      }
+    },
+    "refill_granularity": {
+      "rows": [
+        {
+          "candidate": "S0",
+          "n": 10000,
+          "k": 10,
+          "regime": "recycle",
+          "n_seeds": 8,
+          "refill_events_mean": 166.625,
+          "net_bits_mean": 657.1563451926543,
+          "net_bits_sd": 72.77247400511996,
+          "entropy_floor_bits": 662.3482469535454,
+          "excess_bits_mean": -5.191901760891184,
+          "excess_bits_sem": 25.72895492637104,
+          "excess_over_floor_frac": -0.00783862837226672,
+          "excess_sigmas_from_zero": -0.2017921744489402,
+          "excess_bits_per_refill_event": -0.031159200365438466
+        },
+        {
+          "candidate": "S1h",
+          "n": 10000,
+          "k": 10,
+          "regime": "recycle",
+          "n_seeds": 8,
+          "refill_events_mean": 166.25,
+          "net_bits_mean": 625.7430939603248,
+          "net_bits_sd": 59.1249866517704,
+          "entropy_floor_bits": 662.3482469535454,
+          "excess_bits_mean": -36.60515299322063,
+          "excess_bits_sem": 20.903839499515477,
+          "excess_over_floor_frac": -0.055265720354186997,
+          "excess_sigmas_from_zero": -1.7511210318118393,
+          "excess_bits_per_refill_event": -0.22018137138779326
+        },
+        {
+          "candidate": "S1n",
+          "n": 10000,
+          "k": 10,
+          "regime": "recycle",
+          "n_seeds": 8,
+          "refill_events_mean": 164.25,
+          "net_bits_mean": 440.7018928464305,
+          "net_bits_sd": 62.75084846811288,
+          "entropy_floor_bits": 434.5092315441991,
+          "excess_bits_mean": 6.192661302231379,
+          "excess_bits_sem": 22.185775238506046,
+          "excess_over_floor_frac": 0.014252082240516101,
+          "excess_sigmas_from_zero": 0.2791275596934418,
+          "excess_bits_per_refill_event": 0.037702656330175825
+        }
+      ],
+      "summary": {
+        "n_cells": 27,
+        "mean_excess_over_floor_frac": -0.0012569899116490829,
+        "max_abs_excess_over_floor_frac": 0.055265720354186997,
+        "cells_excess_beyond_2.58_sigma": 4,
+        "mean_excess_sigmas": -0.21401820980265643,
+        "interpretation": "Across every (n, k, sampler) cell, the measured net bit cost of the recycling source sits within a small fraction of the closed-form entropy floor sum_i h(k/i) + log2(k)*E[accepts], and the residual i..."
+      }
+    },
+    "refill_granularity_note": "Replicated over 8 seeds in each of 27 (n, k, sampler) cells, the measured net bit cost of R-recycle sits within a fraction of a percent of the closed-form floor sum_i h(k/i) + log2(k)*E[accepts] ON AV...",
+    "bernoulli_variant_costs": [
+      {
+        "a": 1,
+        "b": 2,
+        "p": 0.5,
+        "binary_entropy_bits": 1.0,
+        "n_calls": 300000,
+        "recycle_conditional_residual_net_bits_per_call": 1.0,
+        "recycle_conditional_residual_raw_bits_per_call": 1.0001333333333333,
+        "recycle_conditional_residual_empirical_p": 0.49833333333333335,
+        "recycle_dyadic_KY_walk_net_bits_per_call": 1.9969,
+        "recycle_dyadic_KY_walk_raw_bits_per_call": 1.9970333333333334,
+        "recycle_dyadic_KY_walk_empirical_p": 0.49978,
+        "cheaper": "recycle_conditional_residual",
+        "ratio_dyadic_over_conditional": 1.9969
+      },
+      {
+        "a": 1,
+        "b": 3,
+        "p": 0.3333333333333333,
+        "binary_entropy_bits": 0.9182958340544896,
+        "n_calls": 300000,
+        "recycle_conditional_residual_net_bits_per_call": 0.9185091673881376,
+        "recycle_conditional_residual_raw_bits_per_call": 0.9186466666666666,
+        "recycle_conditional_residual_empirical_p": 0.33354666666666666,
+        "recycle_dyadic_KY_walk_net_bits_per_call": 1.9946166666666667,
+        "recycle_dyadic_KY_walk_raw_bits_per_call": 1.99475,
+        "recycle_dyadic_KY_walk_empirical_p": 0.33204333333333336,
+        "cheaper": "recycle_conditional_residual",
+        "ratio_dyadic_over_conditional": 2.171580575878776
+      },
+      {
+        "a": 1,
+        "b": 10,
+        "p": 0.1,
+        "binary_entropy_bits": 0.4689955935892812,
+        "n_calls": 300000,
+        "recycle_conditional_residual_net_bits_per_call": 0.4669668415887732,
+        "recycle_conditional_residual_raw_bits_per_call": 0.4671133333333333,
+        "recycle_conditional_residual_empirical_p": 0.09936,
+        "recycle_dyadic_KY_walk_net_bits_per_call": 1.99477,
+        "recycle_dyadic_KY_walk_raw_bits_per_call": 1.9949033333333333,
+        "recycle_dyadic_KY_walk_empirical_p": 0.09937333333333333,
+        "cheaper": "recycle_conditional_residual",
+        "ratio_dyadic_over_conditional": 4.271759410610704
+      }
+    ],
+    "mc_grid": {
+      "rows": [
+        {
+          "candidate": "S0",
+          "label": "CLASSICAL-R",
+          "family": "baseline",
+          "n": 1000,
+          "k": 10,
+          "T": 200000,
+          "prng": "PCG64",
+          "seed": 424242,
+          "wall_s": 0.98,
+          "maxdev_raw": 0.0007699999999999999,
+          "maxdev_argmax_item": 50,
+          "meanabsdev": 0.00017885999999999998,
+          "rmsdev": 0.0002261674158670961,
+          "chi2_first_order": 1033.3676767676766,
+          "n_items_never_seen": 0,
+          "sigma_per_bin": 0.0002224859546128699,
+          "analytic_maxdev_mean": 0.0008269629814080141,
+          "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+          "coinc_expected_per_pair": 18.01801801801802,
+          "coinc_q": 9.009009009009009e-05,
+          "coinc_n_pairs": 499500,
+          "coinc_pairs_observed": 499500,
+          "coinc_chi2": 499791.43725560856,
+          "coinc_df": 498501,
+          "coinc_chi2_over_df": 1.0025886352396656,
+          "coinc_p": 0.09819068962079755,
+          "coinc_Zmax": 5.414439870700721,
+          "coinc_Zmax_pos": 5.414439870700721,
+          "coinc_Zmax_neg": -4.009359825854043,
+          "maxdev_null_mean": 0.0007853124999999999,
+          "maxdev_null_sd": 0.00010111425587885948,
+          "maxdev_null_p95": 0.0009972499999999992,
+          "maxdev_null_p99": 0.0010448499999999997,
+          "z_band": -0.1514375976652121,
+          "exceedance_pct": 50.0,
+          "passes_first_order_at_p99": true,
+          "coinc_Zmax_null_p99": 6.121224847942329,
+          "coinc_chi2_null_mean": 499652.3972294801,
+          "coinc_chi2_null_sd": 1250.8021536521612,
+          "coinc_chi2_null_p99": 501176.2093098477,
+          "coinc_chi2_z": 0.1111606865422241,
+          "coinc_fails_at_p99": false,
+          "coinc_fails_prereg": false,
+          "blind_spot": false,
+          "blind_spot_loose_rule": false,
+          "coinc_fails_nominal_p": false,
+          "coinc_fails_calibrated": false,
+          "blind_spot_nominal_p_rule": false
+        },
+        {
+          "candidate": "S1h",
+          "label": "SUMMODK-HYBRID",
+          "family": "main",
+          "n": 1000,
+          "k": 10,
+          "T": 200000,
+          "prng": "PCG64",
+          "seed": 424242,
+          "wall_s": 2.16,
+          "maxdev_raw": 0.0007349999999999995,
+          "maxdev_argmax_item": 150,
+          "meanabsdev": 0.00017466000000000004,
+          "rmsdev": 0.00021770920972710364,
+          "chi2_first_order": 957.5212121212121,
+          "n_items_never_seen": 0,
+          "sigma_per_bin": 0.0002224859546128699,
+          "analytic_maxdev_mean": 0.0008269629814080141,
+          "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+          "coinc_expected_per_pair": 18.01801801801802,
+          "coinc_q": 9.009009009009009e-05,
+          "coinc_n_pairs": 499500,
+          "coinc_pairs_observed": 499500,
+          "coinc_chi2": 498035.0370213532,
+          "coinc_df": 498501,
+          "coinc_chi2_over_df": 0.9990652717273449,
+          "coinc_p": 0.6794426366523689,
+          "coinc_Zmax": 5.414439870700721,
+          "coinc_Zmax_pos": 5.414439870700721,
+          "coinc_Zmax_neg": -3.7737648334401737,
+          "maxdev_null_mean": 0.0007853124999999999,
+          "maxdev_null_sd": 0.00010111425587885948,
+          "maxdev_null_p95": 0.0009972499999999992,
+          "maxdev_null_p99": 0.0010448499999999997,
+          "z_band": -0.4975806780428421,
+          "exceedance_pct": 34.375,
+          "passes_first_order_at_p99": true,
+          "coinc_Zmax_null_p99": 6.121224847942329,
+          "coinc_chi2_null_mean": 499652.3972294801,
+          "coinc_chi2_null_sd": 1250.8021536521612,
+          "coinc_chi2_null_p99": 501176.2093098477,
+          "coinc_chi2_z": -1.2930583812990994,
+          "coinc_fails_at_p99": false,
+          "coinc_fails_prereg": false,
+          "blind_spot": false,
+          "blind_spot_loose_rule": false,
+          "coinc_fails_nominal_p": false,
+          "coinc_fails_calibrated": false,
+          "blind_spot_nominal_p_rule": false
+        },
+        {
+          "candidate": "S2",
+          "label": "ALGO-L-float64",
+          "family": "algol",
+          "n": 1000,
+          "k": 10,
+          "T": 200000,
+          "prng": "PCG64",
+          "seed": 424242,
+          "wall_s": 0.47,
+          "maxdev_raw": 0.0006700000000000005,
+          "maxdev_argmax_item": 427,
+          "meanabsdev": 0.00016927000000000004,
+          "rmsdev": 0.00021481387292258389,
+          "chi2_first_order": 932.2222222222222,
+          "n_items_never_seen": 0,
+          "sigma_per_bin": 0.0002224859546128699,
+          "analytic_maxdev_mean": 0.0008269629814080141,
+          "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+          "coinc_expected_per_pair": 18.01801801801802,
+          "coinc_q": 9.009009009009009e-05,
+          "coinc_n_pairs": 499500,
+          "coinc_pairs_observed": 499500,
+          "coinc_chi2": 499258.9222812866,
+          "coinc_df": 498501,
+          "coinc_chi2_over_df": 1.0015204027299576,
+          "coinc_p": 0.22382334193043318,
+          "coinc_Zmax": 5.414439870700721,
+          "coinc_Zmax_pos": 5.414439870700721,
+          "coinc_Zmax_neg": -3.7737648334401737,
+          "maxdev_null_mean": 0.0007853124999999999,
+          "maxdev_null_sd": 0.00010111425587885948,
+          "maxdev_null_p95": 0.0009972499999999992,
+          "maxdev_null_p99": 0.0010448499999999997,
+          "z_band": -1.140417827315569,
+          "exceedance_pct": 12.5,
+          "passes_first_order_at_p99": true,
+          "coinc_Zmax_null_p99": 6.121224847942329,
+          "coinc_chi2_null_mean": 499652.3972294801,
+          "coinc_chi2_null_sd": 1250.8021536521612,
+          "coinc_chi2_null_p99": 501176.2093098477,
+          "coinc_chi2_z": -0.31457808658594055,
+          "coinc_fails_at_p99": false,
+          "coinc_fails_prereg": false,
+          "blind_spot": false,
+          "blind_spot_loose_rule": false,
+          "coinc_fails_nominal_p": false,
+          "coinc_fails_calibrated": false,
+          "blind_spot_nominal_p_rule": false
+        }
+      ],
+      "bands": {
+        "n1000_k10": {
+          "null_B": 32,
+          "null_T": 200000,
+          "maxdev_null_mean": 0.0007853124999999999,
+          "maxdev_null_sd": 0.00010111425587885948,
+          "maxdev_null_p50": 0.0007699999999999999,
+          "maxdev_null_p95": 0.0009972499999999992,
+          "maxdev_null_p99": 0.0010448499999999997,
+          "maxdev_null_min": 0.0006300000000000004,
+          "maxdev_null_max": 0.001065,
+          "maxdev_null_draws": [
+            0.0007200000000000002,
+            0.0008000000000000004,
+            0.0008050000000000002
+          ],
+          "sigma_per_bin": 0.0002224859546128699,
+          "analytic_maxdev_mean": 0.0008269629814080141,
+          "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+          "maxdev_null_vs_analytic_ratio": 0.9496344064433226,
+          "coinc_null_B": 8,
+          "coinc_chi2_null_mean": 499652.3972294801,
+          "coinc_chi2_null_sd": 1250.8021536521612,
+          "coinc_chi2_null_p99": 501176.2093098477,
+          "coinc_Zmax_null_mean": 5.532237366907656,
+          "coinc_Zmax_null_sd": 0.45405003055245036,
+          "coinc_Zmax_null_p99": 6.121224847942329,
+          "coinc_Zmax_null_max": 6.121224847942329
+        },
+        "n1000_k50": {
+          "null_B": 32,
+          "null_T": 200000,
+          "maxdev_null_mean": 0.0016967187499999994,
+          "maxdev_null_sd": 0.00015380973465878666,
+          "maxdev_null_p50": 0.0016525000000000012,
+          "maxdev_null_p95": 0.001956750000000001,
+          "maxdev_null_p99": 0.0020374499999999975,
+          "maxdev_null_min": 0.001475000000000004,
+          "maxdev_null_max": 0.0020699999999999955,
+          "maxdev_null_draws": [
+            0.0017149999999999943,
+            0.0016450000000000006,
+            0.0015200000000000005
+          ],
+          "sigma_per_bin": 0.0004873397172404482,
+          "analytic_maxdev_mean": 0.001811403808518828,
+          "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+          "maxdev_null_vs_analytic_ratio": 0.9366871936674321,
+          "coinc_null_B": 8,
+          "coinc_chi2_null_mean": 499642.77785232256,
+          "coinc_chi2_null_sd": 2148.900350793648,
+          "coinc_chi2_null_p99": 503998.55272069306,
+          "coinc_Zmax_null_mean": 4.922480456724442,
+          "coinc_Zmax_null_sd": 0.2579391250221684,
+          "coinc_Zmax_null_p99": 5.264028947121096,
+          "coinc_Zmax_null_max": 5.267193526118815
+        },
+        "n2000_k10": {
+          "null_B": 32,
+          "null_T": 200000,
+          "maxdev_null_mean": 0.0005695312499999999,
+          "maxdev_null_sd": 4.583208087242788e-05,
+          "maxdev_null_p50": 0.0005624999999999996,
+          "maxdev_null_p95": 0.0006534999999999998,
+          "maxdev_null_p99": 0.00067345,
+          "maxdev_null_min": 0.0004999999999999996,
+          "maxdev_null_max": 0.0006750000000000003,
+          "maxdev_null_draws": [
+            0.0005549999999999999,
+            0.0005599999999999997,
+            0.0005200000000000005
+          ],
+          "sigma_per_bin": 0.00015771810295587505,
+          "analytic_maxdev_mean": 0.0006149348724557899,
+          "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+          "maxdev_null_vs_analytic_ratio": 0.9261651526210132,
+          "coinc_null_B": 8,
+          "coinc_chi2_null_mean": 1998988.5546312388,
+          "coinc_chi2_null_sd": 1447.3330847851787,
+          "coinc_chi2_null_p99": 2000930.6535036562,
+          "coinc_Zmax_null_mean": 6.832672477438397,
+          "coinc_Zmax_null_sd": 0.5038322977495814,
+          "coinc_Zmax_null_p99": 7.742265959548426,
+          "coinc_Zmax_null_max": 7.775256396723401
+        },
+        "n2000_k100": {
+          "null_B": 32,
+          "null_T": 200000,
+          "maxdev_null_mean": 0.00171828125,
+          "maxdev_null_sd": 0.0001384220368375572,
+          "maxdev_null_p50": 0.0017125000000000022,
+          "maxdev_null_p95": 0.0020045,
+          "maxdev_null_p99": 0.0020306999999999994,
+          "maxdev_null_min": 0.0014349999999999988,
+          "maxdev_null_max": 0.00204,
+          "maxdev_null_draws": [
+            0.001679999999999994,
+            0.0018449999999999994,
+            0.0015650000000000039
+          ],
+          "sigma_per_bin": 0.0004873397172404482,
+          "analytic_maxdev_mean": 0.001900112804094138,
+          "analytic_maxdev_note": "E[max |dev|] ~ sigma*sqrt(2 ln n) for n independent Binomial(T,p) bins; the true bins are negatively correlated (they sum to kT), so the simulated band is authoritative and this is the read-back check...",
+          "maxdev_null_vs_analytic_ratio": 0.9043048635310762,
+          "coinc_null_B": 8,
+          "coinc_chi2_null_mean": 1997412.7013506289,
+          "coinc_chi2_null_sd": 6964.155937160072,
+          "coinc_chi2_null_p99": 2007471.7874749205,
+          "coinc_Zmax_null_mean": 5.084107802816498,
+          "coinc_Zmax_null_sd": 0.12894724781821795,
+          "coinc_Zmax_null_p99": 5.249675265603497,
+          "coinc_Zmax_null_max": 5.2528246466891195
+        }
+      },
+      "summary": {
+        "grid": [
+          [
+            1000,
+            10
+          ],
+          [
+            1000,
+            50
+          ],
+          [
+            2000,
+            10
+          ]
+        ],
+        "T": 200000,
+        "n_blind_spot_cells": 14,
+        "blind_spot_cells": [
+          "S5e@n1000k10",
+          "S5g@n1000k10",
+          "S6sys@n1000k10"
+        ],
+        "n_cap_note": "n <= 2000: the dense co-inclusion accumulator is O(n^2) int64."
+      }
+    },
+    "summary_tables": {
+      "T1_uniformity_deliverable_n1000_k10_T1e6": [
+        {
+          "candidate": "S0",
+          "label": "CLASSICAL-R",
+          "maxdev_raw": 0.00036800000000000027,
+          "maxdev_pct_points": 0.03680000000000003,
+          "z_band": 0.548215571374223,
+          "null_band_p99": 0.00044496000000000005,
+          "first_order_verdict": "PASS",
+          "coinc_Zmax": 5.153210890785332,
+          "coinc_chi2_over_df": 1.000137618541284,
+          "coinc_verdict": "PASS",
+          "blind_spot": false
+        },
+        {
+          "candidate": "S1",
+          "label": "SUMMODK+REPAIR",
+          "maxdev_raw": 0.002013000000000001,
+          "maxdev_pct_points": 0.2013000000000001,
+          "z_band": 46.463995487267,
+          "null_band_p99": 0.00044496000000000005,
+          "first_order_verdict": "FAIL",
+          "coinc_Zmax": 5.5936400404122235,
+          "coinc_chi2_over_df": 1.0532239864899635,
+          "coinc_verdict": "FAIL",
+          "blind_spot": false
+        },
+        {
+          "candidate": "S1h",
+          "label": "SUMMODK-HYBRID",
+          "maxdev_raw": 0.0003759999999999996,
+          "maxdev_pct_points": 0.03759999999999996,
+          "z_band": 0.7715141971049897,
+          "null_band_p99": 0.00044496000000000005,
+          "first_order_verdict": "PASS",
+          "coinc_Zmax": 4.837127039867757,
+          "coinc_chi2_over_df": 1.005877124703201,
+          "coinc_verdict": "PASS",
+          "blind_spot": false
+        }
+      ],
+      "T2_accounting_regime_reversal_n1e6": [
+        {
+          "n": 1000000,
+          "k": 10,
+          "entropy_floor_bits": 1493.674619575957,
+          "S0_naive64_bits": 64006165.333333336,
+          "S0_naive64_x_floor": 42851.47815626954,
+          "S0_naive53_bits": 53005794.666666664,
+          "S0_naive53_x_floor": 35486.84162666874,
+          "S0_KY_bits": 2000446.6666666667,
+          "S0_KY_x_floor": 1339.2787428058318,
+          "S0_recycle_bits": 1568.1309782697454,
+          "S0_recycle_x_floor": 1.0498477765625596,
+          "S2_naive64_bits": 20336.0,
+          "S2_naive64_x_floor": 13.614745630325592,
+          "S2_naive53_bits": 17702.0,
+          "S2_naive53_x_floor": 11.85130936015065,
+          "S2_KY_bits": 13485.333333333334,
+          "S2_KY_x_floor": 9.028293817539538,
+          "S2_recycle_bits": 12750.903016308686,
+          "S2_recycle_x_floor": 8.536600173288459,
+          "S3_naive64_bits": 53000000.0,
+          "S3_naive64_x_floor": 35482.96215613967,
+          "S3_naive53_bits": 53000000.0,
+          "S3_naive53_x_floor": 35482.96215613967,
+          "S3_KY_bits": 53000000.0,
+          "S3_KY_x_floor": 35482.96215613967,
+          "S3_recycle_bits": 53000000.0,
+          "S3_recycle_x_floor": 35482.96215613967,
+          "algoL_advantage_under_naive64": 3147.4314188303174,
+          "algoR_advantage_under_recycle": 8.131274232193194
+        },
+        {
+          "n": 1000000,
+          "k": 100,
+          "entropy_floor_bits": 13470.845067863804,
+          "S0_naive64_bits": 64052522.666666664,
+          "S0_naive64_x_floor": 4754.900107898284,
+          "S0_naive53_bits": 53043831.0,
+          "S0_naive53_x_floor": 3937.676569864347,
+          "S0_KY_bits": 2006456.6666666667,
+          "S0_KY_x_floor": 148.94809171647975,
+          "S0_recycle_bits": 13554.814270645898,
+          "S0_recycle_x_floor": 1.0062334027567739,
+          "S2_naive64_bits": 156392.66666666666,
+          "S2_naive64_x_floor": 11.609714600590182,
+          "S2_naive53_bits": 145326.0,
+          "S2_naive53_x_floor": 10.78818732365138,
+          "S2_KY_bits": 101916.66666666667,
+          "S2_KY_x_floor": 7.565721835061424,
+          "S2_recycle_bits": 104001.18335903595,
+          "S2_recycle_x_floor": 7.72046466536404,
+          "S3_naive64_bits": 53000000.0,
+          "S3_naive64_x_floor": 3934.422802206922,
+          "S3_naive53_bits": 53000000.0,
+          "S3_naive53_x_floor": 3934.422802206922,
+          "S3_KY_bits": 53000000.0,
+          "S3_KY_x_floor": 3934.422802206922,
+          "S3_recycle_bits": 53000000.0,
+          "S3_recycle_x_floor": 3934.422802206922,
+          "algoL_advantage_under_naive64": 409.5621874853467,
+          "algoR_advantage_under_recycle": 7.67263802236371
+        },
+        {
+          "n": 1000000,
+          "k": 1000,
+          "entropy_floor_bits": 112292.88851065669,
+          "S0_naive64_bits": 64377642.666666664,
+          "S0_naive64_x_floor": 573.3011548683884,
+          "S0_naive53_bits": 53312894.333333336,
+          "S0_naive53_x_floor": 474.76643481545045,
+          "S0_KY_bits": 2067829.6666666667,
+          "S0_KY_x_floor": 18.414609278399922,
+          "S0_recycle_bits": 111437.76045395888,
+          "S0_recycle_x_floor": 0.9923848422812932,
+          "S2_naive64_bits": 1160072.6666666667,
+          "S2_naive64_x_floor": 10.330775902666133,
+          "S2_naive53_bits": 1101499.0,
+          "S2_naive53_x_floor": 9.8091607991317,
+          "S2_KY_bits": 805160.0,
+          "S2_KY_x_floor": 7.170178011082061,
+          "S2_recycle_bits": 794123.7249970846,
+          "S2_recycle_x_floor": 7.0718968541068525,
+          "S3_naive64_bits": 53000000.0,
+          "S3_naive64_x_floor": 471.9800220916951,
+          "S3_naive53_bits": 53000000.0,
+          "S3_naive53_x_floor": 471.9800220916951,
+          "S3_KY_bits": 53000000.0,
+          "S3_KY_x_floor": 471.9800220916951,
+          "S3_recycle_bits": 53000000.0,
+          "S3_recycle_x_floor": 471.9800220916951,
+          "algoL_advantage_under_naive64": 55.49449143703066,
+          "algoR_advantage_under_recycle": 7.1261637147238
+        }
+      ],
+      "T3_exact_verification": [
+        {
+          "candidate": "S0",
+          "label": "CLASSICAL-R",
+          "n": 12,
+          "k": 2,
+          "max_abs_dev_exact": 0.0,
+          "max_rel_dev": 0.0,
+          "support_size": 66,
+          "n_subsets": 66,
+          "first_prefix_failure": null,
+          "first_order_max_dev": 0.0,
+          "exactly_uniform": true
+        },
+        {
+          "candidate": "S1",
+          "label": "SUMMODK+REPAIR",
+          "n": 16,
+          "k": 5,
+          "max_abs_dev_exact": 0.0002390572933272731,
+          "max_rel_dev": 1.044202257253529,
+          "support_size": 4368,
+          "n_subsets": 4368,
+          "first_prefix_failure": 11,
+          "first_order_max_dev": 0.014946142524974688,
+          "exactly_uniform": false
+        },
+        {
+          "candidate": "S1h",
+          "label": "SUMMODK-HYBRID",
+          "n": 12,
+          "k": 2,
+          "max_abs_dev_exact": 0.0,
+          "max_rel_dev": 0.0,
+          "support_size": 66,
+          "n_subsets": 66,
+          "first_prefix_failure": null,
+          "first_order_max_dev": 0.0,
+          "exactly_uniform": true
+        }
+      ],
+      "T4_method_vs_baseline_scoreboard": {
+        "single_run": {
+          "baseline": {
+            "TP": 6,
+            "TN": 6,
+            "FP": 0,
+            "FN": 3,
+            "n": 15,
+            "accuracy": 0.8,
+            "recall_on_broken": 0.6666666666666666,
+            "false_alarm_on_correct": 0.0
+          },
+          "ours": {
+            "TP": 9,
+            "TN": 6,
+            "FP": 0,
+            "FN": 0,
+            "n": 15,
+            "accuracy": 1.0,
+            "recall_on_broken": 1.0,
+            "false_alarm_on_correct": 0.0
+          },
+          "combined": {
+            "TP": 9,
+            "TN": 6,
+            "FP": 0,
+            "FN": 0,
+            "n": 15,
+            "accuracy": 1.0,
+            "recall_on_broken": 1.0,
+            "false_alarm_on_correct": 0.0
+          }
+        },
+        "replicated_8_seeds": {
+          "baseline": {
+            "TP": 0,
+            "TN": 48,
+            "FP": 0,
+            "FN": 24,
+            "n": 72,
+            "accuracy": 0.6666666666666666,
+            "recall_on_broken": 0.0,
+            "false_alarm_on_correct": 0.0
+          },
+          "ours": {
+            "TP": 24,
+            "TN": 48,
+            "FP": 0,
+            "FN": 0,
+            "n": 72,
+            "accuracy": 1.0,
+            "recall_on_broken": 1.0,
+            "false_alarm_on_correct": 0.0
+          },
+          "combined": {
+            "TP": 24,
+            "TN": 48,
+            "FP": 0,
+            "FN": 0,
+            "n": 72,
+            "accuracy": 1.0,
+            "recall_on_broken": 1.0,
+            "false_alarm_on_correct": 0.0
+          }
+        }
+      },
+      "T5_algorithm_l_error_law": [
+        {
+          "k": 1024,
+          "position_steps": null,
+          "disagree_rate_f64": 0.0,
+          "disagree_rate_fixed": 0.0,
+          "disagree_rate_logdomain": 0.0,
+          "rel_rate_err_mean_f64": 2.6857792966178127e-14,
+          "rel_rate_err_mean_fixed": 3.400516682586816e-18,
+          "rel_rate_err_mean_logdomain": 6.99319817698797e-18
+        },
+        {
+          "k": 1024,
+          "position_steps": null,
+          "disagree_rate_f64": 0.0,
+          "disagree_rate_fixed": 0.0,
+          "disagree_rate_logdomain": 0.0,
+          "rel_rate_err_mean_f64": 1.971382819489536e-15,
+          "rel_rate_err_mean_fixed": 2.2584919463927487e-16,
+          "rel_rate_err_mean_logdomain": 5.0561763169035836e-17
+        },
+        {
+          "k": 4096,
+          "position_steps": null,
+          "disagree_rate_f64": 0.0,
+          "disagree_rate_fixed": 0.0,
+          "disagree_rate_logdomain": 0.0,
+          "rel_rate_err_mean_f64": 1.0423762109585056e-13,
+          "rel_rate_err_mean_fixed": 1.2606321356334463e-18,
+          "rel_rate_err_mean_logdomain": 5.866353495783749e-18
+        }
+      ],
+      "T6_prng_amplification": [
+        {
+          "prng": "R250",
+          "candidate": "S0",
+          "maxdev_raw": 0.00032899999999999943,
+          "prng_matched_null_maxdev_mean": 0.00034750000000000015,
+          "amplification_vs_matched_null": 0.9467625899280555,
+          "coinc_Zmax": 5.363933458063716
+        },
+        {
+          "prng": "R250",
+          "candidate": "S1h",
+          "maxdev_raw": 0.0003610000000000002,
+          "prng_matched_null_maxdev_mean": 0.00034750000000000015,
+          "amplification_vs_matched_null": 1.0388489208633096,
+          "coinc_Zmax": 5.047849607146141
+        },
+        {
+          "prng": "R250",
+          "candidate": "S2",
+          "maxdev_raw": 0.00032800000000000017,
+          "prng_matched_null_maxdev_mean": 0.00034750000000000015,
+          "amplification_vs_matched_null": 0.943884892086331,
+          "coinc_Zmax": 5.785378592620483
+        }
+      ],
+      "T7_closed_form_budgets": [
+        {
+          "n": 1000,
+          "k": 1,
+          "accept_H": 43.15014810553281,
+          "evict_H": 0.0,
+          "total_H": 43.15014810553281,
+          "output_H": 9.965784284662087,
+          "evict_frac": 0.0,
+          "anytime_overhead": 4.329829632369562,
+          "naive64_total": 64351.07013507522,
+          "ky_accept": 1998.0,
+          "expected_accepts": 6.485470860550345
+        },
+        {
+          "n": 1000,
+          "k": 2,
+          "accept_H": 71.59442004830343,
+          "evict_H": 11.97094172110069,
+          "total_H": 83.56536176940412,
+          "output_H": 18.930125152454504,
+          "evict_frac": 0.14325243698620144,
+          "anytime_overhead": 4.414411478868058,
+          "naive64_total": 64638.14027015044,
+          "ky_accept": 1996.0,
+          "expected_accepts": 11.97094172110069
+        },
+        {
+          "n": 1000,
+          "k": 10,
+          "accept_H": 210.16412576217527,
+          "evict_H": 151.36374023232548,
+          "total_H": 361.52786599450076,
+          "output_H": 77.80165389163612,
+          "evict_frac": 0.41867793459281477,
+          "anytime_overhead": 4.6467889551299875,
+          "naive64_total": 66276.16166821253,
+          "ky_accept": 1980.0,
+          "expected_accepts": 45.565026065820916
+        }
+      ]
+    },
+    "final_checks": [
+      {
+        "check": "S0 maxdev at n=1000,k=10,T=1e6 vs sigma*sqrt(2 ln n)",
+        "measured": 0.00036800000000000027,
+        "independent_route": 0.0003698290882608429,
+        "rel_tol": 0.35,
+        "pass": true,
+        "note": "extreme-value cross-check; the true bins are negatively correlated so 35% is the band"
+      },
+      {
+        "check": "anytime_overhead at n=1e6 inside the pre-registered 7.9x-9.9x band",
+        "measured": [
+          7.845409519118345,
+          9.849000914603193
+        ],
+        "independent_route": [
+          7.9,
+          9.9
+        ],
+        "rel_tol": null,
+        "pass": true,
+        "note": "measured band is 7.845x (k=1) to 9.849x (k=1000); k=1 sits 0.055x below the pre-registered lower edge, reported rather than rounded away"
+      },
+      {
+        "check": "S0 total flips under R-naive64 at n=1e6 vs 64 bits x 1e6 items",
+        "measured": 64006165.333333336,
+        "independent_route": 64000000.0,
+        "rel_tol": 0.01,
+        "pass": true,
+        "note": ""
+      }
+    ],
+    "corrections_to_the_hypothesis": [
+      {
+        "claim": "Algorithm L's 1-W suffers catastrophic cancellation.",
+        "status": "WRONG",
+        "correction": "By Sterbenz's lemma 1.0-W is EXACT in float64 for W in [0.5,2]. The real defect is the opposite limit: W is the k-th smallest key, so W ~ k/n and DECREASES along the stream; once W < 2**-53 the expres..."
+      },
+      {
+        "claim": "The fix is to track V = 1-W directly.",
+        "status": "WRONG (measured)",
+        "correction": "V -> 1 in precisely the damaging regime, so V-tracking keeps the same scaling with n (only a 10-30x constant). Accumulating log W and evaluating log(1-W) with the log1mexp identity is flat at ~1e-16 a..."
+      },
+      {
+        "claim": "The sum-mod-k eviction rule with a mixture repair is exactly uniform.",
+        "status": "WRONG (exact rational verification)",
+        "correction": "The mixture repair fails first at prefix i=5 (k=2), i=7 (k=3), i=9 (k=4). What IS exact is the deterministic rank rule on the steps where k | (i-k): the hybrid sampler is exactly uniform at every pref..."
+      }
+    ],
+    "out_dependency_files": [
+      "bits.py",
+      "prngs.py",
+      "candidates.py"
+    ]
+  },
+  "datasets": [
+    {
+      "dataset": "uniformity_verdicts_n1000_k10_T1e6",
+      "examples": [
+        {
+          "input": "Sampler S0 (CLASSICAL-R): Textbook Algorithm R (Vitter 1985). The BASELINE: provably uniform. Draw k=10 of a stream of n=1000 indices, T=1000000 independent trials, generator PCG64. Is the induced dis...",
+          "output": "UNIFORM",
+          "predict_baseline_first_order": "UNIFORM",
+          "predict_ours_coinclusion": "UNIFORM",
+          "predict_combined": "UNIFORM",
+          "metadata_ground_truth_basis": "exact rational verification: max|P(S) - 1/C(n,k)| == 0 at every prefix over 10 (n,k) cells",
+          "metadata_maxdev_raw": 0.00036800000000000027,
+          "metadata_maxdev_pct_points": 0.03680000000000003,
+          "metadata_expected_freq_k_over_n": 0.01,
+          "metadata_null_band_mean": 0.00034835937499999993,
+          "metadata_null_band_sd": 3.5826463211847106e-05,
+          "metadata_null_band_p99": 0.00044496000000000005,
+          "metadata_maxdev_in_null_band_units_z": 0.548215571374223,
+          "metadata_null_band_exceedance_pct": 76.5625,
+          "metadata_coinc_expected_per_pair": 90.09009009009009,
+          "metadata_coinc_Zmax": 5.153210890785332,
+          "metadata_coinc_Zmax_null_p99": 5.543047640250341,
+          "metadata_coinc_chi2_over_df": 1.000137618541284,
+          "metadata_coinc_p": 0.47234733216066316,
+          "metadata_coinc_chi2_z_vs_simulated_null": -1.3861922966736906,
+          "metadata_coinc_fails_calibrated_z_ge_5": false,
+          "metadata_coinc_fails_nominal_p_lt_1em6": false,
+          "metadata_coinc_fails_loose_p99_rule": false,
+          "metadata_is_blind_spot": false,
+          "metadata_family": "baseline",
+          "metadata_wall_s": 4.61
+        },
+        {
+          "input": "Sampler S1 (SUMMODK+REPAIR): MAIN hypothesis: eviction rank = (sum of reservoir - 1) mod k, randomised only on the fraction s/m of acceptances where s = (i-k) mod k != 0. Draw k=10 of a stream of n=10...",
+          "output": "NOT-UNIFORM",
+          "predict_baseline_first_order": "NOT-UNIFORM",
+          "predict_ours_coinclusion": "NOT-UNIFORM",
+          "predict_combined": "NOT-UNIFORM",
+          "metadata_ground_truth_basis": "exact rational verification: first failing prefix i=11 at k=5, relative max deviation 1.0442, support 4368/4368",
+          "metadata_maxdev_raw": 0.002013000000000001,
+          "metadata_maxdev_pct_points": 0.2013000000000001,
+          "metadata_expected_freq_k_over_n": 0.01,
+          "metadata_null_band_mean": 0.00034835937499999993,
+          "metadata_null_band_sd": 3.5826463211847106e-05,
+          "metadata_null_band_p99": 0.00044496000000000005,
+          "metadata_maxdev_in_null_band_units_z": 46.463995487267,
+          "metadata_null_band_exceedance_pct": 100.0,
+          "metadata_coinc_expected_per_pair": 90.09009009009009,
+          "metadata_coinc_Zmax": 5.5936400404122235,
+          "metadata_coinc_Zmax_null_p99": 5.543047640250341,
+          "metadata_coinc_chi2_over_df": 1.0532239864899635,
+          "metadata_coinc_p": 1.2177817096911657e-150,
+          "metadata_coinc_chi2_z_vs_simulated_null": 38.47040628627704,
+          "metadata_coinc_fails_calibrated_z_ge_5": true,
+          "metadata_coinc_fails_nominal_p_lt_1em6": true,
+          "metadata_coinc_fails_loose_p99_rule": true,
+          "metadata_is_blind_spot": false,
+          "metadata_family": "main",
+          "metadata_wall_s": 9.83
+        },
+        {
+          "input": "Sampler S1h (SUMMODK-HYBRID): Deterministic sum-mod-k on the steps where k | (i-k), uniform on the rest. Isolates which half of S1 is correct. Draw k=10 of a stream of n=1000 indices, T=1000000 indepe...",
+          "output": "UNIFORM",
+          "predict_baseline_first_order": "UNIFORM",
+          "predict_ours_coinclusion": "UNIFORM",
+          "predict_combined": "UNIFORM",
+          "metadata_ground_truth_basis": "exact rational verification: max|P(S) - 1/C(n,k)| == 0 at every prefix over 10 (n,k) cells",
+          "metadata_maxdev_raw": 0.0003759999999999996,
+          "metadata_maxdev_pct_points": 0.03759999999999996,
+          "metadata_expected_freq_k_over_n": 0.01,
+          "metadata_null_band_mean": 0.00034835937499999993,
+          "metadata_null_band_sd": 3.5826463211847106e-05,
+          "metadata_null_band_p99": 0.00044496000000000005,
+          "metadata_maxdev_in_null_band_units_z": 0.7715141971049897,
+          "metadata_null_band_exceedance_pct": 79.6875,
+          "metadata_coinc_expected_per_pair": 90.09009009009009,
+          "metadata_coinc_Zmax": 4.837127039867757,
+          "metadata_coinc_Zmax_null_p99": 5.543047640250341,
+          "metadata_coinc_chi2_over_df": 1.005877124703201,
+          "metadata_coinc_p": 0.0016997635797007373,
+          "metadata_coinc_chi2_z_vs_simulated_null": 2.9229590353791073,
+          "metadata_coinc_fails_calibrated_z_ge_5": false,
+          "metadata_coinc_fails_nominal_p_lt_1em6": false,
+          "metadata_coinc_fails_loose_p99_rule": true,
+          "metadata_is_blind_spot": false,
+          "metadata_family": "main",
+          "metadata_wall_s": 9.53
+        }
+      ]
+    },
+    {
+      "dataset": "uniformity_verdicts_replicated_8_seeds",
+      "examples": [
+        {
+          "input": "Sampler S0 (CLASSICAL-R): Textbook Algorithm R (Vitter 1985). The BASELINE: provably uniform. Draw k=10 of a stream of n=1000 indices, T=1000000 independent trials, generator PCG64. Is the induced dis...",
+          "output": "UNIFORM",
+          "predict_baseline_first_order": "UNIFORM",
+          "predict_ours_coinclusion": "UNIFORM",
+          "predict_combined": "UNIFORM",
+          "metadata_ground_truth_basis": "exact rational verification: max|P(S) - 1/C(n,k)| == 0 at every prefix over 10 (n,k) cells",
+          "metadata_maxdev_raw": 0.0003259999999999999,
+          "metadata_maxdev_pct_points": 0.03259999999999999,
+          "metadata_expected_freq_k_over_n": 0.01,
+          "metadata_null_band_mean": 0.000345,
+          "metadata_null_band_sd": 3.062470147488037e-05,
+          "metadata_null_band_p99": 0.0004141800000000003,
+          "metadata_maxdev_in_null_band_units_z": -0.6204142109135221,
+          "metadata_null_band_exceedance_pct": 37.5,
+          "metadata_coinc_expected_per_pair": 90.09009009009009,
+          "metadata_coinc_Zmax": 5.469294741702908,
+          "metadata_coinc_Zmax_null_p99": 5.735858789310063,
+          "metadata_coinc_chi2_over_df": 1.001998975275836,
+          "metadata_coinc_p": 0.1591417091093135,
+          "metadata_coinc_chi2_z_vs_simulated_null": -0.08640761211604886,
+          "metadata_coinc_fails_calibrated_z_ge_5": false,
+          "metadata_coinc_fails_nominal_p_lt_1em6": false,
+          "metadata_coinc_fails_loose_p99_rule": false,
+          "metadata_is_blind_spot": false,
+          "metadata_family": "baseline",
+          "metadata_wall_s": 4.61,
+          "metadata_replicate": 0
+        },
+        {
+          "input": "Sampler S0 (CLASSICAL-R): Textbook Algorithm R (Vitter 1985). The BASELINE: provably uniform. Draw k=10 of a stream of n=1000 indices, T=1000000 independent trials, generator PCG64. Is the induced dis...",
+          "output": "UNIFORM",
+          "predict_baseline_first_order": "UNIFORM",
+          "predict_ours_coinclusion": "UNIFORM",
+          "predict_combined": "UNIFORM",
+          "metadata_ground_truth_basis": "exact rational verification: max|P(S) - 1/C(n,k)| == 0 at every prefix over 10 (n,k) cells",
+          "metadata_maxdev_raw": 0.0003860000000000009,
+          "metadata_maxdev_pct_points": 0.03860000000000009,
+          "metadata_expected_freq_k_over_n": 0.01,
+          "metadata_null_band_mean": 0.000345,
+          "metadata_null_band_sd": 3.062470147488037e-05,
+          "metadata_null_band_p99": 0.0004141800000000003,
+          "metadata_maxdev_in_null_band_units_z": 1.3387885603923622,
+          "metadata_null_band_exceedance_pct": 87.5,
+          "metadata_coinc_expected_per_pair": 90.09009009009009,
+          "metadata_coinc_Zmax": 5.258572174424524,
+          "metadata_coinc_Zmax_null_p99": 5.735858789310063,
+          "metadata_coinc_chi2_over_df": 1.0040780759645247,
+          "metadata_coinc_p": 0.020981568052619925,
+          "metadata_coinc_chi2_z_vs_simulated_null": 0.9075431933072388,
+          "metadata_coinc_fails_calibrated_z_ge_5": false,
+          "metadata_coinc_fails_nominal_p_lt_1em6": false,
+          "metadata_coinc_fails_loose_p99_rule": false,
+          "metadata_is_blind_spot": false,
+          "metadata_family": "baseline",
+          "metadata_wall_s": 4.59,
+          "metadata_replicate": 1
+        },
+        {
+          "input": "Sampler S0 (CLASSICAL-R): Textbook Algorithm R (Vitter 1985). The BASELINE: provably uniform. Draw k=10 of a stream of n=1000 indices, T=1000000 independent trials, generator PCG64. Is the induced dis...",
+          "output": "UNIFORM",
+          "predict_baseline_first_order": "UNIFORM",
+          "predict_ours_coinclusion": "UNIFORM",
+          "predict_combined": "UNIFORM",
+          "metadata_ground_truth_basis": "exact rational verification: max|P(S) - 1/C(n,k)| == 0 at every prefix over 10 (n,k) cells",
+          "metadata_maxdev_raw": 0.0003049999999999997,
+          "metadata_maxdev_pct_points": 0.03049999999999997,
+          "metadata_expected_freq_k_over_n": 0.01,
+          "metadata_null_band_mean": 0.000345,
+          "metadata_null_band_sd": 3.062470147488037e-05,
+          "metadata_null_band_p99": 0.0004141800000000003,
+          "metadata_maxdev_in_null_band_units_z": -1.3061351808705761,
+          "metadata_null_band_exceedance_pct": 6.25,
+          "metadata_coinc_expected_per_pair": 90.09009009009009,
+          "metadata_coinc_Zmax": 4.731765756228565,
+          "metadata_coinc_Zmax_null_p99": 5.735858789310063,
+          "metadata_coinc_chi2_over_df": 1.0018421141168121,
+          "metadata_coinc_p": 0.17884417842084752,
+          "metadata_coinc_chi2_z_vs_simulated_null": -0.16139785967829234,
+          "metadata_coinc_fails_calibrated_z_ge_5": false,
+          "metadata_coinc_fails_nominal_p_lt_1em6": false,
+          "metadata_coinc_fails_loose_p99_rule": false,
+          "metadata_is_blind_spot": false,
+          "metadata_family": "baseline",
+          "metadata_wall_s": 4.57,
+          "metadata_replicate": 2
+        }
+      ]
+    },
+    {
+      "dataset": "bit_budget_measured_vs_closed_form",
+      "examples": [
+        {
+          "input": "Bit cost of sampler S0 (CLASSICAL-R) over a stream of n=100000 with reservoir k=10, randomness accounting regime naive64, generator PCG64, averaged over 3 seeds. How many fair coin flips does it spend...",
+          "output": "1039.761",
+          "predict_measured_net_bits": "6404970.667",
+          "predict_measured_raw_bits": "6404970.667",
+          "predict_closed_form_naive64": "6405223.154",
+          "metadata_regime": "naive64",
+          "metadata_n": 100000,
+          "metadata_k": 10,
+          "metadata_candidate": "S0",
+          "metadata_accept_H": 735.4328257895902,
+          "metadata_evict_H": 304.32774168196715,
+          "metadata_ratio_to_entropy_floor": 6160.0438283998255,
+          "metadata_net_by_tag": {
+            "accept": 6399360.0,
+            "evict": 5610.666666666667,
+            "repair": 0.0,
+            "representation": 0.0,
+            "other": 0.0
+          },
+          "metadata_raw_by_tag": {
+            "accept": 6399360.0,
+            "evict": 5610.666666666667,
+            "repair": 0.0,
+            "representation": 0.0,
+            "other": 0.0
+          },
+          "metadata_bits_per_item_net": 64.04970666666667,
+          "metadata_net_sd": 532.90649586333
+        },
+        {
+          "input": "Bit cost of sampler S1 (SUMMODK+REPAIR) over a stream of n=100000 with reservoir k=10, randomness accounting regime naive64, generator PCG64, averaged over 3 seeds. How many fair coin flips does it sp...",
+          "output": "1039.761",
+          "predict_measured_net_bits": "6404906.667",
+          "predict_measured_raw_bits": "6404906.667",
+          "predict_closed_form_naive64": "6405223.154",
+          "metadata_regime": "naive64",
+          "metadata_n": 100000,
+          "metadata_k": 10,
+          "metadata_candidate": "S1",
+          "metadata_accept_H": 735.4328257895902,
+          "metadata_evict_H": 304.32774168196715,
+          "metadata_ratio_to_entropy_floor": 6159.982275767419,
+          "metadata_net_by_tag": {
+            "accept": 6399360.0,
+            "evict": 0.0,
+            "repair": 5546.666666666667,
+            "representation": 0.0,
+            "other": 0.0
+          },
+          "metadata_raw_by_tag": {
+            "accept": 6399360.0,
+            "evict": 0.0,
+            "repair": 5546.666666666667,
+            "representation": 0.0,
+            "other": 0.0
+          },
+          "metadata_bits_per_item_net": 64.04906666666668,
+          "metadata_net_sd": 462.987400836495
+        },
+        {
+          "input": "Bit cost of sampler S1h (SUMMODK-HYBRID) over a stream of n=100000 with reservoir k=10, randomness accounting regime naive64, generator PCG64, averaged over 3 seeds. How many fair coin flips does it s...",
+          "output": "1039.761",
+          "predict_measured_net_bits": "6404394.667",
+          "predict_measured_raw_bits": "6404394.667",
+          "predict_closed_form_naive64": "6405223.154",
+          "metadata_regime": "naive64",
+          "metadata_n": 100000,
+          "metadata_k": 10,
+          "metadata_candidate": "S1h",
+          "metadata_accept_H": 735.4328257895902,
+          "metadata_evict_H": 304.32774168196715,
+          "metadata_ratio_to_entropy_floor": 6159.48985470817,
+          "metadata_net_by_tag": {
+            "accept": 6399360.0,
+            "evict": 5034.666666666667,
+            "repair": 0.0,
+            "representation": 0.0,
+            "other": 0.0
+          },
+          "metadata_raw_by_tag": {
+            "accept": 6399360.0,
+            "evict": 5034.666666666667,
+            "repair": 0.0,
+            "representation": 0.0,
+            "other": 0.0
+          },
+          "metadata_bits_per_item_net": 64.04394666666667,
+          "metadata_net_sd": 385.7736814938693
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+[project]
+name = "reservoir-bits"
+version = "1.0.0"
+description = "Counting the coin flips a stream sampler spends: a reservoir-sampling bench that measures randomness cost under three accounting regimes and tests k-subset uniformity against a simulated extreme-value null band plus exact pairwise co-inclusion."
+requires-python = ">=3.12"
+dependencies = [
+    "numpy==2.5.3",
+    "scipy==1.18.1",
+    "mpmath==1.4.1",
+    "loguru==0.7.3",
+    "psutil==7.2.2",
+    "pytest==9.1.1",
+    "iniconfig==2.3.0",
+    "packaging==26.3",
+    "pluggy==1.6.0",
+    "Pygments==2.21.0",
+    "pyflakes==3.4.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

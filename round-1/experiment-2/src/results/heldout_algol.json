@@ -1,0 +1,994 @@
+{
+  "panel": "HELD-OUT",
+  "screen_freeze_sha256": "45f68ce11719992d90030caae9bd87667aaccec5d8f8e14e4694b9e4c3e24a33",
+  "timestamp_utc": "2026-09-18T11:39:50Z",
+  "algol": {
+    "cells": [
+      {
+        "k": 1024,
+        "position": 0,
+        "n_draws": 20000,
+        "n_exact_pairs": 20000,
+        "disagree_rate_f64": 0.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_skip_err_mean_f64": 0.0,
+        "rel_skip_err_max_f64": 0.0,
+        "rel_skip_err_mean_fixed": 0.0,
+        "rel_skip_err_max_fixed": 0.0,
+        "rel_skip_err_mean_logdomain": 0.0,
+        "rel_skip_err_max_logdomain": 0.0,
+        "rel_rate_err_mean_f64": 2.6857792966178127e-14,
+        "rel_rate_err_max_f64": 3.3550182083016407e-11,
+        "rel_rate_err_mean_fixed": 3.400516682586816e-18,
+        "rel_rate_err_max_fixed": 2.2164717123653094e-16,
+        "rel_rate_err_mean_logdomain": 6.99319817698797e-18,
+        "rel_rate_err_max_logdomain": 2.2145623112993687e-16,
+        "inclusion_bias": 0.0,
+        "inclusion_bias_fixed": 0.0,
+        "inclusion_bias_logdomain": 0.0,
+        "trials_needed_to_detect": "inf",
+        "fix_improvement_factor": 0.0,
+        "fix_improvement_factor_logdomain": 0.0,
+        "mean_skip_exact_shipped": 0.00095,
+        "mean_skip_exact_fixed": 16381.61405,
+        "mean_skip_exact_logdomain": 0.001
+      },
+      {
+        "k": 1024,
+        "position": 50,
+        "n_draws": 20000,
+        "n_exact_pairs": 1633,
+        "disagree_rate_f64": 0.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_skip_err_mean_f64": 0.0,
+        "rel_skip_err_max_f64": 0.0,
+        "rel_skip_err_mean_fixed": 0.0,
+        "rel_skip_err_max_fixed": 0.0,
+        "rel_skip_err_mean_logdomain": 0.0,
+        "rel_skip_err_max_logdomain": 0.0,
+        "rel_rate_err_mean_f64": 1.971382819489536e-15,
+        "rel_rate_err_max_f64": 1.0000822238971599e-14,
+        "rel_rate_err_mean_fixed": 2.2584919463927487e-16,
+        "rel_rate_err_max_fixed": 1.0456448911288817e-15,
+        "rel_rate_err_mean_logdomain": 5.0561763169035836e-17,
+        "rel_rate_err_max_logdomain": 2.9674781744496294e-16,
+        "inclusion_bias": 0.0,
+        "inclusion_bias_fixed": 0.0,
+        "inclusion_bias_logdomain": 0.0,
+        "trials_needed_to_detect": "inf",
+        "fix_improvement_factor": 0.0,
+        "fix_improvement_factor_logdomain": 0.0,
+        "mean_skip_exact_shipped": 0.05388854868340478,
+        "mean_skip_exact_fixed": 20.06307409675444,
+        "mean_skip_exact_logdomain": 0.06062461726883037
+      },
+      {
+        "k": 4096,
+        "position": 0,
+        "n_draws": 20000,
+        "n_exact_pairs": 20000,
+        "disagree_rate_f64": 0.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_skip_err_mean_f64": 0.0,
+        "rel_skip_err_max_f64": 0.0,
+        "rel_skip_err_mean_fixed": 0.0,
+        "rel_skip_err_max_fixed": 0.0,
+        "rel_skip_err_mean_logdomain": 0.0,
+        "rel_skip_err_max_logdomain": 0.0,
+        "rel_rate_err_mean_f64": 1.0423762109585056e-13,
+        "rel_rate_err_max_f64": 3.105561419632736e-10,
+        "rel_rate_err_mean_fixed": 1.2606321356334463e-18,
+        "rel_rate_err_max_fixed": 2.2164717123653094e-16,
+        "rel_rate_err_mean_logdomain": 5.866353495783749e-18,
+        "rel_rate_err_max_logdomain": 2.219429820562947e-16,
+        "inclusion_bias": 0.0,
+        "inclusion_bias_fixed": 0.0,
+        "inclusion_bias_logdomain": 0.0,
+        "trials_needed_to_detect": "inf",
+        "fix_improvement_factor": 0.0,
+        "fix_improvement_factor_logdomain": 0.0,
+        "mean_skip_exact_shipped": 0.0002,
+        "mean_skip_exact_fixed": 65527.95145,
+        "mean_skip_exact_logdomain": 0.0002
+      },
+      {
+        "k": 4096,
+        "position": 50,
+        "n_draws": 20000,
+        "n_exact_pairs": 1633,
+        "disagree_rate_f64": 0.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_skip_err_mean_f64": 0.0,
+        "rel_skip_err_max_f64": 0.0,
+        "rel_skip_err_mean_fixed": 0.0,
+        "rel_skip_err_max_fixed": 0.0,
+        "rel_skip_err_mean_logdomain": 0.0,
+        "rel_skip_err_max_logdomain": 0.0,
+        "rel_rate_err_mean_f64": 8.287695693019252e-15,
+        "rel_rate_err_max_f64": 2.974719263591158e-14,
+        "rel_rate_err_mean_fixed": 2.1465608698803488e-16,
+        "rel_rate_err_max_fixed": 1.0661954214874553e-15,
+        "rel_rate_err_mean_logdomain": 3.371450105084901e-17,
+        "rel_rate_err_max_logdomain": 2.215012142616144e-16,
+        "inclusion_bias": 0.0,
+        "inclusion_bias_fixed": 0.0,
+        "inclusion_bias_logdomain": 0.0,
+        "trials_needed_to_detect": "inf",
+        "fix_improvement_factor": 0.0,
+        "fix_improvement_factor_logdomain": 0.0,
+        "mean_skip_exact_shipped": 0.011022657685241886,
+        "mean_skip_exact_fixed": 81.72137170851194,
+        "mean_skip_exact_logdomain": 0.01653398652786283
+      },
+      {
+        "k": 16384,
+        "position": 0,
+        "n_draws": 20000,
+        "n_exact_pairs": 20000,
+        "disagree_rate_f64": 0.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_skip_err_mean_f64": 0.0,
+        "rel_skip_err_max_f64": 0.0,
+        "rel_skip_err_mean_fixed": 0.0,
+        "rel_skip_err_max_fixed": 0.0,
+        "rel_skip_err_mean_logdomain": 0.0,
+        "rel_skip_err_max_logdomain": 0.0,
+        "rel_rate_err_mean_f64": 3.467384726756751e-13,
+        "rel_rate_err_max_f64": 4.329235842006828e-10,
+        "rel_rate_err_mean_fixed": 7.228370221534055e-19,
+        "rel_rate_err_max_fixed": 2.2164717123653094e-16,
+        "rel_rate_err_mean_logdomain": 5.094370316142965e-18,
+        "rel_rate_err_max_logdomain": 2.1946614600323728e-16,
+        "inclusion_bias": 0.0,
+        "inclusion_bias_fixed": 0.0,
+        "inclusion_bias_logdomain": 0.0,
+        "trials_needed_to_detect": "inf",
+        "fix_improvement_factor": 0.0,
+        "fix_improvement_factor_logdomain": 0.0,
+        "mean_skip_exact_shipped": 5e-05,
+        "mean_skip_exact_fixed": 262113.2997,
+        "mean_skip_exact_logdomain": 0.0
+      },
+      {
+        "k": 16384,
+        "position": 50,
+        "n_draws": 20000,
+        "n_exact_pairs": 1633,
+        "disagree_rate_f64": 0.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_skip_err_mean_f64": 0.0,
+        "rel_skip_err_max_f64": 0.0,
+        "rel_skip_err_mean_fixed": 0.0,
+        "rel_skip_err_max_fixed": 0.0,
+        "rel_skip_err_mean_logdomain": 0.0,
+        "rel_skip_err_max_logdomain": 0.0,
+        "rel_rate_err_mean_f64": 2.9633201435049854e-14,
+        "rel_rate_err_max_f64": 1.0582963603442877e-13,
+        "rel_rate_err_mean_fixed": 2.258603782838077e-16,
+        "rel_rate_err_max_fixed": 1.2470244546373923e-15,
+        "rel_rate_err_mean_logdomain": 2.6773131502865498e-17,
+        "rel_rate_err_max_logdomain": 1.6376492178630896e-16,
+        "inclusion_bias": 0.0,
+        "inclusion_bias_fixed": 0.0,
+        "inclusion_bias_logdomain": 0.0,
+        "trials_needed_to_detect": "inf",
+        "fix_improvement_factor": 0.0,
+        "fix_improvement_factor_logdomain": 0.0,
+        "mean_skip_exact_shipped": 0.001837109614206981,
+        "mean_skip_exact_fixed": 328.3612982241274,
+        "mean_skip_exact_logdomain": 0.004286589099816289
+      }
+    ],
+    "realistic_cells": [
+      {
+        "k": 1024,
+        "n": 1000.0,
+        "regime": "realistic_W_eq_k_over_n",
+        "status": "SKIPPED_n_le_2k",
+        "reason": "W = k/n would be >= 0.5; not a stream-position regime"
+      },
+      {
+        "k": 1024,
+        "n": 1000000.0,
+        "W_target": 0.001024,
+        "n_draws": 2000,
+        "disagree_rate_shipped": 0.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_rate_err_shipped": 2.4339726779559884e-14,
+        "rel_rate_err_fixed": 3.612558941952564e-15,
+        "rel_rate_err_logdomain": 4.2329959616625883e-16,
+        "predicted_rel_rate_err_law": 1.0842021724855044e-13,
+        "ratio_measured_over_predicted_shipped": 0.22449435536327797,
+        "inclusion_bias_shipped": 0.0,
+        "trials_needed_to_detect": "inf"
+      },
+      {
+        "k": 1024,
+        "n": 1000000000.0,
+        "W_target": 1.024e-06,
+        "n_draws": 2000,
+        "disagree_rate_shipped": 0.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_rate_err_shipped": 1.5745374898309433e-11,
+        "rel_rate_err_fixed": 1.141666340771625e-12,
+        "rel_rate_err_logdomain": 0.0,
+        "predicted_rel_rate_err_law": 1.0842021724855044e-10,
+        "ratio_measured_over_predicted_shipped": 0.14522545054686234,
+        "inclusion_bias_shipped": 0.0,
+        "trials_needed_to_detect": "inf"
+      },
+      {
+        "k": 1024,
+        "n": 1000000000000.0,
+        "W_target": 1.024e-09,
+        "n_draws": 2000,
+        "disagree_rate_shipped": 0.885,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_rate_err_shipped": 3.995802777590778e-09,
+        "rel_rate_err_fixed": 1.9303806877569227e-10,
+        "rel_rate_err_logdomain": 1.6155871330654516e-15,
+        "predicted_rel_rate_err_law": 1.0842021724855044e-07,
+        "ratio_measured_over_predicted_shipped": 0.036854775603617426,
+        "inclusion_bias_shipped": 4.0837788433075415e-18,
+        "trials_needed_to_detect": 0.0
+      },
+      {
+        "k": 1024,
+        "n": 1000000000000000.0,
+        "W_target": 1.024e-12,
+        "n_draws": 2000,
+        "disagree_rate_shipped": 1.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_rate_err_shipped": 4.0336316619317564e-05,
+        "rel_rate_err_fixed": 1.4611035285088205e-06,
+        "rel_rate_err_logdomain": 1.5777218104412158e-15,
+        "predicted_rel_rate_err_law": 0.00010842021724855044,
+        "ratio_measured_over_predicted_shipped": 0.3720368547763342,
+        "inclusion_bias_shipped": 4.0363126451462905e-17,
+        "trials_needed_to_detect": 0.0
+      },
+      {
+        "k": 4096,
+        "n": 1000.0,
+        "regime": "realistic_W_eq_k_over_n",
+        "status": "SKIPPED_n_le_2k",
+        "reason": "W = k/n would be >= 0.5; not a stream-position regime"
+      },
+      {
+        "k": 4096,
+        "n": 1000000.0,
+        "W_target": 0.004096,
+        "n_draws": 2000,
+        "disagree_rate_shipped": 0.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_rate_err_shipped": 2.958539629880805e-15,
+        "rel_rate_err_fixed": 4.846597203288689e-16,
+        "rel_rate_err_logdomain": 4.226485185544007e-16,
+        "predicted_rel_rate_err_law": 2.710505431213761e-14,
+        "ratio_measured_over_predicted_shipped": 0.10915084676867717,
+        "inclusion_bias_shipped": 0.0,
+        "trials_needed_to_detect": "inf"
+      },
+      {
+        "k": 4096,
+        "n": 1000000000.0,
+        "W_target": 4.096e-06,
+        "n_draws": 2000,
+        "disagree_rate_shipped": 0.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_rate_err_shipped": 1.135985488229754e-11,
+        "rel_rate_err_fixed": 9.15706927567608e-13,
+        "rel_rate_err_logdomain": 2.0679472962149417e-16,
+        "predicted_rel_rate_err_law": 2.710505431213761e-11,
+        "ratio_measured_over_predicted_shipped": 0.4191046714564453,
+        "inclusion_bias_shipped": 0.0,
+        "trials_needed_to_detect": "inf"
+      },
+      {
+        "k": 4096,
+        "n": 1000000000000.0,
+        "W_target": 4.096e-09,
+        "n_draws": 2000,
+        "disagree_rate_shipped": 0.634,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_rate_err_shipped": 3.995802771453224e-09,
+        "rel_rate_err_fixed": 2.068942306152673e-10,
+        "rel_rate_err_logdomain": 1.6155871305839097e-15,
+        "predicted_rel_rate_err_law": 2.710505431213761e-08,
+        "ratio_measured_over_predicted_shipped": 0.14741910218803395,
+        "inclusion_bias_shipped": 1.6466029056427012e-17,
+        "trials_needed_to_detect": 0.0
+      },
+      {
+        "k": 4096,
+        "n": 1000000000000000.0,
+        "W_target": 4.096e-12,
+        "n_draws": 2000,
+        "disagree_rate_shipped": 1.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_rate_err_shipped": 1.3231262307173513e-05,
+        "rel_rate_err_fixed": 5.046086983157157e-07,
+        "rel_rate_err_logdomain": 1.1832913578290943e-15,
+        "predicted_rel_rate_err_law": 2.710505431213761e-05,
+        "ratio_measured_over_predicted_shipped": 0.4881474191050991,
+        "inclusion_bias_shipped": 5.2958790767484634e-17,
+        "trials_needed_to_detect": 0.0
+      },
+      {
+        "k": 16384,
+        "n": 1000.0,
+        "regime": "realistic_W_eq_k_over_n",
+        "status": "SKIPPED_n_le_2k",
+        "reason": "W = k/n would be >= 0.5; not a stream-position regime"
+      },
+      {
+        "k": 16384,
+        "n": 1000000.0,
+        "W_target": 0.016384,
+        "n_draws": 2000,
+        "disagree_rate_shipped": 0.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_rate_err_shipped": 2.7302435832556306e-15,
+        "rel_rate_err_fixed": 6.480767708660053e-16,
+        "rel_rate_err_logdomain": 0.0,
+        "predicted_rel_rate_err_law": 6.776263578034403e-15,
+        "ratio_measured_over_predicted_shipped": 0.4029128371136347,
+        "inclusion_bias_shipped": 0.0,
+        "trials_needed_to_detect": "inf"
+      },
+      {
+        "k": 16384,
+        "n": 1000000000.0,
+        "W_target": 1.6384e-05,
+        "n_draws": 2000,
+        "disagree_rate_shipped": 0.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_rate_err_shipped": 2.1926310464952094e-12,
+        "rel_rate_err_fixed": 1.9892762484498225e-13,
+        "rel_rate_err_logdomain": 0.0,
+        "predicted_rel_rate_err_law": 6.776263578034403e-12,
+        "ratio_measured_over_predicted_shipped": 0.3235752301021366,
+        "inclusion_bias_shipped": 0.0,
+        "trials_needed_to_detect": "inf"
+      },
+      {
+        "k": 16384,
+        "n": 1000000000000.0,
+        "W_target": 1.6384e-08,
+        "n_draws": 2000,
+        "disagree_rate_shipped": 0.1795,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_rate_err_shipped": 2.780460775620239e-09,
+        "rel_rate_err_fixed": 1.5509956891413355e-10,
+        "rel_rate_err_logdomain": 1.4136387305755244e-15,
+        "predicted_rel_rate_err_law": 6.776263578034403e-09,
+        "ratio_measured_over_predicted_shipped": 0.41032358667883606,
+        "inclusion_bias_shipped": -4.800998799887831e-17,
+        "trials_needed_to_detect": 0.0
+      },
+      {
+        "k": 16384,
+        "n": 1000000000000000.0,
+        "W_target": 1.6384e-11,
+        "n_draws": 2000,
+        "disagree_rate_shipped": 1.0,
+        "disagree_rate_fixed": 0.0,
+        "disagree_rate_logdomain": 0.0,
+        "rel_rate_err_shipped": 3.2126484886556414e-07,
+        "rel_rate_err_fixed": 1.293611738389029e-08,
+        "rel_rate_err_logdomain": 1.1832913578218242e-15,
+        "predicted_rel_rate_err_law": 6.776263578034403e-06,
+        "ratio_measured_over_predicted_shipped": 0.04741032357521632,
+        "inclusion_bias_shipped": -5.143444258075191e-18,
+        "trials_needed_to_detect": 0.0
+      }
+    ],
+    "error_law_thresholds": [
+      {
+        "k": 1024,
+        "fit_scale_c_measured_over_predicted": 0.3720368547763342,
+        "n_theoretical_rel_err_1e-3_c1": 9223372036854776.0,
+        "n_theoretical_rel_err_1_0_c1": 9.223372036854776e+18,
+        "n_measured_law_rel_err_1e-3": 2.479155470336346e+16,
+        "n_measured_law_rel_err_1_0": 2.4791554703363457e+19
+      },
+      {
+        "k": 4096,
+        "fit_scale_c_measured_over_predicted": 0.4881474191050991,
+        "n_theoretical_rel_err_1e-3_c1": 3.68934881474191e+16,
+        "n_theoretical_rel_err_1_0_c1": 3.6893488147419103e+19,
+        "n_measured_law_rel_err_1e-3": 7.557857873151197e+16,
+        "n_measured_law_rel_err_1_0": 7.557857873151197e+19
+      },
+      {
+        "k": 16384,
+        "fit_scale_c_measured_over_predicted": 0.04741032357521632,
+        "n_theoretical_rel_err_1e-3_c1": 1.475739525896764e+17,
+        "n_theoretical_rel_err_1_0_c1": 1.4757395258967641e+20,
+        "n_measured_law_rel_err_1e-3": 3.112696591398513e+18,
+        "n_measured_law_rel_err_1_0": 3.112696591398513e+21
+      }
+    ],
+    "edge_cases": [
+      {
+        "case": "u2_equals_zero_exact",
+        "variant": "shipped",
+        "input": {
+          "W": 0.9990234375,
+          "u2": 0.0
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "u2_equals_zero_exact",
+        "variant": "fixed",
+        "input": {
+          "V": 0.0009765625,
+          "u2": 0.0
+        },
+        "result": "0.0",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "u2_equals_zero_exact",
+        "variant": "logdomain",
+        "input": {
+          "logW": -0.0009770396478266127,
+          "u2": 0.0
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "W_underflow_to_zero",
+        "variant": "shipped",
+        "input": {
+          "W": 0.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ZeroDivisionError: float division by zero",
+        "severity": "crash"
+      },
+      {
+        "case": "W_underflow_to_zero_equivalent_V_eq_1",
+        "variant": "fixed",
+        "input": {
+          "V": 1.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "W_underflow_to_zero_equivalent_logW_eq_neginf",
+        "variant": "logdomain",
+        "input": {
+          "logW": "-inf",
+          "u2": 0.5,
+          "note": "logW=-inf only arises from an upstream U==0, not from ordinary state-advance"
+        },
+        "result": null,
+        "exception": "ZeroDivisionError: float division by zero",
+        "severity": "crash"
+      },
+      {
+        "case": "W_equals_one_exact",
+        "variant": "shipped",
+        "input": {
+          "W": 1.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "W_equals_one_exact_equivalent_V_eq_0",
+        "variant": "fixed",
+        "input": {
+          "V": 0.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ZeroDivisionError: float division by zero",
+        "severity": "crash"
+      },
+      {
+        "case": "W_equals_one_exact_equivalent_logW_eq_0",
+        "variant": "logdomain",
+        "input": {
+          "logW": 0.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "u2_largest_double_below_one",
+        "variant": "shipped",
+        "input": {
+          "W": 0.9990234375,
+          "u2": 0.9999999999999999
+        },
+        "result": "0.0",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "u2_largest_double_below_one",
+        "variant": "fixed",
+        "input": {
+          "V": 0.0009765625,
+          "u2": 0.9999999999999999
+        },
+        "result": "37600.0",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "u2_largest_double_below_one",
+        "variant": "logdomain",
+        "input": {
+          "logW": -0.0009770396478266127,
+          "u2": 0.9999999999999999
+        },
+        "result": "0.0",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "denormal_V_in_fixed",
+        "variant": "fixed",
+        "input": {
+          "V": 5e-324,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "OverflowError: cannot convert float infinity to integer",
+        "severity": "crash"
+      },
+      {
+        "case": "denormal_scale_W_in_logdomain",
+        "variant": "logdomain",
+        "input": {
+          "logW": -744.4400719213812,
+          "u2": 0.5,
+          "note": "logW = log(5e-324), i.e. W pinned at the smallest positive double"
+        },
+        "result": null,
+        "exception": "OverflowError: cannot convert float infinity to integer",
+        "severity": "crash"
+      },
+      {
+        "case": "denormal_V_unrepresentable_in_shipped_W",
+        "variant": "shipped",
+        "input": {
+          "W_computed_as_1_minus_denormal": 1.0,
+          "u2": 0.5,
+          "note": "1.0 - 5e-324 rounds to exactly 1.0 in float64; the state is destroyed before this call even runs"
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "logdomain_survives_far_beyond_shipped_threshold",
+        "variant": "logdomain",
+        "input": {
+          "logW": -60.0,
+          "u2": 0.5,
+          "note": "W=exp(-60)~8.8e-27, i.e. n/k~1.14e26, ~1.3e10x past shipped's n/k=2**53 breaking point"
+        },
+        "result": "7.915792024293639e+25",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "u2_equals_zero_exact",
+        "variant": "shipped",
+        "input": {
+          "W": 0.999755859375,
+          "u2": 0.0
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "u2_equals_zero_exact",
+        "variant": "fixed",
+        "input": {
+          "V": 0.000244140625,
+          "u2": 0.0
+        },
+        "result": "0.0",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "u2_equals_zero_exact",
+        "variant": "logdomain",
+        "input": {
+          "logW": -0.0002441704321739145,
+          "u2": 0.0
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "W_underflow_to_zero",
+        "variant": "shipped",
+        "input": {
+          "W": 0.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ZeroDivisionError: float division by zero",
+        "severity": "crash"
+      },
+      {
+        "case": "W_underflow_to_zero_equivalent_V_eq_1",
+        "variant": "fixed",
+        "input": {
+          "V": 1.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "W_underflow_to_zero_equivalent_logW_eq_neginf",
+        "variant": "logdomain",
+        "input": {
+          "logW": "-inf",
+          "u2": 0.5,
+          "note": "logW=-inf only arises from an upstream U==0, not from ordinary state-advance"
+        },
+        "result": null,
+        "exception": "ZeroDivisionError: float division by zero",
+        "severity": "crash"
+      },
+      {
+        "case": "W_equals_one_exact",
+        "variant": "shipped",
+        "input": {
+          "W": 1.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "W_equals_one_exact_equivalent_V_eq_0",
+        "variant": "fixed",
+        "input": {
+          "V": 0.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ZeroDivisionError: float division by zero",
+        "severity": "crash"
+      },
+      {
+        "case": "W_equals_one_exact_equivalent_logW_eq_0",
+        "variant": "logdomain",
+        "input": {
+          "logW": 0.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "u2_largest_double_below_one",
+        "variant": "shipped",
+        "input": {
+          "W": 0.999755859375,
+          "u2": 0.9999999999999999
+        },
+        "result": "0.0",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "u2_largest_double_below_one",
+        "variant": "fixed",
+        "input": {
+          "V": 0.000244140625,
+          "u2": 0.9999999999999999
+        },
+        "result": "150455.0",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "u2_largest_double_below_one",
+        "variant": "logdomain",
+        "input": {
+          "logW": -0.0002441704321739145,
+          "u2": 0.9999999999999999
+        },
+        "result": "0.0",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "denormal_V_in_fixed",
+        "variant": "fixed",
+        "input": {
+          "V": 5e-324,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "OverflowError: cannot convert float infinity to integer",
+        "severity": "crash"
+      },
+      {
+        "case": "denormal_scale_W_in_logdomain",
+        "variant": "logdomain",
+        "input": {
+          "logW": -744.4400719213812,
+          "u2": 0.5,
+          "note": "logW = log(5e-324), i.e. W pinned at the smallest positive double"
+        },
+        "result": null,
+        "exception": "OverflowError: cannot convert float infinity to integer",
+        "severity": "crash"
+      },
+      {
+        "case": "denormal_V_unrepresentable_in_shipped_W",
+        "variant": "shipped",
+        "input": {
+          "W_computed_as_1_minus_denormal": 1.0,
+          "u2": 0.5,
+          "note": "1.0 - 5e-324 rounds to exactly 1.0 in float64; the state is destroyed before this call even runs"
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "logdomain_survives_far_beyond_shipped_threshold",
+        "variant": "logdomain",
+        "input": {
+          "logW": -60.0,
+          "u2": 0.5,
+          "note": "W=exp(-60)~8.8e-27, i.e. n/k~1.14e26, ~1.3e10x past shipped's n/k=2**53 breaking point"
+        },
+        "result": "7.915792024293639e+25",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "u2_equals_zero_exact",
+        "variant": "shipped",
+        "input": {
+          "W": 0.99993896484375,
+          "u2": 0.0
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "u2_equals_zero_exact",
+        "variant": "fixed",
+        "input": {
+          "V": 6.103515625e-05,
+          "u2": 0.0
+        },
+        "result": "0.0",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "u2_equals_zero_exact",
+        "variant": "logdomain",
+        "input": {
+          "logW": -6.103701897094392e-05,
+          "u2": 0.0
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "W_underflow_to_zero",
+        "variant": "shipped",
+        "input": {
+          "W": 0.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ZeroDivisionError: float division by zero",
+        "severity": "crash"
+      },
+      {
+        "case": "W_underflow_to_zero_equivalent_V_eq_1",
+        "variant": "fixed",
+        "input": {
+          "V": 1.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "W_underflow_to_zero_equivalent_logW_eq_neginf",
+        "variant": "logdomain",
+        "input": {
+          "logW": "-inf",
+          "u2": 0.5,
+          "note": "logW=-inf only arises from an upstream U==0, not from ordinary state-advance"
+        },
+        "result": null,
+        "exception": "ZeroDivisionError: float division by zero",
+        "severity": "crash"
+      },
+      {
+        "case": "W_equals_one_exact",
+        "variant": "shipped",
+        "input": {
+          "W": 1.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "W_equals_one_exact_equivalent_V_eq_0",
+        "variant": "fixed",
+        "input": {
+          "V": 0.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ZeroDivisionError: float division by zero",
+        "severity": "crash"
+      },
+      {
+        "case": "W_equals_one_exact_equivalent_logW_eq_0",
+        "variant": "logdomain",
+        "input": {
+          "logW": 0.0,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "u2_largest_double_below_one",
+        "variant": "shipped",
+        "input": {
+          "W": 0.99993896484375,
+          "u2": 0.9999999999999999
+        },
+        "result": "0.0",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "u2_largest_double_below_one",
+        "variant": "fixed",
+        "input": {
+          "V": 6.103515625e-05,
+          "u2": 0.9999999999999999
+        },
+        "result": "601877.0",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "u2_largest_double_below_one",
+        "variant": "logdomain",
+        "input": {
+          "logW": -6.103701897094392e-05,
+          "u2": 0.9999999999999999
+        },
+        "result": "0.0",
+        "exception": null,
+        "severity": "ok"
+      },
+      {
+        "case": "denormal_V_in_fixed",
+        "variant": "fixed",
+        "input": {
+          "V": 5e-324,
+          "u2": 0.5
+        },
+        "result": null,
+        "exception": "OverflowError: cannot convert float infinity to integer",
+        "severity": "crash"
+      },
+      {
+        "case": "denormal_scale_W_in_logdomain",
+        "variant": "logdomain",
+        "input": {
+          "logW": -744.4400719213812,
+          "u2": 0.5,
+          "note": "logW = log(5e-324), i.e. W pinned at the smallest positive double"
+        },
+        "result": null,
+        "exception": "OverflowError: cannot convert float infinity to integer",
+        "severity": "crash"
+      },
+      {
+        "case": "denormal_V_unrepresentable_in_shipped_W",
+        "variant": "shipped",
+        "input": {
+          "W_computed_as_1_minus_denormal": 1.0,
+          "u2": 0.5,
+          "note": "1.0 - 5e-324 rounds to exactly 1.0 in float64; the state is destroyed before this call even runs"
+        },
+        "result": null,
+        "exception": "ValueError: math domain error",
+        "severity": "crash"
+      },
+      {
+        "case": "logdomain_survives_far_beyond_shipped_threshold",
+        "variant": "logdomain",
+        "input": {
+          "logW": -60.0,
+          "u2": 0.5,
+          "note": "W=exp(-60)~8.8e-27, i.e. n/k~1.14e26, ~1.3e10x past shipped's n/k=2**53 breaking point"
+        },
+        "result": "7.915792024293639e+25",
+        "exception": null,
+        "severity": "ok"
+      }
+    ],
+    "notes": {
+      "sterbenz_correction_original_and_wrong": "[SUPERSEDED -- kept for the record, see 'w_to_zero_correction' for the corrected diagnosis] The common story that '1.0 - W' suffers catastrophic cancellation is wrong; by Sterbenz's lemma, for W in [0.5, 2] the subtraction 1.0 - W is EXACT in float64. This module's first version incorrectly located the danger at W -> 1 and shipped 'track V = 1-W' as the fix. Measurement showed that fix does not work, because the real danger is W -> 0.",
+      "w_to_zero_correction": "BLUNT CORRECTION: the common 'catastrophic cancellation in 1-W' story is WRONG. By Sterbenz's lemma, 1.0 - W is computed EXACTLY in float64 for W in [0.5, 2] -- there is no cancellation there at all. The real defect lives in the OPPOSITE limit, W -> 0 (not W -> 1): once W < 2**-53, `1.0 - W` rounds to exactly 1.0 in float64, silently destroying the skip rate (log(1.0-W) becomes log(1.0)==0.0, which is the ZeroDivisionError this module's edge_case_report reproduces on the 'W_underflow_to_zero' case). Measured evidence at k=1024, n=1e6 (W=k/n, the realistic stream position): shipped rel_rate_err=2.4339726779559884e-14 vs predicted law 2**-53*n/k=1.0842021724855044e-13 (measured/predicted ratio=0.22449435536327797). Tracking V=1-W directly (the superseded 'fixed' arm, kept and measured rather than removed) does NOT repair this: V -> 1 in exactly this regime, the SAME near-1 quantization problem merely relocated, not removed. Measured at k=1024, position=0 in this run's trajectory cells: shipped's rel_rate_err_mean_f64=2.6857792966178127e-14 (disagree_rate_f64=0.0) while the fixed arm's rel_rate_err_mean_fixed=3.400516682586816e-18 -- not smaller, often worse or degenerate. Tracking logW directly and evaluating log(1-W) via the log1mexp identity (the 'logdomain' arm) is the fix that actually works, because W is only ever recovered from logW as exp(logW) immediately before a log1p/log call sized for exactly that magnitude, and 1.0-W is never formed. Measured at the same k=1024, position=0 cell: logdomain's rel_rate_err_mean_logdomain=6.99319817698797e-18 and disagree_rate_logdomain=0.0.",
+      "metric_definitions": {
+        "disagree_rate_f64 / disagree_rate_fixed / disagree_rate_logdomain": "P(skip_variant != skip_exact(kind=variant)) over the (possibly subsampled) exact-reference pairs, one probability per float64 variant against its OWN mpmath dps=80 exact counterpart.",
+        "rel_skip_err_mean/max_{f64,fixed,logdomain}": "mean / max of |S_variant - S_exact_variant| / max(S_exact_variant, 1).",
+        "rel_rate_err_mean/max_{f64,fixed,logdomain}": "relative error of the float64 skip rate (log(1.0-W) for shipped, log1p(-V) for fixed, log1mexp(logW) for logdomain) vs its own mpmath dps=80 reference -- the continuous error underlying skip disagreement, undiluted by floor() ties.",
+        "inclusion_bias / inclusion_bias_fixed / inclusion_bias_logdomain": "(E[S_variant_float64] - E[S_exact_variant]) / max(E[S_exact_variant], 1)**2.",
+        "trials_needed_to_detect": "(1.96*sqrt(p*(1-p))/bias)**2 with p = k/1000 and bias = |inclusion_bias| (the shipped path's bias); 'inf' when bias == 0. In `realistic_cells` this is computed from that cell's own realistic-regime bias (see item 5 of the coordinator's correction), not the trajectory-cell bias.",
+        "fix_improvement_factor / fix_improvement_factor_logdomain": "disagree_rate_f64 / max(disagree_rate_{fixed,logdomain}, 1/n_draws) -- how many times more often the shipped path disagrees with its exact reference than the fixed/logdomain path disagrees with its own.",
+        "n_exact_pairs": "size of the mpmath dps=80 reference subsample actually used for this trajectory cell: <= min(n_draws, 20000), further capped so the total mpmath op count (now x3 variants) stays bounded as position_steps grows (see audit_algo_l).",
+        "realistic_cells[*].W_target": "W = k/n, the value Algorithm-L theory predicts W takes at stream position n for reservoir size k; injected directly rather than reached via a random trajectory.",
+        "realistic_cells[*].predicted_rel_rate_err_law": "the coordinator's predicted law 2**-53 * n / k for the shipped variant's relative rate error at that (k, n).",
+        "realistic_cells[*].ratio_measured_over_predicted_shipped": "rel_rate_err_shipped / predicted_rel_rate_err_law -- 1.0 means the predicted law is exactly right.",
+        "error_law_thresholds[*]": "per-k fit of the measured law (c = measured/predicted ratio at the largest available n) plus the smallest n at which shipped's rate error is predicted to cross 1e-3 and 1.0, under both the naive theoretical law (c=1) and the measured-law fit."
+      },
+      "paired_draw_convention": "shipped, fixed, and logdomain consume the SAME raw float64 uniform stream (np.random.default_rng(seed).random(...)) so any difference between them is attributable to floating-point formulation, not to different random draws. logdomain consumes each draw exactly as shipped does (log(u)); fixed reinterprets it via log1p(-u). Every float64 quantity is checked against its OWN mpmath dps=80 exact counterpart, never against another variant's exact value, so these formulation differences cannot leak into the reported errors.",
+      "position_semantics": "position_steps counts state-advance steps applied before the skip is measured in `cells` (the random-trajectory audit). Under the literal recurrence W *= exp(log(U)/k) with U in (0,1), W DECREASES toward 0 as position_steps grows -- consistent with Algorithm L's real semantics (W tracks k/n, which shrinks as the stream advances), and with the revised W->0 diagnosis above. `realistic_cells` instead injects W = k/n directly for a chosen n, which is the theoretically-correct way to probe a specific realistic stream position without depending on a particular random trajectory reaching it."
+    }
+  },
+  "stage_times_s": {
+    "heldout_algol": 24.07
+  }
+}

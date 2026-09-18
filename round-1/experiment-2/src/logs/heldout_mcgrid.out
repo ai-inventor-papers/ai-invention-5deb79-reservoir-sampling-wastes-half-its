@@ -1,0 +1,46 @@
+11:47:23|INFO   |=== stage HELDOUT:mcgrid starting ===
+11:47:24|INFO   |screen freeze verified: 45f68ce11719992d90030caae9bd87667aaccec5d8f8e14e4694b9e4c3e24a33
+11:47:24|INFO   |--- heldout_mcgrid: start
+11:47:27|INFO   |grid n=1000 k=10 S0     maxdev=0.000770 z=  -0.15 FO_pass=True coincZ=      5.4 BLIND=False
+11:47:29|INFO   |grid n=1000 k=10 S1h    maxdev=0.000735 z=  -0.50 FO_pass=True coincZ=      5.4 BLIND=False
+11:47:29|INFO   |grid n=1000 k=10 S2     maxdev=0.000670 z=  -1.14 FO_pass=True coincZ=      5.4 BLIND=False
+11:47:30|INFO   |grid n=1000 k=10 S2f    maxdev=0.000670 z=  -1.14 FO_pass=True coincZ=      5.4 BLIND=False
+11:47:33|INFO   |grid n=1000 k=10 S3     maxdev=0.000810 z=  +0.24 FO_pass=True coincZ=      5.4 BLIND=False
+11:47:35|INFO   |grid n=1000 k=10 S1n    maxdev=0.010000 z= +91.13 FO_pass=False coincZ=      6.6 BLIND=False
+11:47:35|INFO   |grid n=1000 k=10 S5e    maxdev=0.000630 z=  -1.54 FO_pass=True coincZ=    496.6 BLIND=True
+11:47:36|INFO   |grid n=1000 k=10 S5g    maxdev=0.000620 z=  -1.63 FO_pass=True coincZ=    494.3 BLIND=True
+11:47:36|INFO   |grid n=1000 k=10 S6sys  maxdev=0.000620 z=  -1.63 FO_pass=True coincZ=    490.0 BLIND=True
+11:47:36|INFO   |wrote partial_heldout_mcgrid.json (18.6 KiB)
+11:48:24|INFO   |grid n=1000 k=50 S0     maxdev=0.001745 z=  +0.31 FO_pass=True coincZ=      4.7 BLIND=False
+11:48:39|INFO   |grid n=1000 k=50 S1h    maxdev=0.001425 z=  -1.77 FO_pass=True coincZ=      4.7 BLIND=False
+11:48:42|INFO   |grid n=1000 k=50 S2     maxdev=0.001605 z=  -0.60 FO_pass=True coincZ=      5.0 BLIND=False
+11:48:45|INFO   |grid n=1000 k=50 S2f    maxdev=0.001605 z=  -0.60 FO_pass=True coincZ=      5.0 BLIND=False
+11:48:50|INFO   |grid n=1000 k=50 S3     maxdev=0.001670 z=  -0.17 FO_pass=True coincZ=      4.9 BLIND=False
+11:49:05|INFO   |grid n=1000 k=50 S1n    maxdev=0.066470 z=+421.13 FO_pass=False coincZ=     40.0 BLIND=False
+11:49:07|INFO   |grid n=1000 k=50 S5e    maxdev=0.000825 z=  -5.67 FO_pass=True coincZ=    437.4 BLIND=True
+11:49:10|INFO   |grid n=1000 k=50 S5g    maxdev=0.001890 z=  +1.26 FO_pass=True coincZ=    443.5 BLIND=True
+11:49:12|INFO   |grid n=1000 k=50 S6sys  maxdev=0.001200 z=  -3.23 FO_pass=True coincZ=    440.8 BLIND=True
+11:49:12|INFO   |wrote partial_heldout_mcgrid.json (37.3 KiB)
+11:49:16|INFO   |grid n=2000 k=10 S0     maxdev=0.000600 z=  +0.66 FO_pass=True coincZ=      6.8 BLIND=False
+11:49:18|INFO   |grid n=2000 k=10 S1h    maxdev=0.000535 z=  -0.75 FO_pass=True coincZ=      6.4 BLIND=False
+11:49:19|INFO   |grid n=2000 k=10 S2     maxdev=0.000555 z=  -0.32 FO_pass=True coincZ=      6.4 BLIND=False
+11:49:19|INFO   |grid n=2000 k=10 S2f    maxdev=0.000555 z=  -0.32 FO_pass=True coincZ=      6.4 BLIND=False
+11:49:25|INFO   |grid n=2000 k=10 S3     maxdev=0.000565 z=  -0.10 FO_pass=True coincZ=      6.4 BLIND=False
+11:49:28|INFO   |grid n=2000 k=10 S1n    maxdev=0.005000 z= +96.67 FO_pass=False coincZ=      6.8 BLIND=False
+11:49:28|INFO   |grid n=2000 k=10 S5e    maxdev=0.000410 z=  -3.48 FO_pass=True coincZ=    507.8 BLIND=True
+11:49:29|INFO   |grid n=2000 k=10 S5g    maxdev=0.000630 z=  +1.32 FO_pass=True coincZ=    528.6 BLIND=True
+11:49:29|INFO   |grid n=2000 k=10 S6sys  maxdev=0.000610 z=  +0.88 FO_pass=True coincZ=    512.1 BLIND=True
+11:49:29|INFO   |wrote partial_heldout_mcgrid.json (55.9 KiB)
+11:54:02|INFO   |grid n=2000 k=100 S0     maxdev=0.001915 z=  +1.42 FO_pass=True coincZ=      5.0 BLIND=True
+11:54:58|INFO   |grid n=2000 k=100 S1h    maxdev=0.001740 z=  +0.16 FO_pass=True coincZ=      5.5 BLIND=True
+11:55:10|INFO   |grid n=2000 k=100 S2     maxdev=0.001670 z=  -0.35 FO_pass=True coincZ=      5.7 BLIND=False
+11:55:21|INFO   |grid n=2000 k=100 S2f    maxdev=0.001670 z=  -0.35 FO_pass=True coincZ=      5.7 BLIND=False
+11:55:34|INFO   |grid n=2000 k=100 S3     maxdev=0.001880 z=  +1.17 FO_pass=True coincZ=      5.5 BLIND=False
+11:56:31|INFO   |grid n=2000 k=100 S1n    maxdev=0.065075 z=+457.71 FO_pass=False coincZ=     41.6 BLIND=False
+11:56:39|INFO   |grid n=2000 k=100 S5e    maxdev=0.000825 z=  -6.45 FO_pass=True coincZ=    435.1 BLIND=True
+11:56:48|INFO   |grid n=2000 k=100 S5g    maxdev=0.001745 z=  +0.19 FO_pass=True coincZ=    441.2 BLIND=True
+11:56:56|INFO   |grid n=2000 k=100 S6sys  maxdev=0.001200 z=  -3.74 FO_pass=True coincZ=    438.4 BLIND=True
+11:56:56|INFO   |wrote partial_heldout_mcgrid.json (74.4 KiB)
+11:56:56|INFO   |--- heldout_mcgrid: done in 573.0s
+11:56:57|INFO   |wrote heldout_mcgrid.json (79.0 KiB)
+11:56:57|INFO   |wrote heldout_mcgrid.json (79.1 KiB)

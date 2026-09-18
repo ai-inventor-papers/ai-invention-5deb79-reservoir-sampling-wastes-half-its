@@ -1,0 +1,24 @@
+11:33:44|INFO   |=== stage HELDOUT:prng starting ===
+11:33:44|INFO   |screen freeze verified: 45f68ce11719992d90030caae9bd87667aaccec5d8f8e14e4694b9e4c3e24a33
+11:33:44|INFO   |--- heldout_prng: start
+11:34:26|INFO   |prng R250       S0    maxdev=0.000329 z=     -0.5 amp=0.947 coincZ=5.4
+11:35:00|INFO   |prng R250       S1h   maxdev=0.000361 z=     +0.5 amp=1.039 coincZ=5.0
+11:35:05|INFO   |prng R250       S2    maxdev=0.000328 z=     -0.6 amp=0.944 coincZ=5.8
+11:35:11|INFO   |prng R250       S2f   maxdev=0.000328 z=     -0.6 amp=0.944 coincZ=5.8
+11:35:52|INFO   |prng R250       S3    maxdev=0.000326 z=     -0.6 amp=0.938 coincZ=5.5
+11:35:52|INFO   |wrote partial_heldout_prng.json (9.1 KiB)
+11:36:01|INFO   |prng MT19937    S0    maxdev=0.000417 z=     +2.4 amp=1.232 coincZ=5.4
+11:36:12|INFO   |prng MT19937    S1h   maxdev=0.000317 z=     -0.9 amp=0.936 coincZ=4.8
+11:36:15|INFO   |prng MT19937    S2    maxdev=0.000309 z=     -1.2 amp=0.913 coincZ=5.6
+11:36:18|INFO   |prng MT19937    S2f   maxdev=0.000309 z=     -1.2 amp=0.913 coincZ=5.6
+11:36:34|INFO   |prng MT19937    S3    maxdev=0.000326 z=     -0.6 amp=0.963 coincZ=5.4
+11:36:34|INFO   |wrote partial_heldout_prng.json (18.3 KiB)
+11:37:01|INFO   |prng ChaCha20   S0    maxdev=0.000345 z=     +0.0 amp=1.039 coincZ=5.0
+11:37:30|INFO   |prng ChaCha20   S1h   maxdev=0.000402 z=     +1.9 amp=1.211 coincZ=4.8
+11:37:35|INFO   |prng ChaCha20   S2    maxdev=0.000298 z=     -1.6 amp=0.898 coincZ=4.9
+11:37:40|INFO   |prng ChaCha20   S2f   maxdev=0.000408 z=     +2.1 amp=1.229 coincZ=5.0
+11:38:16|INFO   |prng ChaCha20   S3    maxdev=0.000324 z=     -0.7 amp=0.976 coincZ=5.0
+11:38:16|INFO   |wrote partial_heldout_prng.json (27.5 KiB)
+11:38:16|INFO   |--- heldout_prng: done in 272.0s
+11:38:16|INFO   |wrote heldout_prng.json (32.6 KiB)
+11:38:16|INFO   |wrote heldout_prng.json (32.6 KiB)

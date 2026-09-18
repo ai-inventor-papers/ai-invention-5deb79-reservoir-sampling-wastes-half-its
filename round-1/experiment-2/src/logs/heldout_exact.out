@@ -1,0 +1,22 @@
+11:37:57|INFO   |=== stage HELDOUT:exact starting ===
+11:37:57|INFO   |screen freeze verified: 45f68ce11719992d90030caae9bd87667aaccec5d8f8e14e4694b9e4c3e24a33
+11:37:57|INFO   |--- heldout_exact: start
+11:37:58|INFO   |wrote partial_heldout_exact.json (4.5 KiB)
+11:37:58|INFO   |exact n=15 k=3 done
+11:37:58|INFO   |wrote partial_heldout_exact.json (9.2 KiB)
+11:37:58|INFO   |exact n=15 k=5 done
+11:37:59|INFO   |wrote partial_heldout_exact.json (13.2 KiB)
+11:37:59|INFO   |exact n=16 k=3 done
+11:38:00|INFO   |wrote partial_heldout_exact.json (17.4 KiB)
+11:38:00|INFO   |exact n=16 k=5 done
+11:38:01|INFO   |wrote partial_heldout_exact.json (21.3 KiB)
+11:38:01|INFO   |exact n=17 k=3 done
+11:38:03|INFO   |wrote partial_heldout_exact.json (25.5 KiB)
+11:38:03|INFO   |exact n=17 k=5 done
+11:38:03|INFO   |wrote partial_heldout_exact.json (30.1 KiB)
+11:38:03|INFO   |exact n=18 k=3 done
+11:38:06|INFO   |wrote partial_heldout_exact.json (34.3 KiB)
+11:38:06|INFO   |exact n=18 k=5 done
+11:38:06|INFO   |--- heldout_exact: done in 8.6s
+11:38:06|INFO   |wrote heldout_exact.json (39.7 KiB)
+11:38:06|INFO   |wrote heldout_exact.json (39.7 KiB)
