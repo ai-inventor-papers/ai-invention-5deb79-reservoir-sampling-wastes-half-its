@@ -1,0 +1,1213 @@
+{
+  "title": "Checking if others already solved this sampling idea",
+  "summary": "Prior-art and source-code audit for the claim that reservoir sampling's eviction randomness is unnecessary. VERDICT: GO-WITH-RESCOPE. (Q1) Draper & Saad SODA 2026 (arXiv:2505.18879v5) is a PARTIAL_SCOOP, not a kill: the word 'reservoir' appears 0 times in 476k characters, and their Eq. 1.7/Remark 1.3 make clear they optimise HOW a chosen distribution is realised, not WHICH distributions must be realised -- but their Remark 1.4/Corollary 1.7 DO cover the reservoir's state-dependent sequence, so they must be cited as the realisation layer. Bhattacharya et al. (arXiv:1407.1689) settle k=1 in the eps-error model at Theta(log(n/eps)) and prove bounded-bit exactness impossible; Breitner's comment thread settles exact k=1; Bodini & Durand (GASCom 2026) settle the OFFLINE k-subset case at log2 C(n,k)+O(k). k>=2 streaming is OPEN. (Q2) The balanced fiber map is textbook (normalized matching / de Bruijn SCD) -- claim the application only; exact deterministic balance is IMPOSSIBLE unless k | (i-k+1); and the per-step min-entropy coupling has NO polynomial special-case theorem (Kovacevic Thm 3.8 keeps row-sparse MEC strongly NP-hard). (Q3) The folklore claim is REFUTED: 0 of 15 quotations from 12 sources assert necessity (10 sufficiency-only, 5 descriptive) -- delete the 'overturns a textbook false belief' contribution. Ships a 16-row deployed-implementation table with verbatim eviction lines, RNG granularity and test-suite grades; 6 real bug reports including Apache DataSketches #647, an OPEN joint-distribution-only defect that per-item tests cannot detect. Own deterministic arithmetic (bit_accounting.py) refutes alternate hypothesis #4 for k>=10: the eviction term is 18-34% of total variate entropy at k=10 and 34-59% at k=100, so recycling alone does not subsume the coupling claim -- but the claimed '25-61%' holds only for 10<=k<=100, and the every-prefix constraint costs ~8x more than the final answer's own entropy.",
+  "answer": "**Bottom line: GO-WITH-RESCOPE.** The random-bit question for *exact,\nevery-prefix-uniform, k>=2* reservoir sampling is genuinely open, and the one\nserious threat -- Draper & Saad's randomness recycling (SODA 2026) -- is a\nPARTIAL_SCOOP that leaves the headline alive while becoming a mandatory\ncitation. But three of the hypothesis's supporting claims do not survive\ncontact with the primary sources, and one of them (\"every textbook says uniform\neviction is necessary\") must be deleted outright.\n\n**Q1. Is the bit question open? Yes -- and Draper & Saad are the tool, not the\nresult.** Their model covers a sequence of distributions P_1, P_2, ... \"subject\nto any stochastic process\", and Eq. 1.7 makes the scope precise: \"P_i cannot\ndepend on fresh coins to be consumed by the sampler in future rounds, and that\nit cannot depend on the internal history of the sampler other than through its\ngenerated outputs X_{<i}\" [2]. A reservoir's state *is* a deterministic function\nof its own past outputs, so Remark 1.4 and Corollary 1.7 apply to reservoir\nsampling directly -- their machinery would drive Algorithm R's cost to\nH[X_1,...,X_n] + eps*n + W [2]. What it does **not** do is decide *which*\ndistributions the algorithm should realise. Remark 1.3 says so explicitly: \"it\nis essential to consider the surprisals and entropies of the random\ndistributions (P_1,...,P_n), and not the joint entropy H[X_1,...,X_n] of the\noutput sequence\" [2]. The word \"reservoir\" appears **zero times** in the 476k\ncharacters of the v5 HTML, \"streaming\"/\"unknown length\" zero times, and the\nonly k-subset-adjacent application is the Fisher-Yates shuffle [1, 2]; the\nauthors' C library README likewise never mentions reservoir, subset,\nwithout-replacement or shuffle [3]. Verdict: **PARTIAL_SCOOP**. The paper must\ncite them as the realisation layer and claim only the coupling/eviction novelty.\n\nThis also settles the fight with alternate hypothesis #4 (\"the waste is in the\nvariates, not the coupling\"). Our own arithmetic (`bit_accounting.py`,\ndeterministic, no RNG) sums the Shannon entropy of the variates Algorithm R\n*chooses* to draw: the accept coin H_b(k/i) plus log2(k) per acceptance. The\neviction term's share of the total is 6-8% at k=2, 11-22% at k=4, 18-34% at\nk=10, 27-48% at k=32, 34-59% at k=100 and 47-78% at k=1000 (over n = 1e4..1e9).\nSo recycling applied to classical Algorithm R recovers the *representational*\nwaste but leaves the eviction term entirely intact -- the coupling argument is\nnot subsumed. Two honest caveats fall out of the same table. First, the\nhypothesis's headline band of \"25-61%\" is only attained for moderate-to-large k;\nat k=2-4 the achievable saving is a fifth of that, and the paper must state the\n(k, n) regime. Second, even the deterministic-eviction ideal is far above the\nentropy of the final answer: at k=10, n=1e6 it costs ~1494 bits versus\nlog2 C(n,k) = 177.5 bits. The every-prefix constraint, not the eviction rule, is\nthe dominant cost -- a framing the paper should adopt rather than hide.\n\nTwo further prior-art findings matter. Bhattacharya, Issac, Jaiswal & Kumar\nprove Theta(log(n/eps)) random bits for *epsilon-error* streaming sampling and,\ncritically, prove exactness is unattainable with bounded bits at all: \"assume\nthat a uniform sample can be generated using r random bits ... This means that\n2^r is divisible by n. This is a contradiction since n is a prime number\" [4].\nThey also state \"the lower bound on the number of random bits remains the same\nif the sampling algorithm is allowed to store more than one item from the\nstream\" [4] -- but their sample size is 1 throughout; storing k items to output\n1 is not sampling a k-subset, so the k>=2 *output* case is untouched.\nADJACENT, not a scoop. Second, Bodini & Durand solve the **offline** k-subset\nproblem entropically: \"the expected net bit consumption (bits consumed minus\nbits recycled) is log2 C(n,k) + O(k)\" in O(n) time [10], building on the\nrandom-bit model of Lumbroso [12] and the same group's set-partition work [11]. That is the offline\nanalogue of our target and must be cited; it makes the streaming/unknown-n\nversion the actual open cell. Fourteen further scoop-hunt queries (logged in\n`research_report.md`) returned nothing combining random bits with k>=2 streaming\nsampling. Attribution corrections: Algorithms X, Y, Z are all\nVitter 1985 TOMS (no 1987 paper); Vitter 1984 CACM holds A-D for known N [6, 8];\nLi 1994 holds Algorithm L [9]; and the k=1 closed form is due to the comment\nthread on Breitner's post, not to Breitner, who left it open [5].\n\n**Q2. The mathematics is known in spirit, and one claim is outright wrong.**\nThe Boolean lattice's normalized matching property is textbook -- \"It is easy to\nshow that 2^[n] is a rank-symmetric, unimodal normalized matching poset\" [13] --\nand de Bruijn/Tengbergen/Kruyswijk symmetric chain decompositions come with\nthree explicit constructions including the parenthesis-matching rule [14]. Claim\nthe *application*, not the object. Two corrections. (a) An **exactly** balanced\ndeterministic deletion map cannot exist in general: each (k-1)-subset of [i]\nmust receive C(i,k)/C(i,k-1) = (i-k+1)/k preimages, an integer only when\nk | (i-k+1), so residual randomness is forced at most steps. Wagon & Wilf give\nthe sharp criterion for the natural sum-mod-k variant -- uniform iff for every\ndivisor d>1 of m, t mod d > n mod d -- which fails for most (n,t) [15]. (b) The claim that\nthe per-step minimum-entropy coupling is \"small and exactly solvable\" has **no\ncitable theorem behind it**. MEC is NP-hard (Kovacevic et al., Subset-Sum\nreduction) and stays strongly NP-hard under row-sparsity: their Theorem 3.8\nreduces 3-Partition to a coupling \"having exactly one nonzero entry in every\nrow\" [16]. All polynomial results are additive approximations -- 1 bit\n(Cicalese et al. [17]), 0.53/1.22 bits (Compton et al. [18]), and a PTAS\npolynomial only for constant m and eps [19]. ARIMEC's conditional guarantee\ndoes not apply here [20], and the forest-support structure of optimal couplings\nleaves C(mn, m+n-1) candidates [21]. Verdict: BRUTE_FORCE_ONLY, leaning\nUNRESOLVED for our specific uniform-marginal Johnson-graph support.\n\n**Q3. The folklore claim is not evidenced -- delete it.** Across 15 verbatim\nquotations from 12 sources (Wikipedia, Vitter 1985, Stanford CS168, Weizmann,\nUtah, Cornell, cs.stackexchange, StackOverflow, and four blog expositions),\n**bucket A (strict necessity) = 0**, bucket B (sufficiency only) = 10, bucket C\n(descriptive) = 5. Vitter writes \"The candidate it replaces is chosen randomly\nfrom the n candidates\" and then \"It is easy to see that the resulting set of n\ncandidates forms a random sample\" [7] -- description plus sufficiency, never\nnecessity. Wikipedia's proof ends \"By induction, Algorithm R produces a uniform\nrandom sample of the inputs\" [22]. Nobody claims an alternative fails -- not Stanford CS168 [29], Weizmann [24],\nUtah [30], Cornell [26], cs.stackexchange [23], StackOverflow [31], nor the\nblog expositions [25, 27, 28, 32]. The\n\"overturns a textbook false belief\" contribution must be replaced by the true,\nstill-interesting statement: *uniform eviction is universally taught and\nuniversally deployed, proofs are sufficiency-only, and the necessity question is\nsimply never asked.*\n\nThe 16-row source audit supports that softer claim strongly. Every deployed\n*streaming* sampler evicts uniformly: Spark `(rand.nextDouble() * l).toLong`\n[33], rust-random `rng.random_range(..i + 1 + amount)` [39], ClickHouse\n`genRandom(total_values)` with visible `% limit` modulo bias [35], go-metrics\n`rand.Int63n(s.count)` [48], gstamatelat `sample.set(random.nextInt(sampleSize),\nitem)` [40], sklearn `j = rng_randint(0, i + 1)` [43]. The priority-queue family\n(Flink, Beam, DuckDB) spends a full float64 per element instead [45, 44, 37]. Non-streaming contrast rows -- NumPy [42], Redis [50],\nPostgreSQL [51], TensorFlow's shuffle buffer [49] -- and Guava, which ships no\nreservoir sampler at all [46], bound how far the folklore reaches.\nAlgorithm-L skip code uses naive `Math.log(1 - W)` [40] and `log(r) / log(t_w)`\n[37], never log1p/expm1 -- direct support for alternate hypothesis #2. Spark's\n`GapSampling` is the lone `math.log1p(-f)` user [33].\n\n**Alternate hypothesis #1 needs rescoping, not killing.** It is *not* true that\ntest suites only check first-order statistics: CPython asserts every ordered\npermutation appears [41], sklearn asserts every C(n,k) frozenset appears [43],\ncommons-rng runs a chi-square over all 10 2-subsets [47]. But all three are\noffline samplers on tiny n. Every *streaming* sampler audited is\nfirst-order-only or has no distributional test at all [33, 35, 37, 39, 40, 48].\nAnd there is a real, unpatched joint-only defect in the wild: Apache\nDataSketches #647 -- \"for items 0 to k-1, they can only ever appear at that\nspecific index\" -- correct marginals, wrong joint [53]. Meanwhile Spark's own\nreviewer wrote \"the test suite never actually tests for correctness, just basic\ninput/output sizes\" [34], and four of five confirmed fixed bugs (TiKV, Spark,\nDuckDB, dataprof) were first-order and none was caught by existing tests\n[52, 34, 38, 54]; the sixth confirmed bug, a ClickHouse self-merge aliasing\nfault, was likewise found by an automated reviewer, not by tests [36].\n\n**Ranked re-assessment.** (1) Main hypothesis, rescoped to \"bit cost of exact\nevery-prefix-uniform k>=2 sampling, with Draper-Saad as the realisation layer\" --\nGO. (2) Alternate #1, rescoped to *streaming* samplers, with DataSketches #647\nas a real-world target -- GO, strong. (3) Alternate #2 (Algorithm-L float\ndefect) -- GO, evidence gathered. (4) Alternate #4 -- REFUTED by the arithmetic\nabove for k >= 10.",
+  "scoop_verdicts": [
+    {
+      "work": "Draper & Saad, Efficient Online Random Sampling via Randomness Recycling",
+      "citation": "Thomas L. Draper, Feras A. Saad. Proc. 2026 ACM-SIAM Symposium on Discrete Algorithms (SODA), pp. 2473-2511, SIAM 2026. doi:10.1137/1.9781611978971.89",
+      "url": "https://arxiv.org/html/2505.18879v5",
+      "version_and_access_date": "arXiv:2505.18879v5 (submitted 24 May 2025, last revised 7 May 2026); accessed 2026-09-18",
+      "verdict": "PARTIAL_SCOOP",
+      "deciding_quote": "cannot depend on fresh coins to be consumed by the sampler in future rounds, and that it cannot depend on the internal history of the sampler other than through its generated outputs",
+      "section": "Section 1.1 (Problem Statement), Eq. 1.7; with Remark 1.3, Remark 1.4, Theorem 1.5, Corollary 1.7",
+      "what_it_covers": "An online sampler that realises ANY sequence of rational discrete distributions -- including sequences where each P_i is a deterministic function of the algorithm's own previous outputs (Remark 1.4) -- within eps bits of the Shannon bound using O(log(1/eps)) space. Because a reservoir's state is a function of its own past accept/evict outputs, their Corollary 1.7 applies to reservoir sampling and would give cost < H[X_1,...,X_n] + eps*n + W_{d,eps}.",
+      "what_it_does_not_cover": "Which distribution sequence the algorithm ought to realise. Remark 1.3 explicitly separates sum_i H(P_i) from H[X_1,...,X_n] and warns the former is the right quantity. The string 'reservoir' occurs 0 times in the 476,303-character v5 HTML; 'streaming', 'data stream' and 'unknown length' occur 0 times; 'without replacement' occurs only inside the abstract's generic phrasing; the only subset-adjacent application is the Fisher-Yates shuffle. The accompanying C library's README lists inversion, lookup-table, alias, FLDR and ALDR samplers and never mentions reservoir, subset, without-replacement or shuffle.",
+      "implication_for_our_claim": "HEADLINE SURVIVES, but the paper must (a) cite Draper-Saad as the realisation layer that makes any chosen variate sequence cost its own entropy, and (b) claim novelty only for the coupling question -- which eviction distribution must be realised at all. Our own arithmetic shows recycling on classical Algorithm R still pays the full k*log2(k)*(H_n - H_k) eviction term, which is 18-34% of the total at k=10 and 34-59% at k=100, so alternate hypothesis #4 ('the waste is only representational') is refuted for k >= 10."
+    },
+    {
+      "work": "Bhattacharya, Issac, Jaiswal & Kumar, Sampling in Space Restricted Settings",
+      "citation": "Anup Bhattacharya, Davis Issac, Ragesh Jaiswal, Amit Kumar. arXiv:1407.1689v3 (16 Jan 2015); COCOON 2015; Algorithmica 80:1439-1458, 2018.",
+      "url": "https://arxiv.org/pdf/1407.1689",
+      "version_and_access_date": "arXiv:1407.1689v3, 16 Jan 2015; accessed 2026-09-18",
+      "verdict": "ADJACENT",
+      "deciding_quote": "It is important to point out that the lower bound on the number of random bits remains the same if the sampling algorithm is allowed to store more than one item from the stream. Our sampling algorithm matches this lower bound while storing only one item from the stream.",
+      "section": "Section 1, 'Our contributions' / end of contributions paragraph",
+      "what_it_covers": "Exact Theta(log(n/eps)) random-bit upper and lower bounds for maintaining a SIZE-ONE uniform sample over a stream of unknown length, in the eps-error model where the sampler may output a null answer with probability <= eps. Also proves exact uniform sampling with a bounded number of bits is impossible: 'assume that a uniform sample can be generated using r random bits for some finite r ... This means that 2^r is divisible by n. This is a contradiction since n is a prime number.' Also records that classical reservoir sampling costs Omega(n log n) bits in expectation and (footnote 3) that 'a more advanced sampling technique by Vitter requires Omega((log n)^2) random bits in expectation'.",
+      "what_it_does_not_cover": "Sample size k >= 2. The quoted sentence concerns an algorithm that STORES more than one item while still OUTPUTTING a single uniform element; it is not a statement about sampling a uniform k-subset. No theorem, remark or open-problem sentence in the paper addresses k-subset output. The paper also never charges exact sampling a quadratically larger cost -- it charges exact sampling an UNBOUNDED worst-case cost (the primality argument) and works in the eps-error model instead.",
+      "implication_for_our_claim": "This is the closest existing bit-complexity result and must be the paper's baseline. It supplies (i) the impossibility of bounded-bit exactness, (ii) the k=1 lower bound, and (iii) the eps-error framing our exact model deliberately rejects. It leaves k >= 2 open. CORRECTION TO THE HYPOTHESIS: do not assert they 'charge exact sampling a quadratically larger cost'; what is quadratic is Vitter's variate-based method at (log n)^2, cited in their footnote 3."
+    },
+    {
+      "work": "Breitner, Reservoir sampling with few random bits (blog post + comment thread)",
+      "citation": "Joachim Breitner, blog post #737, published 2018-03-25; comment #1 Benjamin Price 2018-04-18; comment #2 Christoph Pfister 2019-01-31.",
+      "url": "https://www.joachim-breitner.de/blog/737-Reservoir_sampling_with_few_random_bits",
+      "version_and_access_date": "Published 2018-03-25, comments through 2019-01-31; accessed 2026-09-18",
+      "verdict": "ADJACENT",
+      "deciding_quote": "H(X_2, X_3, ..., X_n) = log2 n + sum_{k = 2...n}(1/k) * log2(k - 1).",
+      "section": "Comment #2, Christoph Pfister, 2019-01-31, subsection 'Asymptotics'",
+      "what_it_covers": "The k=1 case in full: an interval/arithmetic-coding reservoir sampler; the exact entropy of the decision sequence; the asymptotic (ln n)^2/(2 ln 2); and the bound E[#coin flips] < H(X_2,...,X_n) + 3 for the blog's own procedure, versus the Knuth-Yao optimum of H + 2.",
+      "what_it_does_not_cover": "k >= 2. Nothing in the post or either comment mentions a reservoir of size greater than one. The post's own 'Open questions' section asks only whether the k=1 algorithm is optimal and what its expected coin count is.",
+      "implication_for_our_claim": "SAFE TO CITE as the k=1 precedent, but with two attribution corrections. (1) Breitner did NOT derive the closed form: he explicitly asks 'What is the expected number of coin throws for n prisoners?' and the formula, the +3 bound and the asymptotic all come from the comment thread -- Benjamin Price (2018-04-18) for the Theta((log n)^2) lower bound and Christoph Pfister (2019-01-31) for the closed form and the H+3 result. (2) Price's comment is the clearest existing statement of the paper's own core insight: 'The process described doesn't just choose one person, but chooses a sequence of people ... a better lower bound for the number of coin tosses is not the entropy of uniform selection from [n], but rather the entropy of selecting S subset [n].' Our bit_accounting.py reproduces the closed form to 6 decimals at n=1e3, 1e5 and 1e6, so the hypothesis's transcription of the formula is CORRECT."
+    },
+    {
+      "work": "Bodini & Durand, Entropic Generation of Binary Words",
+      "citation": "Olivier Bodini, Francis Durand. GASCom 2026, EPTCS 445, 2026, pp. 38-46. doi:10.4204/EPTCS.445.6",
+      "url": "https://arxiv.org/pdf/2606.13157",
+      "version_and_access_date": "EPTCS 445 (2026) version; accessed 2026-09-18",
+      "verdict": "ADJACENT",
+      "deciding_quote": "The uniform generation of k Hamming weight binary words, equivalent to sampling k-subsets from n elements, relies on random bits, which can be expensive. We introduce a novel paradigm-random bit recycling-and use it to generate such binary words in linear time while consuming as few random bits as possible.",
+      "section": "Abstract; Theorem 2 and Theorem 3 in Sections 3-4",
+      "what_it_covers": "The OFFLINE k-subset problem in the random-bit model, solved essentially optimally: 'the expected net bit consumption (bits consumed minus bits recycled) is log2 C(n,k) + O(k)' in expected O(n) time, in the polynomially sparse regime k ~ n^beta. They explicitly note the concurrent existence of the recycling paradigm elsewhere, citing Draper-Saad '[5] for online sampling'.",
+      "what_it_does_not_cover": "Streaming with unknown n, and the every-prefix-uniform constraint. Their algorithm is an offline Fisher-Yates insertion plus permutation deconstruction; it needs n in advance and produces one word at the end, never maintaining a valid sample at every prefix.",
+      "implication_for_our_claim": "IMPORTANT AND PREVIOUSLY UNCITED. This is the offline analogue of our target and proves the k-subset random-bit question is an active research area, which strengthens the motivation but narrows the novelty claim to the streaming/every-prefix cell. It also gives the right comparison point: offline costs log2 C(n,k) + O(k); our arithmetic shows the every-prefix constraint costs roughly an order of magnitude more (1494 vs 177.5 bits at k=10, n=1e6). That gap -- the price of anytime-validity -- is arguably a better headline than the eviction saving."
+    },
+    {
+      "work": "Vitter, Random Sampling with a Reservoir (Algorithms R, X, Y, Z)",
+      "citation": "Jeffrey Scott Vitter. ACM Transactions on Mathematical Software 11(1):37-57, March 1985.",
+      "url": "https://www.cs.umd.edu/~samir/498/vitter.pdf",
+      "version_and_access_date": "TOMS 11(1), March 1985; author/course mirror; accessed 2026-09-18",
+      "verdict": "NO_SCOOP",
+      "deciding_quote": "Table I. Performance of Algorithms R, X, Y, and Z -- Average number of uniform random variates: R: N-n; X: ~2n ln(N/n); Y: ~2n ln(N/n); Z: ~3n ln(N/n)",
+      "section": "Table I, p. 38",
+      "what_it_covers": "The classical analysis, entirely in VARIATES and CPU TIME. Algorithms R, X, Y and Z are all in this single 1985 paper. The eviction rule is stated as 'The candidate it replaces is chosen randomly from the n candidates', and the random source is 'The random number generator RANDOM returns a real number in the unit interval.'",
+      "what_it_does_not_cover": "Random bits. The word 'bit' does not appear as a cost metric anywhere in the performance analysis; Table I's column heading is literally 'Average number of uniform random variates'. The paper has no entropy accounting at all.",
+      "implication_for_our_claim": "CONFIRMS the paper's central framing that the classical literature counts variates, not bits. CORRECTION TO THE HYPOTHESIS: Algorithms X, Y and Z are all Vitter 1985 TOMS 11(1); there is no 1987 paper. Vitter 1984 (CACM 27(7):703-718, 'Faster methods for random sampling') contains Algorithms A, B, C and D for the KNOWN-N sequential sampling problem -- 'The main result of this paper is the design and analysis of Algorithm D' -- and is a different problem."
+    },
+    {
+      "work": "Li, Reservoir-sampling algorithms of time complexity O(n(1+log(N/n))) (Algorithm L)",
+      "citation": "Kim-Hung Li. ACM Transactions on Mathematical Software 20(4):481-493, December 1994. doi:10.1145/198429.198435",
+      "url": "https://dl.acm.org/doi/10.1145/198429.198435",
+      "version_and_access_date": "TOMS 20(4), Dec 1994; ACM DL abstract page reachable, PDF returned HTTP 403 on re-fetch; accessed 2026-09-18",
+      "verdict": "NO_SCOOP",
+      "deciding_quote": "Among the four algorithms, algorithm L is the simplest, and algorithm M is the most efficient when n and N/n are large and N is O(n^2).",
+      "section": "Section 1 / comparison paragraph (extracted from the ACM PDF before it began returning 403)",
+      "what_it_covers": "Algorithms K, L, M and the skip-based geometric formulation now universally deployed. Cost stated in CPU time and variate counts.",
+      "what_it_does_not_cover": "Random bits, entropy, or any eviction rule other than uniform.",
+      "implication_for_our_claim": "SAFE. NOT VERIFIED -- the exact Algorithm L pseudocode line could not be quoted because dl.acm.org began returning HTTP 403 on the PDF after the first successful grep; the eviction line is instead documented from deployed Algorithm-L implementations (gstamatelat LiLSampling, DuckDB) in the deployed_implementations table."
+    },
+    {
+      "work": "Deliberate scoop hunt: 14+ distinct queries for random-bit/derandomised k>=2 streaming sampling",
+      "citation": "Queries logged verbatim in research_report.md, run in both general and scholarly mode on 2026-09-18.",
+      "url": "https://en.wikipedia.org/wiki/Reservoir_sampling",
+      "version_and_access_date": "Searches run 2026-09-18",
+      "verdict": "NO_SCOOP",
+      "deciding_quote": "Reservoir sampling is a family of randomized online algorithms for choosing a simple random sample, without replacement, of k items from a population of unknown size n in a single pass over the items.",
+      "section": "Wikipedia lead paragraph (the survey article whose reference list was also checked)",
+      "what_it_covers": "Nothing. No query combining random-bit/entropy cost with k>=2 streaming or every-prefix-uniform sampling returned a relevant hit. The nearest neighbours found were all recorded above (Draper-Saad, Bhattacharya et al., Breitner, Bodini-Durand, Lumbroso's random-bit model line of work).",
+      "what_it_does_not_cover": "n/a",
+      "implication_for_our_claim": "AUDITABLE NEGATIVE. The full query list with per-query outcomes is in research_report.md so the negative result can be reproduced."
+    }
+  ],
+  "attribution_map": [
+    {
+      "object": "normalized matching property of the Boolean lattice (existence of a balanced fractional fiber map between consecutive levels)",
+      "status": "KNOWN_IN_PRINT",
+      "canonical_citation": "Istvan Tomon, 'Decompositions of the Boolean lattice into rank-symmetric chains', Electronic Journal of Combinatorics 23(2) (2016) #P2.53 -- restating the classical fact; originally LYM / Kleitman.",
+      "url": "https://www.combinatorics.org/ojs/index.php/eljc/article/download/v23i2p53/pdf/",
+      "quote": "A bipartite graph G = (A, B, E) is a normalized matching graph, if for any X subset A we have |X|/|A| <= |Gamma(X)|/|B| ... It is easy to show that 2^[n] is a rank-symmetric, unimodal normalized matching poset.",
+      "what_we_may_claim": "Nothing about the object. Cite it as textbook and claim only the streaming APPLICATION and the O(k) online evaluation rule. Presenting a 'balanced fiber map' as new would be an attribution error a combinatorics-literate reviewer catches on sight."
+    },
+    {
+      "object": "symmetric chain decomposition (SCD) of the Boolean lattice, with explicit constructions",
+      "status": "KNOWN_IN_PRINT",
+      "canonical_citation": "de Bruijn, Tengbergen & Kruyswijk (1951); later Kleitman; three explicit constructions (recursive, greedy lexicographic matching, parenthesis pairing) written out in Petr Gregor, 'Hypercube problems', Lecture 17, Charles University, 21 Dec 2017 (scribe O. Micka, updated 17 Jun 2018).",
+      "url": "http://ktiml.mff.cuni.cz/~gregor/hypercube/lecture17.pdf",
+      "quote": "We construct an SCD as follows. For every level k, 0 <= k <= n-1, we go through vertices on level k in lexicographical order (starting with the smallest one) and match them with their lexicographically smallest unmatched neighbor on level k+1.",
+      "what_we_may_claim": "Nothing about the construction. Note that an SCD gives a MATCHING between consecutive levels, which is not what a reservoir step needs (a reservoir step needs a surjective, degree-balanced map, not an injection), so SCDs are related background rather than the tool."
+    },
+    {
+      "object": "exactly balanced deterministic element-deletion map from k-subsets of [i] onto (k-1)-subsets of [i]",
+      "status": "NOT_FOUND -- and provably impossible in general",
+      "canonical_citation": "Elementary counting, stated here; no source asserts existence. The level-k/level-(k-1) bipartite graph is biregular with degrees k and i-k+1.",
+      "url": "https://www.combinatorics.org/ojs/index.php/eljc/article/download/v23i2p53/pdf/",
+      "quote": "A graded poset P is a normalized matching poset (or satisfies the normalized matching property), if the bipartite comparability graph induced on any two levels A_i and A_j is a normalized matching graph for i, j in {0, ..., n}, i != j.",
+      "what_we_may_claim": "A CORRECTION, not a claim. For a deterministic deletion rule to induce the uniform distribution on (k-1)-subsets, every (k-1)-subset must receive exactly C(i,k)/C(i,k-1) = (i-k+1)/k preimages, which is an integer only when k divides i-k+1. At most steps it does not, so some residual randomness is unavoidable and the paper must present a NEAR-deterministic rule with an explicit, quantified residue rather than an exactly balanced map. The normalized matching property guarantees only the FRACTIONAL (randomised) balanced map, which is exactly the classical Algorithm R."
+    },
+    {
+      "object": "'sum of elements mod k' as a near-uniform statistic on random k-subsets",
+      "status": "KNOWN_IN_PRINT",
+      "canonical_citation": "Stan Wagon & Herbert S. Wilf, 'When are subset sums equidistributed modulo m?', Electronic Journal of Combinatorics 1(1) (1994) #R3. doi:10.37236/1183",
+      "url": "https://www.combinatorics.org/ojs/index.php/eljc/article/view/v1i1r3",
+      "quote": "We ask: for which triples (n,t,m) are the C(n,t) values of f(S) uniformly distributed in the residue classes mod m? The obvious necessary condition, that m divides C(n,t), is not sufficient, but a q-analogue of that condition is both necessary and sufficient ... We show that this condition is equivalent to: for each divisor d>1 of m, we have t mod d > n mod d.",
+      "what_we_may_claim": "Nothing about the statistic; cite Wagon-Wilf. Critically, their theorem is a SHARP CHARACTERISATION of when the statistic is exactly uniform, and the condition 't mod d > n mod d' fails for most (n,t) pairs -- so a sum-mod-k construction is exactly balanced only on a thin set of steps. This independently confirms the divisibility obstruction above and gives a citable, computable criterion for exactly which steps are clean."
+    },
+    {
+      "object": "per-step minimum-entropy coupling, and the claim that it is 'small and exactly solvable'",
+      "status": "NOT_FOUND (no supporting theorem); the general problem is KNOWN_IN_PRINT as NP-hard",
+      "canonical_citation": "M. Kovacevic, I. Stanojevic, V. Senk, 'On the entropy of couplings', arXiv:1303.3235; Problems of Information Transmission, 2015.",
+      "url": "https://arxiv.org/html/1303.3235",
+      "quote": "Theorem 3.8. Optimal channel is NP-hard. Proof. We prove the claim by reducing 3-Partition to Optimal channel. ... a partition with desired properties exists if and only if there is a matrix C in C(P,m) ... having exactly one nonzero entry in every row.",
+      "what_we_may_claim": "Only that the per-step instance is SMALL ENOUGH TO BRUTE-FORCE at the k of interest, verified computationally -- not that it is polynomially solvable. Theorem 3.8 shows row-sparsity alone does not buy tractability (3-Partition reduction, so strongly NP-hard), and Theorem 3.4 shows hardness already at support size 2 on one marginal. Every polynomial guarantee in the literature is additive-approximate: 1 bit (Cicalese-Gargano-Vaccaro Thm 2), 0.53 bits for m=2 / 1.22 general (Compton et al.), and Compton's 2025 PTAS is polynomial only for CONSTANT m and eps. No paper addresses uniform marginals on a Johnson-graph deletion support."
+    },
+    {
+      "object": "exact solvability of the specific instance (uniform marginals, element-deletion sparse support)",
+      "status": "NOT_FOUND",
+      "canonical_citation": "Searched across Kovacevic et al. 2015, Cicalese-Gargano-Vaccaro 2019, Compton et al. 2023, Compton 2025, Sokota et al. 2024 (ARIMEC), and arXiv:2505.12227 on extreme points of coupling polytopes.",
+      "url": "https://arxiv.org/html/2509.19598v1",
+      "quote": "Computing the minimum-entropy coupling is NP-hard, but there has been significant progress in designing approximation algorithms; prior to this work, the best known polynomial-time algorithms attain guarantees of the form H(ALG) <= H(OPT) + c, where c is about 0.53 for m=2, and c is about 1.22 for general m.",
+      "what_we_may_claim": "That the question is OPEN. A reviewer will accept 'we solve the per-step instance exactly by enumeration at the k we test, and leave its complexity open', and will reject 'the per-step problem is a known polynomial special case'. Settling it needs either a total-unimodularity/matroid-intersection argument for this family or a targeted hardness reduction -- neither exists."
+    },
+    {
+      "object": "randomness recycling as the realisation layer",
+      "status": "KNOWN_IN_PRINT",
+      "canonical_citation": "Draper & Saad, SODA 2026 (arXiv:2505.18879v5); independently and concurrently, Bodini & Durand, GASCom 2026 (EPTCS 445:38-46) for the offline k-subset case.",
+      "url": "https://arxiv.org/html/2505.18879v5",
+      "quote": "Corollary 1.7. Let P := {p_i(.|X_1,...,X_{i-1})}_{i>=1} denote a sequence of conditional distributions for random variables X := (X_i)_{i>=1}, whose probabilities have common denominator d >= 1. For any eps>0, there exists an online random sampling algorithm that generates X whose entropy cost satisfies E[t_n(C,P)] < H[X_1,...,X_n] + eps*n + W_{d,eps}.",
+      "what_we_may_claim": "Nothing. Use it, cite it, and make explicit that our contribution operates one level up -- choosing the conditional sequence whose joint entropy H[X_1,...,X_n] their corollary then pays."
+    }
+  ],
+  "deployed_implementations": [
+    {
+      "library": "Apache Spark (core, SamplingUtils.reservoirSampleAndCount)",
+      "version_or_commit": "master @ 79f5f281bb69cb2de9f64006180abd753e8ae427",
+      "file_url": "https://github.com/apache/spark/blob/79f5f281bb69cb2de9f64006180abd753e8ae427/core/src/main/scala/org/apache/spark/util/random/SamplingUtils.scala",
+      "algorithm": "R",
+      "eviction_line_verbatim": "        val replacementIndex = (rand.nextDouble() * l).toLong\n        if (replacementIndex < k) {\n          reservoir(replacementIndex.toInt) = item\n        }",
+      "rng_granularity": "XORShiftRandom.nextDouble() -> a 53-bit double in [0,1), multiplied by the running count l and truncated. One full double per stream element after the reservoir fills. No bounded-integer RNG, no modulo.",
+      "uses_log1p_or_expm1": "n/a for the reservoir path; yes elsewhere -- RandomSampler.scala's GapSampling uses 'private val lnq = math.log1p(-f)' for the geometric-gap denominator but plain math.log(u) for the numerator.",
+      "test_suite_checks": "first-order-only",
+      "notes": "The single most-deployed reservoir sampler in big-data infrastructure (backs RangePartitioner and ML feature subsampling). Pays ~53 bits per element to realise an H_b(k/i) + log2(k) decision."
+    },
+    {
+      "library": "ClickHouse (ReservoirSampler.h)",
+      "version_or_commit": "master @ 16b167a7e4e831ef41374b77402764447e70f24d (2026-08-16)",
+      "file_url": "https://github.com/ClickHouse/ClickHouse/blob/16b167a7e4e831ef41374b77402764447e70f24d/src/AggregateFunctions/ReservoirSampler.h",
+      "algorithm": "R",
+      "eviction_line_verbatim": "        else\n        {\n            UInt64 rnd = genRandom(total_values);\n            if (rnd < sample_count)\n                samples[rnd] = v;\n        }",
+      "rng_granularity": "genRandom(limit) over pcg32_fast: 'if (limit <= static_cast<UInt64>(pcg32_fast::max())) return rng() % limit;' -- a 32-bit draw with EXPLICIT MODULO BIAS; above that range it combines two 32-bit draws and still takes a final '% limit'.",
+      "uses_log1p_or_expm1": "n/a",
+      "test_suite_checks": "none",
+      "notes": "Backs quantile/median aggregates. Default fixed seed rng.seed(123456). The sibling ReservoirSamplerDeterministic.h is NOT reservoir eviction at all -- it hashes a caller-supplied determinator and thins by mask, evicting all items failing a stricter mask."
+    },
+    {
+      "library": "DuckDB (reservoir_sample.cpp / base_reservoir_sample.cpp)",
+      "version_or_commit": "main @ a7dd104bdaed36d973a7a2bf7bc6d1ba75c81e6b (2026-06-02)",
+      "file_url": "https://github.com/duckdb/duckdb/blob/a7dd104bdaed36d973a7a2bf7bc6d1ba75c81e6b/src/execution/sample/base_reservoir_sample.cpp",
+      "algorithm": "A-Res",
+      "eviction_line_verbatim": "std::pair<double, idx_t> BlockingSample::PopFromWeightQueue() {\n\tD_ASSERT(base_reservoir_sample && !base_reservoir_sample->reservoir_weights.empty());\n\tauto ret = base_reservoir_sample->reservoir_weights.top();\n\tbase_reservoir_sample->reservoir_weights.pop();\n\n\tbase_reservoir_sample->UpdateMinWeightThreshold();\n\tD_ASSERT(base_reservoir_sample->min_weight_threshold > 0);\n\treturn ret;\n}",
+      "rng_granularity": "Key generation 'double k_i = random.NextRandom();' = ldexp(64-bit from two chained pcg32 draws, -64). Replacement key uses NextRandom32() = ldexp(one 32-bit draw, -32), i.e. only ~32 bits of entropy.",
+      "uses_log1p_or_expm1": "no -- 'double x_w = log(r) / log(t_w);' (plain std::log twice); grep for log1p|expm1 in both files returns zero hits",
+      "test_suite_checks": "none",
+      "notes": "Direct evidence for alternate hypothesis #2: the skip recurrence uses log(r)/log(t_w) with no log1p guard. See also DuckDB issue #18099, a real order-statistics bug in exactly this code."
+    },
+    {
+      "library": "rust-random/rand (IteratorRandom::sample, formerly choose_multiple)",
+      "version_or_commit": "master @ ea71ad8475e5e75cb769220107c418556fbdf19e (2026-02-04), crate 0.10.2",
+      "file_url": "https://github.com/rust-random/rand/blob/ea71ad8475e5e75cb769220107c418556fbdf19e/src/seq/iterator.rs",
+      "algorithm": "R",
+      "eviction_line_verbatim": "            for (i, elem) in self.enumerate() {\n                let k = rng.random_range(..i + 1 + amount);\n                if let Some(slot) = reservoir.get_mut(k) {\n                    *slot = elem;\n                }\n            }",
+      "rng_granularity": "Rng::random_range(..N) -> UniformInt widening-multiply (Lemire) with rejection; unbiased; consumes at least one machine word per element.",
+      "uses_log1p_or_expm1": "n/a",
+      "test_suite_checks": "none",
+      "notes": "choose_multiple is deprecated since 0.10.0 in favour of sample(); both share the same Algorithm-R loop. Tests are golden-value regressions against hardcoded arrays plus bounds/length checks -- no distributional assertion for the k>1 path (the single-item choose does have a first-order Binomial test)."
+    },
+    {
+      "library": "gstamatelat/random-sampling (Java; WatermanSampling = R, LiLSampling = L, ChaoSampling)",
+      "version_or_commit": "master @ c518a4e5e5b7752990b0cf51f216408ed7d6c7ac (2022-09-12), repo tag v0.28",
+      "file_url": "https://github.com/gstamatelat/random-sampling/blob/30f5b6e19a01186c9e184a14bc9b13285eec98ad/src/main/java/gr/james/sampling/AbstractRandomSampling.java",
+      "algorithm": "L",
+      "eviction_line_verbatim": "        // Accept and generate new skip\n        assert skip == 0;\n        sample.set(random.nextInt(sampleSize), item);\n        skip = skipFunction.skip();\n        assert this.skip >= 0;\n        return true;",
+      "rng_granularity": "java.util.Random.nextInt(bound) (rejection-based, unbiased) for the slot; LiL additionally draws TWO nextDouble()-based values per skip via RandomSamplingUtils.randomExclusive.",
+      "uses_log1p_or_expm1": "no -- 'final double skipDouble = Math.log(random1) / Math.log(1 - W);' ; grep for log1p|expm1 across LiLSampling/WatermanSampling/AbstractRandomSampling returns zero hits",
+      "test_suite_checks": "first-order-only",
+      "notes": "The cleanest single source for several reservoir variants. RandomSamplingTest.correctness() asserts only marginal inclusion frequency: 'final double expected = (double) REPS * Math.min(SAMPLE, STREAM) / STREAM; assertEquals(..., 1, d[i] / expected, 1e-2);' over up to 4,000,000 reps. Zero hits for pair|joint|covariance|co-occur in the test files."
+    },
+    {
+      "library": "scikit-learn (sklearn.utils._random, reservoir_sampling variant)",
+      "version_or_commit": "main @ f1261a9356fe4519ac25af3a2e2b7ec31de3be96",
+      "file_url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/main/sklearn/utils/_random.pyx",
+      "algorithm": "R",
+      "eviction_line_verbatim": "for i in range(n_samples):\n        out[i] = i\n\n    for i from n_samples <= i < n_population:\n        j = rng_randint(0, i + 1)\n        if j < n_samples:\n            out[j] = i",
+      "rng_granularity": "one rng_randint(0, i+1) per index",
+      "uses_log1p_or_expm1": "no",
+      "test_suite_checks": "joint",
+      "notes": "Textbook Algorithm R but applied over an index array with n_population KNOWN, so not streaming. check_sample_int_distribution runs 10,000 trials at n_population=10 and asserts every one of the C(n,k) frozensets appears -- a genuine joint check, but only feasible because n is tiny and offline."
+    },
+    {
+      "library": "CPython stdlib (Lib/random.py, Random.sample)",
+      "version_or_commit": "main @ 1f1374009b681814642ca199136815b223fd90ae",
+      "file_url": "https://raw.githubusercontent.com/python/cpython/main/Lib/random.py",
+      "algorithm": "not-reservoir",
+      "eviction_line_verbatim": "if n <= setsize:\n            # An n-length list is smaller than a k-length set.\n            # Invariant:  non-selected at pool[0 : n-i]\n            pool = list(population)\n            for i in range(k):\n                j = randbelow(n - i)\n                result[i] = pool[j]\n                pool[j] = pool[n - i - 1]  # move non-selected item into vacancy",
+      "rng_granularity": "one _randbelow() per selection; the tracking-set branch resamples on collision",
+      "uses_log1p_or_expm1": "n/a",
+      "test_suite_checks": "joint",
+      "notes": "CONTRAST ROW: requires len(population) upfront. test_sample_distribution asserts every ORDERED permutation tuple appears over 10,000 trials at n=5 -- the strongest test found anywhere in the audit, and only possible offline at tiny n."
+    },
+    {
+      "library": "NumPy (Generator.choice, replace=False)",
+      "version_or_commit": "main @ 79d706e5e07075fb48aa04427b221a1cad86e0f0",
+      "file_url": "https://raw.githubusercontent.com/numpy/numpy/main/numpy/random/_generator.pyx",
+      "algorithm": "not-reservoir",
+      "eviction_line_verbatim": "                        for j in range(pop_size_i - size_i, pop_size_i):\n                            val = random_bounded_uint64(&self._bitgen, 0, j, 0, 0)\n                            loc = val & mask\n                            while hash_set[loc] != <uint64_t>-1 and hash_set[loc] != <uint64_t>val:\n                                loc = (loc + 1) & mask\n                            if hash_set[loc] == <uint64_t>-1: # then val not in hash_set\n                                hash_set[loc] = val\n                                idx_data[j - pop_size_i + size_i] = val",
+      "rng_granularity": "one random_bounded_uint64 per selected index (Floyd's algorithm); a tail-shuffle branch is used for large size/pop_size",
+      "uses_log1p_or_expm1": "no",
+      "test_suite_checks": "none",
+      "notes": "CONTRAST ROW: Floyd's algorithm, pop_size known. All replace=False tests are fixed-seed exact-value regressions; no distributional assertion found."
+    },
+    {
+      "library": "Apache Beam Java SDK (Sample.FixedSizedSampleFn via Top.BoundedHeap)",
+      "version_or_commit": "master @ 052202fe5b0fdd91e35095db50080eb85c44657e",
+      "file_url": "https://raw.githubusercontent.com/apache/beam/master/sdks/java/core/src/main/java/org/apache/beam/sdk/transforms/Top.java",
+      "algorithm": "bottom-k",
+      "eviction_line_verbatim": "if (asQueue.size() < maximumSize) {\n        asQueue.add(value);\n        return true;\n      } else if (compareFn.compare(value, asQueue.peek()) > 0) {\n        asQueue.poll();\n        asQueue.add(value);\n        return true;\n      } else {\n        return false;\n      }",
+      "rng_granularity": "one rand.nextInt() uniform key per input element -- 'accumulator.addInput(KV.of(rand.nextInt(), input));' (Sample.java line 323)",
+      "uses_log1p_or_expm1": "n/a",
+      "test_suite_checks": "none",
+      "notes": "Bottom-k by uniform random key in a bounded min-heap. Spends a full 32-bit key per element regardless of k/i -- the most bit-wasteful family in the audit. Tests assert only output size and subset membership."
+    },
+    {
+      "library": "Apache Flink (ReservoirSamplerWithoutReplacement)",
+      "version_or_commit": "release-1.20 @ c6997c97c575d334679915c328792b8a3067cfb5 (package removed in Flink 2.x)",
+      "file_url": "https://raw.githubusercontent.com/apache/flink/release-1.20/flink-java/src/main/java/org/apache/flink/api/java/sampling/ReservoirSamplerWithoutReplacement.java",
+      "algorithm": "A-Res",
+      "eviction_line_verbatim": "double rand = random.nextDouble();\n                // Remove the element with the smallest weight, and append current element into the\n                // queue.\n                if (rand > smallest.getWeight()) {\n                    queue.remove();\n                    queue.add(new IntermediateSampleData<T>(rand, element));\n                    smallest = queue.peek();\n                }",
+      "rng_granularity": "one random.nextDouble() (53-bit) per incoming element, used directly as the priority key",
+      "uses_log1p_or_expm1": "no (grepped across the whole sampling package: zero hits)",
+      "test_suite_checks": "first-order-only",
+      "notes": "True streaming, unknown n. RandomSamplerTest.verifyKSTest runs a Kolmogorov-Smirnov test on the pooled sampled VALUES against a uniform reference -- a marginal shape test, not a joint inclusion test."
+    },
+    {
+      "library": "rcrowley/go-metrics (UniformSample)",
+      "version_or_commit": "master @ 65e299d6c5c92718e672a9d2bc7f96e5b687eef8",
+      "file_url": "https://raw.githubusercontent.com/rcrowley/go-metrics/master/sample.go",
+      "algorithm": "R",
+      "eviction_line_verbatim": "\tif len(s.values) < s.reservoirSize {\n\t\ts.values = append(s.values, v)\n\t} else {\n\t\tr := rand.Int63n(s.count)\n\t\tif r < int64(len(s.values)) {\n\t\t\ts.values[int(r)] = v\n\t\t}\n\t}",
+      "rng_granularity": "one rand.Int63n(count) (63-bit bounded, rejection-based) per element after fill",
+      "uses_log1p_or_expm1": "no",
+      "test_suite_checks": "first-order-only",
+      "notes": "Explicitly cites Vitter 1985 in a source comment ('A uniform sample using Vitter's Algorithm R'). Tests are fixed-seed golden values (min=37, max=9989, mean=4748.14) plus count/size/range checks."
+    },
+    {
+      "library": "Apache Commons RNG (ListSampler.sample via SubsetSamplerUtils)",
+      "version_or_commit": "master @ 75e0ee6a13383b12b0562c19a37949633b65a4f0",
+      "file_url": "https://raw.githubusercontent.com/apache/commons-rng/master/commons-rng-sampling/src/main/java/org/apache/commons/rng/sampling/SubsetSamplerUtils.java",
+      "algorithm": "not-reservoir",
+      "eviction_line_verbatim": "int swapCount = Math.min(steps, domain.length - 1);\n        for (int i = domain.length - 1; swapCount > 0; i--, swapCount--) {\n            // Swap index i with any position down to 0 (including itself)\n            swap(domain, i, rng.nextInt(i + 1));\n        }",
+      "rng_granularity": "one rng.nextInt(i+1) per selected element (partial Fisher-Yates)",
+      "uses_log1p_or_expm1": "no",
+      "test_suite_checks": "joint",
+      "notes": "CONTRAST ROW: needs n upfront; commons-rng ships NO class named Reservoir. ListSamplerTest.testSample bins 1000 draws into all 10 possible 2-subsets of {0..4} and runs a ChiSquareTest at alpha=0.001 -- a genuine joint test, again only at tiny n offline."
+    },
+    {
+      "library": "TensorFlow tf.data ShuffleDataset (shuffle buffer)",
+      "version_or_commit": "master @ 09b07215f446307ed9dabbc1794bfe2ef8ffb703",
+      "file_url": "https://raw.githubusercontent.com/tensorflow/tensorflow/master/tensorflow/core/kernels/data/shuffle_dataset_op.cc",
+      "algorithm": "not-reservoir",
+      "eviction_line_verbatim": "      int64_t offset =\n          Random() % (slices_.front()->end - slices_.front()->start);\n      int64_t index = (slices_.front()->start + offset) % buffer_->size();\n      *out_tensors = std::move(buffer_->at(index));",
+      "rng_granularity": "one Philox-based Random() per dequeue, then a modulo",
+      "uses_log1p_or_expm1": "n/a",
+      "test_suite_checks": "first-order-only",
+      "notes": "CONTRAST ROW: emits every element exactly once with order randomised inside a sliding window -- not a fixed-size uniform sample of the stream. Tests assert multiset equality and per-value repeat counts only."
+    },
+    {
+      "library": "Redis (SRANDMEMBER, srandmemberWithCountCommand)",
+      "version_or_commit": "unstable @ 16e021b465fbbc73d5f070b4da5ce9f5ee4baea1",
+      "file_url": "https://raw.githubusercontent.com/redis/redis/unstable/src/t_set.c",
+      "algorithm": "not-reservoir",
+      "eviction_line_verbatim": "        while (added < count) {\n            setTypeRandomElement(set, &str, &len, &llele);\n            ...\n            if (dictAdd(d,sdsele,NULL) == DICT_OK)\n                added++;\n            else\n                sdsfree(sdsele);\n        }",
+      "rng_granularity": "one O(1) random-access element pick per rejection-sampling iteration",
+      "uses_log1p_or_expm1": "no",
+      "test_suite_checks": "unknown",
+      "notes": "CONTRAST ROW: because Redis sets support O(1) random access, no reservoir is needed; it uses additive (large set) or subtractive (small set) rejection sampling into a scratch dict. A 'SRANDMEMBER histogram distribution' Tcl test exists but its assertion body was not fetched, so the cell is honestly 'unknown'."
+    },
+    {
+      "library": "PostgreSQL contrib tsm_system_rows (TABLESAMPLE SYSTEM_ROWS)",
+      "version_or_commit": "master @ 311df1dc0392f06973cf98eac51d63cb007267ce",
+      "file_url": "https://raw.githubusercontent.com/postgres/postgres/master/contrib/tsm_system_rows/tsm_system_rows.c",
+      "algorithm": "not-reservoir",
+      "eviction_line_verbatim": "\t\tsampler->firstblock = sampler_random_fract(&randstate) *\n\t\t\tsampler->nblocks;\n\n\t\t/* Find relative prime as step size for linear probing. */\n\t\tsampler->step = random_relative_prime(sampler->nblocks, &randstate);",
+      "rng_granularity": "exactly TWO RNG draws for an entire scan (start block, stride); zero per-row randomness",
+      "uses_log1p_or_expm1": "n/a",
+      "test_suite_checks": "unknown",
+      "notes": "CONTRAST ROW and an instructive one: a widely deployed 'sampling' feature that spends O(1) bits total and makes no uniformity guarantee at row granularity. The regression file shows system_rows(100) on a 31-row table returning 31 rows."
+    },
+    {
+      "library": "Google Guava",
+      "version_or_commit": "master @ 5a7407d8f0bcccdf36c919b77991809c1bced828",
+      "file_url": "https://raw.githubusercontent.com/google/guava/master/guava/src/com/google/common/collect/Streams.java",
+      "algorithm": "NOT PRESENT",
+      "eviction_line_verbatim": "n/a -- grep -in \"reservoir|sample\" over Streams.java (987 lines), Iterables.java and Iterators.java returned zero matches; Ordering.java line 745 'public <E extends T> List<E> leastOf(Iterable<E> iterable, int k) {' is a deterministic top-k selector, not random sampling.",
+      "rng_granularity": "n/a",
+      "uses_log1p_or_expm1": "n/a",
+      "test_suite_checks": "unknown",
+      "notes": "Negative result, recorded for completeness: Guava ships no reservoir sampler. Established by direct source inspection of collect/ plus a directory listing of common/math (the unauthenticated GitHub code-search API returned 401), so a stray helper elsewhere in the repo cannot be ruled out with certainty."
+    }
+  ],
+  "necessity_quotes": [
+    {
+      "source": "Wikipedia, 'Reservoir sampling'",
+      "url": "https://en.wikipedia.org/wiki/Reservoir_sampling",
+      "date": "last edit 26 January 2026 (per the article's revision history)",
+      "quote": "without replacement, of k items from a population of unknown size n in a single pass over the item",
+      "bucket": "C_descriptive"
+    },
+    {
+      "source": "Wikipedia, 'Reservoir sampling' -- Proof of correctness of Algorithm R",
+      "url": "https://en.wikipedia.org/wiki/Reservoir_sampling",
+      "date": "last edit 26 January 2026",
+      "quote": "By induction, Algorithm R produces a uniform random sample of the inputs.",
+      "bucket": "B_sufficiency_only"
+    },
+    {
+      "source": "Vitter, 'Random Sampling with a Reservoir', ACM TOMS 11(1):37-57",
+      "url": "https://www.ittc.ku.edu/~jsv/Papers/Vit85.Reservoir.pdf",
+      "date": "March 1985",
+      "quote": "The candidate it replaces is chosen randomly from the n candidates.",
+      "bucket": "C_descriptive"
+    },
+    {
+      "source": "Vitter, 'Random Sampling with a Reservoir', ACM TOMS 11(1):37-57",
+      "url": "https://www.ittc.ku.edu/~jsv/Papers/Vit85.Reservoir.pdf",
+      "date": "March 1985",
+      "quote": "It is easy to see that the resulting set of n candidates forms a random sample of the first t + 1 records.",
+      "bucket": "B_sufficiency_only"
+    },
+    {
+      "source": "cs.stackexchange.com Q28123, top answer (D.W.)",
+      "url": "https://cs.stackexchange.com/questions/28123/returning-a-random-subset-with-length-k-of-n-strings-while-only-storing-at-most",
+      "date": "answer 2014-07-01, edited 2017-04-13",
+      "quote": "Each time you read a new string, you replace it with the one in memory with probability 1/i, if this is the ith string you've read so far. At the end, output whatever is stored in memory. The end result is that each string in the input is equally likely to be output.",
+      "bucket": "B_sufficiency_only"
+    },
+    {
+      "source": "Krauthgamer, Sublinear Time and Space Algorithms 2024A, Lecture 6 (Weizmann)",
+      "url": "https://www.wisdom.weizmann.ac.il/~robi/teaching/2024a-SublinearAlgorithms/lecture6.pdf",
+      "date": "course year 2024A",
+      "quote": "Its output is a uniform item from the stream, i.e., each position j is picked (and outputted) with the same probability 1/m.",
+      "bucket": "B_sufficiency_only"
+    },
+    {
+      "source": "samwho.dev, 'Reservoir Sampling'",
+      "url": "https://samwho.dev/reservoir-sampling/",
+      "date": "2025-05-07",
+      "quote": "In order to be fair, every card must have an equal chance of being selected.",
+      "bucket": "B_sufficiency_only"
+    },
+    {
+      "source": "Cornell ORIE 6125 course notes",
+      "url": "https://people.orie.cornell.edu/prs233/orie-6125/algorithms/reservoir-sampling.html",
+      "date": "unknown (no date on page)",
+      "quote": "Whenever we encounter a new element in the list, we replace an element of the reservoir with the new element with the appropriate probability.",
+      "bucket": "C_descriptive"
+    },
+    {
+      "source": "SpaceComplexity blog, 'Reservoir Sampling: Sample Any Stream Without Seeing Its End'",
+      "url": "https://spacecomplexity.ai/blog/reservoir-sampling-algorithm",
+      "date": "2026-05-26",
+      "quote": "Each subsequent item at position i is accepted with probability k/(i+1), and if accepted, evicts one slot chosen uniformly.",
+      "bucket": "C_descriptive"
+    },
+    {
+      "source": "Richard Startin's Blog, 'Reservoir Sampling'",
+      "url": "https://richardstartin.github.io/posts/reservoir-sampling",
+      "date": "2020-01-17",
+      "quote": "Reservoir sampling solves this problem by keeping a reservoir of sampled data which is maintained (added to and evicted from) so that it is always an unbiased sample of the data seen so far.",
+      "bucket": "B_sufficiency_only"
+    },
+    {
+      "source": "Richard Startin's Blog, 'Reservoir Sampling' -- 'Does Algorithm R produce uniformly distributed samples?'",
+      "url": "https://richardstartin.github.io/posts/reservoir-sampling",
+      "date": "2020-01-17",
+      "quote": "The probability of being replaced conditional on replacement occurring is $1/k$, because the random index is uniformly distributed.",
+      "bucket": "B_sufficiency_only"
+    },
+    {
+      "source": "florian.github.io, 'Reservoir Sampling'",
+      "url": "https://florian.github.io/reservoir-sampling/",
+      "date": "2019-11-30",
+      "quote": "The value of $k / i$ is derived from the fact that this is the probability that any given element is sampled from a uniform distribution if we want to select $k$ items.",
+      "bucket": "B_sufficiency_only"
+    },
+    {
+      "source": "Jeff M. Phillips, Models of Computation for Massive Data (Utah), L7 notes",
+      "url": "https://users.cs.utah.edu/~jeffp/teaching/MCMD/S7.2-sampling.pdf",
+      "date": "Fall 2013",
+      "quote": "In effect, for all i, the ith element of S is chosen to be included in the reservoir with probability n/i.",
+      "bucket": "C_descriptive"
+    },
+    {
+      "source": "Roughgarden & Valiant, Stanford CS168 'The Modern Algorithmic Toolbox', Lecture 13",
+      "url": "https://web.stanford.edu/class/cs168/l/l13.pdf",
+      "date": "2024-05-14 (c) 2016-2024",
+      "quote": "We now show that at any time t \u2265 k, the reservoir R consists of a uniformly random subset of k of the entries of x1, . . . , xt.",
+      "bucket": "B_sufficiency_only"
+    },
+    {
+      "source": "Stack Overflow Q29131567, 'Reservoir sampling: why is it selected uniformly at random'",
+      "url": "https://stackoverflow.com/questions/29131567/reservoir-sampling-why-is-it-selected-uniformly-at-random",
+      "date": "2015-03-18",
+      "quote": "at every step N, keep the next element in the stream with probability 1/N. This means that we have an (N-1)/N probability of keeping the element we are currently holding on to, which means that we keep it with probability (1/(N-1)) * (N-1)/N = 1/N.",
+      "bucket": "B_sufficiency_only"
+    }
+  ],
+  "bug_reports": [
+    {
+      "repo": "apache/datasketches-java",
+      "url": "https://github.com/apache/datasketches-java/issues/647",
+      "defect_order": "joint",
+      "caught_by_tests": false,
+      "summary": "OPEN, UNPATCHED, and the single most valuable finding for alternate hypothesis #1: a maintainer-authored design note showing that the standard merge of two serialized reservoirs preserves correct per-item MARGINALS while corrupting the JOINT/positional distribution. Verbatim: 'You can almost use the first t and s-t samples from s1 and s2, respectively, except that there's a position bias from the initial reservoir fill. For items 0 to k-1, they can only ever appear at that specific index.' A per-item frequency test cannot detect this by construction. Self-identified in design discussion ('after discussing with a stats person about a year ago'), not by any test; three candidate fixes proposed, none merged (dated 2025-02-03)."
+    },
+    {
+      "repo": "apache/spark",
+      "url": "https://github.com/apache/spark/pull/16129",
+      "defect_order": "first",
+      "caught_by_tests": false,
+      "summary": "SPARK-18678, 2016-12-03. Off-by-one in reservoirSampleAndCount made the replacement probability k/(l-1) instead of k/l, biasing small-k samples. Found by a committer auditing the code. The reviewer's own words are the strongest available evidence that the field does not test sampler correctness: 'Now that I'm looking at it, the test suite never actually tests for correctness, just basic input/output sizes.' Merged to master and backported to Spark 2.1."
+    },
+    {
+      "repo": "duckdb/duckdb",
+      "url": "https://github.com/duckdb/duckdb/issues/18099",
+      "defect_order": "first",
+      "caught_by_tests": false,
+      "summary": "'Reservoir Sampling is broken since DuckDB 1.2.0', reported 2025-06-30 by an external user who noticed q25/q50/q75 of a uniform population shifting across releases. Two compounding defects in the fast-to-slow mode switch: replacement keys were drawn uniformly between a precomputed minimum and 1 when the correct law is a Beta(n,1) order statistic, and next_index_to_sample used round instead of ceil. Fix quote: 'The main issue here is that the top k values among n uniform samples, known as order statistics, do not follow a uniform distribution, resulting in a skew.' This is exactly the floating-point/order-statistic failure mode alternate hypothesis #2 predicts for Algorithm-L-family code."
+    },
+    {
+      "repo": "tikv/tikv",
+      "url": "https://github.com/tikv/tikv/issues/19849",
+      "defect_order": "first",
+      "caught_by_tests": false,
+      "summary": "2026-07-17. RegionInfo::add_key_ranges sampled from 0..n instead of 0..=n, so with capacity 1 the second observation ALWAYS evicted the first. 'observation n is admitted with probability sample_num / n, while Algorithm R requires sample_num / (n + 1).' Found by manual code review; the fix PR (#19851) added unit test coverage that did not previously exist."
+    },
+    {
+      "repo": "AndreaBozzo/dataprof",
+      "url": "https://github.com/AndreaBozzo/dataprof/pull/650",
+      "defect_order": "first",
+      "caught_by_tests": false,
+      "summary": "2026-08-31. StreamReservoirSampler::merge() pooled two reservoirs and subsampled uniformly, ignoring each side's population count: 'a 100-row partition merged into a 10,000-row one took about 52 of 100 sample slots instead of about 1.' Fixed by drawing survivors from the hypergeometric distribution. Found by self-audit; merge() had no production caller and no covering test."
+    },
+    {
+      "repo": "ClickHouse/ClickHouse",
+      "url": "https://github.com/ClickHouse/ClickHouse/issues/101782",
+      "defect_order": "other",
+      "caught_by_tests": false,
+      "summary": "2026-04-04, maintainer-labelled 'bug: Confirmed user-visible misbehaviour in official release'. ReservoirSamplerDeterministic::merge() lacks the 'if (this == &b) return;' self-merge guard that ReservoirSampler::merge() already has, so a state merged with itself iterates b.samples while insertImpl overwrites the same array. Reproduction returns 58415 instead of ~50467.5 on 100k rows. Found by an automated code-review bot scanning an unrelated PR, not by the test suite. Classified 'other' (memory aliasing, not a distributional bias)."
+    }
+  ],
+  "settled_by_literature": [
+    "MAIN HYPOTHESIS -- 'the random-bit cost of exact every-prefix-uniform k>=2 reservoir sampling is unstudied': NOT settled by prior art. The k=1 case is settled twice over (Bhattacharya et al. arXiv:1407.1689 for the eps-error model, Theta(log(n/eps)); Breitner's comment thread for the exact model, H = log2 n + sum (1/j)log2(j-1) ~ (ln n)^2/(2 ln 2)). The k>=2 case is not addressed anywhere found. OPEN.",
+    "MAIN HYPOTHESIS -- 'uniformly random eviction can be replaced by a (near-)deterministic rule without breaking every-prefix uniformity': NOT settled, but PARTLY CONSTRAINED. Exact determinism is impossible whenever k does not divide i-k+1 (elementary counting), and Wagon-Wilf (eljc 1994 #R3) gives the sharp criterion for when a sum-mod-k statistic is exactly uniform. The paper must claim a near-deterministic rule with quantified residue.",
+    "MAIN HYPOTHESIS -- 'the balanced fiber map is new': SETTLED AGAINST. The Boolean lattice's normalized matching property (Tomon eljc 23(2) #P2.53, restating the classical fact) already gives the fractional balanced map, and de Bruijn/Tengbergen/Kruyswijk SCDs give explicit level-to-level constructions (Gregor, Hypercube problems L17). Claim the streaming application only.",
+    "MAIN HYPOTHESIS -- 'the per-step minimum-entropy coupling is exactly solvable': NOT SUPPORTED by any citable theorem, and the nearest results point the other way. Kovacevic-Stanojevic-Senk Thm 3.4 (Subset-Sum) and Thm 3.8 (3-Partition, row-sparse) show hardness survives both small support and row sparsity. Claim brute-force-at-our-k and state the complexity as open.",
+    "ALTERNATE #1 -- 'the standard uniformity test is nearly blind to joint-distribution defects': PARTLY settled, and needs rescoping. FALSE as stated for offline samplers: CPython tests every ordered permutation, scikit-learn tests every C(n,k) frozenset, Apache Commons RNG runs a chi-square over all 2-subsets. TRUE for every streaming sampler audited (Spark, ClickHouse, DuckDB, rust-random, gstamatelat, go-metrics, Flink, Beam): first-order-only or no distributional test at all. A real unpatched joint-only defect exists (Apache DataSketches #647) and is the natural validation target.",
+    "ALTERNATE #2 -- 'Algorithm L implementations use numerically naive log(1-W)': CONFIRMED by source inspection, not settled by any paper. gstamatelat LiLSampling uses 'Math.log(random1) / Math.log(1 - W)'; DuckDB uses 'log(r) / log(t_w)'; neither repo contains log1p or expm1 anywhere in its sampling code. Spark's GapSampling is the only log1p user found, and it is not the reservoir path. DuckDB issue #18099 is a real, fixed order-statistics bug in exactly this code.",
+    "ALTERNATE #4 -- 'the waste is in the variates, not the coupling': REFUTED for k >= 10 by deterministic arithmetic in bit_accounting.py. Draper-Saad recycling drives realisation cost to sum_i H(P_i), but the eviction term k*log2(k)*(H_n - H_k) is 18-34% of that sum at k=10 and 34-59% at k=100 over n = 1e4..1e9. It is, however, a fair characterisation at k=2 (6-8%).",
+    "UNIVERSALLY MISSED BY THE HYPOTHESIS -- the every-prefix constraint, not the eviction rule, dominates. Even a perfectly deterministic-eviction sampler costs ~1494 bits at k=10, n=1e6 versus log2 C(n,k) = 177.5 bits for the final answer, and Bodini-Durand already achieve log2 C(n,k) + O(k) offline. The price of anytime-validity is a factor of ~8 and is arguably the better headline."
+  ],
+  "corrections_to_the_hypothesis": [
+    "'Every textbook, Wikipedia and StackOverflow states uniform eviction is necessary.' FALSE. Across 15 verbatim quotations from 12 distinct sources, bucket A (strict necessity asserted) = 0, bucket B (sufficiency only) = 10, bucket C (descriptive) = 5. Not one source claims a non-uniform eviction rule would bias the sample. DELETE the 'overturns a textbook false belief' contribution and replace with: 'uniform eviction is universally taught, universally deployed, and its necessity is never discussed -- every proof found is sufficiency-only.'",
+    "Vitter's Algorithms X, Y and Z are ALL in Vitter 1985, ACM TOMS 11(1):37-57, not split across 1985 and 1987. There is no 1987 Vitter reservoir paper. Vitter 1984, CACM 27(7):703-718 ('Faster methods for random sampling') contains Algorithms A, B, C and D for the known-N sequential sampling problem -- a different problem.",
+    "The k=1 entropy closed form H = log2(n) + sum_{k=2..n} (1/k) log2(k-1) ~ (ln n)^2/(2 ln 2) is CORRECTLY transcribed (reproduced to 6 decimals in bit_accounting.py at n=1e3, 1e5, 1e6), but it is NOT Breitner's result. Breitner's 2018-03-25 post explicitly asks 'What is the expected number of coin throws for n prisoners?' as an open question. The Theta((log n)^2) lower bound is comment #1 by Benjamin Price (2018-04-18) and the closed form, the H+2 Knuth-Yao optimum and the H+3 bound for Breitner's procedure are comment #2 by Christoph Pfister (2019-01-31). Cite the commenters.",
+    "Bhattacharya, Issac, Jaiswal & Kumar do NOT 'charge exact sampling a quadratically larger cost'. They show exact uniform sampling is IMPOSSIBLE with any bounded number of bits (primality argument) and therefore work in the eps-error model with a tight Theta(log(n/eps)). The quadratic figure in their paper is footnote 3's remark that Vitter's advanced method needs Omega((log n)^2) bits in expectation -- a different claim about a different algorithm.",
+    "The claimed 25-61% eviction saving is regime-dependent and overstated for small k. Computed eviction share of the total variate entropy: k=2 -> 5.9-11.5%; k=4 -> 11.5-22.1%; k=10 -> 18.4-34.4%; k=32 -> 26.5-47.9%; k=100 -> 33.8-59.3%; k=1000 -> 46.8-78.5% (ranges over n = 1e9 down to 1e4). The paper must state (k, n) explicitly; '25-61%' corresponds roughly to 10 <= k <= 100.",
+    "'The balanced fiber map is an exactly balanced deterministic deletion rule.' Impossible in general. Each (k-1)-subset of [i] must receive C(i,k)/C(i,k-1) = (i-k+1)/k preimages, an integer only when k | (i-k+1). Wagon & Wilf (1994) give the exact criterion for the sum-mod-k variant: uniformity holds iff for every divisor d>1 of m, t mod d > n mod d. Reframe as a near-deterministic rule with an explicit residual-randomness budget.",
+    "'The per-step min-entropy coupling is a known polynomial special case.' No such theorem exists. MEC is NP-hard even when one marginal has support 2 (Kovacevic et al. Thm 3.4) and strongly NP-hard under one-nonzero-per-row sparsity (Thm 3.8, 3-Partition). All polynomial results are additive approximations; Compton's 2025 PTAS is polynomial only for constant m and eps.",
+    "Draper & Saad's framework DOES cover the reservoir's state-dependent distribution sequence (Remark 1.4 / Corollary 1.7 / Eq. 1.7), contrary to a natural reading of the hypothesis that it handles only exogenous processes. The correct distinction is Remark 1.3's: they optimise HOW a chosen distribution is realised, not WHICH distributions must be realised. State this precisely or a reviewer who knows the paper will read the framing as a misrepresentation.",
+    "'Every implementation evicts uniformly at random.' True for the Algorithm-R/L family but not for all deployed k-of-stream samplers. Apache Flink, Apache Beam and DuckDB use bottom-k / A-Res priority queues that evict the minimum-key element deterministically, spending a full float per element on the key instead. Redis, PostgreSQL tsm_system_rows, NumPy, CPython and Apache Commons RNG are not streaming samplers at all. Guava ships no reservoir sampler.",
+    "The paper's implicit baseline should not be 'log2 C(n,k) is unattainable'. Bodini & Durand (GASCom 2026) attain log2 C(n,k) + O(k) in O(n) time for the OFFLINE k-subset problem. The correct statement is that the every-prefix constraint costs roughly an order of magnitude more than the offline optimum, and that gap has not been characterised."
+  ],
+  "sources": [
+    {
+      "index": 1,
+      "url": "https://arxiv.org/abs/2505.18879",
+      "title": "Efficient Online Random Sampling via Randomness Recycling (arXiv abstract page)",
+      "summary": "Establishes the identity, version history (v1 24 May 2025, v5 7 May 2026) and venue (SODA 2026, pp. 2473-2511) of the primary scoop candidate, plus the abstract's comparison set (Knuth-Yao 1976, Han-Hoshi 1997, Kozen-Soloviev 2022, Shao-Wang 2025) and its stated applications.",
+      "authors": [
+        "Thomas L. Draper",
+        "Feras A. Saad"
+      ],
+      "year": 2026,
+      "supporting_passages": [
+        {
+          "quote": "On the practical side, we develop randomness recycling techniques to accelerate a variety of prominent sampling algorithms. We show that randomness recycling enables state-of-the-art runtime performance on the Fisher-Yates shuffle when using a cryptographically secure pseudorandom number generator, and that it reduces the entropy cost of discrete Gaussian sampling.",
+          "locator": "Abstract, second paragraph"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "url": "https://arxiv.org/html/2505.18879v5",
+      "title": "Efficient Online Random Sampling via Randomness Recycling (full HTML, v5)",
+      "summary": "The decisive source for the Q1 scoop verdict. Grepped in full (476,303 characters): 'reservoir' 0 hits, 'streaming'/'data stream'/'unknown length' 0 hits. Supplies Eq. 1.7 (the scope of the model), Remark 1.3 (entropies of P_i, not of the output sequence), Remark 1.4 and Corollary 1.7 (state-dependent sequences are covered), Theorem 1.5 and Conjecture 1.6.",
+      "authors": [
+        "Thomas L. Draper",
+        "Feras A. Saad"
+      ],
+      "year": 2026,
+      "supporting_passages": [
+        {
+          "quote": "cannot depend on fresh coins to be consumed by the sampler in future rounds, and that it cannot depend on the internal history of the sampler other than through its generated outputs",
+          "locator": "Section 1.1, after Eq. 1.7"
+        },
+        {
+          "quote": "A common case for online sampling is generating an output sequence",
+          "locator": "Remark 1.4, opening"
+        },
+        {
+          "quote": "We conjecture that the space-entropy combination in Theorem 1.5 is the best possible, up to constant factors and dependence on",
+          "locator": "Before Conjecture 1.6"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "url": "https://raw.githubusercontent.com/probsys/randomness-recycling/master/README.md",
+      "title": "probsys/randomness-recycling -- reference C implementation (README)",
+      "summary": "Checked for any reservoir or k-subset example. The README lists inversion, lookup-table, alias, Fast Loaded Dice Roller and Amplified Loaded Dice Roller samplers; grep for reservoir|subset|without replacement|shuffle returns zero hits. Corroborates the NO-reservoir finding at the artifact level. (Default branch is master; the main branch path 404s.)",
+      "authors": [
+        "Thomas L. Draper",
+        "Feras A. Saad"
+      ],
+      "year": 2026,
+      "supporting_passages": [
+        {
+          "quote": "These samplers use a technique called randomness recycling to\nreduce the expected amortized entropy consumption over many samples.",
+          "locator": "Opening paragraph"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "url": "https://arxiv.org/pdf/1407.1689",
+      "title": "Sampling in Space Restricted Settings",
+      "summary": "The closest existing bit-complexity result: Theta(log(n/eps)) random bits for maintaining a size-ONE uniform sample over a stream of unknown length, plus the impossibility of exact uniform sampling with bounded bits, plus the Omega(n log n) cost of naive reservoir sampling and the Omega((log n)^2) cost of Vitter's method.",
+      "authors": [
+        "Anup Bhattacharya",
+        "Davis Issac",
+        "Ragesh Jaiswal",
+        "Amit Kumar"
+      ],
+      "year": 2015,
+      "supporting_passages": [
+        {
+          "quote": "It is important\nto point out that the lower bound on the number of random bits remains the same if the sampling\nalgorithm is allowed to store more than one item from the stream.",
+          "locator": "Section 1, contributions"
+        },
+        {
+          "quote": "This means that 2r is divisible by n. This is a contradiction since n is a prime number.",
+          "locator": "Section 1, impossibility of exact bounded-bit sampling"
+        },
+        {
+          "quote": "We will discuss a more advanced sampling technique by Vitter that requires \u2126((log n)2) random bits in expectation.",
+          "locator": "Footnote 3"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "url": "https://www.joachim-breitner.de/blog/737-Reservoir_sampling_with_few_random_bits",
+      "title": "Reservoir sampling with few random bits (blog post and comment thread)",
+      "summary": "The k=1 precedent. The post (2018-03-25) gives an interval/arithmetic-coding sampler and leaves the entropy question OPEN; comment #1 (Benjamin Price, 2018-04-18) gives the Theta((log n)^2) lower bound and the key insight that the cost is the entropy of the SEQUENCE of kept elements, not of the final answer; comment #2 (Christoph Pfister, 2019-01-31) gives the closed form, the Knuth-Yao H+2 optimum and the H+3 bound for the post's procedure.",
+      "authors": [
+        "Joachim Breitner",
+        "Benjamin Price",
+        "Christoph Pfister"
+      ],
+      "year": 2018,
+      "supporting_passages": [
+        {
+          "quote": "Is this algorithm optimal? (And what does it mean to be optimal?)",
+          "locator": "Open questions"
+        },
+        {
+          "quote": "The process described doesn\u2019t just choose one person, but chooses a sequence of people, and saves the last one picked.",
+          "locator": "Comment #1, Benjamin Price, 2018-04-18"
+        },
+        {
+          "quote": "Thus, the following result is obtained:",
+          "locator": "Comment #2, Christoph Pfister, 2019-01-31, before 'Performance'"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "url": "https://www.cs.umd.edu/~samir/498/vitter.pdf",
+      "title": "Random Sampling with a Reservoir (ACM TOMS 11(1):37-57) -- UMD mirror",
+      "summary": "Pins the fact that the classical analysis is in VARIATES and CPU TIME, never bits (Table I), and that Algorithms R, X, Y and Z are all in this one 1985 paper. Also gives Vitter's own statement of the Algorithm R eviction rule and of the reservoir invariant.",
+      "authors": [
+        "Jeffrey Scott Vitter"
+      ],
+      "year": 1985,
+      "supporting_passages": [
+        {
+          "quote": "Table I. \nPerformance \nof Algorithms \nR, X, Y, and Z",
+          "locator": "p. 38"
+        },
+        {
+          "quote": "Algorithm R (which is is a reservoir algorithm due to Alan Waterman) works",
+          "locator": "Section 2"
+        },
+        {
+          "quote": "The random number \ngenerator RANDOM \nreturns a real number in the unit interval.",
+          "locator": "Section 2, Algorithm R description"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "url": "https://www.ittc.ku.edu/~jsv/Papers/Vit85.Reservoir.pdf",
+      "title": "Random Sampling with a Reservoir (ACM TOMS 11(1):37-57) -- author-hosted mirror",
+      "summary": "Author-hosted copy used for the two necessity-bucket quotations from Vitter's Algorithm R description: the eviction rule (bucket C) and the sufficiency assertion that follows it (bucket B). Confirms no necessity claim is made.",
+      "authors": [
+        "Jeffrey Scott Vitter"
+      ],
+      "year": 1985,
+      "supporting_passages": [
+        {
+          "quote": "The candidate it replaces is chosen randomly from the n candidates.",
+          "locator": "Section 2, Reservoir Algorithms and Algorithm R"
+        },
+        {
+          "quote": "It is easy to see that the resulting set of n candidates forms a random sample of the first t + 1 records.",
+          "locator": "Section 2, immediately after the eviction-rule sentence"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "url": "https://dl.acm.org/doi/10.1145/358105.893",
+      "title": "Faster methods for random sampling (CACM 27(7):703-718)",
+      "summary": "Used to pin the year/venue correction: this 1984 CACM paper, not the 1985 TOMS paper, contains Algorithms A, B, C and D, and addresses the KNOWN-N sequential sampling problem rather than reservoir sampling.",
+      "authors": [
+        "Jeffrey Scott Vitter"
+      ],
+      "year": 1984,
+      "supporting_passages": []
+    },
+    {
+      "index": 9,
+      "url": "https://dl.acm.org/doi/10.1145/198429.198435",
+      "title": "Reservoir-sampling algorithms of time complexity O(n(1+log(N/n))) (ACM TOMS 20(4):481-493)",
+      "summary": "Source of Algorithm L. Abstract page reachable and free-access; the PDF yielded one comparison sentence before dl.acm.org began returning HTTP 403, so the Algorithm L pseudocode line is marked NOT VERIFIED and documented instead from deployed Algorithm-L implementations.",
+      "authors": [
+        "Kim-Hung Li"
+      ],
+      "year": 1994,
+      "supporting_passages": [
+        {
+          "quote": "Reservoir-sampling algorithms of time complexity",
+          "locator": "Title"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "url": "https://arxiv.org/pdf/2606.13157",
+      "title": "Entropic Generation of Binary Words (GASCom 2026, EPTCS 445:38-46)",
+      "summary": "Previously uncited and important: the OFFLINE analogue of this paper's target. Solves uniform k-subset generation in the random-bit model at log2 C(n,k) + O(k) net bits in O(n) time via 'random bit recycling', and cites Draper-Saad as the concurrent online counterpart. Makes the streaming/every-prefix cell the actual open problem.",
+      "authors": [
+        "Olivier Bodini",
+        "Francis Durand"
+      ],
+      "year": 2026,
+      "supporting_passages": [
+        {
+          "quote": "The uniform generation of k Hamming weight binary words, equivalent to sampling k-subsets from n\nelements, relies on random bits, which can be expensive.",
+          "locator": "Abstract"
+        },
+        {
+          "quote": "It is worth noting that the broader paradigm of entropy recycling in random generation is concurrently being explored in some different frameworks",
+          "locator": "Our Contribution"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "url": "https://doi.org/10.1007/978-3-031-98740-3_29",
+      "title": "Optimal Random Bit Complexity in Efficient Sampling of Set Partition-Like Structures (LNCS, 2025)",
+      "summary": "Located during the scoop hunt as further evidence that random-bit-optimal combinatorial sampling is an active line (Bodini and co-authors). Covers set-partition-like structures, not streaming k-subsets; recorded as landscape, not a scoop.",
+      "authors": [
+        "Olivier Bodini"
+      ],
+      "year": 2025,
+      "supporting_passages": []
+    },
+    {
+      "index": 12,
+      "url": "https://doi.org/10.48550/arxiv.1304.1916",
+      "title": "Optimal Discrete Uniform Generation from Coin Flips, and Applications",
+      "summary": "The random-bit-model background for generating discrete uniforms at near-entropy cost; cited by Bodini-Durand as one of the 'optimal generation algorithms [10, 12]' their bound relies on. Establishes that the per-draw realisation problem was already solved before recycling.",
+      "authors": [
+        "Jeremie Lumbroso"
+      ],
+      "year": 2013,
+      "supporting_passages": []
+    },
+    {
+      "index": 13,
+      "url": "https://www.combinatorics.org/ojs/index.php/eljc/article/download/v23i2p53/pdf/",
+      "title": "Decompositions of the Boolean lattice into rank-symmetric chains (Electron. J. Combin. 23(2) #P2.53)",
+      "summary": "Supplies the textbook definition of a normalized matching graph/poset and the statement that the Boolean lattice is one, plus the attribution of symmetric chain decompositions to de Bruijn, Tengbergen & Kruyswijk and of the extension to Griggs. This is the KNOWN_IN_PRINT citation for the paper's 'balanced fiber map'.",
+      "authors": [
+        "Istvan Tomon"
+      ],
+      "year": 2016,
+      "supporting_passages": [
+        {
+          "quote": "A bipartite graph G = (A, B, E) is a normalized matching graph, if for any X \u2282A we\nhave",
+          "locator": "Section 1, definitions"
+        },
+        {
+          "quote": "It is easy to show that 2[n] is a rank-symmetric, unimodal normalized matching poset.",
+          "locator": "Section 1, after the definitions"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "url": "http://ktiml.mff.cuni.cz/~gregor/hypercube/lecture17.pdf",
+      "title": "Hypercube problems, Lecture 17: Symmetric chain decomposition (Charles University)",
+      "summary": "Three explicit SCD constructions written out in full -- recursive, greedy lexicographic matching, and the Greene-Kleitman-style parenthesis pairing -- establishing that explicit level-to-level constructions in the Boolean lattice are standard teaching material.",
+      "authors": [
+        "Petr Gregor",
+        "Ondrej Micka"
+      ],
+      "year": 2017,
+      "supporting_passages": [
+        {
+          "quote": "A symmetric chain decomposition (SCD) is a collection C of disjoint symmetric chains that covers Bn.",
+          "locator": "Definition 1"
+        },
+        {
+          "quote": "To get symmetric chain containing X, we simply de\ufb01ne how to \u201cgo up\u201d and \u201cgo down\u201d\nalong the chain.",
+          "locator": "Proof (Pairings of 1's and 0's)"
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "url": "https://www.combinatorics.org/ojs/index.php/eljc/article/view/v1i1r3",
+      "title": "When are subset sums equidistributed modulo m? (Electron. J. Combin. 1(1) #R3)",
+      "summary": "The sharp characterisation of when the sum-of-elements-mod-m statistic is exactly uniform on t-subsets of [n]. Directly relevant: it shows the natural 'sum mod k' balanced-deletion construction is exactly uniform only on a thin set of (n,t,m), independently confirming that exact deterministic balance is unavailable at most reservoir steps.",
+      "authors": [
+        "Stan Wagon",
+        "Herbert S. Wilf"
+      ],
+      "year": 1994,
+      "supporting_passages": [
+        {
+          "quote": "The obvious necessary condition, that $m$ divides ${n\\choose t}$, is not sufficient, but a $q$-analogue of that condition is both necessary and sufficient",
+          "locator": "Abstract"
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "url": "https://arxiv.org/html/1303.3235",
+      "title": "On the Entropy of Couplings",
+      "summary": "The original NP-hardness theorem for minimum-entropy coupling (Thm 3.4, Subset-Sum reduction, hard even when one marginal has only two masses) and -- decisively for this paper -- Thm 3.8, which reduces 3-Partition to a ROW-SPARSE coupling problem, showing sparsity alone does not buy tractability.",
+      "authors": [
+        "Mladen Kovacevic",
+        "Ivan Stanojevic",
+        "Vojin Senk"
+      ],
+      "year": 2015,
+      "supporting_passages": [
+        {
+          "quote": "Theorem 3.4",
+          "locator": "Section III"
+        },
+        {
+          "quote": "Theorem 3.8",
+          "locator": "Section III"
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "url": "https://arxiv.org/html/1901.07530",
+      "title": "Minimum-Entropy Couplings and their Applications",
+      "summary": "The classical greedy 1-additive polynomial-time guarantee for m=2 (Theorem 2), plus the separate observation that finding a minimum-SUPPORT coupling is itself NP-hard. Used as the arXiv stand-in because the iris.unisa.it journal PDF returned a Cloudflare 403.",
+      "authors": [
+        "Ferdinando Cicalese",
+        "Luisa Gargano",
+        "Ugo Vaccaro"
+      ],
+      "year": 2019,
+      "supporting_passages": [
+        {
+          "quote": "Theorem 2",
+          "locator": "Section III-C"
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "url": "https://arxiv.org/html/2302.11838",
+      "title": "Minimum-Entropy Coupling Approximation Guarantees Beyond the Majorization Barrier",
+      "summary": "Confirms the NP-hardness attribution to Kovacevic et al. 2015, states that membership in NP is itself open, notes the LP has n^m variables, and gives the improved additive guarantees of 0.53 bits (m=2) and 1.22 bits (general m).",
+      "authors": [
+        "Spencer Compton",
+        "Dmitriy Katz",
+        "Benjamin Qi",
+        "Kristjan Greenewald",
+        "Murat Kocaoglu"
+      ],
+      "year": 2023,
+      "supporting_passages": [
+        {
+          "quote": "It was posed as an open problem in [Kova\u010devi\u0107 et al., 2015] whether the problem is in NP.",
+          "locator": "Section 5, Computing Exactly Optimal Solutions"
+        }
+      ]
+    },
+    {
+      "index": 19,
+      "url": "https://arxiv.org/html/2509.19598v1",
+      "title": "Efficient eps-approximate minimum-entropy couplings",
+      "summary": "The current state of the art: an eps-additive PTAS whose running time is polynomial in n only for CONSTANT numbers of marginals m and constant eps. Establishes that no general exact polynomial algorithm is known, and notes that even exactly computing x log(1/x) in polynomial time is open.",
+      "authors": [
+        "Spencer Compton"
+      ],
+      "year": 2025,
+      "supporting_passages": [
+        {
+          "quote": "Computing the minimum-entropy coupling is NP-hard",
+          "locator": "Abstract"
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "url": "https://arxiv.org/html/2405.19540",
+      "title": "Computing Low-Entropy Couplings for Large-Support Distributions (ARIMEC)",
+      "summary": "Shows the field's own framing of the capability gap for large/structured-support coupling, and that ARIMEC's polynomial guarantee is conditional on being able to compute maximum-entropy posterior partitions efficiently -- an assumption that is not established for the Johnson-graph deletion support this paper needs.",
+      "authors": [
+        "Samuel Sokota",
+        "Dylan Sam",
+        "Christian Schroeder de Witt",
+        "Spencer Compton",
+        "Jakob Foerster",
+        "J. Zico Kolter"
+      ],
+      "year": 2024,
+      "supporting_passages": [
+        {
+          "quote": "As a result, at the time of writing, there exist no techniques for producing low-entropy couplings of general large-support distributions",
+          "locator": "Section 1, Introduction"
+        }
+      ]
+    },
+    {
+      "index": 21,
+      "url": "https://ar5iv.labs.arxiv.org/html/2505.12227",
+      "title": "An Explicit Description of Extreme Points of the Set of Couplings with Given Marginals",
+      "summary": "Shows the optimal coupling's support is always a forest with at most m+n-1 nonzeros, but that the number of such extreme points is bounded only by C(mn, m+n-1) -- so the structural fact alone yields no polynomial algorithm for a fixed sparse support.",
+      "authors": null,
+      "year": 2025,
+      "supporting_passages": []
+    },
+    {
+      "index": 22,
+      "url": "https://en.wikipedia.org/wiki/Reservoir_sampling",
+      "title": "Reservoir sampling (Wikipedia)",
+      "summary": "The canonical tutorial source for the folklore claim, and the survey article whose reference list was checked during the scoop hunt. Supplies two necessity-bucket quotations: a descriptive lead (bucket C) and the inductive sufficiency conclusion (bucket B). No necessity assertion anywhere.",
+      "authors": null,
+      "year": 2026,
+      "supporting_passages": [
+        {
+          "quote": "By induction, Algorithm R produces a uniform random sample of the inputs.",
+          "locator": "Proof of correctness of Algorithm R"
+        }
+      ]
+    },
+    {
+      "index": 23,
+      "url": "https://cs.stackexchange.com/questions/28123/returning-a-random-subset-with-length-k-of-n-strings-while-only-storing-at-most",
+      "title": "Returning a random subset with length k of n strings while only storing at most k (cs.stackexchange Q28123)",
+      "summary": "Top-voted community explanation of reservoir sampling. Classified bucket B: states the outcome the procedure achieves without any claim that an alternative eviction rule would fail.",
+      "authors": null,
+      "year": 2014,
+      "supporting_passages": []
+    },
+    {
+      "index": 24,
+      "url": "https://www.wisdom.weizmann.ac.il/~robi/teaching/2024a-SublinearAlgorithms/lecture6.pdf",
+      "title": "Sublinear Time and Space Algorithms 2024A, Lecture 6: Reservoir Sampling and l0-sampling (Weizmann)",
+      "summary": "Graduate lecture notes. The uniformity statement is a Lemma whose proof is left as an exercise -- sufficiency only, necessity unaddressed.",
+      "authors": [
+        "Robert Krauthgamer"
+      ],
+      "year": 2024,
+      "supporting_passages": []
+    },
+    {
+      "index": 25,
+      "url": "https://samwho.dev/reservoir-sampling/",
+      "title": "Reservoir Sampling (samwho.dev)",
+      "summary": "A widely read interactive exposition. Its only 'must' restates the definition of fairness as the proof target, not a necessity claim about the eviction mechanism -- classified bucket B after strict review.",
+      "authors": [
+        "Sam Rose"
+      ],
+      "year": 2025,
+      "supporting_passages": []
+    },
+    {
+      "index": 26,
+      "url": "https://people.orie.cornell.edu/prs233/orie-6125/algorithms/reservoir-sampling.html",
+      "title": "Reservoir sampling (Cornell ORIE 6125 course notes)",
+      "summary": "University course notes; describes the eviction step with 'the appropriate probability' and attaches no correctness claim to it -- bucket C.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 27,
+      "url": "https://richardstartin.github.io/posts/reservoir-sampling",
+      "title": "Reservoir Sampling (Richard Startin's blog)",
+      "summary": "A detailed practitioner exposition that explicitly works through the proof step using the uniform eviction index. Supplies two bucket-B quotations and is the closest any source comes to naming the eviction rule as load-bearing -- while still never claiming necessity.",
+      "authors": [
+        "Richard Startin"
+      ],
+      "year": 2020,
+      "supporting_passages": []
+    },
+    {
+      "index": 28,
+      "url": "https://florian.github.io/reservoir-sampling/",
+      "title": "Reservoir Sampling (florian.github.io)",
+      "summary": "Popular exposition covering the k>1 case; justifies the k/i acceptance probability from the uniform-sampling target. Bucket B.",
+      "authors": null,
+      "year": 2019,
+      "supporting_passages": []
+    },
+    {
+      "index": 29,
+      "url": "https://web.stanford.edu/class/cs168/l/l13.pdf",
+      "title": "CS168: The Modern Algorithmic Toolbox, Lecture 13 (Stanford)",
+      "summary": "States the k>=1 reservoir uniformity claim as an explicit proof target for induction -- the clearest sufficiency-only framing in a major course, and evidence that necessity is not taught either way.",
+      "authors": [
+        "Tim Roughgarden",
+        "Gregory Valiant"
+      ],
+      "year": 2024,
+      "supporting_passages": []
+    },
+    {
+      "index": 30,
+      "url": "https://users.cs.utah.edu/~jeffp/teaching/MCMD/S7.2-sampling.pdf",
+      "title": "Models of Computation for Massive Data, L7: Sampling (University of Utah)",
+      "summary": "Graduate streaming-algorithms notes; states the inclusion probability descriptively with no claim attached to the choice of evicted slot. Bucket C.",
+      "authors": [
+        "Jeff M. Phillips"
+      ],
+      "year": 2013,
+      "supporting_passages": []
+    },
+    {
+      "index": 31,
+      "url": "https://stackoverflow.com/questions/29131567/reservoir-sampling-why-is-it-selected-uniformly-at-random",
+      "title": "Reservoir sampling: why is it selected uniformly at random (Stack Overflow Q29131567)",
+      "summary": "A question whose very title asks the 'why uniform' question; the quoted proof excerpt computes the 1/N result for the k=1 rule without arguing any alternative fails. Bucket B.",
+      "authors": null,
+      "year": 2015,
+      "supporting_passages": []
+    },
+    {
+      "index": 32,
+      "url": "https://spacecomplexity.ai/blog/reservoir-sampling-algorithm",
+      "title": "Reservoir Sampling: Sample Any Stream Without Seeing Its End (SpaceComplexity blog)",
+      "summary": "A recent (2026) exposition included to test whether modern write-ups assert necessity. It states 'evicts one slot chosen uniformly' as a caption with no correctness claim attached -- bucket C.",
+      "authors": null,
+      "year": 2026,
+      "supporting_passages": []
+    },
+    {
+      "index": 33,
+      "url": "https://github.com/apache/spark/blob/79f5f281bb69cb2de9f64006180abd753e8ae427/core/src/main/scala/org/apache/spark/util/random/SamplingUtils.scala",
+      "title": "Apache Spark -- SamplingUtils.reservoirSampleAndCount (source)",
+      "summary": "The most widely deployed Algorithm R in data infrastructure. Verbatim eviction line, 53-bit double per element, and the only log1p usage found in the audit (in the unrelated GapSampling path).",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 34,
+      "url": "https://github.com/apache/spark/pull/16129",
+      "title": "[SPARK-18678][ML] Skewed reservoir sampling in SamplingUtils (pull request)",
+      "summary": "A real, fixed, first-order bias bug (replacement probability k/(l-1) instead of k/l) found by code audit, and the source of the audit's single strongest testing quote: the reviewer's observation that the test suite never tested correctness at all.",
+      "authors": [
+        "Sean Owen"
+      ],
+      "year": 2016,
+      "supporting_passages": []
+    },
+    {
+      "index": 35,
+      "url": "https://github.com/ClickHouse/ClickHouse/blob/16b167a7e4e831ef41374b77402764447e70f24d/src/AggregateFunctions/ReservoirSampler.h",
+      "title": "ClickHouse -- ReservoirSampler.h (source)",
+      "summary": "Algorithm R backing ClickHouse quantile aggregates, with an explicit modulo-bias RNG ('return rng() % limit') and a fixed default seed. No dedicated unit test exists for the sampler in src/AggregateFunctions/tests/.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 36,
+      "url": "https://github.com/ClickHouse/ClickHouse/issues/101782",
+      "title": "ClickHouse issue #101782 -- ReservoirSamplerDeterministic::merge() missing self-merge guard",
+      "summary": "A maintainer-confirmed user-visible correctness bug found by an automated review bot rather than the test suite; classified 'other' (memory aliasing) rather than a distributional defect.",
+      "authors": null,
+      "year": 2026,
+      "supporting_passages": []
+    },
+    {
+      "index": 37,
+      "url": "https://github.com/duckdb/duckdb/blob/a7dd104bdaed36d973a7a2bf7bc6d1ba75c81e6b/src/execution/sample/base_reservoir_sample.cpp",
+      "title": "DuckDB -- base_reservoir_sample.cpp (source)",
+      "summary": "A-Res/Algorithm-L-family weighted reservoir. Direct evidence for alternate hypothesis #2: the skip recurrence is 'log(r) / log(t_w)' with no log1p or expm1 anywhere in the file, and the replacement key carries only ~32 bits of entropy.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 38,
+      "url": "https://github.com/duckdb/duckdb/issues/18099",
+      "title": "DuckDB issue #18099 -- Reservoir Sampling is broken since DuckDB 1.2.0",
+      "summary": "A real, user-discovered, fixed first-order bug caused by treating max-order statistics of uniforms as uniform rather than Beta(n,1), compounded by round instead of ceil. Exactly the numerical failure mode alternate hypothesis #2 predicts.",
+      "authors": null,
+      "year": 2025,
+      "supporting_passages": []
+    },
+    {
+      "index": 39,
+      "url": "https://github.com/rust-random/rand/blob/ea71ad8475e5e75cb769220107c418556fbdf19e/src/seq/iterator.rs",
+      "title": "rust-random/rand -- IteratorRandom::sample / choose_multiple (source)",
+      "summary": "The Rust ecosystem's Algorithm R. Unbiased bounded-integer draw per element; tests are golden-value regressions with no distributional assertion for the k>1 path.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 40,
+      "url": "https://github.com/gstamatelat/random-sampling/blob/30f5b6e19a01186c9e184a14bc9b13285eec98ad/src/main/java/gr/james/sampling/AbstractRandomSampling.java",
+      "title": "gstamatelat/random-sampling -- AbstractRandomSampling / LiLSampling (source)",
+      "summary": "Shared eviction site for Waterman (R) and LiL (L). Supplies the naive 'Math.log(random1) / Math.log(1 - W)' skip computation and the repository's first-order-only correctness test over up to 4,000,000 repetitions.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 41,
+      "url": "https://raw.githubusercontent.com/python/cpython/main/Lib/random.py",
+      "title": "CPython -- Lib/random.py, Random.sample (source)",
+      "summary": "Contrast row (offline, n known). Also the strongest test in the audit: test_sample_distribution asserts every ORDERED permutation tuple appears across 10,000 trials at n=5 -- evidence against the unqualified form of alternate hypothesis #1.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 42,
+      "url": "https://raw.githubusercontent.com/numpy/numpy/main/numpy/random/_generator.pyx",
+      "title": "NumPy -- Generator.choice with replace=False (source)",
+      "summary": "Contrast row: Floyd's algorithm with an open-addressed hash set, requiring pop_size upfront. All replace=False tests are fixed-seed exact-value regressions with no distributional assertion.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 43,
+      "url": "https://raw.githubusercontent.com/scikit-learn/scikit-learn/main/sklearn/utils/_random.pyx",
+      "title": "scikit-learn -- sklearn/utils/_random.pyx, sample_without_replacement (source)",
+      "summary": "Contains a literal Algorithm R ('reservoir_sampling' method) applied over an index array, and a genuine joint test: check_sample_int_distribution asserts every C(n,k) frozenset appears over 10,000 trials at n=10.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 44,
+      "url": "https://raw.githubusercontent.com/apache/beam/master/sdks/java/core/src/main/java/org/apache/beam/sdk/transforms/Top.java",
+      "title": "Apache Beam -- Top.BoundedHeap, used by Sample.FixedSizedSampleFn (source)",
+      "summary": "Bottom-k by uniform random key in a bounded min-heap: deterministic eviction of the minimum, one full 32-bit key per element. The most bit-wasteful family audited; tests assert only size and subset membership.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 45,
+      "url": "https://raw.githubusercontent.com/apache/flink/release-1.20/flink-java/src/main/java/org/apache/flink/api/java/sampling/ReservoirSamplerWithoutReplacement.java",
+      "title": "Apache Flink -- ReservoirSamplerWithoutReplacement (source, release-1.20)",
+      "summary": "A true streaming A-Res sampler spending a full nextDouble() per element as the priority key. Its Kolmogorov-Smirnov test checks the marginal value distribution, not joint inclusion. Package was removed in Flink 2.x with the DataSet API.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 46,
+      "url": "https://raw.githubusercontent.com/google/guava/master/guava/src/com/google/common/collect/Streams.java",
+      "title": "Google Guava -- Streams.java (source, checked for reservoir sampling)",
+      "summary": "Negative result: Guava ships no reservoir sampler. Zero matches for reservoir|sample across Streams.java, Iterables.java and Iterators.java; its only k-of-n utility is the deterministic Ordering.leastOf top-k selector.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 47,
+      "url": "https://raw.githubusercontent.com/apache/commons-rng/master/commons-rng-sampling/src/main/java/org/apache/commons/rng/sampling/SubsetSamplerUtils.java",
+      "title": "Apache Commons RNG -- SubsetSamplerUtils / ListSampler (source)",
+      "summary": "Contrast row: a bounded partial Fisher-Yates requiring n upfront; commons-rng ships no Reservoir class. Its ListSamplerTest runs a chi-square goodness-of-fit test over all 10 possible 2-subsets of {0..4} -- a genuine joint test at tiny n.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 48,
+      "url": "https://raw.githubusercontent.com/rcrowley/go-metrics/master/sample.go",
+      "title": "rcrowley/go-metrics -- UniformSample (source)",
+      "summary": "The Go ecosystem's Algorithm R, with an in-source citation of Vitter 1985. One 63-bit bounded draw per element; tests are fixed-seed golden values plus count/size/range checks.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 49,
+      "url": "https://raw.githubusercontent.com/tensorflow/tensorflow/master/tensorflow/core/kernels/data/shuffle_dataset_op.cc",
+      "title": "TensorFlow -- shuffle_dataset_op.cc, tf.data shuffle buffer (source)",
+      "summary": "Contrast row: a sliding-window shuffle buffer that emits every element exactly once, not a fixed-size uniform sample. Tests assert multiset equality and per-value repeat counts only.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 50,
+      "url": "https://raw.githubusercontent.com/redis/redis/unstable/src/t_set.c",
+      "title": "Redis -- srandmemberWithCountCommand in src/t_set.c (source)",
+      "summary": "Contrast row showing why reservoir sampling is unnecessary when O(1) random access exists: Redis uses additive or subtractive rejection sampling into a scratch dict depending on the set/count ratio.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 51,
+      "url": "https://raw.githubusercontent.com/postgres/postgres/master/contrib/tsm_system_rows/tsm_system_rows.c",
+      "title": "PostgreSQL -- contrib/tsm_system_rows/tsm_system_rows.c (source)",
+      "summary": "Contrast row: a widely deployed 'sampling' feature that spends exactly two RNG draws per scan (start block, relatively-prime stride) and has no per-row randomness at all.",
+      "authors": null,
+      "year": null,
+      "supporting_passages": []
+    },
+    {
+      "index": 52,
+      "url": "https://github.com/tikv/tikv/issues/19849",
+      "title": "TiKV issue #19849 -- load-based split reservoir sampling is biased by an off-by-one error",
+      "summary": "A real, fixed, first-order bug: sampling from 0..n instead of 0..=n meant observation n was admitted with probability sample_num/n instead of sample_num/(n+1). Found by manual code review; the fix PR added test coverage that had not existed.",
+      "authors": null,
+      "year": 2026,
+      "supporting_passages": []
+    },
+    {
+      "index": 53,
+      "url": "https://github.com/apache/datasketches-java/issues/647",
+      "title": "Apache DataSketches issue #647 -- Reservoir sampling improvements",
+      "summary": "The audit's single most valuable finding for alternate hypothesis #1: an open, unpatched, maintainer-authored JOINT-distribution-only defect in reservoir merge. Marginals remain correct while stored positions stay correlated with arrival order, so per-item frequency tests cannot detect it by construction.",
+      "authors": null,
+      "year": 2025,
+      "supporting_passages": []
+    },
+    {
+      "index": 54,
+      "url": "https://github.com/AndreaBozzo/dataprof/pull/650",
+      "title": "dataprof PR #650 -- make accumulator merge produce the single-pass profile",
+      "summary": "A real, fixed, first-order merge bug: pooling two reservoirs and subsampling uniformly ignored population sizes, so a 100-row partition took ~52 of 100 slots instead of ~1. Fixed with a hypergeometric draw; found by self-audit, not by tests.",
+      "authors": null,
+      "year": 2026,
+      "supporting_passages": []
+    }
+  ],
+  "follow_up_questions": [
+    "What is the exact minimum of H(S_k, S_{k+1}, ..., S_n) over all couplings whose marginals are uniform on the k-subsets of every prefix -- is the accept-coin term sum_i H_b(k/i) actually a lower bound, or can a coupling that correlates the accept decision with the reservoir contents beat it? Our arithmetic assumes the accept coin is irreducible; nothing found proves it.",
+    "Is minimum-entropy coupling with uniform marginals on consecutive Johnson-graph levels (support = element deletion) polynomial-time solvable, or strongly NP-hard? Kovacevic et al. Thm 3.8 shows row-sparsity alone does not help, but the uniform-marginal, biregular, transitive-automorphism-group structure here is far more special than anything in that reduction.",
+    "Does Draper-Saad recycling applied on top of classical Algorithm R actually attain sum_i [H_b(k/i) + (k/i)log2 k] in practice, and at what value of eps and what auxiliary-state size? Their C library implements the recycling primitives but ships no reservoir example, so this needs to be built and measured before the paper can quote a real end-to-end saving.",
+    "Would a second-order (pairwise co-occurrence) test actually have caught Apache DataSketches #647 at realistic sample sizes, and what is its power relative to the first-order tests that Spark, Flink and gstamatelat ship? That is the concrete, falsifiable experiment alternate hypothesis #1 now has a real target for."
+  ]
+}

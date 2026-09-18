@@ -1,0 +1,61 @@
+["On the practical side, we develop randomness recycling techniques to accelerate a variety of prominent sampling algorithms. We show that randomness recycling enables state-of-the-art runtime performance on the Fisher-Yates shuffle when using a cryptographically secure pseudorandom number generator, and that it reduces the entropy cost of discrete Gaussian sampling."](https://arxiv.org/abs/2505.18879)
+
+["cannot depend on fresh coins to be consumed by the sampler in future rounds, and that it cannot depend on the internal history of the sampler other than through its generated outputs"](https://arxiv.org/html/2505.18879v5)
+
+["A common case for online sampling is generating an output sequence"](https://arxiv.org/html/2505.18879v5)
+
+["We conjecture that the space-entropy combination in Theorem 1.5 is the best possible, up to constant factors and dependence on"](https://arxiv.org/html/2505.18879v5)
+
+["These samplers use a technique called randomness recycling to reduce the expected amortized entropy consumption over many samples."](https://raw.githubusercontent.com/probsys/randomness-recycling/master/README.md)
+
+["It is important to point out that the lower bound on the number of random bits remains the same if the sampling algorithm is allowed to store more than one item from the stream."](https://arxiv.org/pdf/1407.1689)
+
+["This means that 2r is divisible by n. This is a contradiction since n is a prime number."](https://arxiv.org/pdf/1407.1689)
+
+["We will discuss a more advanced sampling technique by Vitter that requires Ω((log n)2) random bits in expectation."](https://arxiv.org/pdf/1407.1689)
+
+["Is this algorithm optimal? (And what does it mean to be optimal?)"](https://www.joachim-breitner.de/blog/737-Reservoir_sampling_with_few_random_bits)
+
+["The process described doesn’t just choose one person, but chooses a sequence of people, and saves the last one picked."](https://www.joachim-breitner.de/blog/737-Reservoir_sampling_with_few_random_bits)
+
+["Thus, the following result is obtained:"](https://www.joachim-breitner.de/blog/737-Reservoir_sampling_with_few_random_bits)
+
+["Table I.  Performance  of Algorithms  R, X, Y, and Z"](https://www.cs.umd.edu/~samir/498/vitter.pdf)
+
+["Algorithm R (which is is a reservoir algorithm due to Alan Waterman) works"](https://www.cs.umd.edu/~samir/498/vitter.pdf)
+
+["The random number  generator RANDOM  returns a real number in the unit interval."](https://www.cs.umd.edu/~samir/498/vitter.pdf)
+
+["The candidate it replaces is chosen randomly from the n candidates."](https://www.ittc.ku.edu/~jsv/Papers/Vit85.Reservoir.pdf)
+
+["It is easy to see that the resulting set of n candidates forms a random sample of the first t + 1 records."](https://www.ittc.ku.edu/~jsv/Papers/Vit85.Reservoir.pdf)
+
+["Reservoir-sampling algorithms of time complexity"](https://dl.acm.org/doi/10.1145/198429.198435)
+
+["The uniform generation of k Hamming weight binary words, equivalent to sampling k-subsets from n elements, relies on random bits, which can be expensive."](https://arxiv.org/pdf/2606.13157)
+
+["It is worth noting that the broader paradigm of entropy recycling in random generation is concurrently being explored in some different frameworks"](https://arxiv.org/pdf/2606.13157)
+
+["A bipartite graph G = (A, B, E) is a normalized matching graph, if for any X ⊂A we have"](https://www.combinatorics.org/ojs/index.php/eljc/article/download/v23i2p53/pdf/)
+
+["It is easy to show that 2[n] is a rank-symmetric, unimodal normalized matching poset."](https://www.combinatorics.org/ojs/index.php/eljc/article/download/v23i2p53/pdf/)
+
+["A symmetric chain decomposition (SCD) is a collection C of disjoint symmetric chains that covers Bn."](http://ktiml.mff.cuni.cz/~gregor/hypercube/lecture17.pdf)
+
+["To get symmetric chain containing X, we simply deﬁne how to “go up” and “go down” along the chain."](http://ktiml.mff.cuni.cz/~gregor/hypercube/lecture17.pdf)
+
+["The obvious necessary condition, that $m$ divides ${n\choose t}$, is not sufficient, but a $q$-analogue of that condition is both necessary and sufficient"](https://www.combinatorics.org/ojs/index.php/eljc/article/view/v1i1r3)
+
+["Theorem 3.4"](https://arxiv.org/html/1303.3235)
+
+["Theorem 3.8"](https://arxiv.org/html/1303.3235)
+
+["Theorem 2"](https://arxiv.org/html/1901.07530)
+
+["It was posed as an open problem in [Kovačević et al., 2015] whether the problem is in NP."](https://arxiv.org/html/2302.11838)
+
+["Computing the minimum-entropy coupling is NP-hard"](https://arxiv.org/html/2509.19598v1)
+
+["As a result, at the time of writing, there exist no techniques for producing low-entropy couplings of general large-support distributions"](https://arxiv.org/html/2405.19540)
+
+["By induction, Algorithm R produces a uniform random sample of the inputs."](https://en.wikipedia.org/wiki/Reservoir_sampling)

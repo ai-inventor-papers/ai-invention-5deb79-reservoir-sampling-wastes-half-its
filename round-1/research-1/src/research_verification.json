@@ -1,0 +1,300 @@
+{
+  "valid": true,
+  "file_errors": [],
+  "schema_errors": [],
+  "content_warnings": [
+    "Source [9] passage 'Reservoir-sampling algorithms of time complexity': unverified (source or quote checker unavailable)."
+  ],
+  "files_found": {
+    "research_out.json": {
+      "exists": true,
+      "path": "/ai-inventor/aii_data/runs/run_2L_JomowDIGF/3_invention_loop/iter_1/gen_art/gen_art_research_1/research_out.json",
+      "source_count": 54,
+      "size": 108839
+    }
+  },
+  "source_count": 54,
+  "checked_at": "2026-09-18T11:40:54.837968+00:00",
+  "passage_check_scope": "Case/whitespace-normalized text occurrence at the source URL (or archive fallback). Not claim entailment, locator verification, or author/year verification. status=error means unverified, not a misquotation.",
+  "passages": [
+    {
+      "source_index": 1,
+      "source_url": "https://arxiv.org/abs/2505.18879",
+      "quote": "On the practical side, we develop randomness recycling techniques to accelerate a variety of prominent sampling algorithms. We show that randomness recycling enables state-of-the-art runtime performance on the Fisher-Yates shuffle when using a cryptographically secure pseudorandom number generator, and that it reduces the entropy cost of discrete Gaussian sampling.",
+      "locator": "Abstract, second paragraph",
+      "status": "valid",
+      "context": "...he random information consumed by a probabilistic algorithm to reduce its amortized entropy cost. > on the practical side, we develop randomness recycling techniques to accelerate a variety of prominent sampling algorithms. we show that randomness recycling enables state-of-the-art runtime performance on the fisher-yates shuffle when using a cryptographically secure pseudorandom number generator, and that it reduces the entropy cost of discrete gaussian sampling. accompanying the manuscript is a performant software library in the c programming language. subject...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 2,
+      "source_url": "https://arxiv.org/html/2505.18879v5",
+      "quote": "cannot depend on fresh coins to be consumed by the sampler in future rounds, and that it cannot depend on the internal history of the sampler other than through its generated outputs",
+      "locator": "Section 1.1, after Eq. 1.7",
+      "status": "valid",
+      "context": "...x<i.\\displaystyle p_{i}\\perp\\bm{c}~\\big|~x_{<i}. | ---|---|---|--- equation 1.7 states that pip_{i} cannot depend on fresh coins to be consumed by the sampler in future rounds, and that it cannot depend on the internal history of the sampler other than through its generated outputs x<ix_{<i}. #### 1.1.1 entropy cost in listing 1.1, the counters tn≔v1+⋯+vnt_{n}\\coloneqq v_{1}+\\dot...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 2,
+      "source_url": "https://arxiv.org/html/2505.18879v5",
+      "quote": "A common case for online sampling is generating an output sequence",
+      "locator": "Remark 1.4, opening",
+      "status": "valid",
+      "context": "...osses for any realization of p1p_{1}, whereas h⁡[x1]=1h\\left[x_{1}\\right]=1 bit. ###### remark 1.4. a common case for online sampling is generating an output sequence 𝑿≔(xi)i≥1\\bm{x}\\coloneqq(x_{i})_{i\\geq 1} subject to an arbitrary stochastic process whose distribu...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 2,
+      "source_url": "https://arxiv.org/html/2505.18879v5",
+      "quote": "We conjecture that the space-entropy combination in Theorem 1.5 is the best possible, up to constant factors and dependence on",
+      "locator": "Before Conjecture 1.6",
+      "status": "valid",
+      "context": "...ren p_{i}\\right\\rparen}\\right]+\\varepsilon{n}+w_{d,\\varepsilon} | | (n≥1).\\displaystyle(n\\geq 1). | we conjecture that the space-entropy combination in theorem 1.5 is the best possible, up to constant factors and dependence on dd. ###### conjecture 1.6. any online random sampling algorithm that generates exact samples from a...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 3,
+      "source_url": "https://raw.githubusercontent.com/probsys/randomness-recycling/master/README.md",
+      "quote": "These samplers use a technique called randomness recycling to\nreduce the expected amortized entropy consumption over many samples.",
+      "locator": "Opening paragraph",
+      "status": "valid",
+      "context": "...reference implementation in c of random sampling algorithms for discrete probability distributions. these samplers use a technique called randomness recycling to reduce the expected amortized entropy consumption over many samples. descriptions of the algorithms are given in the following [article](https://arxiv.org/abs/2505.1887...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 4,
+      "source_url": "https://arxiv.org/pdf/1407.1689",
+      "quote": "It is important\nto point out that the lower bound on the number of random bits remains the same if the sampling\nalgorithm is allowed to store more than one item from the stream.",
+      "locator": "Section 1, contributions",
+      "status": "valid",
+      "context": "... 4 we also extend these results for non-uniform sampling. section 2 gives details of these results. it is important to point out that the lower bound on the number of random bits remains the same if the sampling algorithm is allowed to store more than one item from the stream. our sampling algorithm matches this lower bound while storing only one item from the stream. relate...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 4,
+      "source_url": "https://arxiv.org/pdf/1407.1689",
+      "quote": "This means that 2r is divisible by n. This is a contradiction since n is a prime number.",
+      "locator": "Section 1, impossibility of exact bounded-bit sampling",
+      "status": "valid",
+      "context": "... there is a function f : {0, 1}r →[n] such that for all i, j ∈[n], |{x|f(x) = i}| = |{x|f(x) = j}|. this means that 2r is divisible by n. this is a contradiction since n is a prime number. one natural way of formalising the question of randomness eﬃciency with respect to uniform sampling...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 4,
+      "source_url": "https://arxiv.org/pdf/1407.1689",
+      "quote": "We will discuss a more advanced sampling technique by Vitter that requires Ω((log n)2) random bits in expectation.",
+      "locator": "Footnote 3",
+      "status": "valid",
+      "context": "...ht need to do rejection sampling. we can say that o(log i) random bits are needed in expectation. 3 we will discuss a more advanced sampling technique by vitter that requires ω((log n)2) random bits in expectation. ε. this means that the sampling algorithm is allowed not to output any member of the set {1, ..., n...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 5,
+      "source_url": "https://www.joachim-breitner.de/blog/737-Reservoir_sampling_with_few_random_bits",
+      "quote": "Is this algorithm optimal? (And what does it mean to be optimal?)",
+      "locator": "Open questions",
+      "status": "valid",
+      "context": "...ly pick a random prisoner to free. i am not fully satisfied yet, because of two option questions: * is this algorithm optimal? (and what does it mean to be optimal?) * what is the expected number of coin throws for _n_ prisoners? does this number converge to log (_...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 5,
+      "source_url": "https://www.joachim-breitner.de/blog/737-Reservoir_sampling_with_few_random_bits",
+      "quote": "The process described doesn’t just choose one person, but chooses a sequence of people, and saves the last one picked.",
+      "locator": "Comment #1, Benjamin Price, 2018-04-18",
+      "status": "valid",
+      "context": ".... unfortunately this is for entropy reasons, and i have no idea how many coins are actually needed! the process described doesn’t just choose one person, but chooses a sequence of people, and saves the last one picked. thus, a better lower bound for the number of coin tosses is not the entropy of uniform selection fr...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 5,
+      "source_url": "https://www.joachim-breitner.de/blog/737-Reservoir_sampling_with_few_random_bits",
+      "quote": "Thus, the following result is obtained:",
+      "locator": "Comment #2, Christoph Pfister, 2019-01-31, before 'Performance'",
+      "status": "valid",
+      "context": "...adapted to show that your procedure satisfies _e_[#coin flips] < _h_(_x_ 2, _x_ 3, …, _x_ _n_) + 3. thus, the following result is obtained: ### performance for any fixed _n_ ∈ {2, 3, …}, your procedure needs on expectation at most three mo...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 6,
+      "source_url": "https://www.cs.umd.edu/~samir/498/vitter.pdf",
+      "quote": "Table I. \nPerformance \nof Algorithms \nR, X, Y, and Z",
+      "locator": "p. 38",
+      "status": "valid",
+      "context": "...ctions on mathematical software, vol. 11, no. 1, march 1985, pages 37-57. 38 - jeffrey scott vitter table i. performance of algorithms r, x, y, and z average number of uniform algorithm random variates average cpu time r n-n o(n) x =2n in n o(n) n y...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 6,
+      "source_url": "https://www.cs.umd.edu/~samir/498/vitter.pdf",
+      "quote": "Algorithm R (which is is a reservoir algorithm due to Alan Waterman) works",
+      "locator": "Section 2",
+      "status": "valid",
+      "context": "...he sequential pass through the file, the current set of n candidates is output as the final sample. algorithm r (which is is a reservoir algorithm due to alan waterman) works as follows: when the (t + 1)st record in the file is being processed, for t l n, the n candidates f...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 6,
+      "source_url": "https://www.cs.umd.edu/~samir/498/vitter.pdf",
+      "quote": "The random number \ngenerator RANDOM \nreturns a real number in the unit interval.",
+      "locator": "Section 2, Algorithm R description",
+      "status": "valid",
+      "context": "..., . . . , c[n - 11. built-in boolean function eof returns true if the end of file has been reached. the random number generator random returns a real number in the unit interval. the procedure call read-next-record(r) reads the next record from the file and stores it in the rec...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 7,
+      "source_url": "https://www.ittc.ku.edu/~jsv/Papers/Vit85.Reservoir.pdf",
+      "quote": "The candidate it replaces is chosen randomly from the n candidates.",
+      "locator": "Section 2, Reservoir Algorithms and Algorithm R",
+      "status": "valid",
+      "context": "...ple of size n of the first t + 1 records, and so it is made a candidate with probability n/(t + 1). the candidate it replaces is chosen randomly from the n candidates. it is easy to see that the resulting set of n candidates forms a random sample of the first t + 1 r...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 7,
+      "source_url": "https://www.ittc.ku.edu/~jsv/Papers/Vit85.Reservoir.pdf",
+      "quote": "It is easy to see that the resulting set of n candidates forms a random sample of the first t + 1 records.",
+      "locator": "Section 2, immediately after the eviction-rule sentence",
+      "status": "valid",
+      "context": "...ate with probability n/(t + 1). the candidate it replaces is chosen randomly from the n candidates. it is easy to see that the resulting set of n candidates forms a random sample of the first t + 1 records. the complete algorithm is given below. the current set of n candidates is stored in the array c, in...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 9,
+      "source_url": "https://dl.acm.org/doi/10.1145/198429.198435",
+      "quote": "Reservoir-sampling algorithms of time complexity",
+      "locator": "Title",
+      "status": "error",
+      "match_type": "none",
+      "error_message": "Failed to fetch URL"
+    },
+    {
+      "source_index": 10,
+      "source_url": "https://arxiv.org/pdf/2606.13157",
+      "quote": "The uniform generation of k Hamming weight binary words, equivalent to sampling k-subsets from n\nelements, relies on random bits, which can be expensive.",
+      "locator": "Abstract",
+      "status": "valid",
+      "context": "... université sorbonne paris-nord lip6 sorbonne université, france francis.durand@ens-paris-saclay.fr the uniform generation of k hamming weight binary words, equivalent to sampling k-subsets from n elements, relies on random bits, which can be expensive. we introduce a novel paradigm–random bit recycling–and use it to generate such binary words in line...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 10,
+      "source_url": "https://arxiv.org/pdf/2606.13157",
+      "quote": "It is worth noting that the broader paradigm of entropy recycling in random generation is concurrently being explored in some different frameworks",
+      "locator": "Our Contribution",
+      "status": "valid",
+      "context": "... random bits. in a way, we “recycle” the randomness usually discarded during the insertion process. it is worth noting that the broader paradigm of entropy recycling in random generation is concurrently being explored in some different frameworks, see [5] for online sampling and [4, alg. 5] for recycling bits while sampling batches of i.i.d var...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 13,
+      "source_url": "https://www.combinatorics.org/ojs/index.php/eljc/article/download/v23i2p53/pdf/",
+      "quote": "A bipartite graph G = (A, B, E) is a normalized matching graph, if for any X ⊂A we\nhave",
+      "locator": "Section 1, definitions",
+      "status": "valid",
+      "context": "...am| ⩾|am+1| ⩾. . . ⩾|an|. also, p is rank-symmetric, if we have |ai| = |an−i| for i = 0, . . . , n. a bipartite graph g = (a, b, e) is a normalized matching graph, if for any x ⊂a we have |x| |a| ⩽|γ(x)| |b| , where γ(x) is the set of neighbours of a in b. a graded poset p is a normaliz...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 13,
+      "source_url": "https://www.combinatorics.org/ojs/index.php/eljc/article/download/v23i2p53/pdf/",
+      "quote": "It is easy to show that 2[n] is a rank-symmetric, unimodal normalized matching poset.",
+      "locator": "Section 1, after the definitions",
+      "status": "valid",
+      "context": "...nduced on any two levels ai and aj is a normalized matching graph for i, j ∈{0, . . . , n}, i̸ = j. it is easy to show that 2[n] is a rank-symmetric, unimodal normalized matching poset. by the classical theorem of sperner [15], the minimum number of chains 2[n] can be partitioned into...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 14,
+      "source_url": "http://ktiml.mff.cuni.cz/~gregor/hypercube/lecture17.pdf",
+      "quote": "A symmetric chain decomposition (SCD) is a collection C of disjoint symmetric chains that covers Bn.",
+      "locator": "Definition 1",
+      "status": "valid",
+      "context": "...tice bn = (p([n]), ⊆) is a sequence xk ⊂ xk+1 ⊂· · · ⊂xn−k such that |xi| = i for every k ≤i ≤n −k. a symmetric chain decomposition (scd) is a collection c of disjoint symmetric chains that covers bn. basically, a symmetric chain is nothing more than a path in a hypercube qn from level k to level n ...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 14,
+      "source_url": "http://ktiml.mff.cuni.cz/~gregor/hypercube/lecture17.pdf",
+      "quote": "To get symmetric chain containing X, we simply deﬁne how to “go up” and “go down”\nalong the chain.",
+      "locator": "Proof (Pairings of 1's and 0's)",
+      "status": "valid",
+      "context": "...ed 0’s that are exactly i positions from them to the right. an example can be seen in the figure 4. to get symmetric chain containing x, we simply deﬁne how to “go up” and “go down” along the chain. to go up we take the rightmost unpaired zero in x and ﬂip it to one, to go down we ﬂip the leftmost...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 15,
+      "source_url": "https://www.combinatorics.org/ojs/index.php/eljc/article/view/v1i1r3",
+      "quote": "The obvious necessary condition, that $m$ divides ${n\\choose t}$, is not sufficient, but a $q$-analogue of that condition is both necessary and sufficient",
+      "locator": "Abstract",
+      "status": "valid",
+      "context": "...t,m)$ are the ${n\\choose t}$ values of $f(s)$ uniformly distributed in the residue classes mod $m$? the obvious necessary condition, that $m$ divides ${n\\choose t}$, is not sufficient, but a $q$-analogue of that condition is both necessary and sufficient, namely: $${{q^m-1}\\over {q-1}}\\quad \\text{divides the gaussian polynomial}\\quad \\binom{n}{t}_q.$$ ...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 16,
+      "source_url": "https://arxiv.org/html/1303.3235",
+      "quote": "Theorem 3.4",
+      "locator": "Section III",
+      "status": "valid",
+      "context": "...ion: is there a j⊆{1,…,n}j\\subseteq\\\\{1,\\ldots,n\\\\} such that ∑j∈jdj=s\\sum_{j\\in j}d_{j}=s ? ###### theorem 3.4. minimum entropy coupling is np-hard. ###### proof. we demonstrate a reduction from the subset sum ...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 16,
+      "source_url": "https://arxiv.org/html/1303.3235",
+      "quote": "Theorem 3.8",
+      "locator": "Section III",
+      "status": "valid",
+      "context": "... the strong sense [15], i.e., no pseudo-polynomial time algorithm for it exists unless p=np. ###### theorem 3.8. optimal channel is np-hard. ###### proof. we prove the claim by reducing 3-partition to optimal ch...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 17,
+      "source_url": "https://arxiv.org/html/1901.07530",
+      "quote": "Theorem 2",
+      "locator": "Section III-C",
+      "status": "valid",
+      "context": "...e guaranteed additive gap of algorithm 1 we are now ready to formally prove our main result. ###### theorem 2. for any 𝐩,𝐪∈𝒫n{\\bf p},{\\bf q}\\in{\\cal p}_{n}, algorithm 1 outputs in polynomial time an 𝐌∈𝒞⁡(𝐩,𝐪)\\...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 18,
+      "source_url": "https://arxiv.org/html/2302.11838",
+      "quote": "It was posed as an open problem in [Kovačević et al., 2015] whether the problem is in NP.",
+      "locator": "Section 5, Computing Exactly Optimal Solutions",
+      "status": "valid",
+      "context": "...roaches to compute an _exact_ solution. this is known to be generally intractable as it is np-hard. it was posed as an open problem in [kovačević et al., 2015] whether the problem is in np. in viewing the minimum entropy coupling as an optimization problem with linear constraints, there a...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 19,
+      "source_url": "https://arxiv.org/html/2509.19598v1",
+      "quote": "Computing the minimum-entropy coupling is NP-hard",
+      "locator": "Abstract",
+      "status": "valid",
+      "context": "... is the minimum-entropy joint distribution whose marginals are the same as the input distributions. computing the minimum-entropy coupling is np-hard, but there has been significant progress in designing approximation algorithms; prior to this work,...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 20,
+      "source_url": "https://arxiv.org/html/2405.19540",
+      "quote": "As a result, at the time of writing, there exist no techniques for producing low-entropy couplings of general large-support distributions",
+      "locator": "Section 1, Introduction",
+      "status": "valid",
+      "context": "...thms can be sensitive to hyperparameter choices, requiring careful tuning for optimal performance. _as a result, at the time of writing, there exist no techniques for producing low-entropy couplings of general large-support distributions_ , let alone any that are also robust to hyperparameter settings. in this work, we make multiple co...",
+      "match_type": "exact"
+    },
+    {
+      "source_index": 22,
+      "source_url": "https://en.wikipedia.org/wiki/Reservoir_sampling",
+      "quote": "By induction, Algorithm R produces a uniform random sample of the inputs.",
+      "locator": "Proof of correctness of Algorithm R",
+      "status": "valid",
+      "context": "...e an equal probability k i + 1 {\\displaystyle {\\frac {k}{i+1}}} of being included in the reservoir. by induction, algorithm r produces a uniform random sample of the inputs. ## optimizing running time by skipping elements [[edit](/w/index.php?title=reservoir_sampling&actio...",
+      "match_type": "exact"
+    }
+  ]
+}
