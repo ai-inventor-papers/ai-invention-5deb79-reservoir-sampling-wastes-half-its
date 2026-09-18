@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "verified": false,
+  "has_sorries": false,
+  "sorry_goals": [],
+  "errors": [
+    "linarith failed to find a contradiction\ncase h1.h\ni k : \u2115\nhk1 : 1 \u2264 k\nhki : k \u2264 i\nf : Finset \u2115 \u2192 Finset \u2115 \u2192 \u211d\nT : Finset \u2115\nhcol : \u2211 S \u2208 powersetCard k (range i), f S T = (\u2191i - \u2191k + 1) / \u2191k\nhA : 0 < \u2191(i.choose k)\nhA' : 0 < \u2191((i + 1).choose k)\nhi : 0 < \u2191i + 1\nhkR : 0 < \u2191k\nhb : \u2191(i.choose k) * (\u2191i + 1) = (\u2191i + 1 - \u2191k) * \u2191((i + 1).choose k)\na\u271d : \u2191k * (\u2191i - \u2191k + 1) * \u2191((i + 1).choose k) < (\u2191i + 1) * (\u2191(i.choose k) * \u2191k)\n\u22a2 False failed",
+    "tactic 'rewrite' failed, did not find instance of the pattern in the current goal\ncase intro\ni k : \u2115\nhk1 : 1 \u2264 k\nhki : k \u2264 i\nS : Finset \u2115\nhSsub : S \u2286 range i\nhScard : #S = k\nhset : filter (fun T => T \u2286 S) (powersetCard (k - 1) (range i)) = powersetCard (k - 1) S\nhcard : #(filter (fun T => T \u2286 S) (powersetCard (k - 1) (range i))) = k\n\u22a2 (\u2211 T \u2208 powersetCard (k - 1) (range i), if T \u2286 S then 1 / \u2191k else 0) = 1",
+    "unknown constant 'Finset.card_filter_powersetCard_subset'",
+    "unsolved goals\ncase intro\ni k : \u2115\nhk1 : 1 \u2264 k\nhki : k \u2264 i\nT : Finset \u2115\nhTsub : T \u2286 range i\nhTcard : #T = k - 1\nhTk : #T \u2264 k\n\u22a2 \u2211 S \u2208 powersetCard k (range i), uniformPlan k S T = (\u2191i - \u2191k + 1) / \u2191k",
+    "typeclass instance problem is stuck, it is often due to metavariables\n  AddCommMonoid ?m.235901",
+    "unsolved goals\n\u03b1 : Type u_1\ninst\u271d : DecidableEq \u03b1\ns : Finset \u03b1\nq : \u03b1 \u2192 \u211d\nhq : \u2200 a \u2208 s, 0 \u2264 q a\nhsum : \u2211 a \u2208 s, q a = 1\nt : Finset \u03b1 := filter (fun a => 0 < q a) s\nht : t = filter (fun a => 0 < q a) s\nhtsub : t \u2286 s\nhrestr : \u2211 a \u2208 s, (q a).negMulLog = \u2211 a \u2208 t, (q a).negMulLog\nhsumt : \u2211 a \u2208 t, q a = 1\nhsne : s.Nonempty\nhn1 : 1 \u2264 \u2191(#s)\nhnpos : 0 < \u2191(#s)\na : \u03b1\nhat : a \u2208 t\nhqa : 0 < q a\nhx : 0 < 1 / (\u2191(#s) * q a)\nhlog : -(Real.log \u2191(#s) + Real.log (q a)) \u2264 1 / (\u2191(#s) * q a) - 1\nhrw : Real.log (1 / (\u2191(#s) * q a)) = -(Real.log \u2191(#s) + Real.log (q a))\nhmul : q a * -(Real.log \u2191(#s) + Real.log (q a)) \u2264 q a * (1 / (\u2191(#s) * q a) - 1)\n\u22a2 q a * (1 - \u2191(#s) * q a) * \u2191(#s) = (1 - \u2191(#s) * q a) * (\u2191(#s) * q a)",
+    "application type mismatch\n  div_le_div_of_nonneg_right h hl2\nargument\n  hl2\nhas type\n  0 < Real.log 2 : Prop\nbut is expected to have type\n  0 \u2264 Real.log 2 : Prop",
+    "tactic 'rewrite' failed, did not find instance of the pattern in the target expression\n  ?m.304345 / \u2191(i.choose k) \u2264 ?m.304347 / \u2191(i.choose k)\ni k : \u2115\nhk1 : 1 \u2264 k\nhki : k \u2264 i\nsrc : Finset (Finset \u2115)\nhsrc : #src = i.choose k\nH : Finset \u2115 \u2192 \u211d\nhHnn : \u2200 S \u2208 src, 0 \u2264 H S\nsplit : Finset (Finset \u2115)\nhsub : split \u2286 src\nhzero : \u2200 S \u2208 src, S \u2209 split \u2192 H S = 0\nhmax : \u2200 S \u2208 split, H S \u2264 Real.logb 2 \u2191k\nhsplit_card : #split + 1 \u2264 i.choose (k - 1)\nhA : 0 < \u2191(i.choose k)\nhlogk : 0 \u2264 Real.logb 2 \u2191k\nhsum_split : \u2211 S \u2208 src, H S = \u2211 S \u2208 split, H S\nhbnd : \u2211 S \u2208 split, H S \u2264 \u2191(#split) * Real.logb 2 \u2191k\nhcard : \u2191(#split) \u2264 \u2191(i.choose (k - 1)) - 1\nhchain : \u2211 S \u2208 src, H S \u2264 (\u2191(i.choose (k - 1)) - 1) * Real.logb 2 \u2191k\n\u22a2 (\u2211 i \u2208 src, H i) / \u2191(i.choose k) \u2264 Real.logb 2 \u2191k * ((\u2191(i.choose (k - 1)) - 1) / \u2191(i.choose k))",
+    "linarith failed to find a contradiction\ncase a\nk n : \u2115\nhk1 : 1 \u2264 k\nhlogk : 0 \u2264 Real.logb 2 \u2191k\nhkR : 1 \u2264 \u2191k\nhterm :\n  \u2200 j \u2208 range (n - k),\n    \u2191k / (\u2191(k + j) + 1) * (Real.logb 2 \u2191k * \u2191k / (\u2191(k + j) - \u2191k + 1)) \u2264\n      Real.logb 2 \u2191k * \u2191k ^ 2 * (1 / ((\u2191j + 1) * (\u2191j + 2)))\nh : \u2211 j \u2208 range (n - k), 1 / ((\u2191j + 1) * (\u2191j + 2)) \u2264 1\na\u271d : Real.logb 2 \u2191k * \u2191k ^ 2 * \u2211 i \u2208 range (n - k), 1 / ((\u2191i + 1) * (\u2191i + 2)) > Real.logb 2 \u2191k * \u2191k ^ 2\n\u22a2 False failed"
+  ],
+  "warnings": [
+    "unused variable `hk1`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead",
+    "`div_le_iff` has been deprecated, use `div_le_iff\u2080` instead",
+    "unused variable `hk1`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead"
+  ],
+  "infos": [],
+  "wall_clock_s": 9.64
+}

@@ -1,0 +1,803 @@
+[
+  {
+    "name": "index_convention",
+    "statement": "theorem index_convention (i k : \u2124) : k \u2223 ((i + 1) - (i - k + 1))",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Quot.sound]",
+    "mathlib_lemmas": [],
+    "tactics": [
+      "ring"
+    ],
+    "cumulative_compile_s": 0.01,
+    "n_errors": 0
+  },
+  {
+    "name": "index_convention_nat",
+    "statement": "theorem index_convention_nat {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i) :\n    (i - k + 1) + k = i + 1",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Quot.sound]",
+    "mathlib_lemmas": [],
+    "tactics": [
+      "omega"
+    ],
+    "cumulative_compile_s": 0.01,
+    "n_errors": 0
+  },
+  {
+    "name": "L0a",
+    "statement": "theorem L0a {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i) :\n    k * Nat.choose i k = (i - k + 1) * Nat.choose i (k - 1)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Quot.sound]",
+    "mathlib_lemmas": [
+      "Nat.choose",
+      "Nat.choose_succ_right_eq"
+    ],
+    "tactics": [
+      "calc",
+      "omega",
+      "ring"
+    ],
+    "cumulative_compile_s": 0.02,
+    "n_errors": 0
+  },
+  {
+    "name": "L0b",
+    "statement": "theorem L0b (i k : \u2115) :\n    (i + 1) * Nat.choose i k = (i + 1 - k) * Nat.choose (i + 1) k",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext]",
+    "mathlib_lemmas": [
+      "Nat.choose",
+      "Nat.choose_mul_succ_eq"
+    ],
+    "tactics": [
+      "calc",
+      "ring"
+    ],
+    "cumulative_compile_s": 0.02,
+    "n_errors": 0
+  },
+  {
+    "name": "choose_pos_real",
+    "statement": "theorem choose_pos_real {i k : \u2115} (hki : k \u2264 i) : (0:\u211d) < (Nat.choose i k : \u211d)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Nat.choose",
+      "Nat.choose_pos"
+    ],
+    "tactics": [
+      "exact_mod_cast"
+    ],
+    "cumulative_compile_s": 0.02,
+    "n_errors": 0
+  },
+  {
+    "name": "L0a_real",
+    "statement": "theorem L0a_real {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i) :\n    (Nat.choose i (k - 1) : \u211d) / (Nat.choose i k : \u211d) = (k:\u211d) / ((i:\u211d) - (k:\u211d) + 1)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Nat.cast_add",
+      "Nat.cast_mul",
+      "Nat.cast_one",
+      "Nat.cast_sub",
+      "Nat.choose"
+    ],
+    "tactics": [
+      "exact_mod_cast",
+      "field_simp",
+      "linarith",
+      "simp"
+    ],
+    "cumulative_compile_s": 0.03,
+    "n_errors": 0
+  },
+  {
+    "name": "L0b_real",
+    "statement": "theorem L0b_real {i k : \u2115} (hki : k \u2264 i) :\n    (Nat.choose i k : \u211d) / (Nat.choose (i + 1) k : \u211d)\n      = ((i:\u211d) + 1 - (k:\u211d)) / ((i:\u211d) + 1)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Nat.cast_add",
+      "Nat.cast_mul",
+      "Nat.cast_one",
+      "Nat.cast_sub",
+      "Nat.choose",
+      "Nat.le_succ"
+    ],
+    "tactics": [
+      "exact_mod_cast",
+      "linarith",
+      "simp"
+    ],
+    "cumulative_compile_s": 0.05,
+    "n_errors": 0
+  },
+  {
+    "name": "accept_forced",
+    "statement": "theorem accept_forced {i k : \u2115} (hki : k \u2264 i) (p : Finset \u2115 \u2192 \u211d)\n    (h : \u2200 S' \u2208 Finset.powersetCard k (Finset.range i),\n      (1 / (Nat.choose i k : \u211d)) * (1 - p S') = 1 / (Nat.choose (i + 1) k : \u211d)) :\n    \u2200 S' \u2208 Finset.powersetCard k (Finset.range i), p S' = (k:\u211d) / ((i:\u211d) + 1)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.powersetCard",
+      "Finset.range",
+      "Nat.choose",
+      "Nat.le_succ"
+    ],
+    "tactics": [
+      "field_simp",
+      "linarith",
+      "positivity"
+    ],
+    "cumulative_compile_s": 0.08,
+    "n_errors": 0
+  },
+  {
+    "name": "binEnt",
+    "statement": "noncomputable def binEnt (q : \u211d) : \u211d := Real.negMulLog q / Real.log 2 + Real.negMulLog (1 - q) / Real.log 2",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Real.log",
+      "Real.negMulLog"
+    ],
+    "tactics": [],
+    "cumulative_compile_s": 0.07,
+    "n_errors": 0
+  },
+  {
+    "name": "acc_floor",
+    "statement": "theorem acc_floor {k n : \u2115} (cost : \u211d \u2192 \u211d)\n    (hKY : \u2200 q : \u211d, 0 \u2264 q \u2192 q \u2264 1 \u2192 binEnt q \u2264 cost q)\n    (acc : \u2115 \u2192 \u211d) (hacc : \u2200 i \u2208 Finset.Ico k n, acc i = (k:\u211d) / ((i:\u211d) + 1))\n    (hk : \u2200 i \u2208 Finset.Ico k n, (k:\u211d) \u2264 (i:\u211d) + 1) :\n    \u2211 i \u2208 Finset.Ico k n, binEnt (acc i) \u2264 \u2211 i \u2208 Finset.Ico k n, cost (acc i)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.Ico",
+      "Finset.sum_le_sum"
+    ],
+    "tactics": [
+      "positivity"
+    ],
+    "cumulative_compile_s": 0.07,
+    "n_errors": 0
+  },
+  {
+    "name": "theoremC_reject",
+    "statement": "theorem theoremC_reject {i k : \u2115} (hki : k \u2264 i) :\n    (1 - (k:\u211d) / ((i:\u211d) + 1)) * (1 / (Nat.choose i k : \u211d)) = 1 / (Nat.choose (i + 1) k : \u211d)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Nat.choose",
+      "Nat.le_succ"
+    ],
+    "tactics": [
+      "field_simp",
+      "induction",
+      "linarith",
+      "positivity"
+    ],
+    "cumulative_compile_s": 0.08,
+    "n_errors": 0
+  },
+  {
+    "name": "theoremC_accept",
+    "statement": "theorem theoremC_accept {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i)\n    (f : Finset \u2115 \u2192 Finset \u2115 \u2192 \u211d) (T : Finset \u2115)\n    (hcol : \u2211 S \u2208 Finset.powersetCard k (Finset.range i), f S T\n      = ((i:\u211d) - (k:\u211d) + 1) / (k:\u211d)) :\n    ((k:\u211d) / ((i:\u211d) + 1)) *\n        \u2211 S \u2208 Finset.powersetCard k (Finset.range i), (1 / (Nat.choose i k : \u211d)) * f S T\n      = 1 / (Nat.choose (i + 1) k : \u211d)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.mul_sum",
+      "Finset.powersetCard",
+      "Finset.range",
+      "Nat.choose",
+      "Nat.le_succ"
+    ],
+    "tactics": [
+      "exact_mod_cast",
+      "field_simp",
+      "linear_combination",
+      "positivity"
+    ],
+    "cumulative_compile_s": 0.09,
+    "n_errors": 0
+  },
+  {
+    "name": "theoremC",
+    "statement": "theorem theoremC {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i)\n    (f : Finset \u2115 \u2192 Finset \u2115 \u2192 \u211d)\n    (_hrow : \u2200 S \u2208 Finset.powersetCard k (Finset.range i),\n      \u2211 T \u2208 Finset.powersetCard (k - 1) (Finset.range i), f S T = 1)\n    (hcol : \u2200 T \u2208 Finset.powersetCard (k - 1) (Finset.range i),\n      \u2211 S \u2208 Finset.powersetCard k (Finset.range i), f S T = ((i:\u211d) - (k:\u211d) + 1) / (k:\u211d))\n    (S' : Finset \u2115) (hS' : S' \u2208 Finset.powersetCard k (Finset.range (i + 1))) :\n    (if i \u2208 S' then\n        ((k:\u211d) / ((i:\u211d) + 1)) *\n          \u2211 S \u2208 Finset.powersetCard k (Finset.range i),\n            (1 / (Nat.choose i k : \u211d)) * f S (S'.erase i)\n      else (1 - (k:\u211d) / ((i:\u211d) + 1)) * (1 / (Nat.choose i k : \u211d)))\n      = 1 / (Nat.choose (i + 1) k : \u211d)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.card_erase_of_mem",
+      "Finset.mem_erase",
+      "Finset.mem_powersetCard",
+      "Finset.mem_range",
+      "Finset.powersetCard",
+      "Finset.range",
+      "Nat.choose"
+    ],
+    "tactics": [
+      "omega"
+    ],
+    "cumulative_compile_s": 0.1,
+    "n_errors": 0
+  },
+  {
+    "name": "uniformPlan",
+    "statement": "noncomputable def uniformPlan (k : \u2115) (S T : Finset \u2115) : \u211d",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [],
+    "tactics": [],
+    "cumulative_compile_s": 0.1,
+    "n_errors": 0
+  },
+  {
+    "name": "uniformPlan_row",
+    "statement": "theorem uniformPlan_row {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i)\n    (S : Finset \u2115) (hS : S \u2208 Finset.powersetCard k (Finset.range i)) :\n    \u2211 T \u2208 Finset.powersetCard (k - 1) (Finset.range i), uniformPlan k S T = 1",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.card_powersetCard",
+      "Finset.mem_filter",
+      "Finset.mem_powersetCard",
+      "Finset.powersetCard",
+      "Finset.range",
+      "Finset.sum_const",
+      "Finset.sum_filter",
+      "Nat.choose_one_right",
+      "Nat.choose_symm"
+    ],
+    "tactics": [
+      "exact_mod_cast",
+      "field_simp",
+      "omega",
+      "simp"
+    ],
+    "cumulative_compile_s": 0.13,
+    "n_errors": 0
+  },
+  {
+    "name": "card_parents",
+    "statement": "theorem card_parents {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i)\n    (T : Finset \u2115) (hTsub : T \u2286 Finset.range i) (hTcard : T.card = k - 1) :\n    ((Finset.powersetCard k (Finset.range i)).filter (fun S => T \u2286 S)).card = i - k + 1",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.Subset.antisymm",
+      "Finset.card_eq_one.mp",
+      "Finset.card_image_of_injOn",
+      "Finset.card_insert_of_not_mem",
+      "Finset.card_range",
+      "Finset.card_sdiff",
+      "Finset.coe_sdiff",
+      "Finset.mem_coe",
+      "Finset.mem_filter",
+      "Finset.mem_image",
+      "Finset.mem_insert.mp",
+      "Finset.mem_insert_of_mem",
+      "Finset.mem_insert_self",
+      "Finset.mem_powersetCard",
+      "Finset.mem_sdiff",
+      "Finset.mem_sdiff.mp",
+      "Finset.mem_sdiff.mpr",
+      "Finset.mem_singleton.mp",
+      "Finset.mem_singleton_self",
+      "Finset.powersetCard",
+      "Finset.range",
+      "Finset.subset_insert",
+      "Set.mem_diff"
+    ],
+    "tactics": [
+      "omega",
+      "simp"
+    ],
+    "cumulative_compile_s": 0.17,
+    "n_errors": 0
+  },
+  {
+    "name": "uniformPlan_col",
+    "statement": "theorem uniformPlan_col {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i)\n    (T : Finset \u2115) (hT : T \u2208 Finset.powersetCard (k - 1) (Finset.range i)) :\n    \u2211 S \u2208 Finset.powersetCard k (Finset.range i), uniformPlan k S T\n      = ((i:\u211d) - (k:\u211d) + 1) / (k:\u211d)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.mem_powersetCard",
+      "Finset.powersetCard",
+      "Finset.range",
+      "Finset.sum_const",
+      "Finset.sum_filter",
+      "Nat.cast_sub"
+    ],
+    "tactics": [
+      "exact_mod_cast",
+      "push_cast",
+      "ring"
+    ],
+    "cumulative_compile_s": 0.19,
+    "n_errors": 0
+  },
+  {
+    "name": "theoremC_existence",
+    "statement": "theorem theoremC_existence {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i) :\n    \u2203 f : Finset \u2115 \u2192 Finset \u2115 \u2192 \u211d,\n      (\u2200 S \u2208 Finset.powersetCard k (Finset.range i),\n        \u2211 T \u2208 Finset.powersetCard (k - 1) (Finset.range i), f S T = 1) \u2227\n      (\u2200 T \u2208 Finset.powersetCard (k - 1) (Finset.range i),\n        \u2211 S \u2208 Finset.powersetCard k (Finset.range i), f S T = ((i:\u211d) - (k:\u211d) + 1) / (k:\u211d))",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.powersetCard",
+      "Finset.range"
+    ],
+    "tactics": [],
+    "cumulative_compile_s": 0.19,
+    "n_errors": 0
+  },
+  {
+    "name": "forest_split_count",
+    "statement": "theorem forest_split_count {A : \u2115} (d : Fin A \u2192 \u2115) (hd : \u2200 j, 1 \u2264 d j)\n    (B E : \u2115) (hE : \u2211 j, d j = E) (hEB : E + 1 \u2264 A + B) :\n    (Finset.univ.filter (fun j => 2 \u2264 d j)).card + 1 \u2264 B",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.card_univ",
+      "Finset.filter_card_add_filter_neg_card_eq_card",
+      "Finset.mem_filter.mp",
+      "Finset.sum_const",
+      "Finset.sum_filter_add_sum_filter_not",
+      "Finset.sum_le_sum",
+      "Finset.univ",
+      "Finset.univ.filter",
+      "Nat.mul_comm"
+    ],
+    "tactics": [
+      "omega",
+      "simpa"
+    ],
+    "cumulative_compile_s": 0.23,
+    "n_errors": 0
+  },
+  {
+    "name": "H2",
+    "statement": "noncomputable def H2 {\u03b1 : Type*} (s : Finset \u03b1) (q : \u03b1 \u2192 \u211d) : \u211d",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Real.log",
+      "Real.negMulLog"
+    ],
+    "tactics": [],
+    "cumulative_compile_s": 0.23,
+    "n_errors": 0
+  },
+  {
+    "name": "entropy_le_log_card",
+    "statement": "theorem entropy_le_log_card {\u03b1 : Type*} [DecidableEq \u03b1] (s : Finset \u03b1) (q : \u03b1 \u2192 \u211d)\n    (hq : \u2200 a \u2208 s, 0 \u2264 q a) (hsum : \u2211 a \u2208 s, q a = 1) :\n    \u2211 a \u2208 s, Real.negMulLog (q a) \u2264 Real.log s.card",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.card_le_card",
+      "Finset.card_pos.mpr",
+      "Finset.eq_empty_or_nonempty",
+      "Finset.filter_subset",
+      "Finset.mem_filter.mp",
+      "Finset.mem_filter.mpr",
+      "Finset.sum_add_distrib",
+      "Finset.sum_const",
+      "Finset.sum_empty",
+      "Finset.sum_le_sum",
+      "Finset.sum_mul",
+      "Finset.sum_sub_distrib",
+      "Finset.sum_subset",
+      "Real.log",
+      "Real.log_inv",
+      "Real.log_le_sub_one_of_pos",
+      "Real.log_mul",
+      "Real.negMulLog",
+      "Real.negMulLog_zero"
+    ],
+    "tactics": [
+      "exact_mod_cast",
+      "field_simp",
+      "linarith",
+      "norm_num",
+      "positivity",
+      "ring"
+    ],
+    "cumulative_compile_s": 0.32,
+    "n_errors": 0
+  },
+  {
+    "name": "entropy_le_logb_card",
+    "statement": "theorem entropy_le_logb_card {\u03b1 : Type*} [DecidableEq \u03b1] (s : Finset \u03b1) (q : \u03b1 \u2192 \u211d)\n    (hq : \u2200 a \u2208 s, 0 \u2264 q a) (hsum : \u2211 a \u2208 s, q a = 1) :\n    H2 s q \u2264 Real.logb 2 s.card",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Real.log",
+      "Real.log_pos",
+      "Real.logb"
+    ],
+    "tactics": [
+      "nlinarith",
+      "norm_num"
+    ],
+    "cumulative_compile_s": 0.32,
+    "n_errors": 0
+  },
+  {
+    "name": "per_step_entropy_bound",
+    "statement": "theorem per_step_entropy_bound {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i)\n    (src : Finset (Finset \u2115)) (hsrc : src.card = Nat.choose i k)\n    (H : Finset \u2115 \u2192 \u211d) (hHnn : \u2200 S \u2208 src, 0 \u2264 H S)\n    (split : Finset (Finset \u2115)) (hsub : split \u2286 src)\n    (hzero : \u2200 S \u2208 src, S \u2209 split \u2192 H S = 0)\n    (hmax : \u2200 S \u2208 split, H S \u2264 Real.logb 2 k)\n    (hsplit_card : split.card + 1 \u2264 Nat.choose i (k - 1)) :\n    \u2211 S \u2208 src, (1 / (Nat.choose i k : \u211d)) * H S\n      \u2264 Real.logb 2 k * ((Nat.choose i (k - 1) : \u211d) - 1) / (Nat.choose i k : \u211d)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.mul_sum",
+      "Finset.sum_const",
+      "Finset.sum_le_sum",
+      "Finset.sum_subset",
+      "Nat.choose",
+      "Real.logb",
+      "Real.logb_nonneg"
+    ],
+    "tactics": [
+      "exact_mod_cast",
+      "linarith",
+      "nlinarith",
+      "norm_num",
+      "simpa"
+    ],
+    "cumulative_compile_s": 0.36,
+    "n_errors": 0
+  },
+  {
+    "name": "per_step_entropy_bound_ratio",
+    "statement": "theorem per_step_entropy_bound_ratio {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i) :\n    Real.logb 2 k * ((Nat.choose i (k - 1) : \u211d) - 1) / (Nat.choose i k : \u211d)\n      \u2264 Real.logb 2 k * (k:\u211d) / ((i:\u211d) - (k:\u211d) + 1)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Nat.choose",
+      "Real.logb",
+      "Real.logb_nonneg"
+    ],
+    "tactics": [
+      "exact_mod_cast",
+      "linarith",
+      "nlinarith",
+      "norm_num"
+    ],
+    "cumulative_compile_s": 0.36,
+    "n_errors": 0
+  },
+  {
+    "name": "per_step_entropy_cap",
+    "statement": "theorem per_step_entropy_cap {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i)\n    (src : Finset (Finset \u2115)) (hsrc : src.card = Nat.choose i k)\n    (H : Finset \u2115 \u2192 \u211d) (hmax : \u2200 S \u2208 src, H S \u2264 Real.logb 2 k) :\n    \u2211 S \u2208 src, (1 / (Nat.choose i k : \u211d)) * H S \u2264 Real.logb 2 k",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.mul_sum",
+      "Finset.sum_const",
+      "Finset.sum_le_sum",
+      "Nat.choose",
+      "Real.logb"
+    ],
+    "tactics": [
+      "linarith",
+      "simpa"
+    ],
+    "cumulative_compile_s": 0.37,
+    "n_errors": 0
+  },
+  {
+    "name": "telescope_bound",
+    "statement": "theorem telescope_bound (m : \u2115) :\n    \u2211 j \u2208 Finset.range m, (1:\u211d) / (((j:\u211d) + 1) * ((j:\u211d) + 2)) \u2264 1",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.range",
+      "Finset.sum_range_succ"
+    ],
+    "tactics": [
+      "field_simp",
+      "induction",
+      "linarith",
+      "positivity",
+      "push_cast",
+      "ring",
+      "simp"
+    ],
+    "cumulative_compile_s": 0.39,
+    "n_errors": 0
+  },
+  {
+    "name": "total_constant_in_n",
+    "statement": "theorem total_constant_in_n (k n : \u2115) (hk1 : 1 \u2264 k) :\n    \u2211 i \u2208 Finset.Ico k n,\n        ((k:\u211d) / ((i:\u211d) + 1)) * (Real.logb 2 k * (k:\u211d) / ((i:\u211d) - (k:\u211d) + 1))\n      \u2264 Real.logb 2 k * (k:\u211d) ^ 2",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.Ico",
+      "Finset.mul_sum",
+      "Finset.range",
+      "Finset.sum_Ico_eq_sum_range",
+      "Finset.sum_le_sum",
+      "Real.logb",
+      "Real.logb_nonneg"
+    ],
+    "tactics": [
+      "calc",
+      "exact_mod_cast",
+      "field_simp",
+      "linarith",
+      "nlinarith",
+      "norm_num",
+      "positivity",
+      "push_cast",
+      "ring"
+    ],
+    "cumulative_compile_s": 0.45,
+    "n_errors": 0
+  },
+  {
+    "name": "anytime_uniform_step",
+    "statement": "theorem anytime_uniform_step {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i) :\n    \u2203 f : Finset \u2115 \u2192 Finset \u2115 \u2192 \u211d,\n      (\u2200 S \u2208 Finset.powersetCard k (Finset.range i),\n        \u2211 T \u2208 Finset.powersetCard (k - 1) (Finset.range i), f S T = 1) \u2227\n      (\u2200 S' \u2208 Finset.powersetCard k (Finset.range (i + 1)),\n        (if i \u2208 S' then\n            ((k:\u211d) / ((i:\u211d) + 1)) *\n              \u2211 S \u2208 Finset.powersetCard k (Finset.range i),\n                (1 / (Nat.choose i k : \u211d)) * f S (S'.erase i)\n          else (1 - (k:\u211d) / ((i:\u211d) + 1)) * (1 / (Nat.choose i k : \u211d)))\n          = 1 / (Nat.choose (i + 1) k : \u211d))",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.powersetCard",
+      "Finset.range",
+      "Nat.choose"
+    ],
+    "tactics": [],
+    "cumulative_compile_s": 0.45,
+    "n_errors": 0
+  },
+  {
+    "name": "per_step_entropy_bound_ratio_strict",
+    "statement": "theorem per_step_entropy_bound_ratio_strict {i k : \u2115} (hk2 : 2 \u2264 k) (hki : k \u2264 i) :\n    Real.logb 2 k * ((Nat.choose i (k - 1) : \u211d) - 1) / (Nat.choose i k : \u211d)\n      < Real.logb 2 k * (k:\u211d) / ((i:\u211d) - (k:\u211d) + 1)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Nat.choose",
+      "Real.logb",
+      "Real.logb_pos"
+    ],
+    "tactics": [
+      "exact_mod_cast",
+      "linarith",
+      "nlinarith",
+      "norm_num",
+      "omega"
+    ],
+    "cumulative_compile_s": 0.46,
+    "n_errors": 0
+  },
+  {
+    "name": "per_step_entropy_min",
+    "statement": "theorem per_step_entropy_min {i k : \u2115} (hk1 : 1 \u2264 k) (hki : k \u2264 i)\n    (src : Finset (Finset \u2115)) (hsrc : src.card = Nat.choose i k)\n    (H : Finset \u2115 \u2192 \u211d) (hHnn : \u2200 S \u2208 src, 0 \u2264 H S)\n    (split : Finset (Finset \u2115)) (hsub : split \u2286 src)\n    (hzero : \u2200 S \u2208 src, S \u2209 split \u2192 H S = 0)\n    (hmaxsrc : \u2200 S \u2208 src, H S \u2264 Real.logb 2 k)\n    (hsplit_card : split.card + 1 \u2264 Nat.choose i (k - 1)) :\n    \u2211 S \u2208 src, (1 / (Nat.choose i k : \u211d)) * H S\n      \u2264 min (Real.logb 2 k) (Real.logb 2 k * (k:\u211d) / ((i:\u211d) - (k:\u211d) + 1))",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Nat.choose",
+      "Real.logb"
+    ],
+    "tactics": [],
+    "cumulative_compile_s": 0.46,
+    "n_errors": 0
+  },
+  {
+    "name": "example_30",
+    "statement": "example (i : \u2115) (hi : 2 \u2264 i) :\n    ((Nat.choose i 1 : \u211d) - 1) / (Nat.choose i 2 : \u211d) = 2 / (i:\u211d)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "n/a (anonymous `example`, not a named declaration)",
+    "mathlib_lemmas": [
+      "Nat.cast_sub",
+      "Nat.choose",
+      "Nat.choose_one_right"
+    ],
+    "tactics": [
+      "exact_mod_cast",
+      "field_simp",
+      "linarith",
+      "norm_num",
+      "omega",
+      "push_cast"
+    ],
+    "cumulative_compile_s": 0.48,
+    "n_errors": 0
+  },
+  {
+    "name": "example_31",
+    "statement": "example {k : \u2115} (hk2 : 2 \u2264 k) :\n    Real.logb 2 k \u2264 Real.logb 2 k * (k:\u211d) / (((k:\u2115) + 1 : \u2115) - (k:\u211d) + 1)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "n/a (anonymous `example`, not a named declaration)",
+    "mathlib_lemmas": [
+      "Real.logb",
+      "Real.logb_pos"
+    ],
+    "tactics": [
+      "exact_mod_cast",
+      "linarith",
+      "nlinarith",
+      "norm_num",
+      "omega",
+      "push_cast"
+    ],
+    "cumulative_compile_s": 0.7,
+    "n_errors": 0
+  },
+  {
+    "name": "harm",
+    "statement": "noncomputable def harm (n : \u2115) : \u211d := \u2211 r \u2208 Finset.range n, (1:\u211d) / ((r:\u211d) + 1)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.range"
+    ],
+    "tactics": [],
+    "cumulative_compile_s": 0.5,
+    "n_errors": 0
+  },
+  {
+    "name": "harm_nonneg",
+    "statement": "theorem harm_nonneg (n : \u2115) : 0 \u2264 harm n",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.sum_nonneg"
+    ],
+    "tactics": [
+      "positivity"
+    ],
+    "cumulative_compile_s": 0.53,
+    "n_errors": 0
+  },
+  {
+    "name": "harm_le_harm_add",
+    "statement": "theorem harm_le_harm_add (m k : \u2115) : harm m \u2264 harm (m + k)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.range_subset.mpr",
+      "Finset.sum_le_sum_of_subset_of_nonneg"
+    ],
+    "tactics": [
+      "omega",
+      "positivity"
+    ],
+    "cumulative_compile_s": 0.57,
+    "n_errors": 0
+  },
+  {
+    "name": "harm_le_self",
+    "statement": "theorem harm_le_self (n : \u2115) : harm n \u2264 (n:\u211d)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.card_range",
+      "Finset.range",
+      "Finset.sum_const",
+      "Finset.sum_le_sum",
+      "Nat.cast_nonneg"
+    ],
+    "tactics": [
+      "linarith",
+      "positivity",
+      "simpa"
+    ],
+    "cumulative_compile_s": 0.57,
+    "n_errors": 0
+  },
+  {
+    "name": "harm_shift",
+    "statement": "theorem harm_shift (k m : \u2115) :\n    \u2211 j \u2208 Finset.range m, (1:\u211d) / ((j:\u211d) + 1 + (k:\u211d)) = harm (k + m) - harm k",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.range",
+      "Finset.sum_congr",
+      "Finset.sum_range_add"
+    ],
+    "tactics": [
+      "push_cast",
+      "ring",
+      "ring_nf"
+    ],
+    "cumulative_compile_s": 0.55,
+    "n_errors": 0
+  },
+  {
+    "name": "sum_inv_prod_le_harm_div",
+    "statement": "theorem sum_inv_prod_le_harm_div {k : \u2115} (hk1 : 1 \u2264 k) (m : \u2115) :\n    \u2211 j \u2208 Finset.range m, (1:\u211d) / (((j:\u211d) + 1) * ((j:\u211d) + 1 + (k:\u211d))) \u2264 harm k / (k:\u211d)",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.mul_sum",
+      "Finset.range",
+      "Finset.sum_congr",
+      "Finset.sum_sub_distrib",
+      "Nat.add_comm"
+    ],
+    "tactics": [
+      "calc",
+      "exact_mod_cast",
+      "field_simp",
+      "linarith",
+      "positivity",
+      "ring"
+    ],
+    "cumulative_compile_s": 0.6,
+    "n_errors": 0
+  },
+  {
+    "name": "total_sharp",
+    "statement": "theorem total_sharp (k n : \u2115) (hk1 : 1 \u2264 k) :\n    \u2211 i \u2208 Finset.Ico k n,\n        ((k:\u211d) / ((i:\u211d) + 1)) * (Real.logb 2 k * (k:\u211d) / ((i:\u211d) - (k:\u211d) + 1))\n      \u2264 Real.logb 2 k * (k:\u211d) * harm k",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Finset.Ico",
+      "Finset.mul_sum",
+      "Finset.range",
+      "Finset.sum_Ico_eq_sum_range",
+      "Finset.sum_congr",
+      "Real.logb",
+      "Real.logb_nonneg"
+    ],
+    "tactics": [
+      "calc",
+      "exact_mod_cast",
+      "field_simp",
+      "norm_num",
+      "positivity",
+      "push_cast",
+      "ring"
+    ],
+    "cumulative_compile_s": 0.75,
+    "n_errors": 0
+  },
+  {
+    "name": "total_sharp_le_easy",
+    "statement": "theorem total_sharp_le_easy {k : \u2115} (hk1 : 1 \u2264 k) :\n    Real.logb 2 k * (k:\u211d) * harm k \u2264 Real.logb 2 k * (k:\u211d) ^ 2",
+    "sorry_free": true,
+    "verified": true,
+    "print_axioms": "[propext, Classical.choice, Quot.sound]",
+    "mathlib_lemmas": [
+      "Real.logb",
+      "Real.logb_nonneg"
+    ],
+    "tactics": [
+      "exact_mod_cast",
+      "nlinarith",
+      "norm_num"
+    ],
+    "cumulative_compile_s": 0.94,
+    "n_errors": 0
+  }
+]

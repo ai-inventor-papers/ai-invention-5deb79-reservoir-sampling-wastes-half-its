@@ -1,0 +1,1 @@
+whole-file elaboration (warm, Mathlib pre-imported), 3 repeats: [0.59, 0.59, 0.58] s; verified=[True, True, True]

@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "verified": false,
+  "has_sorries": false,
+  "sorry_goals": [],
+  "errors": [
+    "typeclass instance problem is stuck, it is often due to metavariables\n  AddCommMonoid ?m.246096"
+  ],
+  "warnings": [
+    "unused variable `hk1`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "unused variable `hki`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead",
+    "unused variable `hsrc`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "unused variable `hHnn`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead",
+    "`div_le_iff` has been deprecated, use `div_le_iff\u2080` instead",
+    "unused variable `hk1`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead"
+  ],
+  "infos": [],
+  "wall_clock_s": 6.18
+}

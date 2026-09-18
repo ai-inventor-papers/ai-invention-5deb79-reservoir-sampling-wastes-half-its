@@ -1,0 +1,158 @@
+{
+  "index_convention": {
+    "checks": 3540,
+    "failures": [],
+    "n_failures": 0,
+    "status": "PASS",
+    "note": "k | (i-k+1)  <->  k | (i+1); the two code files differ only in which index they name."
+  },
+  "L0a  k*C(i,k)=(i-k+1)*C(i,k-1)": {
+    "checks": 780,
+    "failures": [],
+    "n_failures": 0,
+    "status": "PASS"
+  },
+  "L0b  (i+1)*C(i,k)=(i+1-k)*C(i+1,k)": {
+    "checks": 820,
+    "failures": [],
+    "n_failures": 0,
+    "status": "PASS"
+  },
+  "L0a_real  C(i,k-1)/C(i,k)=k/(i-k+1)": {
+    "checks": 780,
+    "failures": [],
+    "n_failures": 0,
+    "status": "PASS"
+  },
+  "accept_forced  p=k/(i+1)": {
+    "checks": 300,
+    "failures": [],
+    "n_failures": 0,
+    "status": "PASS"
+  },
+  "theoremC  P_{i+1}=1/C(i+1,k)": {
+    "checks": 6078,
+    "failures": [],
+    "n_failures": 0,
+    "status": "PASS"
+  },
+  "theoremC_existence (uniform f=1/k)": {
+    "checks": 1,
+    "failures": [],
+    "n_failures": 0,
+    "status": "PASS"
+  },
+  "forest_split_count  |Split|+1<=B": {
+    "checks": 4421,
+    "failures": [],
+    "n_failures": 0,
+    "status": "PASS"
+  },
+  "entropy_le_log_card": {
+    "checks": 20000,
+    "failures": [],
+    "n_failures": 0,
+    "status": "PASS"
+  },
+  "per_step_entropy_bound": {
+    "checks": 3300,
+    "failures": [],
+    "n_failures": 0,
+    "status": "PASS",
+    "k2_slack_table": [
+      {
+        "i": 2,
+        "k": 2,
+        "bound_log2k_times_(B-1)/A": 1.0,
+        "solved_min_log2k/(i-k+1)": 1.0,
+        "slack_ratio": 1.0
+      },
+      {
+        "i": 3,
+        "k": 2,
+        "bound_log2k_times_(B-1)/A": 0.6666666666666666,
+        "solved_min_log2k/(i-k+1)": 0.5,
+        "slack_ratio": 1.3333333333333333
+      },
+      {
+        "i": 4,
+        "k": 2,
+        "bound_log2k_times_(B-1)/A": 0.5,
+        "solved_min_log2k/(i-k+1)": 0.3333333333333333,
+        "slack_ratio": 1.5
+      },
+      {
+        "i": 5,
+        "k": 2,
+        "bound_log2k_times_(B-1)/A": 0.4,
+        "solved_min_log2k/(i-k+1)": 0.25,
+        "slack_ratio": 1.6
+      },
+      {
+        "i": 6,
+        "k": 2,
+        "bound_log2k_times_(B-1)/A": 0.3333333333333333,
+        "solved_min_log2k/(i-k+1)": 0.2,
+        "slack_ratio": 1.6666666666666665
+      },
+      {
+        "i": 7,
+        "k": 2,
+        "bound_log2k_times_(B-1)/A": 0.2857142857142857,
+        "solved_min_log2k/(i-k+1)": 0.16666666666666666,
+        "slack_ratio": 1.7142857142857142
+      }
+    ]
+  },
+  "total_constant_in_n  <= log2(k)*k^2": {
+    "checks": 195,
+    "failures": [],
+    "n_failures": 0,
+    "status": "PASS"
+  },
+  "telescope  sum 1/((j+1)(j+2))<=1": {
+    "checks": 2000,
+    "failures": [],
+    "n_failures": 0,
+    "status": "PASS"
+  },
+  "L5 sharp constant = log2(k)*k*H_k": {
+    "checks": 4,
+    "failures": [],
+    "n_failures": 0,
+    "status": "PASS",
+    "table": [
+      {
+        "k": 2,
+        "truncated_series": 3.0,
+        "log2k_times_k_times_H_k": 3.0,
+        "proved_bound_log2k_k2": 4.0
+      },
+      {
+        "k": 3,
+        "truncated_series": 8.7173,
+        "log2k_times_k_times_H_k": 8.7173,
+        "proved_bound_log2k_k2": 14.2647
+      },
+      {
+        "k": 10,
+        "truncated_series": 97.2981,
+        "log2k_times_k_times_H_k": 97.2982,
+        "proved_bound_log2k_k2": 332.1928
+      },
+      {
+        "k": 50,
+        "truncated_series": 1269.6363,
+        "log2k_times_k_times_H_k": 1269.6434,
+        "proved_bound_log2k_k2": 14109.6405
+      }
+    ]
+  },
+  "defect_D1_epitaph": {
+    "fitted_law_bits_per_acceptance_k1000_i_eq_kplus1": 11.27,
+    "trivial_ceiling_log2_1000": 9.965784284662087,
+    "fitted_law_violates_ceiling": true,
+    "our_bound_at_k1000_i1001": 9.965784284662087,
+    "our_bound_respects_ceiling": true
+  }
+}

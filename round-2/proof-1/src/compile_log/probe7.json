@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "verified": false,
+  "has_sorries": true,
+  "sorry_goals": [
+    {
+      "sorry_index": 0,
+      "proof_state": 1,
+      "goal": "\u03b1 : Type u_1\ninst\u271d : DecidableEq \u03b1\ns : Finset \u03b1\nq : \u03b1 \u2192 \u211d\nhq : \u2200 a \u2208 s, 0 \u2264 q a\nhsum : \u2211 a \u2208 s, q a = 1\nt : Finset \u03b1 := filter (fun a => 0 < q a) s\nht : t = filter (fun a => 0 < q a) s\nhtsub : t \u2286 s\nhrestr : \u2211 a \u2208 s, (q a).negMulLog = \u2211 a \u2208 t, (q a).negMulLog\nhsumt : \u2211 a \u2208 t, q a = 1\nhsne : s.Nonempty\nhn1 : 1 \u2264 \u2191(#s)\nhnpos : 0 < \u2191(#s)\nhterm : \u2200 a \u2208 t, (q a).negMulLog \u2264 q a * Real.log \u2191(#s) + 1 / \u2191(#s) - q a\nhsumbound : \u2211 a \u2208 t, (q a).negMulLog \u2264 \u2211 a \u2208 t, (q a * Real.log \u2191(#s) + 1 / \u2191(#s) - q a)\n\u22a2 \u2211 a \u2208 t, (q a * Real.log \u2191(#s) + 1 / \u2191(#s) - q a) =\n    (\u2211 a \u2208 t, q a) * Real.log \u2191(#s) + \u2191(#t) * (1 / \u2191(#s)) - \u2211 a \u2208 t, q a"
+    }
+  ],
+  "errors": [
+    "typeclass instance problem is stuck, it is often due to metavariables\n  AddCommMonoid ?m.4173"
+  ],
+  "warnings": [],
+  "infos": [],
+  "wall_clock_s": 0.93
+}

@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "verified": false,
+  "has_sorries": false,
+  "sorry_goals": [],
+  "errors": [
+    "invalid 'import' command, it must be used in the beginning of the file"
+  ],
+  "warnings": [],
+  "infos": [],
+  "wall_clock_s": 253.15
+}

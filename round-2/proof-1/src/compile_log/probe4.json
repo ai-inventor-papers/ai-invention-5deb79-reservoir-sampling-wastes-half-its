@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "verified": false,
+  "has_sorries": false,
+  "sorry_goals": [],
+  "errors": [
+    "typeclass instance problem is stuck, it is often due to metavariables\n  AddCommMonoid ?m.4173"
+  ],
+  "warnings": [
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead"
+  ],
+  "infos": [],
+  "wall_clock_s": 1.11
+}

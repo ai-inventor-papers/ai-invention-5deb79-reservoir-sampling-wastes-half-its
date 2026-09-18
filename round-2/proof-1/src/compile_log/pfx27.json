@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "verified": true,
+  "has_sorries": false,
+  "sorry_goals": [],
+  "errors": [],
+  "warnings": [
+    "unused variable `hk1`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "unused variable `hki`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead",
+    "unused variable `hsrc`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "unused variable `hHnn`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead",
+    "`div_le_iff` has been deprecated, use `div_le_iff\u2080` instead",
+    "unused variable `hk1`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead"
+  ],
+  "infos": [],
+  "wall_clock_s": 0.58
+}

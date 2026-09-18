@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "verified": false,
+  "has_sorries": true,
+  "sorry_goals": [
+    {
+      "sorry_index": 0,
+      "proof_state": 0,
+      "goal": "\u03b1 : Type u_1\ninst\u271d : DecidableEq \u03b1\ns : Finset \u03b1\nq : \u03b1 \u2192 \u211d\nhq : \u2200 a \u2208 s, 0 \u2264 q a\nhsum : \u2211 a \u2208 s, q a = 1\n\u22a2 \u2211 a \u2208 s, (q a).negMulLog \u2264 Real.log \u2191(#s)"
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "declaration uses 'sorry'",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead"
+  ],
+  "infos": [],
+  "wall_clock_s": 0.18
+}

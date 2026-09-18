@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "verified": false,
+  "has_sorries": false,
+  "sorry_goals": [],
+  "errors": [
+    "typeclass instance problem is stuck, it is often due to metavariables\n  AddCommMonoid ?m.4173",
+    "unknown identifier 'choose_pos_real'",
+    "unknown identifier 'choose_pos_real'",
+    "unknown identifier 'L0a_real'",
+    "unsolved goals\ni k : \u2115\nhk1 : 1 \u2264 k\nhki : k \u2264 i\nhA : 0 < \u2191(i.choose k)\nhki' : \u2191k \u2264 \u2191i\nhden : 0 < \u2191i - \u2191k + 1\nhlogk : 0 \u2264 Real.logb 2 \u2191k\n\u22a2 Real.logb 2 \u2191k * (\u2191(i.choose (k - 1)) - 1) / \u2191(i.choose k) \u2264 Real.logb 2 \u2191k * \u2191k / (\u2191i - \u2191k + 1)",
+    "unknown identifier 'choose_pos_real'"
+  ],
+  "warnings": [
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead",
+    "`div_le_iff` has been deprecated, use `div_le_iff\u2080` instead",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead"
+  ],
+  "infos": [],
+  "wall_clock_s": 4.08
+}

@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "verified": false,
+  "has_sorries": false,
+  "sorry_goals": [],
+  "errors": [
+    "ring failed, ring expressions not equal\ni k : \u2115\nhk1 : 1 \u2264 k\nhki : k \u2264 i\nf : Finset \u2115 \u2192 Finset \u2115 \u2192 \u211d\nT : Finset \u2115\nhcol : \u2211 S \u2208 powersetCard k (range i), f S T = (\u2191i - \u2191k + 1) / \u2191k\nhA : 0 < \u2191(i.choose k)\nhA' : 0 < \u2191((i + 1).choose k)\nhi : 0 < \u2191i + 1\nhkR : 0 < \u2191k\nhb : \u2191(i.choose k) * (\u2191i + 1) = (\u2191i + 1 - \u2191k) * \u2191((i + 1).choose k)\n\u22a2 \u2191k * \u2191i * \u2191((i + 1).choose k) * 2 - \u2191k * \u2191i * \u2191(i.choose k) * 2 + \u2191k * \u2191((i + 1).choose k) * 2 +\n      (-(\u2191k * \u2191(i.choose k) * 2) - \u2191k ^ 2 * \u2191((i + 1).choose k) * 2) =\n    0",
+    "tactic 'rewrite' failed, did not find instance of the pattern in the target expression\n  (fun y => insert y T) b\ni k : \u2115\nhk1 : 1 \u2264 k\nhki : k \u2264 i\nT : Finset \u2115\nhTsub : T \u2286 range i\nhTcard : #T = k - 1\nhimg : filter (fun S => T \u2286 S) (powersetCard k (range i)) = image (fun y => insert y T) (range i \\ T)\na b : \u2115\nhab : (fun y => insert y T) a = (fun y => insert y T) b\nha : a \u2208 range i \u2227 a \u2209 T\nhb : b \u2208 range i \u2227 b \u2209 T\n\u22a2 a \u2208 insert b T",
+    "unsolved goals\ncase intro\ni k : \u2115\nhk1 : 1 \u2264 k\nhki : k \u2264 i\nT : Finset \u2115\nhTsub : T \u2286 range i\nhTcard : #T = k - 1\nhcard : #(filter (fun S => T \u2286 S) (powersetCard k (range i))) = i - k + 1\nhk0 : \u2191k \u2260 0\nhcast : \u2191(i - k + 1) = \u2191i - \u2191k + 1\n\u22a2 (\u2191i - \u2191k + 1) * (1 / \u2191k) = (\u2191i - \u2191k + 1) / \u2191k",
+    "typeclass instance problem is stuck, it is often due to metavariables\n  AddCommMonoid ?m.238918",
+    "unsolved goals\n\u03b1 : Type u_1\ninst\u271d : DecidableEq \u03b1\ns : Finset \u03b1\nq : \u03b1 \u2192 \u211d\nhq : \u2200 a \u2208 s, 0 \u2264 q a\nhsum : \u2211 a \u2208 s, q a = 1\nt : Finset \u03b1 := filter (fun a => 0 < q a) s\nht : t = filter (fun a => 0 < q a) s\nhtsub : t \u2286 s\nhrestr : \u2211 a \u2208 s, (q a).negMulLog = \u2211 a \u2208 t, (q a).negMulLog\nhsumt : \u2211 a \u2208 t, q a = 1\nhsne : s.Nonempty\nhn1 : 1 \u2264 \u2191(#s)\nhnpos : 0 < \u2191(#s)\na : \u03b1\nhat : a \u2208 t\nhqa : 0 < q a\nhx : 0 < 1 / (\u2191(#s) * q a)\nhlog : -(Real.log \u2191(#s) + Real.log (q a)) \u2264 1 / (\u2191(#s) * q a) - 1\nhrw : Real.log (1 / (\u2191(#s) * q a)) = -(Real.log \u2191(#s) + Real.log (q a))\nhmul : q a * -(Real.log \u2191(#s) + Real.log (q a)) \u2264 q a * (1 / (\u2191(#s) * q a) - 1)\n\u22a2 q a * (1 - \u2191(#s) * q a) * \u2191(#s) = (1 - \u2191(#s) * q a) * (\u2191(#s) * q a)",
+    "linarith failed to find a contradiction\ncase a\n\u03b1 : Type u_1\ninst\u271d : DecidableEq \u03b1\ns : Finset \u03b1\nq : \u03b1 \u2192 \u211d\nhq : \u2200 a \u2208 s, 0 \u2264 q a\nhsum : \u2211 a \u2208 s, q a = 1\nt : Finset \u03b1 := filter (fun a => 0 < q a) s\nht : t = filter (fun a => 0 < q a) s\nhtsub : t \u2286 s\nhrestr : \u2211 a \u2208 t, (q a).negMulLog = \u2211 a \u2208 t, (q a).negMulLog\nhsumt : \u2211 a \u2208 t, q a = 1\nhsne : s.Nonempty\nhn1 : 1 \u2264 \u2191(#s)\nhnpos : 0 < \u2191(#s)\nhterm : \u2200 a \u2208 t, (q a).negMulLog \u2264 q a * Real.log \u2191(#s) + 1 / \u2191(#s) - q a\nhsumbound : \u2211 a \u2208 t, (q a).negMulLog \u2264 \u2211 a \u2208 t, (q a * Real.log \u2191(#s) + 1 / \u2191(#s) - q a)\nhrhs : Real.log \u2191(#s) + \u2191(#t) / \u2191(#s) - 1 = Real.log \u2191(#s) + \u2191(#t) / \u2191(#s) - 1\nhtc : \u2191(#t) \u2264 \u2191(#s)\nhfrac : \u2191(#t) / \u2191(#s) \u2264 1\na\u271d : \u2211 a \u2208 t, (q a).negMulLog > Real.log \u2191(#s)\n\u22a2 False failed"
+  ],
+  "warnings": [
+    "unused variable `hk1`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "unused variable `hki`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead",
+    "unused variable `hsrc`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "unused variable `hHnn`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead",
+    "`div_le_iff` has been deprecated, use `div_le_iff\u2080` instead",
+    "unused variable `hk1`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+    "`div_le_div_iff` has been deprecated, use `div_le_div_iff\u2080` instead"
+  ],
+  "infos": [],
+  "wall_clock_s": 6.08
+}

@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "verified": true,
+  "has_sorries": false,
+  "sorry_goals": [],
+  "errors": [],
+  "warnings": [
+    "unused variable `hk1`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`"
+  ],
+  "infos": [],
+  "wall_clock_s": 0.13
+}
