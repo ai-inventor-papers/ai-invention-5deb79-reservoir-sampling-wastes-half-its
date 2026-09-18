@@ -1,0 +1,1566 @@
+{
+  "metadata": {
+    "method_name": "exact_rational_prefix_DP_plus_Johnson_transportation_flow",
+    "baseline_name": "monte_carlo_uniformity_test_with_simulated_null_band",
+    "description": "Exact check: is random eviction needed?",
+    "dataset_justification": "No external dataset is used, and none should be: uniformity of a reservoir sampler is a statement about INDEX k-subsets, so the canonical stream is the integer sequence 1..n, generated in-script. The ...",
+    "spend_usd": 0.0,
+    "llm_calls": 0,
+    "hardware": {
+      "platform": "Linux-6.5.0-35-generic-x86_64-with-glibc2.36",
+      "python": "3.12.14",
+      "gpu_used": false,
+      "ram_limit_gb": 64
+    },
+    "determinism": {
+      "exact_dp_and_fibermap": "no randomness whatsoever; outputs are bit-identical by construction",
+      "monte_carlo_seeds": {
+        "screen": 20260918,
+        "held_out": 20260919
+      },
+      "rng": "numpy Generator(PCG64), seeded per (panel, candidate) by crc32 of the candidate key"
+    },
+    "gates": {
+      "passed": true,
+      "exit_code": 0,
+      "counts": {
+        "passed": 59,
+        "note": "counted from progress output"
+      },
+      "n_tests_passed": 59,
+      "gates": [
+        "G1 DP self-consistency",
+        "G2 controls light up",
+        "G3 hand-checked fiber map"
+      ],
+      "summary": [
+        "...........................................................                                                                                                                                      [100%]"
+      ],
+      "seconds": 194.36922517046332
+    },
+    "verdict": {
+      "main": "CONFIRMED",
+      "c1": "CONFIRMED",
+      "justification": {
+        "main": "S1 (sum-mod-k + minimal flow repair) and S1f (flow-optimal) are EXACTLY uniform at every prefix of every screened and held-out cell (screen pass=True, held-out pass=True); the minimum eviction entropy...",
+        "c1": "S5-CIRC has EXACTLY uniform first-order inclusion probabilities at every prefix (incl_maxdev == 0 exactly) with a support of only i of the C(i,k) subsets, so its exact total variation from uniform is ..."
+      },
+      "numbers_that_moved": [
+        {
+          "quantity": "prefix at which the FIFO control first fails, k=2",
+          "hypothesis_value": 4,
+          "recomputed_value": 3,
+          "direction": "corrected",
+          "explanation": "at prefix i=2 the reservoir is {1,2} with 1 the oldest, so on acceptance FIFO always yields {2,3} and never {1,3}; the deviation is already maximal at i=3"
+        },
+        {
+          "quantity": "relative max deviation of unrepaired sum-mod-k at its first failing prefix, k=4",
+          "hypothesis_value": 9.7,
+          "recomputed_value": 3.0,
+          "direction": "corrected",
+          "explanation": "the exact DP gives m1_rel = k-1 at the first failing prefix i=k+1, because the single source [k] must send all of its accepted mass to one of its k children"
+        }
+      ],
+      "supporting": {
+        "n_fiber_steps_total": 41,
+        "n_fiber_steps_divisible": 14,
+        "min_entropy_exactly_zero_on_every_divisible_step": true,
+        "summodk_perfectly_balanced_on_every_divisible_step": true,
+        "max_ratio_to_log2k_on_nondivisible_steps": 1.0,
+        "max_ratio_to_log2k_on_nondivisible_steps_with_i_at_least_2k": 0.3333333333333333,
+        "ratio_to_log2k_at_the_degenerate_step_i_equals_k": 1.0,
+        "n_nondivisible_steps_with_i_at_least_2k": 21,
+        "frac_steps_ratio_le_0.25": 0.8048780487804879,
+        "S1_heldout_exactly_uniform": true,
+        "S1f_heldout_exactly_uniform": true,
+        "S5CIRC_heldout_first_order_exact": true
+      }
+    },
+    "screen_ranking": {
+      "panel_definition": {
+        "exact_dp": {
+          "main": {
+            "candidates": [
+              "S0",
+              "S1",
+              "S1n"
+            ],
+            "cells": [
+              [
+                8,
+                2
+              ],
+              [
+                10,
+                2
+              ],
+              [
+                12,
+                2
+              ]
+            ],
+            "stop_on_first_fail": false
+          },
+          "ordered": {
+            "candidates": [
+              "C-FIFO",
+              "C-RR",
+              "C-SLOT0"
+            ],
+            "cells": [
+              [
+                10,
+                2
+              ],
+              [
+                12,
+                2
+              ],
+              [
+                10,
+                3
+              ]
+            ],
+            "stop_on_first_fail": true
+          }
+        },
+        "fibermap_cells": [
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "matched_verdicts": {
+          "candidates": [
+            "S0",
+            "S1",
+            "S1n"
+          ],
+          "cells": [
+            [
+              12,
+              2
+            ],
+            [
+              12,
+              4
+            ],
+            [
+              14,
+              4
+            ]
+          ],
+          "T": 100000,
+          "R": 200,
+          "prefix_R": 100
+        },
+        "montecarlo": {
+          "candidates": [
+            "S0",
+            "S1n",
+            "S5-CIRC"
+          ],
+          "n": 200,
+          "k": 10,
+          "T": 100000,
+          "R": 200
+        },
+        "bit_budgets": [
+          [
+            1000,
+            2
+          ],
+          [
+            1000,
+            10
+          ],
+          [
+            10000,
+            2
+          ]
+        ],
+        "forced_accept": [
+          [
+            3,
+            2
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            7,
+            2
+          ]
+        ],
+        "seed": 20260918
+      },
+      "ranking": [
+        {
+          "candidate": "MAIN_S1",
+          "margin_ratio": 1.5151515151515151,
+          "passed": true,
+          "requirements": {
+            "S1_exactly_uniform_all_cells": true,
+            "S1f_exactly_uniform_all_cells": true,
+            "frac_fiber_steps_with_ratio_le_0.25": 0.7575757575757576,
+            "frac_fiber_steps_requirement": 0.5,
+            "frac_requirement_met": true,
+            "analytic_bit_saving_at_k10": 0.36138023275924624,
+            "bit_saving_requirement": 0.2,
+            "bit_saving_requirement_met": true
+          },
+          "evidence_pointers": [
+            "exact[].key in {S1,S1f}",
+            "fibermap[].ratio_to_log2k",
+            "bit_budgets.rows[k=10].bit_saving_frac_lower_bound"
+          ]
+        },
+        {
+          "candidate": "C1_S5CIRC",
+          "margin_ratio": 1.0955710955710956,
+          "passed": true,
+          "requirements": {
+            "exact_first_order_marginals_zero_deviation": true,
+            "exact_TV_max_over_screened_prefixes": 0.986013986013986,
+            "exact_TV_requirement": 0.9,
+            "TV_requirement_met": true,
+            "support_equals_min_i_and_C_i_k_not_C_i_k": true,
+            "support_note": "support == i for every prefix i > k; at i == k it is 1 because C(k,k) = 1",
+            "mc_first_order_blind_at_screen_scale": true,
+            "mc_pairwise_flags_at_screen_scale": true,
+            "mc_pairwise_p_value": 0.0
+          },
+          "evidence_pointers": [
+            "exact[].key == S5-CIRC",
+            "montecarlo.rows[S5-CIRC]",
+            "matched_verdicts.confusion"
+          ]
+        }
+      ],
+      "matched_confusion_summary": {
+        "mc_final_first_order": {
+          "n_cells": 18,
+          "accuracy": 0.8333333333333334,
+          "recall_on_broken_samplers": 0.6666666666666666,
+          "specificity_on_correct_samplers": 1.0,
+          "missed_cells": [
+            "S5-CIRC@n=12,k=2",
+            "S5-CIRC@n=12,k=4",
+            "S5-CIRC@n=14,k=4"
+          ]
+        },
+        "mc_final_pairwise": {
+          "n_cells": 18,
+          "accuracy": 1.0,
+          "recall_on_broken_samplers": 1.0,
+          "specificity_on_correct_samplers": 1.0,
+          "missed_cells": []
+        },
+        "mc_all_prefix": {
+          "n_cells": 18,
+          "accuracy": 0.8333333333333334,
+          "recall_on_broken_samplers": 0.6666666666666666,
+          "specificity_on_correct_samplers": 1.0,
+          "missed_cells": [
+            "S5-CIRC@n=12,k=2",
+            "S5-CIRC@n=12,k=4",
+            "S5-CIRC@n=14,k=4"
+          ]
+        },
+        "exact_dp": {
+          "n_cells": 18,
+          "accuracy": 1.0
+        }
+      },
+      "tv_min_over_screened_prefixes": 0.0,
+      "deferred_to_instrument_2": {
+        "S2_ALGORITHM_L_FLOAT64": "floating-point realisation of Algorithm L and its log1p/expm1 variant is owned by instrument 2 (numerical-robustness bench); no value is fabricated here",
+        "S3_ARES_BOTTOM_K": "weighted A-Res / bottom-k sampling is owned by instrument 2; only the unweighted bottom-k construction is used here, and only as an exact null generator",
+        "S4_DDG_R_COUNTED_FLIPS": "measured (counted) fair-coin-flip budgets via a DDG tree, and the flip counts of deployed reservoir implementations, are owned by instrument 2.  Every bit figure in this artifact is ANALYTIC (an entro..."
+      },
+      "margins_preregistered": {
+        "MAIN_S1": {
+          "description": "An exactly-uniform anytime reservoir sampler exists whose eviction step costs far less than the classical log2(k) bits per acceptance.",
+          "requirements": [
+            "exact DP M1 == 0 at EVERY prefix of EVERY screened cell for S1 and S1f",
+            "min eviction entropy / log2(k) <= 0.25 on at least half the screened fiber steps",
+            "analytic bit saving at k=10 >= 20% of the classical total"
+          ]
+        },
+        "C1_S5CIRC": {
+          "description": "A k-memory sampler exists with exactly-uniform first-order marginals and a broken joint law -- i.e. the standard first-order uniformity test is blind.",
+          "requirements": [
+            "exact inclusion vector deviation == 0 at every prefix",
+            "exact total variation >= 0.9 on the screened cells",
+            "support size O(n), not C(n,k)"
+          ]
+        }
+      },
+      "sha256_of_this_file_content": "a363bbbb3611baa5acd48246fc40af02dc497509ebb15841f1eb35e053efa281",
+      "wall_seconds": 274.86863201856613,
+      "hash_excludes": [
+        "wall_seconds",
+        "sha256_of_this_file_content",
+        "hash_excludes"
+      ]
+    },
+    "matched_confusion": {
+      "mc_final_first_order": {
+        "method": "mc_final_first_order",
+        "n_cells": 18,
+        "true_positive": 6,
+        "false_negative": 3,
+        "false_positive": 0,
+        "true_negative": 9,
+        "accuracy": 0.8333333333333334,
+        "recall_on_broken_samplers": 0.6666666666666666,
+        "specificity_on_correct_samplers": 1.0,
+        "missed_cells": [
+          "S5-CIRC@n=12,k=2",
+          "S5-CIRC@n=12,k=4",
+          "S5-CIRC@n=14,k=4"
+        ]
+      },
+      "mc_final_pairwise": {
+        "method": "mc_final_pairwise",
+        "n_cells": 18,
+        "true_positive": 9,
+        "false_negative": 0,
+        "false_positive": 0,
+        "true_negative": 9,
+        "accuracy": 1.0,
+        "recall_on_broken_samplers": 1.0,
+        "specificity_on_correct_samplers": 1.0,
+        "missed_cells": []
+      },
+      "mc_all_prefix": {
+        "method": "mc_all_prefix",
+        "n_cells": 18,
+        "true_positive": 6,
+        "false_negative": 3,
+        "false_positive": 0,
+        "true_negative": 9,
+        "accuracy": 0.8333333333333334,
+        "recall_on_broken_samplers": 0.6666666666666666,
+        "specificity_on_correct_samplers": 1.0,
+        "missed_cells": [
+          "S5-CIRC@n=12,k=2",
+          "S5-CIRC@n=12,k=4",
+          "S5-CIRC@n=14,k=4"
+        ]
+      },
+      "exact_dp": {
+        "method": "exact_dp",
+        "n_cells": 18,
+        "accuracy": 1.0,
+        "note": "ground truth by construction: exact rational arithmetic is a proof"
+      }
+    },
+    "headline_tables": {
+      "minimum_eviction_entropy_by_k": {
+        "2": {
+          "log2_k": 1.0,
+          "steps": [
+            {
+              "i_prefix": 2,
+              "arriving_item": 3,
+              "divisible_k_divides_i_plus_1": false,
+              "summodk_balanced_fraction": 0.0,
+              "repair_fraction": 1.0,
+              "min_evict_entropy_bits": 1.0,
+              "is_exact": true,
+              "lower_bits": 1.0,
+              "upper_bits": 1.0,
+              "ratio_to_log2k": 1.0
+            },
+            {
+              "i_prefix": 3,
+              "arriving_item": 4,
+              "divisible_k_divides_i_plus_1": true,
+              "summodk_balanced_fraction": 1.0,
+              "repair_fraction": 0.0,
+              "min_evict_entropy_bits": 0.0,
+              "is_exact": true,
+              "lower_bits": 0.0,
+              "upper_bits": 0.6666666666666666,
+              "ratio_to_log2k": 0.0
+            },
+            {
+              "i_prefix": 4,
+              "arriving_item": 5,
+              "divisible_k_divides_i_plus_1": false,
+              "summodk_balanced_fraction": 0.0,
+              "repair_fraction": 0.3333333333333333,
+              "min_evict_entropy_bits": 0.3333333333333333,
+              "is_exact": true,
+              "lower_bits": 0.3333333333333333,
+              "upper_bits": 0.5,
+              "ratio_to_log2k": 0.3333333333333333
+            }
+          ]
+        },
+        "3": {
+          "log2_k": 1.584962500721156,
+          "steps": [
+            {
+              "i_prefix": 3,
+              "arriving_item": 4,
+              "divisible_k_divides_i_plus_1": false,
+              "summodk_balanced_fraction": 0.0,
+              "repair_fraction": 1.0,
+              "min_evict_entropy_bits": 1.584962500721156,
+              "is_exact": true,
+              "lower_bits": 0.9182958340544896,
+              "upper_bits": 2.0,
+              "ratio_to_log2k": 1.0
+            },
+            {
+              "i_prefix": 4,
+              "arriving_item": 5,
+              "divisible_k_divides_i_plus_1": false,
+              "summodk_balanced_fraction": 0.0,
+              "repair_fraction": 1.0,
+              "min_evict_entropy_bits": 0.9182958340544896,
+              "is_exact": true,
+              "lower_bits": 0.4591479170272448,
+              "upper_bits": 1.25,
+              "ratio_to_log2k": 0.579380164285695
+            },
+            {
+              "i_prefix": 5,
+              "arriving_item": 6,
+              "divisible_k_divides_i_plus_1": true,
+              "summodk_balanced_fraction": 1.0,
+              "repair_fraction": 0.0,
+              "min_evict_entropy_bits": 0.0,
+              "is_exact": true,
+              "lower_bits": 0.0,
+              "upper_bits": 0.9,
+              "ratio_to_log2k": 0.0
+            }
+          ]
+        },
+        "4": {
+          "log2_k": 2.0,
+          "steps": [
+            {
+              "i_prefix": 4,
+              "arriving_item": 5,
+              "divisible_k_divides_i_plus_1": false,
+              "summodk_balanced_fraction": 0.0,
+              "repair_fraction": 1.0,
+              "min_evict_entropy_bits": 2.0,
+              "is_exact": true,
+              "lower_bits": 0.8112781244591328,
+              "upper_bits": 3.0,
+              "ratio_to_log2k": 1.0
+            },
+            {
+              "i_prefix": 5,
+              "arriving_item": 6,
+              "divisible_k_divides_i_plus_1": false,
+              "summodk_balanced_fraction": 0.0,
+              "repair_fraction": 1.0,
+              "min_evict_entropy_bits": 1.0,
+              "is_exact": true,
+              "lower_bits": 0.4867668746754797,
+              "upper_bits": 1.8,
+              "ratio_to_log2k": 0.5
+            },
+            {
+              "i_prefix": 6,
+              "arriving_item": 7,
+              "divisible_k_divides_i_plus_1": false,
+              "summodk_balanced_fraction": 0.0,
+              "repair_fraction": 1.0,
+              "min_evict_entropy_bits": 0.8364410411973993,
+              "is_exact": true,
+              "lower_bits": 0.2704260414863776,
+              "upper_bits": 1.2666666666666666,
+              "ratio_to_log2k": 0.41822052059869963
+            }
+          ]
+        },
+        "5": {
+          "log2_k": 2.321928094887362,
+          "steps": [
+            {
+              "i_prefix": 14,
+              "arriving_item": 15,
+              "divisible_k_divides_i_plus_1": true,
+              "summodk_balanced_fraction": 1.0,
+              "repair_fraction": 0.0,
+              "min_evict_entropy_bits": 0.0,
+              "is_exact": true,
+              "lower_bits": 0.0,
+              "upper_bits": 0.4995004995004995,
+              "ratio_to_log2k": 0.0
+            },
+            {
+              "i_prefix": 15,
+              "arriving_item": 16,
+              "divisible_k_divides_i_plus_1": false,
+              "summodk_balanced_fraction": 0.0,
+              "repair_fraction": 0.2817182817182817,
+              "min_evict_entropy_bits": 0.27390810544847666,
+              "is_exact": false,
+              "lower_bits": 0.06562982680794203,
+              "upper_bits": 0.4542124542124542,
+              "ratio_to_log2k": 0.11796580008295393
+            },
+            {
+              "i_prefix": 16,
+              "arriving_item": 17,
+              "divisible_k_divides_i_plus_1": false,
+              "summodk_balanced_fraction": 0.0,
+              "repair_fraction": 0.298992673992674,
+              "min_evict_entropy_bits": 0.2848668753855422,
+              "is_exact": false,
+              "lower_bits": 0.06016067457394686,
+              "upper_bits": 0.41643772893772896,
+              "ratio_to_log2k": 0.12268548540016748
+            }
+          ]
+        }
+      },
+      "exact_dp_cell_summary": [
+        {
+          "split": "screen",
+          "candidate": "C-NOACCEPT",
+          "n": 8,
+          "k": 2,
+          "exactly_uniform_all_prefixes": false,
+          "i_first_fail": 3,
+          "m1_rel_at_failure": 1.0,
+          "stopped_early": false,
+          "max_states_seen": 7
+        },
+        {
+          "split": "screen",
+          "candidate": "C-NOACCEPT",
+          "n": 10,
+          "k": 2,
+          "exactly_uniform_all_prefixes": false,
+          "i_first_fail": 3,
+          "m1_rel_at_failure": 1.0,
+          "stopped_early": false,
+          "max_states_seen": 9
+        },
+        {
+          "split": "screen",
+          "candidate": "C-NOACCEPT",
+          "n": 12,
+          "k": 2,
+          "exactly_uniform_all_prefixes": false,
+          "i_first_fail": 3,
+          "m1_rel_at_failure": 1.0,
+          "stopped_early": false,
+          "max_states_seen": 11
+        }
+      ],
+      "fair_coin_bit_budgets": [
+        {
+          "n": 1000,
+          "k": 2,
+          "accept_bits": 71.59442004830343,
+          "classical_evict_bits": 11.97094172110069,
+          "evict_frac": 0.14325243698620144,
+          "total_classical_bits": 83.56536176940412,
+          "optimal_evict_bits_lower": 0.9989989989989989,
+          "optimal_evict_bits_upper": 1.2254102777607185,
+          "total_optimal_bits_upper": 72.81983032606415,
+          "bit_saving_frac_lower_bound": 0.12858834349322765,
+          "log2_binom_n_k": 18.930125152452362,
+          "anytime_overhead_classical": 4.4144114788685584,
+          "anytime_overhead_optimal_upper": 3.8467696193033607
+        },
+        {
+          "n": 1000,
+          "k": 10,
+          "accept_bits": 210.16412576217527,
+          "classical_evict_bits": 151.36374023232545,
+          "evict_frac": 0.41867793459281466,
+          "total_classical_bits": 361.52786599450076,
+          "optimal_evict_bits_lower": 1.3225314457503505,
+          "optimal_evict_bits_upper": 20.714715870279214,
+          "total_optimal_bits_upper": 230.87884163245448,
+          "bit_saving_frac_lower_bound": 0.36138023275924624,
+          "log2_binom_n_k": 77.80165389163501,
+          "anytime_overhead_classical": 4.646788955130054,
+          "anytime_overhead_optimal_upper": 2.9675312809420604
+        },
+        {
+          "n": 10000,
+          "k": 2,
+          "accept_bits": 127.16463049118005,
+          "classical_evict_bits": 16.575212072088764,
+          "evict_frac": 0.11531397124491065,
+          "total_classical_bits": 143.7398425632688,
+          "optimal_evict_bits_lower": 0.9998999899989998,
+          "optimal_evict_bits_upper": 1.227211267760219,
+          "total_optimal_bits_upper": 128.39184175894027,
+          "bit_saving_frac_lower_bound": 0.10677624610290587,
+          "log2_binom_n_k": 25.575280482361734,
+          "anytime_overhead_classical": 5.6202645621971,
+          "anytime_overhead_optimal_upper": 5.020153810140502
+        }
+      ],
+      "monte_carlo_vs_exact_dp_confusion": {
+        "mc_final_first_order": {
+          "method": "mc_final_first_order",
+          "n_cells": 18,
+          "true_positive": 6,
+          "false_negative": 3,
+          "false_positive": 0,
+          "true_negative": 9,
+          "accuracy": 0.8333333333333334,
+          "recall_on_broken_samplers": 0.6666666666666666,
+          "specificity_on_correct_samplers": 1.0,
+          "missed_cells": [
+            "S5-CIRC@n=12,k=2",
+            "S5-CIRC@n=12,k=4",
+            "S5-CIRC@n=14,k=4"
+          ]
+        },
+        "mc_final_pairwise": {
+          "method": "mc_final_pairwise",
+          "n_cells": 18,
+          "true_positive": 9,
+          "false_negative": 0,
+          "false_positive": 0,
+          "true_negative": 9,
+          "accuracy": 1.0,
+          "recall_on_broken_samplers": 1.0,
+          "specificity_on_correct_samplers": 1.0,
+          "missed_cells": []
+        },
+        "mc_all_prefix": {
+          "method": "mc_all_prefix",
+          "n_cells": 18,
+          "true_positive": 6,
+          "false_negative": 3,
+          "false_positive": 0,
+          "true_negative": 9,
+          "accuracy": 0.8333333333333334,
+          "recall_on_broken_samplers": 0.6666666666666666,
+          "specificity_on_correct_samplers": 1.0,
+          "missed_cells": [
+            "S5-CIRC@n=12,k=2",
+            "S5-CIRC@n=12,k=4",
+            "S5-CIRC@n=14,k=4"
+          ]
+        },
+        "exact_dp": {
+          "method": "exact_dp",
+          "n_cells": 18,
+          "accuracy": 1.0,
+          "note": "ground truth by construction: exact rational arithmetic is a proof"
+        }
+      },
+      "literal_deliverable": [
+        {
+          "candidate": "S0",
+          "max_deviation_from_k_over_n": 0.0003359999999999995,
+          "max_deviation_relative_to_expected": 0.03359999999999995,
+          "max_deviation_in_null_band_p95_units": 0.8336434685522864,
+          "flagged_by_first_order_test": false,
+          "pairwise_max_abs_z": 4.942488323506949,
+          "pairwise_p_value_bonferroni": 0.38527297277644806,
+          "pairwise_log10_p_value_bonferroni": -0.41423145604214506,
+          "flagged_by_pairwise_test": false,
+          "fraction_of_pairs_never_co_sampled": 0.0
+        },
+        {
+          "candidate": "S1n",
+          "max_deviation_from_k_over_n": 0.01,
+          "max_deviation_relative_to_expected": 1.0,
+          "max_deviation_in_null_band_p95_units": 24.810817516437133,
+          "flagged_by_first_order_test": true,
+          "pairwise_max_abs_z": 12.31777817825037,
+          "pairwise_p_value_bonferroni": 3.629810572340547e-29,
+          "pairwise_log10_p_value_bonferroni": -28.44011603874731,
+          "flagged_by_pairwise_test": true,
+          "fraction_of_pairs_never_co_sampled": 0.002004004004004004
+        },
+        {
+          "candidate": "S5-CIRC",
+          "max_deviation_from_k_over_n": 0.0003259999999999999,
+          "max_deviation_relative_to_expected": 0.03259999999999999,
+          "max_deviation_in_null_band_p95_units": 0.8088326510358502,
+          "flagged_by_first_order_test": false,
+          "pairwise_max_abs_z": 971.5269044294517,
+          "pairwise_p_value_bonferroni": 0.0,
+          "pairwise_log10_p_value_bonferroni": -204954.964639326,
+          "flagged_by_pairwise_test": true,
+          "fraction_of_pairs_never_co_sampled": 0.9819819819819819
+        }
+      ]
+    },
+    "literal_deliverable": {
+      "question": "Implement a reservoir sampler that draws k items uniformly from a stream of unknown length, verify uniformity empirically over many independent trials, and report the maximum deviation from the expect...",
+      "configuration": {
+        "n": 1000,
+        "k": 10,
+        "trials_T": 1000000,
+        "expected_frequency_k_over_n": 0.01,
+        "null_replicates_R": 100
+      },
+      "null_band_first_order_max_deviation": {
+        "mean": 0.0003467499999999999,
+        "p50": 0.00034400000000000056,
+        "p95": 0.00040305000000000055,
+        "p99": 0.0004193400000000011,
+        "max": 0.0004530000000000003,
+        "values": [
+          0.0003619999999999995,
+          0.0003270000000000009,
+          0.0003420000000000003
+        ]
+      },
+      "null_band_analytic_gumbel": {
+        "sd_freq": 9.9498743710662e-05,
+        "expected_max_dev": 0.0003297654184285462,
+        "p95_max_dev": 0.00040556294236689246,
+        "pair_expected_max_z": 4.7658045488115555,
+        "pair_p95_max_z": 5.330874557787314
+      },
+      "headline": [
+        {
+          "candidate": "S0",
+          "max_deviation_from_k_over_n": 0.0003359999999999995,
+          "max_deviation_relative_to_expected": 0.03359999999999995,
+          "max_deviation_in_null_band_p95_units": 0.8336434685522864,
+          "flagged_by_first_order_test": false,
+          "pairwise_max_abs_z": 4.942488323506949,
+          "pairwise_p_value_bonferroni": 0.38527297277644806,
+          "pairwise_log10_p_value_bonferroni": -0.41423145604214506,
+          "flagged_by_pairwise_test": false,
+          "fraction_of_pairs_never_co_sampled": 0.0
+        },
+        {
+          "candidate": "S1n",
+          "max_deviation_from_k_over_n": 0.01,
+          "max_deviation_relative_to_expected": 1.0,
+          "max_deviation_in_null_band_p95_units": 24.810817516437133,
+          "flagged_by_first_order_test": true,
+          "pairwise_max_abs_z": 12.31777817825037,
+          "pairwise_p_value_bonferroni": 3.629810572340547e-29,
+          "pairwise_log10_p_value_bonferroni": -28.44011603874731,
+          "flagged_by_pairwise_test": true,
+          "fraction_of_pairs_never_co_sampled": 0.002004004004004004
+        },
+        {
+          "candidate": "S5-CIRC",
+          "max_deviation_from_k_over_n": 0.0003259999999999999,
+          "max_deviation_relative_to_expected": 0.03259999999999999,
+          "max_deviation_in_null_band_p95_units": 0.8088326510358502,
+          "flagged_by_first_order_test": false,
+          "pairwise_max_abs_z": 971.5269044294517,
+          "pairwise_p_value_bonferroni": 0.0,
+          "pairwise_log10_p_value_bonferroni": -204954.964639326,
+          "flagged_by_pairwise_test": true,
+          "fraction_of_pairs_never_co_sampled": 0.9819819819819819
+        }
+      ]
+    },
+    "hypothesis_constant_checks": [
+      {
+        "quantity": "evict_frac",
+        "n": 1000000,
+        "k": 10,
+        "claimed": 0.255,
+        "tol": 0.02,
+        "computed": null,
+        "match": null,
+        "note": "budget cell not computed"
+      },
+      {
+        "quantity": "evict_frac",
+        "n": 1000000,
+        "k": 100,
+        "claimed": 0.454,
+        "tol": 0.02,
+        "computed": null,
+        "match": null,
+        "note": "budget cell not computed"
+      },
+      {
+        "quantity": "evict_frac",
+        "n": 1000000,
+        "k": 1000,
+        "claimed": 0.613,
+        "tol": 0.02,
+        "computed": null,
+        "match": null,
+        "note": "budget cell not computed"
+      }
+    ],
+    "deferred_to_instrument_2": {
+      "S2_ALGORITHM_L_FLOAT64": "floating-point realisation of Algorithm L and its log1p/expm1 variant is owned by instrument 2 (numerical-robustness bench); no value is fabricated here",
+      "S3_ARES_BOTTOM_K": "weighted A-Res / bottom-k sampling is owned by instrument 2; only the unweighted bottom-k construction is used here, and only as an exact null generator",
+      "S4_DDG_R_COUNTED_FLIPS": "measured (counted) fair-coin-flip budgets via a DDG tree, and the flip counts of deployed reservoir implementations, are owned by instrument 2.  Every bit figure in this artifact is ANALYTIC (an entro..."
+    },
+    "candidate_descriptions": {
+      "S0": "baseline classical Algorithm R: accept k/i, evict a uniformly random held item",
+      "S1": "sum-mod-k deterministic eviction, minimally repaired by min-cost transportation flow",
+      "S1n": "sum-mod-k deterministic eviction, NO repair (zero eviction randomness)",
+      "S1f": "flow-optimal eviction: integral certificate where k|(i+1), min-cost repair elsewhere",
+      "S5-CIRC": "circular-window sampler: exact first-order marginals, support of size i only",
+      "C-OFFBY1": "control: accept k/(i-1) instead of k/i",
+      "C-OFFBY1b": "control: accept (k-1)/i instead of k/i",
+      "C-FIFO": "control: correct accept coin, evict the oldest held item",
+      "C-RR": "control: correct accept coin, evict round-robin by slot pointer",
+      "C-SLOT0": "control: correct accept coin, always overwrite slot 0",
+      "C-NOACCEPT": "control: correct accept coin, deterministically evict the largest held index"
+    },
+    "out_dependency_files": [
+      "exact_dp.py",
+      "candidates.py",
+      "fibermap.py"
+    ],
+    "wall_seconds_total": 826.5924986749887
+  },
+  "datasets": [
+    {
+      "dataset": "anytime_uniformity_verdicts_matched_panel",
+      "examples": [
+        {
+          "input": "Sampler S0 (baseline classical Algorithm R: accept k/i, evict a uniformly random held item). Is it ANYTIME uniform -- i.e. is the reservoir after i items a uniformly random k-subset of [i] for EVERY p...",
+          "output": "UNIFORM",
+          "predict_exact_dp": "UNIFORM",
+          "predict_mc_final_first_order": "UNIFORM",
+          "predict_mc_final_pairwise": "UNIFORM",
+          "predict_mc_all_prefix": "UNIFORM",
+          "metadata_candidate": "S0",
+          "metadata_n": 12,
+          "metadata_k": 2,
+          "metadata_T": 100000,
+          "metadata_seed": 20268135,
+          "metadata_exact_dp": {
+            "verdict": "UNIFORM",
+            "i_first_fail": null,
+            "m1_rel_at_failure": 0.0,
+            "n_prefixes_proved_uniform": 11,
+            "n_prefixes": 11,
+            "max_states": 66,
+            "seconds": 0.04110172018408775,
+            "forward_passes_over_the_stream": 0,
+            "random_bits_consumed": 0
+          },
+          "metadata_mc_final_first_order": {
+            "mc_p_value": 0.7611940298507462,
+            "flag_rule": "exact Monte-Carlo p-value (1 + #(null >= obs))/(R+1) <= 0.01",
+            "verdict": "UNIFORM",
+            "max_dev": 0.001753333333333329,
+            "argmax_item": 7,
+            "null_p95": 0.0031786666666666595,
+            "in_band_units": 0.5515939597315435,
+            "chi2": 5.601640000000001
+          },
+          "metadata_mc_final_pairwise": {
+            "mc_p_value": 0.6417910447761194,
+            "flag_rule": "exact Monte-Carlo p-value (1 + #(null >= obs))/(R+1) <= 0.01",
+            "verdict": "UNIFORM",
+            "max_abs_z": 2.4294866820918215,
+            "argmax_pair": [
+              9,
+              12
+            ],
+            "null_p95": 3.233680505839459,
+            "in_band_units": 0.7513069635990925,
+            "frac_zero_pairs": 0.0
+          },
+          "metadata_mc_all_prefix": {
+            "mc_p_value": 0.297029702970297,
+            "flag_rule": "exact Monte-Carlo p-value (1 + #(null >= obs))/(R+1) <= 0.01",
+            "verdict": "UNIFORM",
+            "max_z": 2.489015869776656,
+            "argmax_prefix": 12,
+            "argmax_item": 12,
+            "null_p95": 3.058318206915544,
+            "in_band_units": 0.8138511761622554
+          },
+          "metadata_agreement": {
+            "mc_final_first_order": true,
+            "mc_final_pairwise": true,
+            "mc_all_prefix": true,
+            "exact_dp": true
+          },
+          "metadata_cost": {
+            "exact_dp_stream_passes": 0,
+            "exact_dp_random_bits": 0,
+            "exact_dp_seconds": 0.04110172018408775,
+            "mc_stream_passes": 200000,
+            "mc_seconds": 0.05762863531708717
+          }
+        },
+        {
+          "input": "Sampler S1 (sum-mod-k deterministic eviction, minimally repaired by min-cost transportation flow). Is it ANYTIME uniform -- i.e. is the reservoir after i items a uniformly random k-subset of [i] for E...",
+          "output": "UNIFORM",
+          "predict_exact_dp": "UNIFORM",
+          "predict_mc_final_first_order": "UNIFORM",
+          "predict_mc_final_pairwise": "UNIFORM",
+          "predict_mc_all_prefix": "UNIFORM",
+          "metadata_candidate": "S1",
+          "metadata_n": 12,
+          "metadata_k": 2,
+          "metadata_T": 100000,
+          "metadata_seed": 20266807,
+          "metadata_exact_dp": {
+            "verdict": "UNIFORM",
+            "i_first_fail": null,
+            "m1_rel_at_failure": 0.0,
+            "n_prefixes_proved_uniform": 11,
+            "n_prefixes": 11,
+            "max_states": 66,
+            "seconds": 0.07627993449568748,
+            "forward_passes_over_the_stream": 0,
+            "random_bits_consumed": 0
+          },
+          "metadata_mc_final_first_order": {
+            "mc_p_value": 0.23383084577114427,
+            "flag_rule": "exact Monte-Carlo p-value (1 + #(null >= obs))/(R+1) <= 0.01",
+            "verdict": "UNIFORM",
+            "max_dev": 0.0026466666666666583,
+            "argmax_item": 3,
+            "null_p95": 0.0031786666666666595,
+            "in_band_units": 0.8326342281879187,
+            "chi2": 14.218960000000001
+          },
+          "metadata_mc_final_pairwise": {
+            "mc_p_value": 0.7611940298507462,
+            "flag_rule": "exact Monte-Carlo p-value (1 + #(null >= obs))/(R+1) <= 0.01",
+            "verdict": "UNIFORM",
+            "max_abs_z": 2.30005003290062,
+            "argmax_pair": [
+              6,
+              8
+            ],
+            "null_p95": 3.233680505839459,
+            "in_band_units": 0.7112793081280399,
+            "frac_zero_pairs": 0.0
+          },
+          "metadata_mc_all_prefix": {
+            "mc_p_value": 0.07920792079207921,
+            "flag_rule": "exact Monte-Carlo p-value (1 + #(null >= obs))/(R+1) <= 0.01",
+            "verdict": "UNIFORM",
+            "max_z": 2.995226678757872,
+            "argmax_prefix": 9,
+            "argmax_item": 4,
+            "null_p95": 3.058318206915544,
+            "in_band_units": 0.9793705154633654
+          },
+          "metadata_agreement": {
+            "mc_final_first_order": true,
+            "mc_final_pairwise": true,
+            "mc_all_prefix": true,
+            "exact_dp": true
+          },
+          "metadata_cost": {
+            "exact_dp_stream_passes": 0,
+            "exact_dp_random_bits": 0,
+            "exact_dp_seconds": 0.07627993449568748,
+            "mc_stream_passes": 200000,
+            "mc_seconds": 1.3634733501821756
+          }
+        },
+        {
+          "input": "Sampler S1n (sum-mod-k deterministic eviction, NO repair (zero eviction randomness)). Is it ANYTIME uniform -- i.e. is the reservoir after i items a uniformly random k-subset of [i] for EVERY prefix i...",
+          "output": "NOT_UNIFORM",
+          "predict_exact_dp": "NOT_UNIFORM",
+          "predict_mc_final_first_order": "NOT_UNIFORM",
+          "predict_mc_final_pairwise": "NOT_UNIFORM",
+          "predict_mc_all_prefix": "NOT_UNIFORM",
+          "metadata_candidate": "S1n",
+          "metadata_n": 12,
+          "metadata_k": 2,
+          "metadata_T": 100000,
+          "metadata_seed": 20266997,
+          "metadata_exact_dp": {
+            "verdict": "NOT_UNIFORM",
+            "i_first_fail": 3,
+            "m1_rel_at_failure": 1.0,
+            "n_prefixes_proved_uniform": 1,
+            "n_prefixes": 11,
+            "max_states": 56,
+            "seconds": 0.035340962931513786,
+            "forward_passes_over_the_stream": 0,
+            "random_bits_consumed": 0
+          },
+          "metadata_mc_final_first_order": {
+            "mc_p_value": 0.004975124378109453,
+            "flag_rule": "exact Monte-Carlo p-value (1 + #(null >= obs))/(R+1) <= 0.01",
+            "verdict": "NOT_UNIFORM",
+            "max_dev": 0.15166666666666667,
+            "argmax_item": 1,
+            "null_p95": 0.0031786666666666595,
+            "in_band_units": 47.713926174496756,
+            "chi2": 17298.38776
+          },
+          "metadata_mc_final_pairwise": {
+            "mc_p_value": 0.004975124378109453,
+            "flag_rule": "exact Monte-Carlo p-value (1 + #(null >= obs))/(R+1) <= 0.01",
+            "verdict": "NOT_UNIFORM",
+            "max_abs_z": 39.914340287863766,
+            "argmax_pair": [
+              2,
+              3
+            ],
+            "null_p95": 3.233680505839459,
+            "in_band_units": 12.343315988015972,
+            "frac_zero_pairs": 0.15151515151515152
+          },
+          "metadata_mc_all_prefix": {
+            "mc_p_value": 0.009900990099009901,
+            "flag_rule": "exact Monte-Carlo p-value (1 + #(null >= obs))/(R+1) <= 0.01",
+            "verdict": "NOT_UNIFORM",
+            "max_z": 225.1250879067013,
+            "argmax_prefix": 3,
+            "argmax_item": 1,
+            "null_p95": 3.058318206915544,
+            "in_band_units": 73.61074704314382
+          },
+          "metadata_agreement": {
+            "mc_final_first_order": true,
+            "mc_final_pairwise": true,
+            "mc_all_prefix": true,
+            "exact_dp": true
+          },
+          "metadata_cost": {
+            "exact_dp_stream_passes": 0,
+            "exact_dp_random_bits": 0,
+            "exact_dp_seconds": 0.035340962931513786,
+            "mc_stream_passes": 200000,
+            "mc_seconds": 0.06104298122227192
+          }
+        }
+      ]
+    },
+    {
+      "dataset": "exact_prefix_dp_cells",
+      "examples": [
+        {
+          "input": "Exact prefix DP over sampler states: C-NOACCEPT (control: correct accept coin, deterministically evict the largest held index) at n=8, k=2. Report max_S |P(R_i = S) - 1/C(i,k)| over all C(i,k) subsets...",
+          "output": "NOT_UNIFORM",
+          "predict_exact_dp": "NOT_UNIFORM",
+          "metadata_split": "screen",
+          "metadata_candidate": "C-NOACCEPT",
+          "metadata_n": 8,
+          "metadata_k": 2,
+          "metadata_i_first_fail": 3,
+          "metadata_m1_rel_at_failure": 1.0,
+          "metadata_m1_rel_at_failure_exact": "1/1",
+          "metadata_exactly_uniform_all_prefixes": false,
+          "metadata_stopped_early": false,
+          "metadata_max_states_seen": 7,
+          "metadata_note": "",
+          "metadata_prefixes": [
+            {
+              "i": 2,
+              "m1_abs": "0/1",
+              "m1_abs_float": 0.0,
+              "m1_rel": "0/1",
+              "m1_rel_float": 0.0,
+              "tv": "0/1",
+              "tv_float": 0.0,
+              "support": 1,
+              "support_total": 1,
+              "incl_maxdev": "0/1",
+              "incl_maxdev_float": 0.0,
+              "n_states": 1,
+              "exactly_uniform": true
+            },
+            {
+              "i": 3,
+              "m1_abs": "1/3",
+              "m1_abs_float": 0.3333333333333333,
+              "m1_rel": "1/1",
+              "m1_rel_float": 1.0,
+              "tv": "1/3",
+              "tv_float": 0.3333333333333333,
+              "support": 2,
+              "support_total": 3,
+              "incl_maxdev": "1/3",
+              "incl_maxdev_float": 0.3333333333333333,
+              "n_states": 2,
+              "exactly_uniform": false
+            },
+            {
+              "i": 4,
+              "m1_abs": "1/3",
+              "m1_abs_float": 0.3333333333333333,
+              "m1_rel": "2/1",
+              "m1_rel_float": 2.0,
+              "tv": "1/2",
+              "tv_float": 0.5,
+              "support": 3,
+              "support_total": 6,
+              "incl_maxdev": "1/2",
+              "incl_maxdev_float": 0.5,
+              "n_states": 3,
+              "exactly_uniform": false
+            }
+          ]
+        },
+        {
+          "input": "Exact prefix DP over sampler states: C-NOACCEPT (control: correct accept coin, deterministically evict the largest held index) at n=10, k=2. Report max_S |P(R_i = S) - 1/C(i,k)| over all C(i,k) subset...",
+          "output": "NOT_UNIFORM",
+          "predict_exact_dp": "NOT_UNIFORM",
+          "metadata_split": "screen",
+          "metadata_candidate": "C-NOACCEPT",
+          "metadata_n": 10,
+          "metadata_k": 2,
+          "metadata_i_first_fail": 3,
+          "metadata_m1_rel_at_failure": 1.0,
+          "metadata_m1_rel_at_failure_exact": "1/1",
+          "metadata_exactly_uniform_all_prefixes": false,
+          "metadata_stopped_early": false,
+          "metadata_max_states_seen": 9,
+          "metadata_note": "",
+          "metadata_prefixes": [
+            {
+              "i": 2,
+              "m1_abs": "0/1",
+              "m1_abs_float": 0.0,
+              "m1_rel": "0/1",
+              "m1_rel_float": 0.0,
+              "tv": "0/1",
+              "tv_float": 0.0,
+              "support": 1,
+              "support_total": 1,
+              "incl_maxdev": "0/1",
+              "incl_maxdev_float": 0.0,
+              "n_states": 1,
+              "exactly_uniform": true
+            },
+            {
+              "i": 3,
+              "m1_abs": "1/3",
+              "m1_abs_float": 0.3333333333333333,
+              "m1_rel": "1/1",
+              "m1_rel_float": 1.0,
+              "tv": "1/3",
+              "tv_float": 0.3333333333333333,
+              "support": 2,
+              "support_total": 3,
+              "incl_maxdev": "1/3",
+              "incl_maxdev_float": 0.3333333333333333,
+              "n_states": 2,
+              "exactly_uniform": false
+            },
+            {
+              "i": 4,
+              "m1_abs": "1/3",
+              "m1_abs_float": 0.3333333333333333,
+              "m1_rel": "2/1",
+              "m1_rel_float": 2.0,
+              "tv": "1/2",
+              "tv_float": 0.5,
+              "support": 3,
+              "support_total": 6,
+              "incl_maxdev": "1/2",
+              "incl_maxdev_float": 0.5,
+              "n_states": 3,
+              "exactly_uniform": false
+            }
+          ]
+        },
+        {
+          "input": "Exact prefix DP over sampler states: C-NOACCEPT (control: correct accept coin, deterministically evict the largest held index) at n=12, k=2. Report max_S |P(R_i = S) - 1/C(i,k)| over all C(i,k) subset...",
+          "output": "NOT_UNIFORM",
+          "predict_exact_dp": "NOT_UNIFORM",
+          "metadata_split": "screen",
+          "metadata_candidate": "C-NOACCEPT",
+          "metadata_n": 12,
+          "metadata_k": 2,
+          "metadata_i_first_fail": 3,
+          "metadata_m1_rel_at_failure": 1.0,
+          "metadata_m1_rel_at_failure_exact": "1/1",
+          "metadata_exactly_uniform_all_prefixes": false,
+          "metadata_stopped_early": false,
+          "metadata_max_states_seen": 11,
+          "metadata_note": "",
+          "metadata_prefixes": [
+            {
+              "i": 2,
+              "m1_abs": "0/1",
+              "m1_abs_float": 0.0,
+              "m1_rel": "0/1",
+              "m1_rel_float": 0.0,
+              "tv": "0/1",
+              "tv_float": 0.0,
+              "support": 1,
+              "support_total": 1,
+              "incl_maxdev": "0/1",
+              "incl_maxdev_float": 0.0,
+              "n_states": 1,
+              "exactly_uniform": true
+            },
+            {
+              "i": 3,
+              "m1_abs": "1/3",
+              "m1_abs_float": 0.3333333333333333,
+              "m1_rel": "1/1",
+              "m1_rel_float": 1.0,
+              "tv": "1/3",
+              "tv_float": 0.3333333333333333,
+              "support": 2,
+              "support_total": 3,
+              "incl_maxdev": "1/3",
+              "incl_maxdev_float": 0.3333333333333333,
+              "n_states": 2,
+              "exactly_uniform": false
+            },
+            {
+              "i": 4,
+              "m1_abs": "1/3",
+              "m1_abs_float": 0.3333333333333333,
+              "m1_rel": "2/1",
+              "m1_rel_float": 2.0,
+              "tv": "1/2",
+              "tv_float": 0.5,
+              "support": 3,
+              "support_total": 6,
+              "incl_maxdev": "1/2",
+              "incl_maxdev_float": 0.5,
+              "n_states": 3,
+              "exactly_uniform": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "dataset": "eviction_step_minimum_entropy",
+      "examples": [
+        {
+          "input": "Eviction step at prefix i=2 (arriving item 3), k=2: transportation problem on the Johnson graph J(2,2) -> J(2,1) with 1 sources of supply 1, 2 targets of demand 1/2. What is the MINIMUM per-acceptance...",
+          "output": "COMPARABLE_TO_LOG2K",
+          "predict_classical_rule": "1.000000",
+          "predict_min_cost_flow_constructive": "1.000000",
+          "predict_milp_exact": "1.000000",
+          "predict_analytic_bracket": "[1.000000,1.000000]",
+          "metadata_split": "screen",
+          "metadata_i_prefix": 2,
+          "metadata_k": 2,
+          "metadata_divisible": false,
+          "metadata_min_evict_entropy_bits": 1.0,
+          "metadata_min_evict_entropy_is_exact": true,
+          "metadata_classical_evict_bits": 1.0,
+          "metadata_ratio_to_log2k": 1.0,
+          "metadata_step": {
+            "i_prefix": 2,
+            "arriving_item": 3,
+            "k": 2,
+            "n_sources": 1,
+            "n_targets": 2,
+            "n_edges": 2,
+            "divisible_form_a_i_minus_k_plus_1": false,
+            "divisible_form_b_i_plus_1": false,
+            "both_forms_agree": true,
+            "divisible": false,
+            "demand_per_target": "1/2",
+            "demand_per_target_float": 0.5,
+            "transport_arithmetic_ok": true,
+            "summodk": {
+              "required_load": "1/2",
+              "required_load_float": 0.5,
+              "required_is_integer": false,
+              "load_histogram": {
+                "0": 1,
+                "1": 1
+              },
+              "max_abs_load_deviation": 0.5,
+              "l1_load_deviation": 1.0,
+              "balanced_fraction": 0.0,
+              "n_targets": 2,
+              "n_sources": 1
+            },
+            "bracket": {
+              "A_sources": 1,
+              "B_targets": 2,
+              "divisible": false,
+              "lower_bits": 1.0,
+              "upper_bits": 1.0,
+              "upper_asymptotic_k_over_i_minus_k_plus_1": 2.0,
+              "log2_k": 1.0
+            },
+            "integral_feasibility": {
+              "divisible": false,
+              "feasible": false,
+              "reason": "demand (i-k+1)/k = 1/2 is not an integer, so no deterministic (single-child) eviction rule can be exactly uniform"
+            },
+            "minimal_repair": {
+              "min_units_moved": 1,
+              "min_units_moved_per_source": 0.5,
+              "n_sources_untouched": 0,
+              "n_sources_split": 1,
+              "n_sources_moved_whole": 0,
+              "repair_fraction": 1.0,
+              "achieved_entropy_bits": 1.0,
+              "max_degree": 2,
+              "predicted_decay_k_over_i_minus_k": 2.0
+            },
+            "achieved_entropy_bits": 1.0,
+            "achieved_entropy_source": "min_cost_repair",
+            "min_entropy_exact": {
+              "solved": true,
+              "min_bits": 1.0,
+              "milp_objective_total": 1.0,
+              "mip_gap": 0.0,
+              "n_vars": 6
+            },
+            "min_evict_entropy_bits": 1.0,
+            "min_evict_entropy_is_exact": true,
+            "classical_evict_bits": 1.0,
+            "ratio_to_log2k": 1.0,
+            "bracket_check_passed": true
+          }
+        },
+        {
+          "input": "Eviction step at prefix i=3 (arriving item 4), k=2: transportation problem on the Johnson graph J(3,2) -> J(3,1) with 3 sources of supply 1, 3 targets of demand 2/2. What is the MINIMUM per-acceptance...",
+          "output": "ZERO_EVICTION_BITS",
+          "predict_classical_rule": "1.000000",
+          "predict_min_cost_flow_constructive": "0.000000",
+          "predict_milp_exact": "0.000000",
+          "predict_analytic_bracket": "[0.000000,0.666667]",
+          "metadata_split": "screen",
+          "metadata_i_prefix": 3,
+          "metadata_k": 2,
+          "metadata_divisible": true,
+          "metadata_min_evict_entropy_bits": 0.0,
+          "metadata_min_evict_entropy_is_exact": true,
+          "metadata_classical_evict_bits": 1.0,
+          "metadata_ratio_to_log2k": 0.0,
+          "metadata_step": {
+            "i_prefix": 3,
+            "arriving_item": 4,
+            "k": 2,
+            "n_sources": 3,
+            "n_targets": 3,
+            "n_edges": 6,
+            "divisible_form_a_i_minus_k_plus_1": true,
+            "divisible_form_b_i_plus_1": true,
+            "both_forms_agree": true,
+            "divisible": true,
+            "demand_per_target": "2/2",
+            "demand_per_target_float": 1.0,
+            "transport_arithmetic_ok": true,
+            "summodk": {
+              "required_load": "1/1",
+              "required_load_float": 1.0,
+              "required_is_integer": true,
+              "load_histogram": {
+                "1": 3
+              },
+              "max_abs_load_deviation": 0,
+              "l1_load_deviation": 0,
+              "balanced_fraction": 1.0,
+              "n_targets": 3,
+              "n_sources": 3
+            },
+            "bracket": {
+              "A_sources": 3,
+              "B_targets": 3,
+              "divisible": true,
+              "lower_bits": 0.0,
+              "upper_bits": 0.6666666666666666,
+              "upper_asymptotic_k_over_i_minus_k_plus_1": 1.0,
+              "log2_k": 1.0
+            },
+            "integral_feasibility": {
+              "divisible": true,
+              "feasible": true,
+              "flow_value": 3,
+              "required_flow": 3,
+              "per_target_load": 1,
+              "checker": {
+                "valid": true,
+                "errors": [],
+                "n_errors": 0
+              },
+              "certificate_sha256": "ced09bb86d793a1451278124e8fdadd26a573e4dbd527bec994b774a68bb8c52",
+              "certificate_n_rows": 3,
+              "certificate_sample": [
+                [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    1
+                  ]
+                ],
+                [
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    3
+                  ]
+                ],
+                [
+                  [
+                    2,
+                    3
+                  ],
+                  [
+                    2
+                  ]
+                ]
+              ],
+              "certificate_inline": [
+                [
+                  [
+                    1,
+                    2
+                  ],
+                  [
+                    1
+                  ]
+                ],
+                [
+                  [
+                    1,
+                    3
+                  ],
+                  [
+                    3
+                  ]
+                ],
+                [
+                  [
+                    2,
+                    3
+                  ],
+                  [
+                    2
+                  ]
+                ]
+              ],
+              "certificate_file": "cert_i3_k2.json"
+            },
+            "minimal_repair": {
+              "min_units_moved": 0,
+              "min_units_moved_per_source": 0.0,
+              "n_sources_untouched": 3,
+              "n_sources_split": 0,
+              "n_sources_moved_whole": 0,
+              "repair_fraction": 0.0,
+              "achieved_entropy_bits": 0.0,
+              "max_degree": 1,
+              "predicted_decay_k_over_i_minus_k": 2.0
+            },
+            "achieved_entropy_bits": 0.0,
+            "achieved_entropy_source": "integral_certificate",
+            "min_entropy_exact": {
+              "solved": true,
+              "min_bits": 0.0,
+              "reason": "integral demands (k | i+1): the unit-capacity max-flow certificate sends every source's whole mass to one child, achieving 0 bits, and entropy is non-negative, so 0 is the exact minimum -- no search i...",
+              "proof": "integral_certificate"
+            },
+            "min_evict_entropy_bits": 0.0,
+            "min_evict_entropy_is_exact": true,
+            "classical_evict_bits": 1.0,
+            "ratio_to_log2k": 0.0,
+            "bracket_check_passed": true
+          }
+        },
+        {
+          "input": "Eviction step at prefix i=4 (arriving item 5), k=2: transportation problem on the Johnson graph J(4,2) -> J(4,1) with 6 sources of supply 1, 4 targets of demand 3/2. What is the MINIMUM per-acceptance...",
+          "output": "COMPARABLE_TO_LOG2K",
+          "predict_classical_rule": "1.000000",
+          "predict_min_cost_flow_constructive": "0.333333",
+          "predict_milp_exact": "0.333333",
+          "predict_analytic_bracket": "[0.333333,0.500000]",
+          "metadata_split": "screen",
+          "metadata_i_prefix": 4,
+          "metadata_k": 2,
+          "metadata_divisible": false,
+          "metadata_min_evict_entropy_bits": 0.3333333333333333,
+          "metadata_min_evict_entropy_is_exact": true,
+          "metadata_classical_evict_bits": 1.0,
+          "metadata_ratio_to_log2k": 0.3333333333333333,
+          "metadata_step": {
+            "i_prefix": 4,
+            "arriving_item": 5,
+            "k": 2,
+            "n_sources": 6,
+            "n_targets": 4,
+            "n_edges": 12,
+            "divisible_form_a_i_minus_k_plus_1": false,
+            "divisible_form_b_i_plus_1": false,
+            "both_forms_agree": true,
+            "divisible": false,
+            "demand_per_target": "3/2",
+            "demand_per_target_float": 1.5,
+            "transport_arithmetic_ok": true,
+            "summodk": {
+              "required_load": "3/2",
+              "required_load_float": 1.5,
+              "required_is_integer": false,
+              "load_histogram": {
+                "1": 2,
+                "2": 2
+              },
+              "max_abs_load_deviation": 0.5,
+              "l1_load_deviation": 2.0,
+              "balanced_fraction": 0.0,
+              "n_targets": 4,
+              "n_sources": 6
+            },
+            "bracket": {
+              "A_sources": 6,
+              "B_targets": 4,
+              "divisible": false,
+              "lower_bits": 0.3333333333333333,
+              "upper_bits": 0.5,
+              "upper_asymptotic_k_over_i_minus_k_plus_1": 0.6666666666666666,
+              "log2_k": 1.0
+            },
+            "integral_feasibility": {
+              "divisible": false,
+              "feasible": false,
+              "reason": "demand (i-k+1)/k = 3/2 is not an integer, so no deterministic (single-child) eviction rule can be exactly uniform"
+            },
+            "minimal_repair": {
+              "min_units_moved": 2,
+              "min_units_moved_per_source": 0.16666666666666666,
+              "n_sources_untouched": 4,
+              "n_sources_split": 2,
+              "n_sources_moved_whole": 0,
+              "repair_fraction": 0.3333333333333333,
+              "achieved_entropy_bits": 0.3333333333333333,
+              "max_degree": 2,
+              "predicted_decay_k_over_i_minus_k": 1.0
+            },
+            "achieved_entropy_bits": 0.3333333333333333,
+            "achieved_entropy_source": "min_cost_repair",
+            "min_entropy_exact": {
+              "solved": true,
+              "min_bits": 0.3333333333333333,
+              "milp_objective_total": 2.0,
+              "mip_gap": 0.0,
+              "n_vars": 36
+            },
+            "min_evict_entropy_bits": 0.3333333333333333,
+            "min_evict_entropy_is_exact": true,
+            "classical_evict_bits": 1.0,
+            "ratio_to_log2k": 0.3333333333333333,
+            "bracket_check_passed": true
+          }
+        }
+      ]
+    }
+  ]
+}

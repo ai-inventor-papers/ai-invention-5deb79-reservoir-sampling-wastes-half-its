@@ -1,0 +1,412 @@
+{
+  "panel_definition": {
+    "exact_dp": {
+      "main": {
+        "candidates": [
+          "S0",
+          "S1",
+          "S1n",
+          "S1f",
+          "S5-CIRC",
+          "C-OFFBY1",
+          "C-OFFBY1b",
+          "C-NOACCEPT"
+        ],
+        "cells": [
+          [
+            8,
+            2
+          ],
+          [
+            10,
+            2
+          ],
+          [
+            12,
+            2
+          ],
+          [
+            14,
+            2
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            10,
+            4
+          ],
+          [
+            12,
+            4
+          ],
+          [
+            14,
+            4
+          ]
+        ],
+        "stop_on_first_fail": false
+      },
+      "ordered": {
+        "candidates": [
+          "C-FIFO",
+          "C-RR",
+          "C-SLOT0"
+        ],
+        "cells": [
+          [
+            10,
+            2
+          ],
+          [
+            12,
+            2
+          ],
+          [
+            10,
+            3
+          ],
+          [
+            12,
+            3
+          ]
+        ],
+        "stop_on_first_fail": true
+      }
+    },
+    "fibermap_cells": [
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        7,
+        2
+      ],
+      [
+        8,
+        2
+      ],
+      [
+        9,
+        2
+      ],
+      [
+        10,
+        2
+      ],
+      [
+        11,
+        2
+      ],
+      [
+        12,
+        2
+      ],
+      [
+        13,
+        2
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        6,
+        3
+      ],
+      [
+        7,
+        3
+      ],
+      [
+        8,
+        3
+      ],
+      [
+        9,
+        3
+      ],
+      [
+        10,
+        3
+      ],
+      [
+        11,
+        3
+      ],
+      [
+        12,
+        3
+      ],
+      [
+        13,
+        3
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        5,
+        4
+      ],
+      [
+        6,
+        4
+      ],
+      [
+        7,
+        4
+      ],
+      [
+        8,
+        4
+      ],
+      [
+        9,
+        4
+      ],
+      [
+        10,
+        4
+      ],
+      [
+        11,
+        4
+      ],
+      [
+        12,
+        4
+      ],
+      [
+        13,
+        4
+      ]
+    ],
+    "matched_verdicts": {
+      "candidates": [
+        "S0",
+        "S1",
+        "S1n",
+        "S1f",
+        "S5-CIRC",
+        "C-NOACCEPT"
+      ],
+      "cells": [
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          4
+        ],
+        [
+          14,
+          4
+        ]
+      ],
+      "T": 100000,
+      "R": 200,
+      "prefix_R": 100
+    },
+    "montecarlo": {
+      "candidates": [
+        "S0",
+        "S1n",
+        "S5-CIRC",
+        "C-NOACCEPT"
+      ],
+      "n": 200,
+      "k": 10,
+      "T": 100000,
+      "R": 200
+    },
+    "bit_budgets": [
+      [
+        1000,
+        2
+      ],
+      [
+        1000,
+        10
+      ],
+      [
+        10000,
+        2
+      ],
+      [
+        10000,
+        10
+      ]
+    ],
+    "forced_accept": [
+      [
+        3,
+        2
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        7,
+        2
+      ],
+      [
+        6,
+        3
+      ],
+      [
+        8,
+        3
+      ],
+      [
+        9,
+        4
+      ],
+      [
+        11,
+        4
+      ]
+    ],
+    "seed": 20260918
+  },
+  "ranking": [
+    {
+      "candidate": "MAIN_S1",
+      "margin_ratio": 1.5151515151515151,
+      "passed": true,
+      "requirements": {
+        "S1_exactly_uniform_all_cells": true,
+        "S1f_exactly_uniform_all_cells": true,
+        "frac_fiber_steps_with_ratio_le_0.25": 0.7575757575757576,
+        "frac_fiber_steps_requirement": 0.5,
+        "frac_requirement_met": true,
+        "analytic_bit_saving_at_k10": 0.36138023275924624,
+        "bit_saving_requirement": 0.2,
+        "bit_saving_requirement_met": true
+      },
+      "evidence_pointers": [
+        "exact[].key in {S1,S1f}",
+        "fibermap[].ratio_to_log2k",
+        "bit_budgets.rows[k=10].bit_saving_frac_lower_bound"
+      ]
+    },
+    {
+      "candidate": "C1_S5CIRC",
+      "margin_ratio": 1.0955710955710956,
+      "passed": true,
+      "requirements": {
+        "exact_first_order_marginals_zero_deviation": true,
+        "exact_TV_max_over_screened_prefixes": 0.986013986013986,
+        "exact_TV_requirement": 0.9,
+        "TV_requirement_met": true,
+        "support_equals_min_i_and_C_i_k_not_C_i_k": true,
+        "support_note": "support == i for every prefix i > k; at i == k it is 1 because C(k,k) = 1",
+        "mc_first_order_blind_at_screen_scale": true,
+        "mc_pairwise_flags_at_screen_scale": true,
+        "mc_pairwise_p_value": 0.0
+      },
+      "evidence_pointers": [
+        "exact[].key == S5-CIRC",
+        "montecarlo.rows[S5-CIRC]",
+        "matched_verdicts.confusion"
+      ]
+    }
+  ],
+  "matched_confusion_summary": {
+    "mc_final_first_order": {
+      "n_cells": 18,
+      "accuracy": 0.8333333333333334,
+      "recall_on_broken_samplers": 0.6666666666666666,
+      "specificity_on_correct_samplers": 1.0,
+      "missed_cells": [
+        "S5-CIRC@n=12,k=2",
+        "S5-CIRC@n=12,k=4",
+        "S5-CIRC@n=14,k=4"
+      ]
+    },
+    "mc_final_pairwise": {
+      "n_cells": 18,
+      "accuracy": 1.0,
+      "recall_on_broken_samplers": 1.0,
+      "specificity_on_correct_samplers": 1.0,
+      "missed_cells": []
+    },
+    "mc_all_prefix": {
+      "n_cells": 18,
+      "accuracy": 0.8333333333333334,
+      "recall_on_broken_samplers": 0.6666666666666666,
+      "specificity_on_correct_samplers": 1.0,
+      "missed_cells": [
+        "S5-CIRC@n=12,k=2",
+        "S5-CIRC@n=12,k=4",
+        "S5-CIRC@n=14,k=4"
+      ]
+    },
+    "exact_dp": {
+      "n_cells": 18,
+      "accuracy": 1.0
+    }
+  },
+  "tv_min_over_screened_prefixes": 0.0,
+  "deferred_to_instrument_2": {
+    "S2_ALGORITHM_L_FLOAT64": "floating-point realisation of Algorithm L and its log1p/expm1 variant is owned by instrument 2 (numerical-robustness bench); no value is fabricated here",
+    "S3_ARES_BOTTOM_K": "weighted A-Res / bottom-k sampling is owned by instrument 2; only the unweighted bottom-k construction is used here, and only as an exact null generator",
+    "S4_DDG_R_COUNTED_FLIPS": "measured (counted) fair-coin-flip budgets via a DDG tree, and the flip counts of deployed reservoir implementations, are owned by instrument 2.  Every bit figure in this artifact is ANALYTIC (an entropy), never a counted flip"
+  },
+  "margins_preregistered": {
+    "MAIN_S1": {
+      "description": "An exactly-uniform anytime reservoir sampler exists whose eviction step costs far less than the classical log2(k) bits per acceptance.",
+      "requirements": [
+        "exact DP M1 == 0 at EVERY prefix of EVERY screened cell for S1 and S1f",
+        "min eviction entropy / log2(k) <= 0.25 on at least half the screened fiber steps",
+        "analytic bit saving at k=10 >= 20% of the classical total"
+      ]
+    },
+    "C1_S5CIRC": {
+      "description": "A k-memory sampler exists with exactly-uniform first-order marginals and a broken joint law -- i.e. the standard first-order uniformity test is blind.",
+      "requirements": [
+        "exact inclusion vector deviation == 0 at every prefix",
+        "exact total variation >= 0.9 on the screened cells",
+        "support size O(n), not C(n,k)",
+        "the first-order Monte-Carlo test does NOT flag it at T=1e6",
+        "the pairwise Monte-Carlo test DOES flag it at p < 1e-6"
+      ]
+    }
+  },
+  "sha256_of_this_file_content": "a363bbbb3611baa5acd48246fc40af02dc497509ebb15841f1eb35e053efa281",
+  "wall_seconds": 310.5361830443144,
+  "hash_excludes": [
+    "wall_seconds",
+    "sha256_of_this_file_content",
+    "hash_excludes"
+  ]
+}

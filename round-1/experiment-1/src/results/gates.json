@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "exit_code": 0,
+  "counts": {
+    "passed": 59,
+    "note": "counted from progress output"
+  },
+  "n_tests_passed": 59,
+  "gates": [
+    "G1 DP self-consistency",
+    "G2 controls light up",
+    "G3 hand-checked fiber map",
+    "G4 unrepaired sum-mod-k failure magnitude",
+    "G5 transport arithmetic + bracket",
+    "G6 certificate round-trip + corruption rejected",
+    "G7 S1/S1f exactly uniform",
+    "G8 Monte-Carlo harness validation"
+  ],
+  "summary": [
+    "...........................................................                                                                                                                                      [100%]"
+  ],
+  "seconds": 194.36922517046332
+}

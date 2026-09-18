@@ -1,0 +1,146 @@
+{
+  "n_certificates": 14,
+  "n_valid": 14,
+  "rows": [
+    {
+      "file": "cert_i11_k2.json",
+      "i": 11,
+      "k": 2,
+      "n_rows": 55,
+      "per_target_load": 5,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    },
+    {
+      "file": "cert_i11_k3.json",
+      "i": 11,
+      "k": 3,
+      "n_rows": 165,
+      "per_target_load": 3,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    },
+    {
+      "file": "cert_i11_k4.json",
+      "i": 11,
+      "k": 4,
+      "n_rows": 330,
+      "per_target_load": 2,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    },
+    {
+      "file": "cert_i13_k2.json",
+      "i": 13,
+      "k": 2,
+      "n_rows": 78,
+      "per_target_load": 6,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    },
+    {
+      "file": "cert_i14_k3.json",
+      "i": 14,
+      "k": 3,
+      "n_rows": 364,
+      "per_target_load": 4,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    },
+    {
+      "file": "cert_i14_k5.json",
+      "i": 14,
+      "k": 5,
+      "n_rows": 2002,
+      "per_target_load": 2,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    },
+    {
+      "file": "cert_i17_k3.json",
+      "i": 17,
+      "k": 3,
+      "n_rows": 680,
+      "per_target_load": 5,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    },
+    {
+      "file": "cert_i3_k2.json",
+      "i": 3,
+      "k": 2,
+      "n_rows": 3,
+      "per_target_load": 1,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    },
+    {
+      "file": "cert_i5_k2.json",
+      "i": 5,
+      "k": 2,
+      "n_rows": 10,
+      "per_target_load": 2,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    },
+    {
+      "file": "cert_i5_k3.json",
+      "i": 5,
+      "k": 3,
+      "n_rows": 10,
+      "per_target_load": 1,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    },
+    {
+      "file": "cert_i7_k2.json",
+      "i": 7,
+      "k": 2,
+      "n_rows": 21,
+      "per_target_load": 3,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    },
+    {
+      "file": "cert_i7_k4.json",
+      "i": 7,
+      "k": 4,
+      "n_rows": 35,
+      "per_target_load": 1,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    },
+    {
+      "file": "cert_i8_k3.json",
+      "i": 8,
+      "k": 3,
+      "n_rows": 56,
+      "per_target_load": 2,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    },
+    {
+      "file": "cert_i9_k2.json",
+      "i": 9,
+      "k": 2,
+      "n_rows": 36,
+      "per_target_load": 4,
+      "checker_valid": true,
+      "sha256_matches": true,
+      "errors": []
+    }
+  ]
+}
