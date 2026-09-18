@@ -1,0 +1,1654 @@
+{
+ "nominal_sweep": [
+  {
+   "n": 200,
+   "k": 5,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.025,
+   "coinc_chi2": 19800.210054298645,
+   "coinc_df": 19701,
+   "coinc_chi2_over_df": 1.0050357877416702,
+   "coinc_p_nominal": 0.3077208786680914,
+   "coinc_Zmax": 4.739050357465964,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 100.50251256281408,
+   "wall_s": 0.31437131203711033
+  },
+  {
+   "n": 200,
+   "k": 10,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.05,
+   "coinc_chi2": 19799.8068102633,
+   "coinc_df": 19701,
+   "coinc_chi2_over_df": 1.0050153195402924,
+   "coinc_p_nominal": 0.30843323150141677,
+   "coinc_Zmax": 4.083285552974745,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 452.2613065326633,
+   "wall_s": 0.35926434211432934
+  },
+  {
+   "n": 200,
+   "k": 15,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.075,
+   "coinc_chi2": 20269.60163557416,
+   "coinc_df": 19701,
+   "coinc_chi2_over_df": 1.0288615621325903,
+   "coinc_p_nominal": 0.0022503906340858235,
+   "coinc_Zmax": 4.621213031471871,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 1055.2763819095476,
+   "wall_s": 0.4717013593763113
+  },
+  {
+   "n": 200,
+   "k": 20,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.1,
+   "coinc_chi2": 19406.01044842319,
+   "coinc_df": 19701,
+   "coinc_chi2_over_df": 0.9850266711549256,
+   "coinc_p_nominal": 0.9319165596786002,
+   "coinc_Zmax": 4.218334698999187,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 1909.5477386934674,
+   "wall_s": 0.5925220604985952
+  },
+  {
+   "n": 200,
+   "k": 25,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.125,
+   "coinc_chi2": 20612.265588860544,
+   "coinc_df": 19701,
+   "coinc_chi2_over_df": 1.0462547885315743,
+   "coinc_p_nominal": 3.017096007926497e-06,
+   "coinc_Zmax": 4.277064608661722,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 3015.075376884422,
+   "wall_s": 0.7804065179079771
+  },
+  {
+   "n": 200,
+   "k": 30,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.15,
+   "coinc_chi2": 20492.873900623275,
+   "coinc_df": 19701,
+   "coinc_chi2_over_df": 1.040194604366442,
+   "coinc_p_nominal": 4.066970214579051e-05,
+   "coinc_Zmax": 4.161594388332285,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 4371.859296482412,
+   "wall_s": 1.0331764593720436
+  },
+  {
+   "n": 200,
+   "k": 40,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.2,
+   "coinc_chi2": 20787.057851725942,
+   "coinc_df": 19701,
+   "coinc_chi2_over_df": 1.0551270418621361,
+   "coinc_p_nominal": 3.7814077862826246e-08,
+   "coinc_Zmax": 3.896864223424004,
+   "nominal_rule_false_alarm": true,
+   "expected_per_pair": 7839.195979899498,
+   "wall_s": 1.5561437085270882
+  },
+  {
+   "n": 200,
+   "k": 50,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.25,
+   "coinc_chi2": 19408.85203172199,
+   "coinc_df": 19701,
+   "coinc_chi2_over_df": 0.9851709066403732,
+   "coinc_p_nominal": 0.929995671656273,
+   "coinc_Zmax": 4.191700369094109,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 12311.557788944725,
+   "wall_s": 2.3235348016023636
+  },
+  {
+   "n": 500,
+   "k": 5,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.01,
+   "coinc_chi2": 125582.4027256694,
+   "coinc_df": 124251,
+   "coinc_chi2_over_df": 1.0107154286538491,
+   "coinc_p_nominal": 0.0038761131273608303,
+   "coinc_Zmax": 5.2369492623242415,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 16.03206412825651,
+   "wall_s": 0.4626858476549387
+  },
+  {
+   "n": 500,
+   "k": 10,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.02,
+   "coinc_chi2": 124940.84345243665,
+   "coinc_df": 124251,
+   "coinc_chi2_over_df": 1.0055520152951416,
+   "coinc_p_nominal": 0.08339023488104924,
+   "coinc_Zmax": 4.575433327315917,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 72.14428857715431,
+   "wall_s": 0.5765293631702662
+  },
+  {
+   "n": 500,
+   "k": 15,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.03,
+   "coinc_chi2": 124579.5732212818,
+   "coinc_df": 124251,
+   "coinc_chi2_over_df": 1.0026444312020169,
+   "coinc_p_nominal": 0.2546650702662572,
+   "coinc_Zmax": 4.446242745586661,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 168.33667334669337,
+   "wall_s": 0.7268289029598236
+  },
+  {
+   "n": 500,
+   "k": 20,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.04,
+   "coinc_chi2": 124247.5728460761,
+   "coinc_df": 124251,
+   "coinc_chi2_over_df": 0.9999724174942343,
+   "coinc_p_nominal": 0.5022091913003494,
+   "coinc_Zmax": 4.507470930726342,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 304.60921843687373,
+   "wall_s": 0.867480581626296
+  },
+  {
+   "n": 500,
+   "k": 25,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.05,
+   "coinc_chi2": 125470.42079151605,
+   "coinc_df": 124251,
+   "coinc_chi2_over_df": 1.009814172855881,
+   "coinc_p_nominal": 0.00735256604084599,
+   "coinc_Zmax": 4.338754878202938,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 480.96192384769535,
+   "wall_s": 1.0591288842260838
+  },
+  {
+   "n": 500,
+   "k": 30,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.06,
+   "coinc_chi2": 124348.21075873949,
+   "coinc_df": 124251,
+   "coinc_chi2_over_df": 1.000782374055255,
+   "coinc_p_nominal": 0.4221903958488458,
+   "coinc_Zmax": 4.3473391648403625,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 697.3947895791583,
+   "wall_s": 1.2591233290731907
+  },
+  {
+   "n": 500,
+   "k": 40,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.08,
+   "coinc_chi2": 124590.37766245789,
+   "coinc_df": 124251,
+   "coinc_chi2_over_df": 1.0027313877752122,
+   "coinc_p_nominal": 0.24777244481627791,
+   "coinc_Zmax": 4.240958844579497,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 1250.501002004008,
+   "wall_s": 1.7581936344504356
+  },
+  {
+   "n": 500,
+   "k": 50,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.1,
+   "coinc_chi2": 124135.3968040304,
+   "coinc_df": 124251,
+   "coinc_chi2_over_df": 0.9990695994722811,
+   "coinc_p_nominal": 0.5912014826077466,
+   "coinc_Zmax": 4.44627151025943,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 1963.927855711423,
+   "wall_s": 2.5316315181553364
+  },
+  {
+   "n": 500,
+   "k": 75,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.15,
+   "coinc_chi2": 124439.58296409876,
+   "coinc_df": 124251,
+   "coinc_chi2_over_df": 1.0015177581194419,
+   "coinc_p_nominal": 0.35217798542140166,
+   "coinc_Zmax": 4.425776358487451,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 4448.897795591182,
+   "wall_s": 5.484560303390026
+  },
+  {
+   "n": 500,
+   "k": 100,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.2,
+   "coinc_chi2": 123802.39357567539,
+   "coinc_df": 124251,
+   "coinc_chi2_over_df": 0.996389514576747,
+   "coinc_p_nominal": 0.8158495561618556,
+   "coinc_Zmax": 4.606373391883241,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 7935.871743486973,
+   "wall_s": 8.72925828769803
+  },
+  {
+   "n": 1000,
+   "k": 5,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.005,
+   "coinc_chi2": 497816.15978948516,
+   "coinc_df": 498501,
+   "coinc_chi2_over_df": 0.9986262009293565,
+   "coinc_p_nominal": 0.7534907181569246,
+   "coinc_Zmax": 5.995058259767687,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 4.004004004004004,
+   "wall_s": 0.7749340012669563
+  },
+  {
+   "n": 1000,
+   "k": 10,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.01,
+   "coinc_chi2": 499009.37179926113,
+   "coinc_df": 498501,
+   "coinc_chi2_over_df": 1.0010198009618059,
+   "coinc_p_nominal": 0.3051552780643192,
+   "coinc_Zmax": 5.178844878286852,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 18.01801801801802,
+   "wall_s": 0.9183399397879839
+  },
+  {
+   "n": 1000,
+   "k": 15,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.015,
+   "coinc_chi2": 499625.60383177927,
+   "coinc_df": 498501,
+   "coinc_chi2_over_df": 1.002255971064811,
+   "coinc_p_nominal": 0.13005840022336562,
+   "coinc_Zmax": 5.237756646040175,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 42.04204204204204,
+   "wall_s": 1.0392953716218472
+  },
+  {
+   "n": 1000,
+   "k": 20,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.02,
+   "coinc_chi2": 499552.40911961143,
+   "coinc_df": 498501,
+   "coinc_chi2_over_df": 1.0021091414452759,
+   "coinc_p_nominal": 0.14618954121095398,
+   "coinc_Zmax": 4.692840902039758,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 76.07607607607608,
+   "wall_s": 1.1915595829486847
+  },
+  {
+   "n": 1000,
+   "k": 25,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.025,
+   "coinc_chi2": 497942.7295024039,
+   "coinc_df": 498501,
+   "coinc_chi2_over_df": 0.9988801015492524,
+   "coinc_p_nominal": 0.7117998156822343,
+   "coinc_Zmax": 4.917554682002099,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 120.12012012012012,
+   "wall_s": 1.4454798996448517
+  },
+  {
+   "n": 1000,
+   "k": 30,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.03,
+   "coinc_chi2": 500986.9492511341,
+   "coinc_df": 498501,
+   "coinc_chi2_over_df": 1.0049868490757974,
+   "coinc_p_nominal": 0.006455316961062663,
+   "coinc_Zmax": 4.762505777515771,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 174.17417417417417,
+   "wall_s": 1.7159964703023434
+  },
+  {
+   "n": 1000,
+   "k": 40,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.04,
+   "coinc_chi2": 499926.9800248249,
+   "coinc_df": 498501,
+   "coinc_chi2_over_df": 1.0028605359363871,
+   "coinc_p_nominal": 0.07672793207285397,
+   "coinc_Zmax": 5.170995282056449,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 312.3123123123123,
+   "wall_s": 2.4221521113067865
+  },
+  {
+   "n": 1000,
+   "k": 50,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.05,
+   "coinc_chi2": 499111.8329489677,
+   "coinc_df": 498501,
+   "coinc_chi2_over_df": 1.0012253394656534,
+   "coinc_p_nominal": 0.2702131193875851,
+   "coinc_Zmax": 5.041152169138898,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 490.4904904904905,
+   "wall_s": 3.2549366150051355
+  },
+  {
+   "n": 1000,
+   "k": 75,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.075,
+   "coinc_chi2": 497814.4566703911,
+   "coinc_df": 498501,
+   "coinc_chi2_over_df": 0.9986227844485589,
+   "coinc_p_nominal": 0.7540288725128386,
+   "coinc_Zmax": 5.140967019874894,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 1111.111111111111,
+   "wall_s": 6.307245213538408
+  },
+  {
+   "n": 1000,
+   "k": 100,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.1,
+   "coinc_chi2": 501216.19974853186,
+   "coinc_df": 498501,
+   "coinc_chi2_over_df": 1.005446728789976,
+   "coinc_p_nominal": 0.003313538957191167,
+   "coinc_Zmax": 4.492676925746659,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 1981.9819819819818,
+   "wall_s": 9.356246896088123
+  },
+  {
+   "n": 2000,
+   "k": 5,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.0025,
+   "coinc_chi2": 2000358.8317975574,
+   "coinc_df": 1997001,
+   "coinc_chi2_over_df": 1.001681437213881,
+   "coinc_p_nominal": 0.046520617352676985,
+   "coinc_Zmax": 7.997519628716575,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 1.0005002501250626,
+   "wall_s": 1.4416499584913254
+  },
+  {
+   "n": 2000,
+   "k": 10,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.005,
+   "coinc_chi2": 2000007.623349533,
+   "coinc_df": 1997001,
+   "coinc_chi2_over_df": 1.0015055692758956,
+   "coinc_p_nominal": 0.06628820602009487,
+   "coinc_Zmax": 7.303964437080899,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 4.502251125562782,
+   "wall_s": 1.6630335710942745
+  },
+  {
+   "n": 2000,
+   "k": 15,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.0075,
+   "coinc_chi2": 1999554.789617216,
+   "coinc_df": 1997001,
+   "coinc_chi2_over_df": 1.0012788123877834,
+   "coinc_p_nominal": 0.1006877573617902,
+   "coinc_Zmax": 6.32340102547912,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 10.505252626313156,
+   "wall_s": 1.8365846946835518
+  },
+  {
+   "n": 2000,
+   "k": 20,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.01,
+   "coinc_chi2": 1993309.8430594106,
+   "coinc_df": 1997001,
+   "coinc_chi2_over_df": 0.9981516499287735,
+   "coinc_p_nominal": 0.9676821373139193,
+   "coinc_Zmax": 5.732051739748162,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 19.009504752376188,
+   "wall_s": 1.9917689636349678
+  },
+  {
+   "n": 2000,
+   "k": 25,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.0125,
+   "coinc_chi2": 1999324.4289886928,
+   "coinc_df": 1997001,
+   "coinc_chi2_over_df": 1.0011634591012688,
+   "coinc_p_nominal": 0.12252241280308204,
+   "coinc_Zmax": 5.473527535090174,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 30.015007503751875,
+   "wall_s": 2.221487835049629
+  },
+  {
+   "n": 2000,
+   "k": 30,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.015,
+   "coinc_chi2": 1999888.2862184423,
+   "coinc_df": 1997001,
+   "coinc_chi2_over_df": 1.00144581110297,
+   "coinc_p_nominal": 0.07431822682425564,
+   "coinc_Zmax": 5.530035189891545,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 43.52176088044022,
+   "wall_s": 2.527440557256341
+  },
+  {
+   "n": 2000,
+   "k": 40,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.02,
+   "coinc_chi2": 1999887.4014007016,
+   "coinc_df": 1997001,
+   "coinc_chi2_over_df": 1.0014453680297113,
+   "coinc_p_nominal": 0.07438042391348841,
+   "coinc_Zmax": 5.203770432763752,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 78.03901950975488,
+   "wall_s": 3.106242349371314
+  },
+  {
+   "n": 2000,
+   "k": 50,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.025,
+   "coinc_chi2": 1996997.6408680333,
+   "coinc_df": 1997001,
+   "coinc_chi2_over_df": 0.9999983179117252,
+   "coinc_p_nominal": 0.5005374724358662,
+   "coinc_Zmax": 5.37063834928961,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 122.56128064032016,
+   "wall_s": 4.24654852040112
+  },
+  {
+   "n": 2000,
+   "k": 75,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.0375,
+   "coinc_chi2": 1995217.4218545542,
+   "coinc_df": 1997001,
+   "coinc_chi2_over_df": 0.9991068716813634,
+   "coinc_p_nominal": 0.8139082143242932,
+   "coinc_Zmax": 5.486852183840691,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 277.63881940970487,
+   "wall_s": 7.662517545744777
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.05,
+   "coinc_chi2": 1998244.5870864347,
+   "coinc_df": 1997001,
+   "coinc_chi2_over_df": 1.0006227273228379,
+   "coinc_p_nominal": 0.26681817258198043,
+   "coinc_Zmax": 5.432789280153249,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 495.2476238119059,
+   "wall_s": 10.939446369186044
+  },
+  {
+   "n": 5000,
+   "k": 5,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.001,
+   "coinc_chi2": 12500359.352287943,
+   "coinc_df": 12492501,
+   "coinc_chi2_over_df": 1.0006290455600477,
+   "coinc_p_nominal": 0.057981543884719225,
+   "coinc_Zmax": 12.098714771947716,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 0.16003200640128026,
+   "wall_s": 3.4158285316079855
+  },
+  {
+   "n": 5000,
+   "k": 10,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.002,
+   "coinc_chi2": 12506851.145337524,
+   "coinc_df": 12492501,
+   "coinc_chi2_over_df": 1.0011487007555593,
+   "coinc_p_nominal": 0.002052844673538349,
+   "coinc_Zmax": 8.578550001159043,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 0.7201440288057611,
+   "wall_s": 3.6814538687467575
+  },
+  {
+   "n": 5000,
+   "k": 15,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.003,
+   "coinc_chi2": 12489990.143809354,
+   "coinc_df": 12492501,
+   "coinc_chi2_over_df": 0.9997990109273839,
+   "coinc_p_nominal": 0.6922443925181916,
+   "coinc_Zmax": 7.961030800477316,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 1.6803360672134426,
+   "wall_s": 3.9669605903327465
+  },
+  {
+   "n": 5000,
+   "k": 20,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.004,
+   "coinc_chi2": 12491981.6429463,
+   "coinc_df": 12492501,
+   "coinc_chi2_over_df": 0.9999584264949267,
+   "coinc_p_nominal": 0.5413243199564732,
+   "coinc_Zmax": 7.432034181440945,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 3.0406081216243246,
+   "wall_s": 4.14959979057312
+  },
+  {
+   "n": 5000,
+   "k": 25,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.005,
+   "coinc_chi2": 12503650.743480707,
+   "coinc_df": 12492501,
+   "coinc_chi2_over_df": 1.0008925149160048,
+   "coinc_p_nominal": 0.012870801275149913,
+   "coinc_Zmax": 6.480374985026821,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 4.800960192038407,
+   "wall_s": 4.497118525207043
+  },
+  {
+   "n": 5000,
+   "k": 30,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.006,
+   "coinc_chi2": 12495155.556902807,
+   "coinc_df": 12492501,
+   "coinc_chi2_over_df": 1.0002124920304434,
+   "coinc_p_nominal": 0.29765171504904653,
+   "coinc_Zmax": 7.21596952451386,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 6.9613922784556905,
+   "wall_s": 5.20419243350625
+  },
+  {
+   "n": 5000,
+   "k": 40,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.008,
+   "coinc_chi2": 12487401.906996537,
+   "coinc_df": 12492501,
+   "coinc_chi2_over_df": 0.9995918276889901,
+   "coinc_p_nominal": 0.8461666170021259,
+   "coinc_Zmax": 6.373574485259556,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 12.48249649929986,
+   "wall_s": 6.425297748297453
+  },
+  {
+   "n": 5000,
+   "k": 50,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.01,
+   "coinc_chi2": 12492814.084321054,
+   "coinc_df": 12492501,
+   "coinc_chi2_over_df": 1.0000250617807478,
+   "coinc_p_nominal": 0.4749754228658152,
+   "coinc_Zmax": 6.865424316766845,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 19.60392078415683,
+   "wall_s": 7.692527500912547
+  },
+  {
+   "n": 5000,
+   "k": 75,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.015,
+   "coinc_chi2": 12495167.173107933,
+   "coinc_df": 12492501,
+   "coinc_chi2_over_df": 1.0002134218846916,
+   "coinc_p_nominal": 0.2968471907361706,
+   "coinc_Zmax": 6.2418582220444625,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 44.40888177635527,
+   "wall_s": 13.54664147645235
+  },
+  {
+   "n": 5000,
+   "k": 100,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.02,
+   "coinc_chi2": 12495545.670713617,
+   "coinc_df": 12492501,
+   "coinc_chi2_over_df": 1.0002437198695135,
+   "coinc_p_nominal": 0.2711956837180813,
+   "coinc_Zmax": 5.819382574342977,
+   "nominal_rule_false_alarm": false,
+   "expected_per_pair": 79.21584316863373,
+   "wall_s": 19.962682699784636
+  }
+ ],
+ "calibrated_cells": [
+  {
+   "n": 1000,
+   "k": 10,
+   "T": 200000,
+   "candidate": "S0",
+   "status": "RUN",
+   "truth": "UNIFORM",
+   "coinc_p_nominal": 0.00293601646181713,
+   "nominal_verdict": "UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 1.8174217254897815,
+   "calibrated_verdict": "UNIFORM",
+   "maxdev_raw": 0.0008350000000000007,
+   "maxdev_z_band": 1.3267324924444241,
+   "null_chi2_mean": 499314.5799204883,
+   "null_chi2_sd": 1068.284405197474,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 1000,
+   "k": 10,
+   "T": 200000,
+   "candidate": "S1h",
+   "status": "RUN",
+   "truth": "UNIFORM",
+   "coinc_p_nominal": 0.03364037616782197,
+   "nominal_verdict": "UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 0.9501531750812753,
+   "calibrated_verdict": "UNIFORM",
+   "maxdev_raw": 0.000874999999999999,
+   "maxdev_z_band": 1.8905497535097568,
+   "null_chi2_mean": 499314.5799204883,
+   "null_chi2_sd": 1068.284405197474,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 1000,
+   "k": 10,
+   "T": 200000,
+   "candidate": "S5e",
+   "status": "RUN",
+   "truth": "NOT_UNIFORM",
+   "coinc_p_nominal": 0.0,
+   "nominal_verdict": "NOT_UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 926886.2552312958,
+   "calibrated_verdict": "NOT_UNIFORM",
+   "maxdev_raw": 0.0006899999999999996,
+   "maxdev_z_band": -0.7171050789175041,
+   "null_chi2_mean": 499314.5799204883,
+   "null_chi2_sd": 1068.284405197474,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 1000,
+   "k": 10,
+   "T": 200000,
+   "candidate": "S5g",
+   "status": "RUN",
+   "truth": "NOT_UNIFORM",
+   "coinc_p_nominal": 0.0,
+   "nominal_verdict": "NOT_UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 102147.69526769864,
+   "calibrated_verdict": "NOT_UNIFORM",
+   "maxdev_raw": 0.000700000000000001,
+   "maxdev_z_band": -0.5761507636511465,
+   "null_chi2_mean": 499314.5799204883,
+   "null_chi2_sd": 1068.284405197474,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 1000,
+   "k": 10,
+   "T": 200000,
+   "candidate": "S6sys",
+   "status": "RUN",
+   "truth": "NOT_UNIFORM",
+   "coinc_p_nominal": 0.0,
+   "nominal_verdict": "NOT_UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 926746.8079877206,
+   "calibrated_verdict": "NOT_UNIFORM",
+   "maxdev_raw": 0.0005800000000000007,
+   "maxdev_z_band": -2.2676025468472174,
+   "null_chi2_mean": 499314.5799204883,
+   "null_chi2_sd": 1068.284405197474,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 1000,
+   "k": 50,
+   "T": 200000,
+   "candidate": "S0",
+   "status": "RUN",
+   "truth": "UNIFORM",
+   "coinc_p_nominal": 0.23073763440156922,
+   "nominal_verdict": "UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 0.11170706474148359,
+   "calibrated_verdict": "UNIFORM",
+   "maxdev_raw": 0.0016450000000000006,
+   "maxdev_z_band": -0.25105887809763644,
+   "null_chi2_mean": 498969.3295889571,
+   "null_chi2_sd": 2387.3138188613543,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 1000,
+   "k": 50,
+   "T": 200000,
+   "candidate": "S1h",
+   "status": "RUN",
+   "truth": "UNIFORM",
+   "coinc_p_nominal": 0.3524756213527281,
+   "nominal_verdict": "UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": -0.03804427803721603,
+   "calibrated_verdict": "UNIFORM",
+   "maxdev_raw": 0.0016399999999999956,
+   "maxdev_z_band": -0.2814902572610175,
+   "null_chi2_mean": 498969.3295889571,
+   "null_chi2_sd": 2387.3138188613543,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 1000,
+   "k": 50,
+   "T": 200000,
+   "candidate": "S5e",
+   "status": "RUN",
+   "truth": "NOT_UNIFORM",
+   "coinc_p_nominal": 0.0,
+   "nominal_verdict": "NOT_UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 1994571.7624999909,
+   "calibrated_verdict": "NOT_UNIFORM",
+   "maxdev_raw": 0.0007949999999999971,
+   "maxdev_z_band": -5.424393335867265,
+   "null_chi2_mean": 498969.3295889571,
+   "null_chi2_sd": 2387.3138188613543,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 1000,
+   "k": 50,
+   "T": 200000,
+   "candidate": "S5g",
+   "status": "RUN",
+   "truth": "NOT_UNIFORM",
+   "coinc_p_nominal": 0.0,
+   "nominal_verdict": "NOT_UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 38749.31359754733,
+   "calibrated_verdict": "NOT_UNIFORM",
+   "maxdev_raw": 0.0013950000000000004,
+   "maxdev_z_band": -1.7726278362651693,
+   "null_chi2_mean": 498969.3295889571,
+   "null_chi2_sd": 2387.3138188613543,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 1000,
+   "k": 50,
+   "T": 200000,
+   "candidate": "S6sys",
+   "status": "RUN",
+   "truth": "NOT_UNIFORM",
+   "coinc_p_nominal": 0.0,
+   "nominal_verdict": "NOT_UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 1994596.908871968,
+   "calibrated_verdict": "NOT_UNIFORM",
+   "maxdev_raw": 0.0008599999999999997,
+   "maxdev_z_band": -5.028785406743691,
+   "null_chi2_mean": 498969.3295889571,
+   "null_chi2_sd": 2387.3138188613543,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 500,
+   "k": 50,
+   "T": 200000,
+   "candidate": "S0",
+   "status": "RUN",
+   "truth": "UNIFORM",
+   "coinc_p_nominal": 0.17654832671289247,
+   "nominal_verdict": "UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": -0.43387696619962923,
+   "calibrated_verdict": "UNIFORM",
+   "maxdev_raw": 0.00247,
+   "maxdev_z_band": 0.9752236052789972,
+   "null_chi2_mean": 125181.4970224057,
+   "null_chi2_sd": 1077.9172122515758,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 500,
+   "k": 50,
+   "T": 200000,
+   "candidate": "S1h",
+   "status": "RUN",
+   "truth": "UNIFORM",
+   "coinc_p_nominal": 0.9839308607566641,
+   "nominal_verdict": "UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": -1.851933038229073,
+   "calibrated_verdict": "UNIFORM",
+   "maxdev_raw": 0.0019599999999999895,
+   "maxdev_z_band": -1.0082820325766026,
+   "null_chi2_mean": 125181.4970224057,
+   "null_chi2_sd": 1077.9172122515758,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 500,
+   "k": 50,
+   "T": 200000,
+   "candidate": "S5e",
+   "status": "RUN",
+   "truth": "NOT_UNIFORM",
+   "coinc_p_nominal": 0.0,
+   "nominal_verdict": "NOT_UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 2107989.183037093,
+   "calibrated_verdict": "NOT_UNIFORM",
+   "maxdev_raw": 0.000779999999999989,
+   "maxdev_z_band": -5.597569586830644,
+   "null_chi2_mean": 125181.4970224057,
+   "null_chi2_sd": 1077.9172122515758,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 500,
+   "k": 50,
+   "T": 200000,
+   "candidate": "S5g",
+   "status": "RUN",
+   "truth": "NOT_UNIFORM",
+   "coinc_p_nominal": 0.0,
+   "nominal_verdict": "NOT_UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 38875.564242058164,
+   "calibrated_verdict": "NOT_UNIFORM",
+   "maxdev_raw": 0.0019850000000000007,
+   "maxdev_z_band": -0.9110513640542282,
+   "null_chi2_mean": 125181.4970224057,
+   "null_chi2_sd": 1077.9172122515758,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 500,
+   "k": 50,
+   "T": 200000,
+   "candidate": "S6sys",
+   "status": "RUN",
+   "truth": "NOT_UNIFORM",
+   "coinc_p_nominal": 0.0,
+   "nominal_verdict": "NOT_UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 2108039.852928929,
+   "calibrated_verdict": "NOT_UNIFORM",
+   "maxdev_raw": 0.001015000000000002,
+   "maxdev_z_band": -4.683601302720679,
+   "null_chi2_mean": 125181.4970224057,
+   "null_chi2_sd": 1077.9172122515758,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "T": 200000,
+   "candidate": "S0",
+   "status": "RUN",
+   "truth": "UNIFORM",
+   "coinc_p_nominal": 8.704481124586855e-05,
+   "nominal_verdict": "UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 0.21696401967427215,
+   "calibrated_verdict": "UNIFORM",
+   "maxdev_raw": 0.0016499999999999987,
+   "maxdev_z_band": -1.0253966417933473,
+   "null_chi2_mean": 2003015.2799288651,
+   "null_chi2_sd": 6898.1979364512135,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "T": 200000,
+   "candidate": "S1h",
+   "status": "RUN",
+   "truth": "UNIFORM",
+   "coinc_p_nominal": 0.9078491134854169,
+   "nominal_verdict": "UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": -1.2564196055157653,
+   "calibrated_verdict": "UNIFORM",
+   "maxdev_raw": 0.001570000000000002,
+   "maxdev_z_band": -1.5542071581089885,
+   "null_chi2_mean": 2003015.2799288651,
+   "null_chi2_sd": 6898.1979364512135,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "T": 200000,
+   "candidate": "S5e",
+   "status": "RUN",
+   "truth": "NOT_UNIFORM",
+   "coinc_p_nominal": 0.0,
+   "nominal_verdict": "NOT_UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 2761154.079018893,
+   "calibrated_verdict": "NOT_UNIFORM",
+   "maxdev_raw": 0.0009300000000000003,
+   "maxdev_z_band": -5.7846912886343,
+   "null_chi2_mean": 2003015.2799288651,
+   "null_chi2_sd": 6898.1979364512135,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "T": 200000,
+   "candidate": "S5g",
+   "status": "RUN",
+   "truth": "NOT_UNIFORM",
+   "coinc_p_nominal": 0.0,
+   "nominal_verdict": "NOT_UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 26524.622872445885,
+   "calibrated_verdict": "NOT_UNIFORM",
+   "maxdev_raw": 0.0017199999999999993,
+   "maxdev_z_band": -0.5626874400171384,
+   "null_chi2_mean": 2003015.2799288651,
+   "null_chi2_sd": 6898.1979364512135,
+   "null_B": 40,
+   "null_B_coinc": 16
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "T": 200000,
+   "candidate": "S6sys",
+   "status": "RUN",
+   "truth": "NOT_UNIFORM",
+   "coinc_p_nominal": 0.0,
+   "nominal_verdict": "NOT_UNIFORM",
+   "coinc_chi2_z_vs_simulated_null": 2761390.5473368047,
+   "calibrated_verdict": "NOT_UNIFORM",
+   "maxdev_raw": 0.0017650000000000027,
+   "maxdev_z_band": -0.26523152458955596,
+   "null_chi2_mean": 2003015.2799288651,
+   "null_chi2_sd": 6898.1979364512135,
+   "null_B": 40,
+   "null_B_coinc": 16
+  }
+ ],
+ "summary": {
+  "n_cells_run": 48,
+  "n_cells_nominal_false_alarm": 1,
+  "false_alarm_cells": [
+   {
+    "n": 200,
+    "k": 40,
+    "k_over_n": 0.2,
+    "p": 3.7814077862826246e-08
+   }
+  ],
+  "clean_cells": [
+   {
+    "n": 200,
+    "k": 5,
+    "k_over_n": 0.025,
+    "p": 0.3077208786680914
+   },
+   {
+    "n": 200,
+    "k": 10,
+    "k_over_n": 0.05,
+    "p": 0.30843323150141677
+   },
+   {
+    "n": 200,
+    "k": 15,
+    "k_over_n": 0.075,
+    "p": 0.0022503906340858235
+   },
+   {
+    "n": 200,
+    "k": 20,
+    "k_over_n": 0.1,
+    "p": 0.9319165596786002
+   },
+   {
+    "n": 200,
+    "k": 25,
+    "k_over_n": 0.125,
+    "p": 3.017096007926497e-06
+   },
+   {
+    "n": 200,
+    "k": 30,
+    "k_over_n": 0.15,
+    "p": 4.066970214579051e-05
+   },
+   {
+    "n": 200,
+    "k": 50,
+    "k_over_n": 0.25,
+    "p": 0.929995671656273
+   },
+   {
+    "n": 500,
+    "k": 5,
+    "k_over_n": 0.01,
+    "p": 0.0038761131273608303
+   },
+   {
+    "n": 500,
+    "k": 10,
+    "k_over_n": 0.02,
+    "p": 0.08339023488104924
+   },
+   {
+    "n": 500,
+    "k": 15,
+    "k_over_n": 0.03,
+    "p": 0.2546650702662572
+   },
+   {
+    "n": 500,
+    "k": 20,
+    "k_over_n": 0.04,
+    "p": 0.5022091913003494
+   },
+   {
+    "n": 500,
+    "k": 25,
+    "k_over_n": 0.05,
+    "p": 0.00735256604084599
+   },
+   {
+    "n": 500,
+    "k": 30,
+    "k_over_n": 0.06,
+    "p": 0.4221903958488458
+   },
+   {
+    "n": 500,
+    "k": 40,
+    "k_over_n": 0.08,
+    "p": 0.24777244481627791
+   },
+   {
+    "n": 500,
+    "k": 50,
+    "k_over_n": 0.1,
+    "p": 0.5912014826077466
+   },
+   {
+    "n": 500,
+    "k": 75,
+    "k_over_n": 0.15,
+    "p": 0.35217798542140166
+   },
+   {
+    "n": 500,
+    "k": 100,
+    "k_over_n": 0.2,
+    "p": 0.8158495561618556
+   },
+   {
+    "n": 1000,
+    "k": 5,
+    "k_over_n": 0.005,
+    "p": 0.7534907181569246
+   },
+   {
+    "n": 1000,
+    "k": 10,
+    "k_over_n": 0.01,
+    "p": 0.3051552780643192
+   },
+   {
+    "n": 1000,
+    "k": 15,
+    "k_over_n": 0.015,
+    "p": 0.13005840022336562
+   },
+   {
+    "n": 1000,
+    "k": 20,
+    "k_over_n": 0.02,
+    "p": 0.14618954121095398
+   },
+   {
+    "n": 1000,
+    "k": 25,
+    "k_over_n": 0.025,
+    "p": 0.7117998156822343
+   },
+   {
+    "n": 1000,
+    "k": 30,
+    "k_over_n": 0.03,
+    "p": 0.006455316961062663
+   },
+   {
+    "n": 1000,
+    "k": 40,
+    "k_over_n": 0.04,
+    "p": 0.07672793207285397
+   },
+   {
+    "n": 1000,
+    "k": 50,
+    "k_over_n": 0.05,
+    "p": 0.2702131193875851
+   },
+   {
+    "n": 1000,
+    "k": 75,
+    "k_over_n": 0.075,
+    "p": 0.7540288725128386
+   },
+   {
+    "n": 1000,
+    "k": 100,
+    "k_over_n": 0.1,
+    "p": 0.003313538957191167
+   },
+   {
+    "n": 2000,
+    "k": 5,
+    "k_over_n": 0.0025,
+    "p": 0.046520617352676985
+   },
+   {
+    "n": 2000,
+    "k": 10,
+    "k_over_n": 0.005,
+    "p": 0.06628820602009487
+   },
+   {
+    "n": 2000,
+    "k": 15,
+    "k_over_n": 0.0075,
+    "p": 0.1006877573617902
+   },
+   {
+    "n": 2000,
+    "k": 20,
+    "k_over_n": 0.01,
+    "p": 0.9676821373139193
+   },
+   {
+    "n": 2000,
+    "k": 25,
+    "k_over_n": 0.0125,
+    "p": 0.12252241280308204
+   },
+   {
+    "n": 2000,
+    "k": 30,
+    "k_over_n": 0.015,
+    "p": 0.07431822682425564
+   },
+   {
+    "n": 2000,
+    "k": 40,
+    "k_over_n": 0.02,
+    "p": 0.07438042391348841
+   },
+   {
+    "n": 2000,
+    "k": 50,
+    "k_over_n": 0.025,
+    "p": 0.5005374724358662
+   },
+   {
+    "n": 2000,
+    "k": 75,
+    "k_over_n": 0.0375,
+    "p": 0.8139082143242932
+   },
+   {
+    "n": 2000,
+    "k": 100,
+    "k_over_n": 0.05,
+    "p": 0.26681817258198043
+   },
+   {
+    "n": 5000,
+    "k": 5,
+    "k_over_n": 0.001,
+    "p": 0.057981543884719225
+   },
+   {
+    "n": 5000,
+    "k": 10,
+    "k_over_n": 0.002,
+    "p": 0.002052844673538349
+   },
+   {
+    "n": 5000,
+    "k": 15,
+    "k_over_n": 0.003,
+    "p": 0.6922443925181916
+   },
+   {
+    "n": 5000,
+    "k": 20,
+    "k_over_n": 0.004,
+    "p": 0.5413243199564732
+   },
+   {
+    "n": 5000,
+    "k": 25,
+    "k_over_n": 0.005,
+    "p": 0.012870801275149913
+   },
+   {
+    "n": 5000,
+    "k": 30,
+    "k_over_n": 0.006,
+    "p": 0.29765171504904653
+   },
+   {
+    "n": 5000,
+    "k": 40,
+    "k_over_n": 0.008,
+    "p": 0.8461666170021259
+   },
+   {
+    "n": 5000,
+    "k": 50,
+    "k_over_n": 0.01,
+    "p": 0.4749754228658152
+   },
+   {
+    "n": 5000,
+    "k": 75,
+    "k_over_n": 0.015,
+    "p": 0.2968471907361706
+   },
+   {
+    "n": 5000,
+    "k": 100,
+    "k_over_n": 0.02,
+    "p": 0.2711956837180813
+   }
+  ],
+  "smallest_false_alarm_by_k_over_n": {
+   "n": 200,
+   "k": 40,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.2,
+   "coinc_chi2": 20787.057851725942,
+   "coinc_df": 19701,
+   "coinc_chi2_over_df": 1.0551270418621361,
+   "coinc_p_nominal": 3.7814077862826246e-08,
+   "coinc_Zmax": 3.896864223424004,
+   "nominal_rule_false_alarm": true,
+   "expected_per_pair": 7839.195979899498,
+   "wall_s": 1.5561437085270882
+  },
+  "smallest_false_alarm_by_k": {
+   "n": 200,
+   "k": 40,
+   "T": 200000,
+   "status": "RUN",
+   "k_over_n": 0.2,
+   "coinc_chi2": 20787.057851725942,
+   "coinc_df": 19701,
+   "coinc_chi2_over_df": 1.0551270418621361,
+   "coinc_p_nominal": 3.7814077862826246e-08,
+   "coinc_Zmax": 3.896864223424004,
+   "nominal_rule_false_alarm": true,
+   "expected_per_pair": 7839.195979899498,
+   "wall_s": 1.5561437085270882
+  },
+  "calibrated_max_z_among_correct": 1.8174217254897815,
+  "calibrated_min_z_among_broken": 26524.622872445885,
+  "calibrated_gap": 26522.805450720396,
+  "calibrated_separation_clean": true,
+  "nominal_rule_false_alarms_on_provably_correct_samplers": [],
+  "threshold_calibrated_z": 5.0,
+  "threshold_nominal_p": 1e-06
+ },
+ "grid": [
+  [
+   200,
+   5
+  ],
+  [
+   200,
+   10
+  ],
+  [
+   200,
+   15
+  ],
+  [
+   200,
+   20
+  ],
+  [
+   200,
+   25
+  ],
+  [
+   200,
+   30
+  ],
+  [
+   200,
+   40
+  ],
+  [
+   200,
+   50
+  ],
+  [
+   500,
+   5
+  ],
+  [
+   500,
+   10
+  ],
+  [
+   500,
+   15
+  ],
+  [
+   500,
+   20
+  ],
+  [
+   500,
+   25
+  ],
+  [
+   500,
+   30
+  ],
+  [
+   500,
+   40
+  ],
+  [
+   500,
+   50
+  ],
+  [
+   500,
+   75
+  ],
+  [
+   500,
+   100
+  ],
+  [
+   1000,
+   5
+  ],
+  [
+   1000,
+   10
+  ],
+  [
+   1000,
+   15
+  ],
+  [
+   1000,
+   20
+  ],
+  [
+   1000,
+   25
+  ],
+  [
+   1000,
+   30
+  ],
+  [
+   1000,
+   40
+  ],
+  [
+   1000,
+   50
+  ],
+  [
+   1000,
+   75
+  ],
+  [
+   1000,
+   100
+  ],
+  [
+   2000,
+   5
+  ],
+  [
+   2000,
+   10
+  ],
+  [
+   2000,
+   15
+  ],
+  [
+   2000,
+   20
+  ],
+  [
+   2000,
+   25
+  ],
+  [
+   2000,
+   30
+  ],
+  [
+   2000,
+   40
+  ],
+  [
+   2000,
+   50
+  ],
+  [
+   2000,
+   75
+  ],
+  [
+   2000,
+   100
+  ],
+  [
+   5000,
+   5
+  ],
+  [
+   5000,
+   10
+  ],
+  [
+   5000,
+   15
+  ],
+  [
+   5000,
+   20
+  ],
+  [
+   5000,
+   25
+  ],
+  [
+   5000,
+   30
+  ],
+  [
+   5000,
+   40
+  ],
+  [
+   5000,
+   50
+  ],
+  [
+   5000,
+   75
+  ],
+  [
+   5000,
+   100
+  ]
+ ],
+ "calibrated_cell_list": [
+  [
+   1000,
+   10
+  ],
+  [
+   1000,
+   50
+  ],
+  [
+   500,
+   50
+  ],
+  [
+   2000,
+   100
+  ]
+ ],
+ "T": 200000,
+ "null_B": 40,
+ "null_B_coinc": 16,
+ "seed": 424242,
+ "cells_completed": [
+  [
+   500,
+   50
+  ],
+  [
+   1000,
+   10
+  ],
+  [
+   1000,
+   50
+  ],
+  [
+   2000,
+   100
+  ]
+ ],
+ "wall_seconds": 752.7645063828677
+}

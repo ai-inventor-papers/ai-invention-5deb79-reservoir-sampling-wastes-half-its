@@ -1,0 +1,80 @@
+{
+ "rows": [
+  {
+   "file": "claims_ledger.csv",
+   "hash_run_1": "18272f1da1bee8bf6a9530fbbed027f376f924fd130465e3d8978568ac5fe5e7",
+   "hash_run_2": "18272f1da1bee8bf6a9530fbbed027f376f924fd130465e3d8978568ac5fe5e7",
+   "identical": true
+  },
+  {
+   "file": "patch_table.md",
+   "hash_run_1": "13fd8beacf330fd5e230727545c804289011186831ad8b9e3ad734a6dcf04e16",
+   "hash_run_2": "13fd8beacf330fd5e230727545c804289011186831ad8b9e3ad734a6dcf04e16",
+   "identical": true
+  },
+  {
+   "file": "stage_a1.json",
+   "hash_run_1": "63dbfee94450c410a6bd37a90479056d9660d2e9d47ee1cdaf1ea189e8d2f698",
+   "hash_run_2": "63dbfee94450c410a6bd37a90479056d9660d2e9d47ee1cdaf1ea189e8d2f698",
+   "identical": true
+  },
+  {
+   "file": "stage_b.json",
+   "hash_run_1": "2b4bcc64d2e152425536485a324a46ee16bed37aec8fbf17d3a35bd9d558a0f3",
+   "hash_run_2": "2b4bcc64d2e152425536485a324a46ee16bed37aec8fbf17d3a35bd9d558a0f3",
+   "identical": true
+  },
+  {
+   "file": "stage_c2.json",
+   "hash_run_1": "6b0df612d54f1d938b77cec16710487a73d0fa1ff21c522a832e78f7ec357107",
+   "hash_run_2": "6b0df612d54f1d938b77cec16710487a73d0fa1ff21c522a832e78f7ec357107",
+   "identical": true
+  }
+ ],
+ "c1_nominal_spot_replicate": [
+  {
+   "cell": [
+    1000,
+    10
+   ],
+   "coinc_p_stored": 0.3051552780643192,
+   "coinc_p_replicate": 0.3051552780643192,
+   "coinc_chi2_stored": 499009.37179926113,
+   "coinc_chi2_replicate": 499009.37179926113,
+   "identical": true
+  },
+  {
+   "cell": [
+    500,
+    50
+   ],
+   "coinc_p_stored": 0.5912014826077466,
+   "coinc_p_replicate": 0.5912014826077466,
+   "coinc_chi2_stored": 124135.3968040304,
+   "coinc_chi2_replicate": 124135.3968040304,
+   "identical": true
+  },
+  {
+   "cell": [
+    2000,
+    100
+   ],
+   "coinc_p_stored": 0.26681817258198043,
+   "coinc_p_replicate": 0.26681817258198043,
+   "coinc_chi2_stored": 1998244.5870864347,
+   "coinc_chi2_replicate": 1998244.5870864347,
+   "identical": true
+  }
+ ],
+ "c1_spot_replicate_all_identical": true,
+ "all_identical": true,
+ "commands_rerun": [
+  "partB.py",
+  "partA.py --stage a1",
+  "partC.py --stage c2"
+ ],
+ "hash_excludes": [
+  "wall_seconds"
+ ],
+ "wall_seconds": 70.05998134985566
+}

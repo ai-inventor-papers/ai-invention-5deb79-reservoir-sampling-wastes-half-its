@@ -1,0 +1,159 @@
+{
+  "Q1": {
+    "finding": "E1/forced.py bit_budget() (lines 109-171) computes, at line 133, upper_per = np.minimum(ratio_BA - inv_A, log2k) where ratio_BA = k/(i-k) (the fraction B/A = C(i-1,k-1)/C(i-1,k)) and inv_A = 1/C(i-1,k), so ratio_BA - inv_A = (B-1)/A, i.e. the FRACTION-OF-SOURCES-THAT-SPLIT-style quantity from fibermap.py's entropy_bracket 'upper_bits' definition (fibermap.py:466, 'upper = (B-1)/A'). log2k = log2(k) (forced.py:122). The code takes min((B-1)/A, log2(k)) DIRECTLY as the per-acceptance eviction-entropy bound (bits), with no separate multiplication by log2(k) anywhere in the min() expression -- exactly the missing factor the defect describes: (B-1)/A is a fraction in [0,1] (a probability-like quantity from the entropy-of-a-forest bound: sum_S H(q_S) <= B-1 over A sources, per fibermap.py:440-449's docstring), not already a bit count, so an entropy UPPER bound derived from '#split-sources / #sources' should read min((B-1)/A, 1) * log2(k) bits (at most log2(k) bits per split source, and a fraction (B-1)/A of sources split), but the code instead computes min((B-1)/A, log2(k)) -- capping the RAW FRACTION at log2(k) rather than multiplying the fraction by log2(k). For k>2 this silently produces a bound that is too small once (B-1)/A exceeds 1 in magnitude relative to log2(k) (the min just returns log2(k) directly, which is only a valid per-acceptance entropy cap if EVERY source that has any split at all carries the maximum log2(k) bits AND all A sources split, which is not what (B-1)/A > log2(k) means), and once (B-1)/A < log2(k) the code returns the raw fraction (B-1)/A UNSCALED as if it were already a bit quantity, i.e. bits_bound = (B-1)/A bits/acceptance rather than (B-1)/A * log2(k) bits/acceptance -- the missing log2(k) factor. This upper_per value is used unmodified as opt_evict_upper = sum(acc_p * upper_per) (forced.py:142), which feeds optimal_evict_bits_upper, total_optimal_bits_upper, and bit_saving_frac_lower_bound in the returned dict (forced.py:156-161), consumed downstream by method.py:349-351 (report columns) and run_screen.py:215,285 (bit_saving_frac_lower_bound headline).",
+    "quotes": [
+      {
+        "file": "E1/forced.py",
+        "lines": "109-171",
+        "text": "def bit_budget(n: int, k: int) -> dict[str, Any]:\n    \"\"\"Exact-to-float-precision bit budgets for one (n, k).\n\n    All sums run over the arriving item index i = k+1 .. n.  At that step the source\n    fiber sits over the prefix i-1, so the divisibility condition k | ((i-1)+1) reads\n    ``k | i``.\n    \"\"\"\n    if n <= k:\n        raise ValueError(\"need n > k\")\n    i = np.arange(k + 1, n + 1, dtype=np.float64)\n    ii = np.arange(k + 1, n + 1, dtype=np.int64)\n    acc_p = k / i\n    accept_bits = float(_h_vec(acc_p).sum())\n    log2k = log2(k) if k > 1 else 0.0\n    classical_evict_bits = float((acc_p * log2k).sum())\n\n    # Analytic bracket on the MINIMUM eviction bits of an optimal rule.\n    # per acceptance at arriving item i:  0 if k | i, else in [h(1/k)*ceil(B/k)/A, (B-1)/A]\n    # with A = C(i-1,k), B = C(i-1,k-1), B/A = k/(i-k).\n    divisible = (ii % k) == 0\n    with np.errstate(divide=\"ignore\", invalid=\"ignore\"):\n        ratio_BA = np.where(i - k > 0, k / np.maximum(i - k, 1e-300), np.inf)\n    logA = np.array([_log2_binom(int(v) - 1, k) for v in ii])\n    inv_A = np.power(2.0, -logA)\n    upper_per = np.minimum(ratio_BA - inv_A, log2k)\n    upper_per = np.maximum(upper_per, 0.0)\n    upper_per = np.where(divisible, 0.0, upper_per)\n\n    hk = binary_entropy(1.0 / k) if k > 1 else 0.0\n    # lower per acceptance = h(1/k) * ceil(B/k) / A  >=  h(1/k) * (B/k)/A = h(1/k)/(i-k)\n    lower_per = np.where(divisible, 0.0, hk / np.maximum(i - k, 1.0))\n    lower_per = np.where(k > 1, lower_per, 0.0)\n\n    opt_evict_upper = float((acc_p * upper_per).sum())\n    opt_evict_lower = float((acc_p * lower_per).sum())\n\n    total_classical = accept_bits + classical_evict_bits\n    total_opt_upper = accept_bits + opt_evict_upper\n    log2_binom_nk = _log2_binom(n, k)\n\n    return {\n        \"n\": n,\n        \"k\": k,\n        \"accept_bits\": accept_bits,\n        \"classical_evict_bits\": classical_evict_bits,\n        \"evict_frac\": classical_evict_bits / total_classical if total_classical else 0.0,\n        \"total_classical_bits\": total_classical,\n        \"optimal_evict_bits_upper\": opt_evict_upper,\n        \"optimal_evict_bits_lower\": opt_evict_lower,\n        \"total_optimal_bits_upper\": total_opt_upper,\n        \"bit_saving_frac_lower_bound\": (total_classical - total_opt_upper) / total_classical\n        if total_classical\n        else 0.0,\n        \"n_divisible_steps\": int(divisible.sum()),\n        \"n_steps\": int(ii.size),\n        \"frac_divisible_steps\": float(divisible.mean()),\n        \"log2_binom_n_k\": log2_binom_nk,\n        \"anytime_overhead_classical\": total_classical / log2_binom_nk if log2_binom_nk > 0 else None,\n        \"anytime_overhead_optimal_upper\": total_opt_upper / log2_binom_nk\n        if log2_binom_nk > 0\n        else None,\n        \"accept_only_overhead\": accept_bits / log2_binom_nk if log2_binom_nk > 0 else None,\n    }\n"
+      },
+      {
+        "file": "E1/fibermap.py",
+        "lines": "446-465",
+        "text": "def entropy_bracket(i: int, k: int) -> dict[str, Any]:\n    \"\"\"Pre-registered bounds on the minimum per-acceptance eviction entropy (bits).\n\n    UPPER: a minimising vertex of a transportation polytope has a forest support, so\n    #edges <= A + B - 1 and sum_S H(q_S) <= sum_S (deg_S - 1) <= B - 1.\n    LOWER: every vertex coordinate lies in (1/k)Z; when k does not divide (i+1) each\n    target's fractional demand forces at least one fractionally-served source, and a\n    split source has a part in [1/k, 1-1/k] so H(q_S) >= h(1/k).  A split source serves\n    at most k targets, so at least ceil(B/k) sources split.\n    \"\"\"\n    A, B = comb(i, k), comb(i, k - 1)\n    divisible = (i + 1) % k == 0\n    upper = (B - 1) / A\n    if divisible:\n        lower = 0.0\n    else:\n        lower = binary_entropy(1.0 / k) * (-(-B // k)) / A\n    return {\n        \"A_sources\": A,\n        \"B_targets\": B,\n        \"divisible\": divisible,\n        \"lower_bits\": lower,\n        \"upper_bits\": upper,\n        \"upper_asymptotic_k_over_i_minus_k_plus_1\": k / (i - k + 1),\n        \"log2_k\": log2(k) if k > 1 else 0.0,\n    }"
+      }
+    ],
+    "verdict": "CONFIRMED",
+    "details": {
+      "variable_name": "upper_per",
+      "exact_expression_as_written": "upper_per = np.minimum(ratio_BA - inv_A, log2k)  # forced.py:133, where ratio_BA = k/(i-k) (forced.py:130) and inv_A = 1/C(i-1,k) (forced.py:131-132), i.e. upper_per = min((B-1)/A, log2(k))",
+      "compared_against": "log2k = log2(k) if k > 1 else 0.0  (forced.py:122)",
+      "downstream_usage_grep_E1": [
+        "forced.py:142  opt_evict_upper = float((acc_p * upper_per).sum())",
+        "forced.py:146  total_opt_upper = accept_bits + opt_evict_upper",
+        "forced.py:156  \"optimal_evict_bits_upper\": opt_evict_upper,",
+        "forced.py:159-161  \"bit_saving_frac_lower_bound\": (total_classical - total_opt_upper) / total_classical",
+        "method.py:349-351  report column list includes total_classical_bits, optimal_evict_bits_lower, optimal_evict_bits_upper, total_optimal_bits_upper, bit_saving_frac_lower_bound, log2_binom_n_k, anytime_overhead_classical, anytime_overhead_optimal_upper",
+        "run_screen.py:215  saving = k10[\"bit_saving_frac_lower_bound\"] if k10 else 0.0",
+        "run_screen.py:285  gate path string \"bit_budgets.rows[k=10].bit_saving_frac_lower_bound\"",
+        "optimal_evict_bits_upper/lower values are also persisted verbatim into method_out.json / full_method_out.json / mini_method_out.json / preview_method_out.json / results/heldout_results.json / results/screen_results.json (e.g. full_method_out.json:2349-2350)"
+      ],
+      "k_equals_2_coincidence_check": {
+        "algebra": "log2(k) at k=2 is log2(2) = 1. The two candidate forms are x = (B-1)/A (the raw split-fraction, what the code actually uses) and x*log2(k) (the form the defect claims is the correct entropy bound). At k=2, x*log2(k) = x*1 = x, i.e. the two forms are IDENTICAL (not merely numerically close -- algebraically equal for any value of x) whenever k=2, because log2(2)=1 is the multiplicative identity. Consequently any test or sanity check run only at k=2 cannot distinguish 'min(x, log2k)' from 'min(x*log2k, log2k)' or from 'x*log2k' -- the missing-factor defect is invisible at k=2 and only manifests for k>2 (where log2(k) != 1, e.g. tests/test_gates.py:238's test_bit_budget_reproduces_hypothesis_constants only exercises k in (10, 100, 1000), never k=2, so this defect is not screened out there either, but for a different reason -- it's simply never checked against an independent exact reference at any k)."
+      },
+      "note_on_docstring_mismatch": "forced.py's own module docstring (lines 18-19) states the bracket as 'at most (C(i-1,k-1)-1)/C(i-1,k) ~ k/(i-k)' with NO log2(k) factor at all -- i.e. the docstring's claimed bracket is dimensionally a bare fraction, not bits, matching what the code literally computes (min of that fraction and log2k) rather than matching the 'per-acceptance eviction ENTROPY (bits)' framing used in the surrounding prose and in fibermap.py's entropy_bracket (whose own 'upper_bits' field, fibermap.py:463, is ALSO just '(B-1)/A' with no log2(k) multiplication -- so the bug, if it is one, is inherited from fibermap.py's entropy_bracket definition itself, not introduced fresh in forced.py; forced.py's upper_per additionally applies a min() against log2k that entropy_bracket does not)."
+    }
+  },
+  "Q2": {
+    "rows": [
+      {
+        "file": "E1/fibermap.py",
+        "lines": "112-116 (build_fiber)",
+        "condition": "div_a = (i - k + 1) % k == 0 ; div_b = (i + 1) % k == 0 ; assert div_a == div_b",
+        "i_means": "prefix_size",
+        "divisibility_form": "k|(i-k+1)  [asserted identical to k|(i+1)]",
+        "loop_header_quote": "def build_fiber(i: int, k: int) -> Fiber:  (fibermap.py:87); module docstring line 4: \"At the step where item ``i+1`` arrives, a sampler that is uniform on k-subsets of [i] ...\"; sources/targets built as combinations(range(1, i+1), k) i.e. i-subsets are drawn from [1..i], so i is the PREFIX already absorbed, and the arriving item is explicitly i+1."
+      },
+      {
+        "file": "E1/fibermap.py",
+        "lines": "457 (entropy_bracket)",
+        "condition": "divisible = (i + 1) % k == 0",
+        "i_means": "prefix_size",
+        "divisibility_form": "k|(i+1)",
+        "loop_header_quote": "def entropy_bracket(i: int, k: int) -> dict[str, Any]:  (fibermap.py:446); A, B = comb(i, k), comb(i, k - 1)  -- A is the count of k-subsets of a size-i set, i.e. i is the prefix size exactly as in build_fiber."
+      },
+      {
+        "file": "E1/fibermap.py",
+        "lines": "573-574 (analyse_step)",
+        "condition": "\"divisible_form_a_i_minus_k_plus_1\": (i - k + 1) % k == 0, \"divisible_form_b_i_plus_1\": (i + 1) % k == 0,",
+        "i_means": "prefix_size",
+        "divisibility_form": "k|(i-k+1) and k|(i+1) (both reported, both agree)",
+        "loop_header_quote": "def analyse_step(i: int, k: int, ...): row = {\"i_prefix\": i, \"arriving_item\": i + 1, ...}  (fibermap.py:559-568) -- the function's own field names explicitly label i as the prefix and i+1 as the arriving item."
+      },
+      {
+        "file": "E1/forced.py",
+        "lines": "112-128 (bit_budget)",
+        "condition": "divisible = (ii % k) == 0   where ii = np.arange(k + 1, n + 1, dtype=np.int64)",
+        "i_means": "arriving_item",
+        "divisibility_form": "k|i  (docstring: \"the divisibility condition k | ((i-1)+1) reads k | i\", i.e. i here is the arriving item, prefix = i-1)",
+        "loop_header_quote": "\"\"\"Exact-to-float-precision bit budgets for one (n, k).\\n\\n    All sums run over the arriving item index i = k+1 .. n.  At that step the source\\n    fiber sits over the prefix i-1, so the divisibility condition k | ((i-1)+1) reads\\n    ``k | i``.\\n    \"\"\"  (forced.py:110-115); i = np.arange(k + 1, n + 1, dtype=np.float64) (forced.py:118); acc_p = k / i (forced.py:120) matches the arriving-item accept-probability convention k/i, NOT forced_accept_check's own k/(i+1) convention earlier in the same file (forced.py:8,47) where that function's i is the prefix."
+      },
+      {
+        "file": "E1/exact_dp.py",
+        "lines": "ABSENT",
+        "condition": "ABSENT -- no `% k`, `k |`, `divisible`, or `mod k` pattern found anywhere in the file",
+        "i_means": "n/a (searched: grep -n \"% k\\|k |\\|divisible\\|mod k\\|mod\\b\" exact_dp.py returned zero matches; function signatures state_space_size(k,i,...), all_k_subsets(i,k), pairwise_inclusion(...,i) use i as the accepted-item / prefix-size parameter generically but exact_dp.py itself never branches on k|i-type conditions -- it delegates eviction entirely to whichever Sampler (from candidates.py) it is given.)",
+        "divisibility_form": "ABSENT",
+        "loop_header_quote": "ABSENT"
+      },
+      {
+        "file": "E2/s1t.py",
+        "lines": "263-282 (solve_step), 401-419 (_get_table / s1t_children)",
+        "condition": "m = i - k; d_target, s = divmod(m, k)  [solve_step:277-278]  and  if m % k == 0: (s1t_children:418, restated from docstring line 413: \"Deterministic sum-mod-k rank when (i-k) % k == 0\")",
+        "i_means": "arriving_item",
+        "divisibility_form": "k|(i-k)",
+        "loop_header_quote": "module docstring lines 6-13: \"The stream is the index sequence 1..n in increasing order, ... At stream position i the sampler accepts item i with probability exactly k/i. ... SOURCES = k-subsets S of [i-1] (count Ns = C(i-1, k)) ...\"; def solve_step(i: int, k: int, ...): if i <= k: raise ValueError(... \"i must exceed k\") ...; Ns = math.comb(i - 1, k)  (s1t.py:277) -- sources are subsets of [i-1], confirming i is the arriving item's own index, prefix = i-1."
+      },
+      {
+        "file": "E2/candidates.py",
+        "lines": "136-158 (_summodk_scalar), 166-185 (_summodk_hybrid_scalar), 301-313 (s5e_scalar), 571-611 (_children_summodk/_children_hybrid), 746-747 (S5e Candidate step_filter/measurable)",
+        "condition": "for i in range(k + 1, n + 1): ... m = i - k; s = m % k  [line 146-147]; \"\"\"S1h: deterministic rank when k | (i-k)...\"\"\" then `if (i - k) % k == 0:` [line 175]; s5e_scalar's `if i % k: continue` [line 306]; step_filter=lambda i, k: i % k == 0 [line 746]",
+        "i_means": "arriving_item",
+        "divisibility_form": "k|(i-k)  (primary form, used by S1/S1n/S1h); also k|i directly for S5e (equivalent: k|i iff k|(i-k))",
+        "loop_header_quote": "def _summodk_scalar(src: _Source, n: int, k: int, *, repair: bool) -> list[int]: res = list(range(1, k + 1)); rowsum = sum(res); for i in range(k + 1, n + 1): with src.op(\"accept\"): acc = src.bernoulli(k, i)  (candidates.py:136-142) -- i is the loop variable driving the accept-probability call bernoulli(k, i) = k/i, i.e. i is the arriving item at this step, exactly as in s1t.py."
+      }
+    ],
+    "files_disagree": true,
+    "explanation": "There is no ARITHMETIC contradiction -- every condition, once translated to the same physical quantity, says the same thing: the certificate/deterministic rank is exact iff the ARRIVING ITEM's own index is divisible by k. But the SYMBOL i is bound to two different quantities across these files, which is a real convention hazard (exactly the kind of thing that produces off-by-one bugs if code is copied between the two conventions without renaming):\n  (1) fibermap.py uses i = PREFIX SIZE everywhere (build_fiber, entropy_bracket, analyse_step all treat i as the size of the already-seen set [i], with the arriving item explicitly labelled i+1, and its accept probability convention elsewhere in the codebase for this i is k/(i+1)). Its divisibility conditions are written as k|(i+1) or equivalently k|(i-k+1).\n  (2) E1/forced.py's OWN bit_budget function switches convention MID-FILE: its docstring explicitly redefines i as 'the arriving item index' (not the prefix used two functions earlier in forced_accept_check, where i again means the PREFIX, matching fibermap.py). bit_budget's divisibility condition is k|i with i = arriving item -- the SAME symbol i means prefix in forced_accept_check and arriving-item in bit_budget within one module.\n  (3) E2/s1t.py and E2/candidates.py both consistently use i = ARRIVING ITEM INDEX (accept probability k/i, sources drawn from [i-1]), and write the divisibility condition as k|(i-k) (equivalently k|i, used directly by S5e's step_filter). This matches forced.py's bit_budget convention but NOT fibermap.py's convention.\n  (4) E1/candidates.py has no divisibility condition to compare directly, but its accept(i,k) = Fraction(k, i) (candidates.py:41-42) shows it ALSO uses i = arriving item, i.e. even within experiment E1, fibermap.py's i-convention (prefix) disagrees with candidates.py's i-convention (arriving item) though the two modules are used together (candidates.py:28 imports fibermap and candidates.py's TableDriven sampler class reads fibermap's flow tables built with build_fiber(i,k) using i=prefix, while candidates.py's own evict(slots,i,k) signature receives i=arriving item -- so any code path that calls fibermap.build_fiber(i, k) using the i handed to evict() would silently be off by one, unless it is deliberately translated, which the surrounding code in fibermap.py's own analyse_cell/eviction_table wrappers appears to do by passing the prefix explicitly.)\nexact_dp.py contains no divisibility condition and is not part of the disagreement."
+  },
+  "Q3": {
+    "function_location": "E2/algol.py:543-652",
+    "quote": {
+      "file": "E2/algol.py",
+      "lines": "543-652",
+      "text": "def audit_realistic_regime(k: int, n_list: list[float], n_draws: int, seed: int, dps: int = 80) -> list[dict[str, Any]]:\n    \"\"\"Audit shipped/fixed/logdomain at the REALISTIC stream-position regime W = k/n.\n\n    Unlike `audit_algo_l` (which advances through a random multiplicative\n    trajectory), this directly injects the target state W = k/n -- exactly\n    the value Algorithm L's own theory says W takes at stream position n for\n    reservoir size k -- and measures the float64 skip-rate error against an\n    exact mpmath dps=80 reference AT THAT EXACT TARGET, for n spanning\n    ordinary to extreme stream lengths. Because the state is a single fixed\n    injected value (not a per-trial trajectory), only ONE exact rate\n    reference per n is needed regardless of n_draws, so this stays fast\n    even at large n_draws; only the per-trial exact SKIP (which does vary\n    with u2) needs one mpmath floor/log per draw, still O(1) work per draw\n    (no trajectory loop), unlike `audit_algo_l`'s exact path.\n    \"\"\"\n    logger.info(f\"audit_realistic_regime: k={k} n_list={n_list} n_draws={n_draws} seed={seed}\")\n    rng = np.random.default_rng(seed)\n    results: list[dict[str, Any]] = []\n    tiny = 1e-300\n\n    for n in n_list:\n        if n <= 2 * k:\n            # W = k/n is only a meaningful reservoir state when the stream is\n            # longer than the reservoir; k/n >= 1/2 is not the regime this cell\n            # is about (and k/n >= 1 is not a probability at all).  Record the\n            # skip explicitly rather than crashing or silently dropping it.\n            results.append({\n                \"k\": int(k), \"n\": float(n), \"regime\": \"realistic_W_eq_k_over_n\",\n                \"status\": \"SKIPPED_n_le_2k\",\n                \"reason\": \"W = k/n would be >= 0.5; not a stream-position regime\",\n            })\n            continue\n        U2 = rng.random(n_draws)\n        W_f64 = k / n  # ordinary float64 division: the realistic float64 state\n        V_f64 = 1.0 - W_f64\n        logW_f64 = math.log(W_f64)\n\n        with np.errstate(divide=\"ignore\", invalid=\"ignore\", over=\"ignore\"):\n            rate_shipped_f64 = math.log(1.0 - W_f64)\n            rate_fixed_f64 = math.log1p(-V_f64)\n            rate_logdomain_f64 = _log1mexp_scalar(logW_f64)\n\n            skip_shipped_arr = np.floor(np.log(1.0 - U2) / rate_shipped_f64)\n            skip_fixed_arr = np.floor(np.log1p(-U2) / rate_fixed_f64)\n            skip_logdomain_arr = np.floor(np.log(U2) / rate_logdomain_f64)\n\n        with mp.workdps(dps):\n            W_exact = mp.mpf(k) / mp.mpf(n)  # exact target ratio, no float64 rounding at all\n            V_exact = 1 - W_exact\n            rate_exact_shipped_mp = mp.log(1 - W_exact)\n            rate_exact_fixed_mp = mp.log1p(-V_exact)\n            rate_exact_logdomain_mp = mp.log(1 - W_exact)  # logdomain targets the same log(1-W) as shipped\n\n            rate_exact_shipped_f = float(rate_exact_shipped_mp)\n            rate_exact_fixed_f = float(rate_exact_fixed_mp)\n            rate_exact_logdomain_f = float(rate_exact_logdomain_mp)\n\n            skip_exact_shipped = np.array(\n                [float(mp.floor(mp.log(1 - mp.mpf(float(u))) / rate_exact_shipped_mp)) for u in U2]\n            )\n            skip_exact_fixed = np.array(\n                [float(mp.floor(mp.log1p(-mp.mpf(float(u))) / rate_exact_fixed_mp)) for u in U2]\n            )\n            skip_exact_logdomain = np.array(\n                [float(mp.floor(mp.log(mp.mpf(float(u))) / rate_exact_logdomain_mp)) for u in U2]\n            )\n\n        with np.errstate(invalid=\"ignore\"):\n            disagree_shipped = float(np.mean(skip_shipped_arr != skip_exact_shipped))\n            disagree_fixed = float(np.mean(skip_fixed_arr != skip_exact_fixed))\n            disagree_logdomain = float(np.mean(skip_logdomain_arr != skip_exact_logdomain))\n\n        rel_rate_err_shipped = abs(rate_shipped_f64 - rate_exact_shipped_f) / max(abs(rate_exact_shipped_f), tiny)\n        rel_rate_err_fixed = abs(rate_fixed_f64 - rate_exact_fixed_f) / max(abs(rate_exact_fixed_f), tiny)\n        rel_rate_err_logdomain = abs(rate_logdomain_f64 - rate_exact_logdomain_f) / max(abs(rate_exact_logdomain_f), tiny)\n\n        predicted_law = (2.0**-53) * n / k\n        ratio_to_predicted = rel_rate_err_shipped / predicted_law if predicted_law > 0 else float(\"inf\")\n\n        mean_s_exact_shipped = float(np.mean(skip_exact_shipped))\n        mean_s_shipped_f64 = float(np.mean(skip_shipped_arr))\n        inclusion_bias = (mean_s_shipped_f64 - mean_s_exact_shipped) / max(mean_s_exact_shipped, 1.0) ** 2\n\n        n_eff = 1000.0\n        p = k / n_eff\n        bias = abs(inclusion_bias)\n        if bias == 0.0:\n            trials_needed: float = float(\"inf\")\n        else:\n            trials_needed = (1.96 * math.sqrt(max(p * (1.0 - p), 0.0)) / bias) ** 2\n\n        results.append(\n            {\n                \"k\": int(k),\n                \"n\": _jsonable(n),\n                \"W_target\": _jsonable(W_f64),\n                \"n_draws\": int(n_draws),\n                \"disagree_rate_shipped\": _jsonable(disagree_shipped),\n                \"disagree_rate_fixed\": _jsonable(disagree_fixed),\n                \"disagree_rate_logdomain\": _jsonable(disagree_logdomain),\n                \"rel_rate_err_shipped\": _jsonable(rel_rate_err_shipped),\n                \"rel_rate_err_fixed\": _jsonable(rel_rate_err_fixed),\n                \"rel_rate_err_logdomain\": _jsonable(rel_rate_err_logdomain),\n                \"predicted_rel_rate_err_law\": _jsonable(predicted_law),\n                \"ratio_measured_over_predicted_shipped\": _jsonable(ratio_to_predicted),\n                \"inclusion_bias_shipped\": _jsonable(inclusion_bias),\n                \"trials_needed_to_detect\": _jsonable(trials_needed),\n            }\n        )\n    return results\n"
+    },
+    "verdict": "CONFIRMED",
+    "confirmation": "For every n in realistic_n_list (default [1e3, 1e6, 1e9, 1e12, 1e15], set at algol.py:872, and reused at the module's main() call algol.py:996-997 with the SAME list), and for n > 2k, audit_realistic_regime does NOT run a random multiplicative trajectory of Algorithm L from the start of the stream. It directly sets W_f64 = k / n (algol.py:576, an ordinary float64 division -- no loop, no accumulated multiplicative products of (1 - Bernoulli/geometric skip) terms) and separately sets the exact reference W_exact = mp.mpf(k) / mp.mpf(n) (algol.py:590, high-precision division of the same closed form). The docstring says this explicitly: 'Unlike audit_algo_l (which advances through a random multiplicative trajectory), this directly injects the target state W = k/n -- exactly the value Algorithm L's own theory says W takes at stream position n ...' (algol.py:546-550/docstring lines 27-30 relative to function start). Only the per-trial SKIP computation (how many items are skipped starting from that injected W) is drawn n_draws times via U2 = rng.random(n_draws) (algol.py:575) and floor(log(u)/rate) formulas (algol.py:581-583, 596-604) -- there is no loop over stream positions 1..n or k..n anywhere in this function; the only Python for-loop is 'for n in n_list:' (algol.py:565) iterating over the 5 requested cells, plus list-comprehension loops over the n_draws U2 samples computing the exact mpmath skip (algol.py:598-606), each an O(1) mpmath floor/log call per draw at the FIXED injected W, not a trajectory advance.",
+    "loop_count_actually_used": {
+      "n_draws_default": 2000,
+      "quote_of_default": "def audit_realistic_regime_defaults appear via the call site: realistic_n_draws: int = 2000,  (algol.py:853); realistic_n_list: list[float] | None = None, ... if realistic_n_list is None: realistic_n_list = [1e3, 1e6, 1e9, 1e12, 1e15]  (algol.py:871-872); c for k in ks for c in audit_realistic_regime(k=k, n_list=realistic_n_list, n_draws=realistic_n_draws, seed=seed, dps=dps)  (algol.py:877); main() also calls it with realistic_n_list=[1e3, 1e6, 1e9, 1e12, 1e15], realistic_n_draws=2000,  (algol.py:996-997)",
+      "note": "So for the n=1e12 and n=1e15 cells specifically, the function draws exactly n_draws=2000 uniform(0,1) samples (U2 = rng.random(n_draws), algol.py:575) at the single injected state W=k/n, and computes 2000 floor(log(u)/rate) skip values in float64 plus 2000 mpmath-exact skip values -- it is a 2000-point Monte Carlo AT one fixed injected state, not a stream walk of length 1e12 or 1e15."
+    }
+  },
+  "Q4": {
+    "how_many_fits": 4,
+    "fits": [
+      {
+        "k": 2,
+        "C": 1.1320786053523462,
+        "r2": 0.8916260297541964,
+        "n_points": 86,
+        "n_rows": 172,
+        "max_i_solved": 174
+      },
+      {
+        "k": 3,
+        "C": 0.9244827454253741,
+        "r2": 0.8478302243964838,
+        "n_points": 29,
+        "n_rows": 43,
+        "max_i_solved": 46
+      },
+      {
+        "k": 4,
+        "C": 0.767430347455377,
+        "r2": 0.742663093022558,
+        "n_points": 18,
+        "n_rows": 23,
+        "max_i_solved": 27
+      },
+      {
+        "k": 5,
+        "C": 0.7719068728945562,
+        "r2": 0.6992222334662763,
+        "n_points": 12,
+        "n_rows": 15,
+        "max_i_solved": 20
+      }
+    ],
+    "C_trend_in_k": "decreasing (mostly monotonic: 1.132 at k=2 -> 0.924 at k=3 -> 0.767 at k=4, with a tiny non-monotonic uptick to 0.772 at k=5, still below k=2,3,4's neighbors trend but slightly above k=4)",
+    "headline_C_used": 1.1320786053523462,
+    "headline_C_source_k": 2,
+    "code_quote": "E2/method.py:293-330 (the MAIN block that produces the 35.8 / 380.8-bit headline):\n    curves = [{k: v for k, v in c.items() if k != \"rows\"}\n              for c in (s1t.get(\"curves\") or [])]\n    # Use the LARGEST fitted C across k -- the most CONSERVATIVE choice, since a\n    # larger C means a larger predicted eviction budget for S1t and therefore a\n    # SMALLER claimed saving.  The whole range is reported next to it.\n    fits = [(float(c[\"fit_C\"]), c[\"k\"], c.get(\"fit_R2\"), c.get(\"n_randomised_points\"))\n            for c in curves\n            if isinstance(c.get(\"fit_C\"), (int, float)) and math.isfinite(float(c[\"fit_C\"]))]\n    fitC = max(f[0] for f in fits) if fits else None\n    fit_src_k = max(fits)[1] if fits else None\n    ...\n    for k in (10, 100, 1_000):\n        for n in (1_000_000, 10_000_000):\n            tail = float(_pg(1, k + 1) - _pg(1, n + 1))\n            ev = fitC * k * k * math.log2(k) * tail\n            ...\n            a = _b.accept_H(n, k)\n            e0 = _b.evict_H(n, k)\n            s1t_budget.append({... \"fit_C\": fitC, \"fit_source_k\": fit_src_k, ...\n                \"S1t_evict_bits\": ev, \"classical_evict_bits\": e0, ...})\nThis is the code path actually stored at metadata.verdicts.MAIN.s1t_closed_form_budget in full_method_out.json, and for n=1e6, k=10 it yields fit_C=1.1320786053523462 (fit_source_k=2), S1t_evict_bits=35.788672905949674, classical_evict_bits=380.81781330833445 -- exactly the 35.8-vs-380.8 headline pair.",
+    "additional_finding_discrepant_second_C_used_for_same_cell": {
+      "description": "There is a SECOND, independently-computed extrapolation for the identical (n=1e6, k=10) cell living at metadata.verdicts.MAIN.s1t.extrapolation in the same full_method_out.json, produced by E2/s1t.py's own main() (s1t.py:643-659), which instead picks fit_C_for_extrapolation = fit_by_k[largest_k_solved] where largest_k_solved = max(fit_by_k) = 5 (the LARGEST k actually fit, not the largest C), giving fit_C_used = 0.7719068728945562 (k=5's C) and therefore total_evict_bits_at_n = 24.40247740507349 for the SAME (n=1e6, k=10) cell -- a different number (24.4 bits) from the headline's 35.8 bits, because the two code paths use two different selection rules for 'which fitted C to use' (method.py: max-C-across-k=2..5 called 'most conservative'; s1t.py's own main(): C measured at the largest k actually solved). Both values are present verbatim in the same JSON output under different key paths (metadata.s1t_table_exact.fit_C_source_k = 5 vs metadata.verdicts.MAIN.s1t_fit_C_range / s1t_closed_form_budget's fit_source_k = 2).",
+      "code_quote_s1t_py_main": "E2/s1t.py:643-659:\n    largest_k_solved = max(fit_by_k)\n    fit_C_for_extrapolation = fit_by_k[largest_k_solved]\n    logger.info(\n        f\"(d) extrapolate_total for k in {{10,100}} at n in {{1e6,1e7}}, \"\n        f\"using fit_C={fit_C_for_extrapolation:.6f} measured at k={largest_k_solved} \"\n        \"-- extrapolating this fit to k=10/100 is an ASSUMPTION, not a measurement\"\n    )"
+    }
+  }
+}

@@ -1,0 +1,2 @@
+17:00:42|INFO   |A1 power curve over D=[1024, 4096, 16384, 65536] eps=[0.1, 0.2, 0.35, 0.5] reps=300
+17:01:05|INFO   |stage a1 -> /ai-inventor/aii_data/runs/run_2L_JomowDIGF/3_invention_loop/iter_2/gen_art/gen_art_evaluation_1/results/stage_a1.json in 22.7s

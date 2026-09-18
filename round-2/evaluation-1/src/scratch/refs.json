@@ -1,0 +1,98 @@
+[
+  {
+    "ref_id": "R11",
+    "as_printed": "Joachim Breitner, \"Reservoir sampling with few random bits\" (blog post)",
+    "canonical": "Joachim Breitner, \"Reservoir sampling with few random bits,\" personal blog post, published 2018-03-25, https://www.joachim-breitner.de/blog/737-Reservoir_sampling_with_few_random_bits (with a 2-comment reader thread, most recently 2019-01-31)",
+    "status": "NON_PEER_REVIEWED",
+    "source_url": "https://www.joachim-breitner.de/blog/737-Reservoir_sampling_with_few_random_bits",
+    "note": "Fetched the live page in full. It is a personal blog post on Joachim Breitner's homepage (Published 2018-03-25, tags 'English'/'Math'), NOT a peer-reviewed venue, and it carries a comment thread with two reader replies (Benjamin Price, 2018-04-18; Christoph Pfister, 2019-01-31). IMPORTANT: Breitner's own post body does NOT give a closed form for the bit cost -- it ends with an open question ('What is the expected number of coin throws for n prisoners? Does this number converge to log(n) ...?'). The closed form quoted in the task appears only in the second reader COMMENT, by Christoph Pfister (2019-01-31), under the comment's own '### Asymptotics' subheading. Verbatim quote from that location: \"H(X2, X3, …, Xn) = H_b(1/2) + H_b(1/3) + ⋯ + H_b(1/n), where H_b denotes the binary entropy function. Consequently, it is not difficult to show that H(X2, X3, …, Xn) = log2 n + ∑ k=2…n (1/k)⋅log2(k−1). Asymptotically, this behaves like (ln n)2/(2⋅ln 2), i.e., lim n→∞ (H(X2, X3, …, Xn))/((ln n)2/(2⋅ln 2)) = 1.\" This matches the expected form H = log2(n) + sum (1/k) log2(k-1) ~ (ln n)^2/(2 ln 2), but it is a commenter's derivation (citing Knuth & Yao 1976 and Cover & Thomas), not a claim made by Breitner in the article body itself."
+  },
+  {
+    "ref_id": "R25",
+    "as_printed": "[citation printed with year 2025, but carrying a DOI in the 2026 IEEE Transactions on Information Theory volume range]",
+    "canonical": "",
+    "status": "UNRESOLVED",
+    "source_url": "",
+    "note": "No exact DOI string was supplied, so a unique record cannot be confirmed. Search steps taken: (1) Crossref journal-works query on IEEE Trans. Inform. Theory (ISSN 0018-9448) restricted to pub dates 2025-01-01..2026-12-31 with query 'reservoir' -> 0 results (reservoir-sampling terminology does not appear in any 2025/2026 IEEE TIT title in Crossref's index). (2) Same journal/date-range query with 'sampling random bits' -> 42 results, none titled around reservoir sampling; closest topical matches are 'Efficient Rejection Sampling in the Entropy-Optimal Range' (Thomas L. Draper & Feras A. Saad, DOI 10.1109/tit.2026.3658044, IEEE Trans. Inform. Theory vol. 72, issue 5, pp. 2801-2822, published May 2026 -- note this is a DIFFERENT paper from arXiv:2505.18879/SODA 2026 by the same authors) and 'Communication Complexity of Exact Sampling Under Renyi Information' (Spencer Hill, Fady Alajaji, Tamas Linder, DOI 10.1109/tit.2026.3680805, vol. 72, issue 6, pp. 3525-3538, published June 2026). (3) Repeated the query with 'sampling complexity' (30 results) and 'entropy optimal random sampling' (10 results) -- the same two DOIs above are the only ones on-topic for 'random-bit-efficient sampling'; no title uses the word 'reservoir'. (4) A general WebSearch for Knuth-Yao-adjacent 2025/2026 IEEE TIT reservoir-sampling work surfaced no additional candidates. Because at least two distinct 2026-volume IEEE TIT DOIs are topically plausible and neither can be preferred without the actual DOI string (or author names) from the source citation, this reference is left UNRESOLVED rather than guessed. Per instructions, no record has been invented; the year/DOI conflict (printed 2025 vs. an IEEE TIT DOI that is necessarily in the 2026.XXXXXXX prefix range) cannot be resolved from search alone."
+  },
+  {
+    "ref_id": "Vitter1985",
+    "as_printed": "J. S. Vitter, \"Random Sampling with a Reservoir\", ACM TOMS",
+    "canonical": "Jeffrey S. Vitter, \"Random Sampling with a Reservoir,\" ACM Transactions on Mathematical Software, vol. 11, no. 1, pp. 37-57, March 1985. DOI: 10.1145/3147.3165",
+    "status": "VERIFIED",
+    "source_url": "https://dl.acm.org/doi/10.1145/3147.3165",
+    "note": "Confirmed via Crossref record for DOI 10.1145/3147.3165: single author Jeffrey S. Vitter, container-title 'ACM Transactions on Mathematical Software', volume 11, issue 1, pages 37-57, published 1985-03. Introduces Algorithm Z, O(n(1+log(N/n))) expected time. Matches as printed."
+  },
+  {
+    "ref_id": "Li1994",
+    "as_printed": "Kim-Hung Li, \"Reservoir-sampling algorithms of time complexity O(n(1+log(N/n)))\", ACM TOMS (Algorithm L)",
+    "canonical": "Kim-Hung Li, \"Reservoir-Sampling Algorithms of Time Complexity O(n(1+log(N/n))),\" ACM Transactions on Mathematical Software, vol. 20, no. 4, pp. 481-493, December 1994. DOI: 10.1145/198429.198435",
+    "status": "VERIFIED",
+    "source_url": "https://dl.acm.org/doi/10.1145/198429.198435",
+    "note": "Confirmed via Crossref record for DOI 10.1145/198429.198435: author Kim-Hung Li, container-title 'ACM Transactions on Mathematical Software', volume 20, issue 4, pages 481-493, published 1994-12. Paper improves on Vitter's Algorithm Z with Algorithm K, and introduces two new algorithms, L (simplest) and M (fastest for large n, N/n); 'Algorithm L' is confirmed to be defined in this exact paper, matching the as-printed parenthetical."
+  },
+  {
+    "ref_id": "Bhattacharya2014",
+    "as_printed": "arXiv:1407.1689 (Bhattacharya2014)",
+    "canonical": "Anup Bhattacharya, Davis Issac, Ragesh Jaiswal, Amit Kumar, \"Sampling in Space Restricted Settings,\" in Computing and Combinatorics (COCOON 2015), Lecture Notes in Computer Science vol. 9198, Springer, pp. 483-494, 2015. DOI: 10.1007/978-3-319-21398-9_38. (Preprint: arXiv:1407.1689, submitted 2014, cs.DS.)",
+    "status": "CORRECTED",
+    "source_url": "https://doi.org/10.1007/978-3-319-21398-9_38",
+    "note": "Title/authors on arXiv:1407.1689 confirmed as 'Sampling in Space Restricted Settings' by Anup Bhattacharya, Davis Issac, Ragesh Jaiswal, Amit Kumar (subject cs.DS), matching the citation's substance. However the citation key year '2014' is the arXiv preprint year, not the year of formal publication: Crossref (DOI 10.1007/978-3-319-21398-9_38) shows the peer-reviewed version appeared in COCOON 2015 (Computing and Combinatorics, LNCS vol. 9198), pages 483-494, published 2015 -- also cross-checked via WebSearch (DBLP record conf/cocoon/BhattacharyaIJ015, Springer chapter page). CORRECTED to reflect the actual peer-reviewed venue/year (COCOON 2015) alongside the 2014 arXiv preprint date."
+  },
+  {
+    "ref_id": "DraperSaad2025",
+    "as_printed": "arXiv:2505.18879, claimed SODA 2026",
+    "canonical": "Thomas L. Draper, Feras A. Saad, \"Efficient Online Random Sampling via Randomness Recycling,\" in Proceedings of the 2026 Annual ACM-SIAM Symposium on Discrete Algorithms (SODA), SIAM, pp. 2473-2511, 2026. DOI: 10.1137/1.9781611978971.89. (Preprint: arXiv:2505.18879, v1 submitted 2025-05-24, latest v5 2026-05-07.)",
+    "status": "VERIFIED",
+    "source_url": "https://doi.org/10.1137/1.9781611978971.89",
+    "note": "Confirmed via arXiv abs page (title, authors, and 'Journal reference: Proceedings of the 2026 Annual ACM-SIAM Symposium on Discrete Algorithms (SODA), pp. 2473-2511, SIAM, 2026') and independently via Crossref bibliographic search, which returned DOI 10.1137/1.9781611978971.89 with container-title 'Proceedings of the 2026 Annual ACM-SIAM Symposium on Discrete Algorithms (SODA)', pages 2473-2511, published 2026-01. The 'claimed SODA 2026' venue is correct; the arXiv id was first posted in 2025 (matching the '2025' in the ref key) and later accepted/published at SODA 2026."
+  },
+  {
+    "ref_id": "EfraimidisSpirakis2006",
+    "as_printed": "Efraimidis, Spirakis, weighted reservoir sampling (A-Res), Information Processing Letters",
+    "canonical": "Pavlos S. Efraimidis, Paul G. Spirakis, \"Weighted Random Sampling with a Reservoir,\" Information Processing Letters, vol. 97, no. 5, pp. 181-185, March 2006. DOI: 10.1016/j.ipl.2005.11.003",
+    "status": "VERIFIED",
+    "source_url": "https://doi.org/10.1016/j.ipl.2005.11.003",
+    "note": "Confirmed via Crossref record for DOI 10.1016/j.ipl.2005.11.003: authors Pavlos S. Efraimidis and Paul G. Spirakis, title 'Weighted random sampling with a reservoir', container-title 'Information Processing Letters', volume 97, issue 5, pages 181-185, published 2006-03. This is the paper that introduces the A-Res algorithm (exponential-key weighted reservoir sampling); matches as printed."
+  },
+  {
+    "ref_id": "KnuthYao1976",
+    "as_printed": "Knuth & Yao, \"The complexity of nonuniform random number generation\"",
+    "canonical": "Donald E. Knuth, Andrew C. Yao, \"The Complexity of Nonuniform Random Number Generation,\" in Algorithms and Complexity: New Directions and Recent Results (J. F. Traub, ed.), Academic Press, New York, pp. 357-428, 1976.",
+    "status": "VERIFIED",
+    "source_url": "https://www.semanticscholar.org/paper/The-complexity-of-nonuniform-random-number-Knuth-Yao/58f10efb7c76b41a6ddc26ff9ff94f7faa1e2e35",
+    "note": "This is a pre-DOI-era book chapter (not in Crossref/arXiv), so it was cross-checked across multiple independent sources via WebSearch (Semantic Scholar record, and secondary citations in later papers such as the Breitner blog's own reference list, which cites it identically as 'D. E. Knuth and A. C. Yao. The complexity of nonuniform random number generation. In Algorithms and Complexity: New Directions and Recent Results, 1976.'). All sources agree on editor (J. F. Traub), publisher (Academic Press, New York), year (1976), and pages 357-428. Not a peer-reviewed journal article in the usual sense -- it is a chapter in an edited proceedings/collection volume from a Carnegie-Mellon symposium -- but this is the standard, correctly-attributed canonical form and matches as printed."
+  },
+  {
+    "ref_id": "Lumbroso",
+    "as_printed": "Lumbroso, optimal discrete uniform generation / Fast Dice Roller (arXiv:1304.1916)",
+    "canonical": "Jeremie Lumbroso, \"Optimal Discrete Uniform Generation from Coin Flips, and Applications,\" arXiv:1304.1916 [cs.DS], submitted 2013-04-11. (Also known informally as the 'Fast Dice Roller' paper; no peer-reviewed publication venue found.)",
+    "status": "NON_PEER_REVIEWED",
+    "source_url": "https://arxiv.org/abs/1304.1916",
+    "note": "Confirmed via arXiv abs page: title 'Optimal Discrete Uniform Generation from Coin Flips, and Applications', sole author Jeremie Lumbroso, subjects cs.DS/math.PR/physics.comp-ph/physics.data-an, comment 'first draft, 22 pages, 5 figures, C code implementation of algorithm', no journal-ref listed. Searched further (WebSearch for a formal venue, e.g. ANALCO 2013) and found no evidence of formal peer-reviewed publication anywhere -- it appears to remain solely an arXiv technical report despite being widely cited (e.g. by the 'Fast Loaded Dice Roller' line of work) as 'Lumbroso 2013'. Flagged NON_PEER_REVIEWED for the same reason as R11: it is citable and content-accurate as an arXiv preprint, but not a peer-reviewed venue."
+  },
+  {
+    "ref_id": "AcharyaDaskalakisKamath2015",
+    "as_printed": "arXiv:1507.05952, \"Optimal Testing for Properties of Distributions\", NIPS 2015",
+    "canonical": "Jayadev Acharya, Constantinos Daskalakis, Gautam Kamath, \"Optimal Testing for Properties of Distributions,\" in Advances in Neural Information Processing Systems 28 (NIPS 2015), pp. 3591-3599, 2015. (Preprint: arXiv:1507.05952, spotlight presentation.)",
+    "status": "VERIFIED",
+    "source_url": "https://papers.nips.cc/paper/5839-optimal-testing-for-properties-of-distributions",
+    "note": "Confirmed via arXiv abs page (title and authors match; comment states 'extended abstract appeared as a spotlight in NIPS 2015') and via WebSearch of the NeurIPS proceedings page, which gives pages 3591-3599 in Advances in Neural Information Processing Systems 28. NeurIPS proceedings of this era are not indexed in Crossref, so the page range is corroborated only by the proceedings listing and secondary sources (MIT DSpace record), not by a DOI lookup."
+  },
+  {
+    "ref_id": "DiakonikolasKaneNikishkin2015",
+    "as_printed": "arXiv:1410.2266 (DiakonikolasKaneNikishkin2015)",
+    "canonical": "Ilias Diakonikolas, Daniel M. Kane, Vladimir Nikishkin, \"Testing Identity of Structured Distributions,\" in Proceedings of the Twenty-Sixth Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 2015), San Diego, CA, January 4-6, 2015, pp. 1841-1854. DOI: 10.1137/1.9781611973730.123. (Preprint: arXiv:1410.2266.)",
+    "status": "VERIFIED",
+    "source_url": "https://doi.org/10.1137/1.9781611973730.123",
+    "note": "Fetched arXiv abs page for 1410.2266: title 'Testing Identity of Structured Distributions', authors Diakonikolas/Kane/Nikishkin confirmed. Venue confirmed as SODA 2015 (not SODA 2014 or another venue) both by WebSearch (explicit statement of 'Proceedings of the Twenty-Sixth Annual ACM-SIAM Symposium on Discrete Algorithms, SODA 2015 ... pages 1841-1854') and independently by Crossref bibliographic search, which returned DOI 10.1137/1.9781611973730.123 with container-title 'Proceedings of the Twenty-Sixth Annual ACM-SIAM Symposium on Discrete Algorithms' (= SODA 2015), pages 1841-1854. (Note: Crossref's registered publication date for this SIAM proceedings volume is 2014-12-22, which is SIAM's usual pre-conference DOI-registration date for a January conference -- the conference itself, and its standard citation form, is 'SODA 2015'.)"
+  },
+  {
+    "ref_id": "DiakonikolasGouleakisPeeblesPrice2016",
+    "as_printed": "\"Collision-based Testers are Optimal for Uniformity and Closeness\" (arXiv:1611.03579)",
+    "canonical": "Ilias Diakonikolas, Themis Gouleakis, John Peebles, Eric Price, \"Collision-based Testers are Optimal for Uniformity and Closeness,\" Chicago Journal of Theoretical Computer Science, 2019, Article 1, pp. 1-21. Also: Electronic Colloquium on Computational Complexity (ECCC) TR16-178 (2016); preprint arXiv:1611.03579 (submitted 2016-11-11).",
+    "status": "CORRECTED",
+    "source_url": "http://cjtcs.cs.uchicago.edu/articles/2019/1/contents.html",
+    "note": "Confirmed via arXiv abs page for 1611.03579 that title and all four authors (Diakonikolas, Gouleakis, Peebles, Price) match. However, if the citation is printed as only an arXiv preprint, that undersells its status: WebSearch found the paper was formally published in a peer-reviewed venue, the Chicago Journal of Theoretical Computer Science (CJTCS), 2019, Article 1, pp. 1-21 (also deposited as ECCC TR16-178, 2016). CORRECTED to add the peer-reviewed journal publication that supersedes the bare arXiv/ECCC preprint status."
+  }
+]

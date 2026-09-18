@@ -1,0 +1,371 @@
+{
+ "rows": [
+  {
+   "n": 1000,
+   "k": 50,
+   "vary": "chunk",
+   "chunk": 10000,
+   "seed": 441292,
+   "coinc_p": 0.13910985667756495,
+   "chi2_over_df": 1.0021721463526692,
+   "false_alarm": false,
+   "wall_s": 5.486612878739834
+  },
+  {
+   "n": 1000,
+   "k": 50,
+   "vary": "chunk",
+   "chunk": 16326,
+   "seed": 441292,
+   "coinc_p": 0.2702131193875851,
+   "chi2_over_df": 1.0012253394656534,
+   "false_alarm": false,
+   "wall_s": 5.092383034527302
+  },
+  {
+   "n": 1000,
+   "k": 50,
+   "vary": "chunk",
+   "chunk": 25000,
+   "seed": 441292,
+   "coinc_p": 0.9870425434021151,
+   "chi2_over_df": 0.9955436371714879,
+   "false_alarm": false,
+   "wall_s": 4.836382418870926
+  },
+  {
+   "n": 1000,
+   "k": 50,
+   "vary": "chunk",
+   "chunk": 50000,
+   "seed": 441292,
+   "coinc_p": 9.062628326518251e-12,
+   "chi2_over_df": 1.0135200698431837,
+   "false_alarm": true,
+   "wall_s": 5.00896305590868
+  },
+  {
+   "n": 1000,
+   "k": 50,
+   "vary": "seed",
+   "chunk": 50000,
+   "seed": 442292,
+   "coinc_p": 0.0044977663793143,
+   "chi2_over_df": 1.0052400850333756,
+   "false_alarm": false,
+   "wall_s": 4.992537461221218
+  },
+  {
+   "n": 1000,
+   "k": 50,
+   "vary": "seed",
+   "chunk": 50000,
+   "seed": 443292,
+   "coinc_p": 0.9992937983323479,
+   "chi2_over_df": 0.9936184872204424,
+   "false_alarm": false,
+   "wall_s": 4.990571286529303
+  },
+  {
+   "n": 1000,
+   "k": 50,
+   "vary": "seed",
+   "chunk": 50000,
+   "seed": 444292,
+   "coinc_p": 0.007530480638666704,
+   "chi2_over_df": 1.004875688853837,
+   "false_alarm": false,
+   "wall_s": 4.93842663243413
+  },
+  {
+   "n": 1000,
+   "k": 50,
+   "vary": "seed",
+   "chunk": 50000,
+   "seed": 445292,
+   "coinc_p": 0.003598677334319633,
+   "chi2_over_df": 1.0053915423203301,
+   "false_alarm": false,
+   "wall_s": 4.924738630652428
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "vary": "chunk",
+   "chunk": 10000,
+   "seed": 458342,
+   "coinc_p": 0.6597010488519016,
+   "chi2_over_df": 0.9995877664586742,
+   "false_alarm": false,
+   "wall_s": 18.67263474687934
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "vary": "chunk",
+   "chunk": 16326,
+   "seed": 458342,
+   "coinc_p": 0.095436962779252,
+   "chi2_over_df": 1.0013092170752766,
+   "false_alarm": false,
+   "wall_s": 18.59908412769437
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "vary": "chunk",
+   "chunk": 25000,
+   "seed": 458342,
+   "coinc_p": 0.6104398564565591,
+   "chi2_over_df": 0.9997190163288641,
+   "false_alarm": false,
+   "wall_s": 17.45490561425686
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "vary": "chunk",
+   "chunk": 50000,
+   "seed": 458342,
+   "coinc_p": 0.034010143481206206,
+   "chi2_over_df": 1.0018270198391839,
+   "false_alarm": false,
+   "wall_s": 17.326807755976915
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "vary": "seed",
+   "chunk": 50000,
+   "seed": 459342,
+   "coinc_p": 0.0009838744000948945,
+   "chi2_over_df": 1.0031002447395103,
+   "false_alarm": false,
+   "wall_s": 17.44649688154459
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "vary": "seed",
+   "chunk": 50000,
+   "seed": 460342,
+   "coinc_p": 0.8626542449896171,
+   "chi2_over_df": 0.9989069225812872,
+   "false_alarm": false,
+   "wall_s": 17.497120793908834
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "vary": "seed",
+   "chunk": 50000,
+   "seed": 461342,
+   "coinc_p": 0.9969609117897638,
+   "chi2_over_df": 0.997256585663407,
+   "false_alarm": false,
+   "wall_s": 17.461043026298285
+  },
+  {
+   "n": 2000,
+   "k": 100,
+   "vary": "seed",
+   "chunk": 50000,
+   "seed": 462342,
+   "coinc_p": 0.8391077188106162,
+   "chi2_over_df": 0.999008453051743,
+   "false_alarm": false,
+   "wall_s": 17.311740789562464
+  },
+  {
+   "n": 200,
+   "k": 40,
+   "vary": "chunk",
+   "chunk": 10000,
+   "seed": 427682,
+   "coinc_p": 5.048052339965897e-09,
+   "chi2_over_df": 1.0588051913703065,
+   "false_alarm": true,
+   "wall_s": 2.50559476390481
+  },
+  {
+   "n": 200,
+   "k": 40,
+   "vary": "chunk",
+   "chunk": 16326,
+   "seed": 427682,
+   "coinc_p": 0.3173188741653073,
+   "chi2_over_df": 1.0047617301244396,
+   "false_alarm": false,
+   "wall_s": 2.318210870027542
+  },
+  {
+   "n": 200,
+   "k": 40,
+   "vary": "chunk",
+   "chunk": 25000,
+   "seed": 427682,
+   "coinc_p": 0.0005196717138119701,
+   "chi2_over_df": 1.0333749659317129,
+   "false_alarm": false,
+   "wall_s": 2.219177197664976
+  },
+  {
+   "n": 200,
+   "k": 40,
+   "vary": "chunk",
+   "chunk": 50000,
+   "seed": 427682,
+   "coinc_p": 0.8576487629426466,
+   "chi2_over_df": 0.9892260387508817,
+   "false_alarm": false,
+   "wall_s": 2.235298603773117
+  },
+  {
+   "n": 200,
+   "k": 40,
+   "vary": "seed",
+   "chunk": 50000,
+   "seed": 428682,
+   "coinc_p": 1.1880553389676327e-07,
+   "chi2_over_df": 1.0529352936889549,
+   "false_alarm": true,
+   "wall_s": 2.227821696549654
+  },
+  {
+   "n": 200,
+   "k": 40,
+   "vary": "seed",
+   "chunk": 50000,
+   "seed": 429682,
+   "coinc_p": 0.6770446915485314,
+   "chi2_over_df": 0.9953441529607847,
+   "false_alarm": false,
+   "wall_s": 2.2263633720576763
+  },
+  {
+   "n": 200,
+   "k": 40,
+   "vary": "seed",
+   "chunk": 50000,
+   "seed": 430682,
+   "coinc_p": 0.028057619508999168,
+   "chi2_over_df": 1.0193352454921492,
+   "false_alarm": false,
+   "wall_s": 2.337993111461401
+  },
+  {
+   "n": 200,
+   "k": 40,
+   "vary": "seed",
+   "chunk": 50000,
+   "seed": 431682,
+   "coinc_p": 0.999877203554617,
+   "chi2_over_df": 0.9634751373974701,
+   "false_alarm": false,
+   "wall_s": 2.2260780967772007
+  }
+ ],
+ "summary": {
+  "n1000_k50": {
+   "chunk_sweep_p_values": [
+    0.13910985667756495,
+    0.2702131193875851,
+    0.9870425434021151,
+    9.062628326518251e-12
+   ],
+   "chunk_sweep_chi2_over_df": [
+    1.0021721463526692,
+    1.0012253394656534,
+    0.9955436371714879,
+    1.0135200698431837
+   ],
+   "chunk_sweep_n_false_alarms": 1,
+   "seed_sweep_p_values": [
+    0.0044977663793143,
+    0.9992937983323479,
+    0.007530480638666704,
+    0.003598677334319633
+   ],
+   "seed_sweep_chi2_over_df": [
+    1.0052400850333756,
+    0.9936184872204424,
+    1.004875688853837,
+    1.0053915423203301
+   ],
+   "seed_sweep_n_false_alarms": 0,
+   "p_spans_orders_of_magnitude_across_chunks": 11.037081702769227
+  },
+  "n2000_k100": {
+   "chunk_sweep_p_values": [
+    0.6597010488519016,
+    0.095436962779252,
+    0.6104398564565591,
+    0.034010143481206206
+   ],
+   "chunk_sweep_chi2_over_df": [
+    0.9995877664586742,
+    1.0013092170752766,
+    0.9997190163288641,
+    1.0018270198391839
+   ],
+   "chunk_sweep_n_false_alarms": 0,
+   "seed_sweep_p_values": [
+    0.0009838744000948945,
+    0.8626542449896171,
+    0.9969609117897638,
+    0.8391077188106162
+   ],
+   "seed_sweep_chi2_over_df": [
+    1.0031002447395103,
+    0.9989069225812872,
+    0.997256585663407,
+    0.999008453051743
+   ],
+   "seed_sweep_n_false_alarms": 0,
+   "p_spans_orders_of_magnitude_across_chunks": 1.2877387104332283
+  },
+  "n200_k40": {
+   "chunk_sweep_p_values": [
+    5.048052339965897e-09,
+    0.3173188741653073,
+    0.0005196717138119701,
+    0.8576487629426466
+   ],
+   "chunk_sweep_chi2_over_df": [
+    1.0588051913703065,
+    1.0047617301244396,
+    1.0333749659317129,
+    0.9892260387508817
+   ],
+   "chunk_sweep_n_false_alarms": 1,
+   "seed_sweep_p_values": [
+    1.1880553389676327e-07,
+    0.6770446915485314,
+    0.028057619508999168,
+    0.999877203554617
+   ],
+   "seed_sweep_chi2_over_df": [
+    1.0529352936889549,
+    0.9953441529607847,
+    1.0193352454921492,
+    0.9634751373974701
+   ],
+   "seed_sweep_n_false_alarms": 1,
+   "p_spans_orders_of_magnitude_across_chunks": 8.23018561635704
+  }
+ },
+ "T": 200000,
+ "chunks_tried": [
+  10000,
+  16326,
+  25000,
+  50000
+ ],
+ "seeds_tried": [
+  0,
+  1,
+  2,
+  3
+ ],
+ "interpretation": "Algorithm R is provably uniform, so every small p here is a false alarm. If the p value swings by many orders of magnitude when only the trial-chunk size changes -- with the SEED held fixed -- then a single-run nominal p is an artifact of how the PCG64 stream is partitioned, not a property of the (n,k) cell, and cannot on its own justify declaring the nominal rule mis-calibrated."
+}

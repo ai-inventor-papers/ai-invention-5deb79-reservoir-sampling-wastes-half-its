@@ -1,0 +1,73 @@
+18:24:18|INFO   |C1 nominal n=200 k=5 k/n=0.0250 p=0.308 chi2/df=1.00504 FA=False [0.3s]
+18:24:18|INFO   |C1 nominal n=200 k=10 k/n=0.0500 p=0.308 chi2/df=1.00502 FA=False [0.4s]
+18:24:19|INFO   |C1 nominal n=200 k=15 k/n=0.0750 p=0.00225 chi2/df=1.02886 FA=False [0.5s]
+18:24:19|INFO   |C1 nominal n=200 k=20 k/n=0.1000 p=0.932 chi2/df=0.98503 FA=False [0.6s]
+18:24:20|INFO   |C1 nominal n=200 k=25 k/n=0.1250 p=3.02e-06 chi2/df=1.04625 FA=False [0.8s]
+18:24:21|INFO   |C1 nominal n=200 k=30 k/n=0.1500 p=4.07e-05 chi2/df=1.04019 FA=False [1.0s]
+18:24:23|INFO   |C1 nominal n=200 k=40 k/n=0.2000 p=3.78e-08 chi2/df=1.05513 FA=True [1.6s]
+18:24:25|INFO   |C1 nominal n=200 k=50 k/n=0.2500 p=0.93 chi2/df=0.98517 FA=False [2.3s]
+18:24:26|INFO   |C1 nominal n=500 k=5 k/n=0.0100 p=0.00388 chi2/df=1.01072 FA=False [0.5s]
+18:24:26|INFO   |C1 nominal n=500 k=10 k/n=0.0200 p=0.0834 chi2/df=1.00555 FA=False [0.6s]
+18:24:27|INFO   |C1 nominal n=500 k=15 k/n=0.0300 p=0.255 chi2/df=1.00264 FA=False [0.7s]
+18:24:28|INFO   |C1 nominal n=500 k=20 k/n=0.0400 p=0.502 chi2/df=0.99997 FA=False [0.9s]
+18:24:29|INFO   |C1 nominal n=500 k=25 k/n=0.0500 p=0.00735 chi2/df=1.00981 FA=False [1.1s]
+18:24:30|INFO   |C1 nominal n=500 k=30 k/n=0.0600 p=0.422 chi2/df=1.00078 FA=False [1.3s]
+18:24:32|INFO   |C1 nominal n=500 k=40 k/n=0.0800 p=0.248 chi2/df=1.00273 FA=False [1.8s]
+18:24:35|INFO   |C1 nominal n=500 k=50 k/n=0.1000 p=0.591 chi2/df=0.99907 FA=False [2.5s]
+18:24:40|INFO   |C1 nominal n=500 k=75 k/n=0.1500 p=0.352 chi2/df=1.00152 FA=False [5.5s]
+18:24:49|INFO   |C1 nominal n=500 k=100 k/n=0.2000 p=0.816 chi2/df=0.99639 FA=False [8.7s]
+18:24:50|INFO   |C1 nominal n=1000 k=5 k/n=0.0050 p=0.753 chi2/df=0.99863 FA=False [0.8s]
+18:24:51|INFO   |C1 nominal n=1000 k=10 k/n=0.0100 p=0.305 chi2/df=1.00102 FA=False [0.9s]
+18:24:52|INFO   |C1 nominal n=1000 k=15 k/n=0.0150 p=0.13 chi2/df=1.00226 FA=False [1.0s]
+18:24:53|INFO   |C1 nominal n=1000 k=20 k/n=0.0200 p=0.146 chi2/df=1.00211 FA=False [1.2s]
+18:24:55|INFO   |C1 nominal n=1000 k=25 k/n=0.0250 p=0.712 chi2/df=0.99888 FA=False [1.4s]
+18:24:56|INFO   |C1 nominal n=1000 k=30 k/n=0.0300 p=0.00646 chi2/df=1.00499 FA=False [1.7s]
+18:24:59|INFO   |C1 nominal n=1000 k=40 k/n=0.0400 p=0.0767 chi2/df=1.00286 FA=False [2.4s]
+18:25:02|INFO   |C1 nominal n=1000 k=50 k/n=0.0500 p=0.27 chi2/df=1.00123 FA=False [3.3s]
+18:25:08|INFO   |C1 nominal n=1000 k=75 k/n=0.0750 p=0.754 chi2/df=0.99862 FA=False [6.3s]
+18:25:18|INFO   |C1 nominal n=1000 k=100 k/n=0.1000 p=0.00331 chi2/df=1.00545 FA=False [9.4s]
+18:25:19|INFO   |C1 nominal n=2000 k=5 k/n=0.0025 p=0.0465 chi2/df=1.00168 FA=False [1.4s]
+18:25:21|INFO   |C1 nominal n=2000 k=10 k/n=0.0050 p=0.0663 chi2/df=1.00151 FA=False [1.7s]
+18:25:23|INFO   |C1 nominal n=2000 k=15 k/n=0.0075 p=0.101 chi2/df=1.00128 FA=False [1.8s]
+18:25:25|INFO   |C1 nominal n=2000 k=20 k/n=0.0100 p=0.968 chi2/df=0.99815 FA=False [2.0s]
+18:25:27|INFO   |C1 nominal n=2000 k=25 k/n=0.0125 p=0.123 chi2/df=1.00116 FA=False [2.2s]
+18:25:30|INFO   |C1 nominal n=2000 k=30 k/n=0.0150 p=0.0743 chi2/df=1.00145 FA=False [2.5s]
+18:25:33|INFO   |C1 nominal n=2000 k=40 k/n=0.0200 p=0.0744 chi2/df=1.00145 FA=False [3.1s]
+18:25:37|INFO   |C1 nominal n=2000 k=50 k/n=0.0250 p=0.501 chi2/df=1.00000 FA=False [4.2s]
+18:25:45|INFO   |C1 nominal n=2000 k=75 k/n=0.0375 p=0.814 chi2/df=0.99911 FA=False [7.7s]
+18:25:56|INFO   |C1 nominal n=2000 k=100 k/n=0.0500 p=0.267 chi2/df=1.00062 FA=False [10.9s]
+18:25:59|INFO   |C1 nominal n=5000 k=5 k/n=0.0010 p=0.058 chi2/df=1.00063 FA=False [3.4s]
+18:26:03|INFO   |C1 nominal n=5000 k=10 k/n=0.0020 p=0.00205 chi2/df=1.00115 FA=False [3.7s]
+18:26:07|INFO   |C1 nominal n=5000 k=15 k/n=0.0030 p=0.692 chi2/df=0.99980 FA=False [4.0s]
+18:26:11|INFO   |C1 nominal n=5000 k=20 k/n=0.0040 p=0.541 chi2/df=0.99996 FA=False [4.1s]
+18:26:16|INFO   |C1 nominal n=5000 k=25 k/n=0.0050 p=0.0129 chi2/df=1.00089 FA=False [4.5s]
+18:26:21|INFO   |C1 nominal n=5000 k=30 k/n=0.0060 p=0.298 chi2/df=1.00021 FA=False [5.2s]
+18:26:27|INFO   |C1 nominal n=5000 k=40 k/n=0.0080 p=0.846 chi2/df=0.99959 FA=False [6.4s]
+18:26:35|INFO   |C1 nominal n=5000 k=50 k/n=0.0100 p=0.475 chi2/df=1.00003 FA=False [7.7s]
+18:26:49|INFO   |C1 nominal n=5000 k=75 k/n=0.0150 p=0.297 chi2/df=1.00021 FA=False [13.5s]
+18:27:08|INFO   |C1 nominal n=5000 k=100 k/n=0.0200 p=0.271 chi2/df=1.00024 FA=False [20.0s]
+18:27:11|INFO   |C1 band n=1000 k=10 done in 2.4s (chi2 null mean 499314.5799204883)
+18:27:12|INFO   |C1 cal n=1000 k=10 S0: nominal p=0.00294 z=1.8174217254897815 -> UNIFORM
+18:27:14|INFO   |C1 cal n=1000 k=10 S1h: nominal p=0.0336 z=0.9501531750812753 -> UNIFORM
+18:27:14|INFO   |C1 cal n=1000 k=10 S5e: nominal p=0 z=926886.2552312958 -> NOT_UNIFORM
+18:27:14|INFO   |C1 cal n=1000 k=10 S5g: nominal p=0 z=102147.69526769864 -> NOT_UNIFORM
+18:27:15|INFO   |C1 cal n=1000 k=10 S6sys: nominal p=0 z=926746.8079877206 -> NOT_UNIFORM
+18:28:10|INFO   |C1 band n=1000 k=50 done in 55.8s (chi2 null mean 498969.3295889571)
+18:28:13|INFO   |C1 cal n=1000 k=50 S0: nominal p=0.231 z=0.11170706474148359 -> UNIFORM
+18:28:26|INFO   |C1 cal n=1000 k=50 S1h: nominal p=0.352 z=-0.03804427803721603 -> UNIFORM
+18:28:28|INFO   |C1 cal n=1000 k=50 S5e: nominal p=0 z=1994571.7624999909 -> NOT_UNIFORM
+18:28:31|INFO   |C1 cal n=1000 k=50 S5g: nominal p=0 z=38749.31359754733 -> NOT_UNIFORM
+18:28:33|INFO   |C1 cal n=1000 k=50 S6sys: nominal p=0 z=1994596.908871968 -> NOT_UNIFORM
+18:30:44|INFO   |C1 band n=500 k=50 done in 131.0s (chi2 null mean 125181.4970224057)
+18:30:46|INFO   |C1 cal n=500 k=50 S0: nominal p=0.177 z=-0.43387696619962923 -> UNIFORM
+18:30:56|INFO   |C1 cal n=500 k=50 S1h: nominal p=0.984 z=-1.851933038229073 -> UNIFORM
+18:30:58|INFO   |C1 cal n=500 k=50 S5e: nominal p=0 z=2107989.183037093 -> NOT_UNIFORM
+18:31:00|INFO   |C1 cal n=500 k=50 S5g: nominal p=0 z=38875.564242058164 -> NOT_UNIFORM
+18:31:02|INFO   |C1 cal n=500 k=50 S6sys: nominal p=0 z=2108039.852928929 -> NOT_UNIFORM
+18:35:24|INFO   |C1 band n=2000 k=100 done in 262.5s (chi2 null mean 2003015.2799288651)
+18:35:36|INFO   |C1 cal n=2000 k=100 S0: nominal p=8.7e-05 z=0.21696401967427215 -> UNIFORM
+18:36:21|INFO   |C1 cal n=2000 k=100 S1h: nominal p=0.908 z=-1.2564196055157653 -> UNIFORM
+18:36:29|INFO   |C1 cal n=2000 k=100 S5e: nominal p=0 z=2761154.079018893 -> NOT_UNIFORM
+18:36:38|INFO   |C1 cal n=2000 k=100 S5g: nominal p=0 z=26524.622872445885 -> NOT_UNIFORM
+18:36:46|INFO   |C1 cal n=2000 k=100 S6sys: nominal p=0 z=2761390.5473368047 -> NOT_UNIFORM
+18:36:46|INFO   |stage c1 written in 752.8s

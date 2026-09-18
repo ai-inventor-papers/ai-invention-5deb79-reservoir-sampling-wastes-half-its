@@ -1,0 +1,999 @@
+{
+  "metadata": {
+    "evaluation_name": "A third test, and every number rechecked",
+    "description": "Two-part evaluation over the two iteration-1 reservoir-sampling experiments. PART A adds the published L1 identity / collision tester (Acharya-Daskalakis-Kamath arXiv:1507.05952; Diakonikolas-Kane-Nik...",
+    "verdict": {
+      "part_A": "BRANCH_1_TESTER_DETECTS (with a qualification the plan did not anticipate): the L1 identity/collision tester DOES detect the blind-spot samplers at T=1e6 despite having no worst-case guarantee there -...",
+      "part_A_matched_panel": "On the 18 matched cells with exact-rational ground truth the L1 tester scores accuracy 1.000 / recall 1.000 / false alarm 0.000, against first-order 0.833/0.667, anytime all-prefix 0.833/0.667 (IDENTI...",
+      "part_A_reframing": "The honest separation among the three detectors is NOT about statistical power but about STATE, STREAMING-COMPATIBILITY, LOCALITY and WORST-CASE GUARANTEE. The first-order test keeps O(n) counters, is...",
+      "part_B": "18 printed numbers checked: 8 MATCH, 9 MISMATCH, 1 UNAVAILABLE. The measured error rate on printed numbers is therefore 0.500, and one headline claim has no executed support at all.",
+      "part_C1": "EXECUTED. Co-inclusion calibration re-derived from an exactly uniform k-subset oracle at T = 2e+05 trials per run, null_B = 40 max-deviation and 16 co-inclusion null replicates per cell, over a 48-cel...",
+      "part_C1_caveat": "The declared method deviation rested on a SINGLE run of Algorithm R at n=2000, k=100 giving a nominal p = 7.9e-16. In this re-derivation that single-run false alarm is NOT reproducible: re-running the...",
+      "part_C2": "MECHANISM_CONFIRMED. The sign reversal is real and mechanistic: 3 blind-spot samplers (S5e, S5g, S6sys) score BETTER (smaller max deviation from k/n) than Algorithm R on the field's standard first-ord...",
+      "part_C3": "12 references checked against authoritative records. 7 VERIFIED as printed, 2 CORRECTED, 2 flagged NON_PEER_REVIEWED (reference [11], Breitner's blog post -- attributional only, since the parallel exp...",
+      "part_D": "EXECUTED. The constructed merge defect has per-item marginals identical to the correct merge BY CONSTRUCTION (both exactly k/(n1+n2) = 0.01), verified empirically. first-order recall 0.00 (false alarm..."
+    },
+    "preregistered_part_A_branches": {
+      "branch_1_tester_detects": "The blind-spot samplers have support O(n) or C(n/2,k/2), so ||p||_2^2 is enormous relative to 1/C(n,k) and the expected collision count at T=1e6 is astronomically above the uniform expectation binom(T...",
+      "branch_2_tester_has_no_power": "The worst-case bound T = Theta(sqrt(C(1000,10))/eps^2) ~ 5e11 at eps=0.1 says the tester has no GUARANTEE at T=1e6; if it also had no power in practice the structural-blindness claim would be strength...",
+      "which_occurred": "BRANCH_1_TESTER_DETECTS (with a qualification the plan did not anticipate)"
+    },
+    "sample_complexity_separation_table": [
+      {
+        "detector": "first-order max-deviation (the field-standard test)",
+        "panel": "matched 18 cells (n<=14, k in {2,4}, T=1e5)",
+        "state_per_trial": "n counters (one per item)",
+        "total_memory_order": "O(n)",
+        "streaming_single_pass": true,
+        "memory_independent_of_T": true,
+        "localises_the_defect": false,
+        "detection_threshold_in_trials": "O(n / eps_first_order^2) for a FIRST-ORDER-far alternative; NEVER, at any T, for an alternative whose first-order marginals are exact",
+        "measured_accuracy": 0.8333333333333334,
+        "measured_recall_on_broken": 0.6666666666666666,
+        "measured_false_alarm_rate": 0.0,
+        "T_required_worst_case_eps_0.1": "not applicable (no guarantee against joint defects)",
+        "T_required_worst_case_eps_measured_TV": "not applicable (no guarantee against joint defects)"
+      },
+      {
+        "detector": "pairwise co-inclusion (calibrated against its own simulated null)",
+        "panel": "matched 18 cells (n<=14, k in {2,4}, T=1e5)",
+        "state_per_trial": "C(n,2) pair counters",
+        "total_memory_order": "O(n^2)",
+        "streaming_single_pass": true,
+        "memory_independent_of_T": true,
+        "localises_the_defect": true,
+        "detection_threshold_in_trials": "O(n^2 / eps_pair^2)",
+        "measured_accuracy": 1.0,
+        "measured_recall_on_broken": 1.0,
+        "measured_false_alarm_rate": 0.0,
+        "T_required_worst_case_eps_0.1": "not a full L1 test; bounds only the second-order marginals",
+        "T_required_worst_case_eps_measured_TV": "not a full L1 test; bounds only the second-order marginals"
+      },
+      {
+        "detector": "L1 identity / collision tester (ADK 2015 / DKN 2015)",
+        "panel": "matched 18 cells (n<=14, k in {2,4}, T=1e5)",
+        "state_per_trial": "the multiset of observed k-subsets",
+        "total_memory_order": "O(min(T, D)) distinct keys",
+        "streaming_single_pass": true,
+        "memory_independent_of_T": false,
+        "localises_the_defect": false,
+        "detection_threshold_in_trials": "Theta(sqrt(D)/eps^2), D = C(n,k)",
+        "measured_accuracy": 1.0,
+        "measured_recall_on_broken": 1.0,
+        "measured_false_alarm_rate": 0.0,
+        "T_required_worst_case_eps_0.1": 17382.647836282817,
+        "T_required_worst_case_eps_measured_TV": 178.7926993632852,
+        "eps_used_for_measured_TV": 0.986013986013986,
+        "T_required_worst_case_eps_0.1_log10": 4.240115931669552,
+        "T_required_worst_case_eps_measured_TV_log10": 2.252349781288916
+      }
+    ],
+    "per_sampler_l1_analysis": [
+      {
+        "candidate": "S5-CIRC",
+        "family": "blind_spot",
+        "n_runs": 8,
+        "support": 1000,
+        "l2_norm_squared": 0.001,
+        "exact_TV_to_uniform": 1.0,
+        "lambda_predicted_collisions": 499999500.0,
+        "collisions_measured": [
+          499989625,
+          500018529,
+          499984724
+        ],
+        "collisions_measured_mean": 499991717.0,
+        "collision_prediction_rel_error": 1.5566015566015565e-05,
+        "l1_detections": 8,
+        "l1_recall": 1.0,
+        "l1_false_alarm_rate": null,
+        "poisson_predicted_miss_probability": 0.0,
+        "observed_miss_fraction": 0.0,
+        "detection_is_fragile": false
+      },
+      {
+        "candidate": "S5e",
+        "family": "blind_spot",
+        "n_runs": 8,
+        "support": 100,
+        "l2_norm_squared": 0.01,
+        "exact_TV_to_uniform": 1.0,
+        "lambda_predicted_collisions": 4999995000.0,
+        "collisions_measured": [
+          4999959027,
+          5000017562,
+          5000102523
+        ],
+        "collisions_measured_mean": 5000005694.0,
+        "collision_prediction_rel_error": 2.1388021388021386e-06,
+        "l1_detections": 8,
+        "l1_recall": 1.0,
+        "l1_false_alarm_rate": null,
+        "poisson_predicted_miss_probability": 0.0,
+        "observed_miss_fraction": 0.0,
+        "detection_is_fragile": false
+      },
+      {
+        "candidate": "S5g",
+        "family": "blind_spot",
+        "n_runs": 8,
+        "support": 255244687600,
+        "l2_norm_squared": 3.917809257472671e-12,
+        "exact_TV_to_uniform": 0.999999999999031,
+        "lambda_predicted_collisions": 1.958902669831707,
+        "collisions_measured": [
+          2,
+          3,
+          5
+        ],
+        "collisions_measured_mean": 2.0,
+        "collision_prediction_rel_error": 0.02097977137977143,
+        "l1_detections": 7,
+        "l1_recall": 0.875,
+        "l1_false_alarm_rate": null,
+        "poisson_predicted_miss_probability": 0.14101307395298,
+        "observed_miss_fraction": 0.125,
+        "detection_is_fragile": true
+      }
+    ],
+    "worst_case_versus_instance_specific": {
+      "T_actually_used": 1000000,
+      "T_required_worst_case_eps_0.1": 281977632435261.25,
+      "T_required_worst_case_eps_measured_TV": 2819776324352.6133,
+      "orders_of_magnitude_gap_at_eps_0.1": 8.450214659754787,
+      "orders_of_magnitude_gap_at_eps_measured_TV": 6.450214659754787,
+      "statement": "At n=1000, k=10 the worst-case guarantee of the L1 tester needs T = c*sqrt(C(1000,10))/eps^2 with the measured c = 5.49: that is 2.82e+14 samples at eps = 0.1 and 2.82e+12 even at the blind spots' own..."
+    },
+    "part_A_fragility_finding": "The L1 collision tester's power against a low-support alternative is governed by lambda = binom(T,2)*||p||_2^2, the expected collision count, NOT by the L1 distance. BLOCK-LOCK, SYSTEMATIC and CIRC ha...",
+    "seeds": {
+      "matched_panel_mc": 20260918,
+      "matched_panel_prefix_offset": 77,
+      "matched_panel_l1_offset": 1234,
+      "matched_panel_null_l1": 20264039,
+      "large_panel_per_replicate": "10000 + 991*r for r in 0..7",
+      "large_panel_l1_null": "900000 + r for r in 0..R-1",
+      "a1_power_curve": 4242,
+      "a1_null": "777 + 100*n + k",
+      "c1": 424242,
+      "c2_simulation": 31337,
+      "d_merge": 777
+    },
+    "vendored_sha256": {
+      "__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "e1_candidates.py": "64d7e68afe320c66dbcf848fce787fd713418957a684b488becaf03e84497501",
+      "e1_exact_dp.py": "f4634abc96f68adee7d69083880111b0f8a3a0958fafe0efdd5605897f275f98",
+      "e1_fibermap.py": "bd90f3c81d401517dac337d14a01eaa70fee4a9b1fff085e90b70748d314b538",
+      "e1_forced.py": "cbc2cd2374cf2c2584c11cd8642ac219225b676cef38e9e25798f9ececab0485",
+      "e1_montecarlo.py": "1509e268419085e0885bb95aff4f44df465496a2705140f6c896c0ecf5a43912",
+      "e1_panels.py": "d31935ac6f2ba9131032f841372e3541607c4e04e0a19b808162f0f08b832e64",
+      "e1_verdicts.py": "81820472fa4ee0268207e3af44730308d1049655a0718c780a27c4ae8a094c91",
+      "e2_algol.py": "1d2722e70219e1f1ac27ee14e16302d6744b8769e965944d9749ff10972cd2f5",
+      "e2_bits.py": "bf4199afac92689ea1889e4c7f484960bfb53d2469e15f43212e390542e48c29",
+      "e2_budget.py": "8b3455203a471269b13c4a3f85dca3d94a35ef030dcd357d83ed927fd6d345bb",
+      "e2_candidates.py": "fe0b3e18496c0b7009cb096ee5a836e737d45acf1f2e8dbaf349773c4df92b79",
+      "e2_common.py": "3ae18d317c06dcfffbcaac3aba038985e58f88f7dac3b498b7d8ee1b17caeb59",
+      "e2_exact.py": "b133fbbe9053c5200c52d668987ad545fb53ca2de73f624f0dd8b5e0c2a168be",
+      "e2_montecarlo.py": "d6c5a3d954ebb09fbf27dd07d41b3439a9c051dd8b6272c5cc339be10805e0b9",
+      "e2_nullband.py": "6dd81c9e7b0fba5dbd6592fed9f52400ba62e23402a5ed742cec89477dffa1e4",
+      "e2_prngs.py": "0394089efb5b5827fd5936e01627c1bf4c75afac747d0ca8cf415142189f41bc",
+      "e2_s1t.py": "40c937d6f7537ecace35454e63dd032c1fe9764c962465bb19ce121beee742f5",
+      "_E1_full_method_out.json": "4026c99324ed320f2e9179b570f5c86aa4b09eab390fa4461d7a49d9ebb7180c",
+      "_E2_full_method_out.json": "2c2a1bfcc6838abb85b732a9193cd57d35af16d69457f9db07d3bf2dc4bb4fff"
+    },
+    "vendored_adaptations": [
+      {
+        "file": "vendored/e2_nullband.py",
+        "symbol": "exact_uniform_subsets",
+        "change": "the rejection loop's pass cap was raised from 200 to 200000",
+        "why": "per-pass acceptance is prod_{i<k}(1-i/n) ~ exp(-C(k,2)/n), which is 0.086 at (n,k)=(500,50) and (2000,100); with T=2e5 rows a 200-pass cap leaves duplicated rows unresolved and the function raised Run...",
+        "does_it_change_any_law": "NO -- the sampler is the same rejection sampler (draw k indices with replacement, discard rows with a repeat), simply run to completion instead of being truncated; conditioning a with-replacement draw..."
+      }
+    ],
+    "hardware": {
+      "platform": "linux",
+      "python": "3.12.14",
+      "gpu_used": false
+    },
+    "spend_usd": 0.0,
+    "llm_calls": 0,
+    "determinism": {
+      "rows": [
+        {
+          "file": "claims_ledger.csv",
+          "hash_run_1": "18272f1da1bee8bf6a9530fbbed027f376f924fd130465e3d8978568ac5fe5e7",
+          "hash_run_2": "18272f1da1bee8bf6a9530fbbed027f376f924fd130465e3d8978568ac5fe5e7",
+          "identical": true
+        },
+        {
+          "file": "patch_table.md",
+          "hash_run_1": "13fd8beacf330fd5e230727545c804289011186831ad8b9e3ad734a6dcf04e16",
+          "hash_run_2": "13fd8beacf330fd5e230727545c804289011186831ad8b9e3ad734a6dcf04e16",
+          "identical": true
+        },
+        {
+          "file": "stage_a1.json",
+          "hash_run_1": "63dbfee94450c410a6bd37a90479056d9660d2e9d47ee1cdaf1ea189e8d2f698",
+          "hash_run_2": "63dbfee94450c410a6bd37a90479056d9660d2e9d47ee1cdaf1ea189e8d2f698",
+          "identical": true
+        }
+      ],
+      "c1_nominal_spot_replicate": [
+        {
+          "cell": [
+            1000,
+            10
+          ],
+          "coinc_p_stored": 0.3051552780643192,
+          "coinc_p_replicate": 0.3051552780643192,
+          "coinc_chi2_stored": 499009.37179926113,
+          "coinc_chi2_replicate": 499009.37179926113,
+          "identical": true
+        },
+        {
+          "cell": [
+            500,
+            50
+          ],
+          "coinc_p_stored": 0.5912014826077466,
+          "coinc_p_replicate": 0.5912014826077466,
+          "coinc_chi2_stored": 124135.3968040304,
+          "coinc_chi2_replicate": 124135.3968040304,
+          "identical": true
+        },
+        {
+          "cell": [
+            2000,
+            100
+          ],
+          "coinc_p_stored": 0.26681817258198043,
+          "coinc_p_replicate": 0.26681817258198043,
+          "coinc_chi2_stored": 1998244.5870864347,
+          "coinc_chi2_replicate": 1998244.5870864347,
+          "identical": true
+        }
+      ],
+      "c1_spot_replicate_all_identical": true,
+      "all_identical": true,
+      "commands_rerun": [
+        "partB.py",
+        "partA.py --stage a1",
+        "partC.py --stage c2"
+      ],
+      "hash_excludes": [
+        "wall_seconds"
+      ],
+      "wall_seconds": 70.05998134985566,
+      "eval_out_content_sha256": "ead9cdbcff6b2e5149960318ea9718405f5dd4d64effdc6c8c54d5f06b05804a",
+      "eval_out_content_sha256_excludes": [
+        "metadata.wall_seconds_per_stage",
+        "metadata.determinism",
+        "metadata.hardware"
+      ]
+    },
+    "unit_tests": {
+      "file": "test_l1tester.py",
+      "n_tests": 7,
+      "all_passed": true,
+      "covers": [
+        "combinadic rank is a bijection and order-preserving",
+        "2C == sum N_x(N_x-1) by brute force over all pairs",
+        "the uniform collapse Z = (2D/T)C - T equals the general ADK/DKN statistic evaluated with an explicit length-D count vector"
+      ]
+    },
+    "chunk_probe": {
+      "rows": [
+        {
+          "n": 1000,
+          "k": 50,
+          "vary": "chunk",
+          "chunk": 10000,
+          "seed": 441292,
+          "coinc_p": 0.13910985667756495,
+          "chi2_over_df": 1.0021721463526692,
+          "false_alarm": false,
+          "wall_s": 5.486612878739834
+        },
+        {
+          "n": 1000,
+          "k": 50,
+          "vary": "chunk",
+          "chunk": 16326,
+          "seed": 441292,
+          "coinc_p": 0.2702131193875851,
+          "chi2_over_df": 1.0012253394656534,
+          "false_alarm": false,
+          "wall_s": 5.092383034527302
+        },
+        {
+          "n": 1000,
+          "k": 50,
+          "vary": "chunk",
+          "chunk": 25000,
+          "seed": 441292,
+          "coinc_p": 0.9870425434021151,
+          "chi2_over_df": 0.9955436371714879,
+          "false_alarm": false,
+          "wall_s": 4.836382418870926
+        }
+      ],
+      "summary": {
+        "n1000_k50": {
+          "chunk_sweep_p_values": [
+            0.13910985667756495,
+            0.2702131193875851,
+            0.9870425434021151
+          ],
+          "chunk_sweep_chi2_over_df": [
+            1.0021721463526692,
+            1.0012253394656534,
+            0.9955436371714879
+          ],
+          "chunk_sweep_n_false_alarms": 1,
+          "seed_sweep_p_values": [
+            0.0044977663793143,
+            0.9992937983323479,
+            0.007530480638666704
+          ],
+          "seed_sweep_chi2_over_df": [
+            1.0052400850333756,
+            0.9936184872204424,
+            1.004875688853837
+          ],
+          "seed_sweep_n_false_alarms": 0,
+          "p_spans_orders_of_magnitude_across_chunks": 11.037081702769227
+        },
+        "n2000_k100": {
+          "chunk_sweep_p_values": [
+            0.6597010488519016,
+            0.095436962779252,
+            0.6104398564565591
+          ],
+          "chunk_sweep_chi2_over_df": [
+            0.9995877664586742,
+            1.0013092170752766,
+            0.9997190163288641
+          ],
+          "chunk_sweep_n_false_alarms": 0,
+          "seed_sweep_p_values": [
+            0.0009838744000948945,
+            0.8626542449896171,
+            0.9969609117897638
+          ],
+          "seed_sweep_chi2_over_df": [
+            1.0031002447395103,
+            0.9989069225812872,
+            0.997256585663407
+          ],
+          "seed_sweep_n_false_alarms": 0,
+          "p_spans_orders_of_magnitude_across_chunks": 1.2877387104332283
+        },
+        "n200_k40": {
+          "chunk_sweep_p_values": [
+            5.048052339965897e-09,
+            0.3173188741653073,
+            0.0005196717138119701
+          ],
+          "chunk_sweep_chi2_over_df": [
+            1.0588051913703065,
+            1.0047617301244396,
+            1.0333749659317129
+          ],
+          "chunk_sweep_n_false_alarms": 1,
+          "seed_sweep_p_values": [
+            1.1880553389676327e-07,
+            0.6770446915485314,
+            0.028057619508999168
+          ],
+          "seed_sweep_chi2_over_df": [
+            1.0529352936889549,
+            0.9953441529607847,
+            1.0193352454921492
+          ],
+          "seed_sweep_n_false_alarms": 1,
+          "p_spans_orders_of_magnitude_across_chunks": 8.23018561635704
+        }
+      },
+      "T": 200000,
+      "chunks_tried": [
+        10000,
+        16326,
+        25000
+      ],
+      "seeds_tried": [
+        0,
+        1,
+        2
+      ],
+      "interpretation": "Algorithm R is provably uniform, so every small p here is a false alarm. If the p value swings by many orders of magnitude when only the trial-chunk size changes -- with the SEED held fixed -- then a ..."
+    },
+    "ledger_counts": {
+      "n_claims": 18,
+      "n_match": 8,
+      "n_mismatch": 9,
+      "n_unavailable": 1
+    },
+    "wall_seconds_per_stage": {
+      "a1": 39.02657052129507,
+      "a2": 227.8072992786765,
+      "a3": 1333.4742343015969,
+      "c1": 752.7645063828677,
+      "c2": 1.9591243471950293,
+      "d": 368.75211668759584
+    },
+    "not_executed": [
+      {
+        "status": "NOTHING_SKIPPED",
+        "note": "Parts A, B, C and the optional Part D all executed."
+      }
+    ],
+    "scope_limits": [
+      {
+        "item": "C1 nominal sweep grid",
+        "limit": "k capped at 100 and n at 5000",
+        "why": "the dense co-inclusion accumulator materialises chunk*C(k,2) linearised pair indices; at k=200 that is 1e9 int64 entries (8 GB) per chunk. The trial-chunk size is scaled as 2e7/C(k,2) to keep the buff..."
+      },
+      {
+        "item": "C1 calibrated cells",
+        "limit": "4 cells rather than the full grid, with 40 max-deviation and 16 co-inclusion null replicates per cell",
+        "why": "an own-simulated null costs one exactly-uniform k-subset oracle run per replicate, and the co-inclusion replicates dominate: at n=2000, k=100 the band alone takes 263 s at 16 co-inclusion replicates a..."
+      },
+      {
+        "item": "A1 eps grid",
+        "limit": "eps in {0.1, 0.2, 0.35, 0.5}, D in {1024, 4096, 16384, 65536}",
+        "why": "eps = 0.02 would put T_90 at ~4e6 per grid point and ~1e9 draws per cell; the four eps values retained already pin the exponent of eps to -1.96..-2.11 and of D to 0.48..0.54."
+      }
+    ],
+    "outputs": [
+      "eval_out.json (published as full_/mini_/preview_eval_out.json)",
+      "claims_ledger.csv",
+      "patch_table.md"
+    ]
+  },
+  "metrics_agg": {
+    "matched_panel_n_cells": 18.0,
+    "matched_first_order_accuracy": 0.8333333333333334,
+    "matched_first_order_recall": 0.6666666666666666,
+    "matched_first_order_false_alarm": 0.0,
+    "matched_anytime_accuracy": 0.8333333333333334,
+    "matched_anytime_recall": 0.6666666666666666,
+    "matched_pairwise_accuracy": 1.0,
+    "matched_pairwise_recall": 1.0,
+    "matched_l1_final_accuracy": 1.0,
+    "matched_l1_final_recall": 1.0,
+    "matched_l1_final_false_alarm": 0.0,
+    "matched_l1_anytime_accuracy": 1.0,
+    "matched_l1_anytime_recall": 1.0,
+    "ledger_n_claims": 18.0,
+    "ledger_n_match": 8.0,
+    "ledger_n_mismatch": 9.0,
+    "ledger_n_unavailable": 1.0,
+    "ledger_match_rate": 0.4444444444444444,
+    "spend_usd": 0.0,
+    "llm_calls": 0.0,
+    "large_panel_n_runs": 80.0,
+    "large_panel_l1_recall_on_broken": 0.96875,
+    "large_panel_l1_false_alarm_on_correct": 0.0,
+    "large_panel_collision_prediction_max_rel_error_lambda_gt_1000": 0.00011285811285810521,
+    "large_panel_n_runs_in_poisson_regime_lambda_le_1000": 8.0,
+    "large_panel_log10_D": 23.42063153364979,
+    "large_panel_n_fragile_blind_spots": 1.0,
+    "large_panel_min_per_sampler_l1_recall": 0.875,
+    "large_panel_min_blind_spot_TV": 0.999999999999031,
+    "l1_c_measured_median": 5.494129514390963,
+    "l1_c_spread_ratio": 1.3240520978910062,
+    "l1_fitted_exponent_of_D_mean": 0.5030275619691513,
+    "l1_fitted_exponent_of_eps_mean": -2.0190901436099162,
+    "c1_max_simulated_null_mean_over_df": 1.0074888493646386,
+    "c1_max_simulated_sd_over_nominal_sd": 3.451687842053353,
+    "c1_max_implied_nominal_false_alarm_rate": 0.3059526810950127,
+    "c1_n_cells_nominal_rule_miscalibrated": 3.0,
+    "c1_n_cells_run": 48.0,
+    "c1_n_nominal_false_alarm_cells": 1.0,
+    "c1_calibrated_gap": 26522.805450720396,
+    "c1_calibrated_separation_clean": 1.0,
+    "c1_smallest_false_alarm_k": 40.0,
+    "c1_smallest_false_alarm_n": 200.0,
+    "c1_smallest_false_alarm_k_over_n": 0.2,
+    "c2_mechanism_confirmed": 1.0,
+    "c2_n_blind_spots_scoring_better_than_R": 3.0,
+    "c2_max_abs_rel_error_of_predicted_ratio": 0.0522489267902162,
+    "refs_n": 12.0,
+    "refs_n_verified": 7.0,
+    "refs_n_corrected": 2.0,
+    "refs_n_unresolved": 1.0,
+    "refs_n_non_peer_reviewed": 2.0,
+    "merge_first_order_recall": 0.0,
+    "merge_pairwise_recall": 1.0,
+    "merge_first_order_false_alarm": 0.0,
+    "merge_pairwise_false_alarm": 0.0,
+    "merge_defective_exact_TV": 0.7526670997295575,
+    "merge_defective_expected_collisions": 7.674607014354593e-12,
+    "merge_l1_recall": 0.0
+  },
+  "datasets": [
+    {
+      "dataset": "detector_panel_three_columns",
+      "examples": [
+        {
+          "input": "Sampler S0 at n=12, k=2, T=100000 (matched panel, D=C(12,2)=66). Is the reservoir distribution a uniform k-subset at every prefix?",
+          "output": "UNIFORM",
+          "predict_exact_dp_ground_truth": "UNIFORM",
+          "predict_mc_final_first_order": "UNIFORM",
+          "predict_mc_final_pairwise": "UNIFORM",
+          "predict_mc_all_prefix_anytime": "UNIFORM",
+          "predict_l1_identity_final": "UNIFORM",
+          "predict_l1_identity_final_asymptotic": "UNIFORM",
+          "predict_l1_identity_anytime": "UNIFORM",
+          "metadata_panel": "matched_18_cells",
+          "metadata_candidate": "S0",
+          "metadata_n": 12,
+          "metadata_k": 2,
+          "metadata_T": 100000,
+          "metadata_D": 66,
+          "metadata_i_first_fail": null,
+          "metadata_first_order": {
+            "verdict": "UNIFORM",
+            "max_dev": 0.0032466666666666477,
+            "mc_p": 0.06965174129353234
+          },
+          "metadata_pairwise": {
+            "verdict": "UNIFORM",
+            "max_abs_z": 2.0749087097619894,
+            "mc_p": 0.9054726368159204,
+            "frac_zero_pairs": 0.0,
+            "argmax_pair": [
+              5,
+              8
+            ]
+          },
+          "metadata_anytime": {
+            "verdict": "UNIFORM",
+            "max_z": 2.073237082438974,
+            "mc_p": 0.693069306930693
+          },
+          "metadata_l1_final": {
+            "verdict": "UNIFORM",
+            "Z": -6.894039999999222,
+            "Z_normalised": -0.5169440895384816,
+            "collisions_C": 75752353,
+            "n_distinct": 66,
+            "mc_p": 0.6806387225548902,
+            "asymptotic_threshold_Z": 25.52431413956455,
+            "verdict_asymptotic": "UNIFORM"
+          },
+          "metadata_l1_anytime": {
+            "verdict": "UNIFORM",
+            "max_Z_normalised": 0.1643888002373504,
+            "argmax_prefix": 8,
+            "mc_p": 0.9021956087824351
+          },
+          "metadata_l1_anytime_per_prefix": [
+            {
+              "T": 100000,
+              "log10_D": 0.47712125471966244,
+              "collisions_C": 1666648748,
+              "n_distinct": 3,
+              "sum_Nx_Nx_minus_1": 3333297496,
+              "Z": -1.0751199999940582,
+              "Z_null_mean": -1.0,
+              "Z_null_sd": 1.999989999975,
+              "Z_normalised": -0.037560187798437575,
+              "C_null_mean": 1666650000.0,
+              "C_null_sd": 33333.16666625,
+              "poisson_log10_p": -0.2971816468987825,
+              "prefix_i": 3
+            },
+            {
+              "T": 100000,
+              "log10_D": 0.7781512503836436,
+              "collisions_C": 833319264,
+              "n_distinct": 6,
+              "sum_Nx_Nx_minus_1": 1666638528,
+              "Z": -1.688320000001113,
+              "Z_null_mean": -1.0,
+              "Z_null_sd": 3.16226184874055,
+              "Z_normalised": -0.2176669842427039,
+              "C_null_mean": 833325000.0,
+              "C_null_sd": 26352.182072837913,
+              "poisson_log10_p": -0.23791478316764808,
+              "prefix_i": 4
+            },
+            {
+              "T": 100000,
+              "log10_D": 1.0,
+              "collisions_C": 499984464,
+              "n_distinct": 10,
+              "sum_Nx_Nx_minus_1": 999968928,
+              "Z": -3.1071999999985565,
+              "Z_null_mean": -1.0,
+              "Z_null_sd": 4.242619473862816,
+              "Z_normalised": -0.49667428648273165,
+              "C_null_mean": 499995000.0,
+              "C_null_sd": 21213.09736931408,
+              "poisson_log10_p": -0.166712023089936,
+              "prefix_i": 5
+            }
+          ],
+          "eval_first_order_correct": 1.0,
+          "eval_pairwise_correct": 1.0,
+          "eval_anytime_correct": 1.0,
+          "eval_l1_final_correct": 1.0,
+          "eval_l1_anytime_correct": 1.0,
+          "eval_l1_collisions": 75752353.0,
+          "eval_l1_Z_normalised": -0.5169440895384816
+        },
+        {
+          "input": "Sampler S1 at n=12, k=2, T=100000 (matched panel, D=C(12,2)=66). Is the reservoir distribution a uniform k-subset at every prefix?",
+          "output": "UNIFORM",
+          "predict_exact_dp_ground_truth": "UNIFORM",
+          "predict_mc_final_first_order": "UNIFORM",
+          "predict_mc_final_pairwise": "UNIFORM",
+          "predict_mc_all_prefix_anytime": "UNIFORM",
+          "predict_l1_identity_final": "UNIFORM",
+          "predict_l1_identity_final_asymptotic": "UNIFORM",
+          "predict_l1_identity_anytime": "UNIFORM",
+          "metadata_panel": "matched_18_cells",
+          "metadata_candidate": "S1",
+          "metadata_n": 12,
+          "metadata_k": 2,
+          "metadata_T": 100000,
+          "metadata_D": 66,
+          "metadata_i_first_fail": null,
+          "metadata_first_order": {
+            "verdict": "UNIFORM",
+            "max_dev": 0.0030333333333333323,
+            "mc_p": 0.11940298507462686
+          },
+          "metadata_pairwise": {
+            "verdict": "UNIFORM",
+            "max_abs_z": 2.8774159347474386,
+            "mc_p": 0.24378109452736318,
+            "frac_zero_pairs": 0.0,
+            "argmax_pair": [
+              9,
+              10
+            ]
+          },
+          "metadata_anytime": {
+            "verdict": "UNIFORM",
+            "max_z": 1.942589337284986,
+            "mc_p": 0.7821782178217822
+          },
+          "metadata_l1_final": {
+            "verdict": "UNIFORM",
+            "Z": -21.840400000000955,
+            "Z_normalised": -1.8278331337452216,
+            "collisions_C": 75741030,
+            "n_distinct": 66,
+            "mc_p": 0.9740518962075848,
+            "asymptotic_threshold_Z": 25.52431413956455,
+            "verdict_asymptotic": "UNIFORM"
+          },
+          "metadata_l1_anytime": {
+            "verdict": "UNIFORM",
+            "max_Z_normalised": -0.09505854175928743,
+            "argmax_prefix": 4,
+            "mc_p": 0.9740518962075848
+          },
+          "metadata_l1_anytime_per_prefix": [
+            {
+              "T": 100000,
+              "log10_D": 0.47712125471966244,
+              "collisions_C": 1666640399,
+              "n_distinct": 3,
+              "sum_Nx_Nx_minus_1": 3333280798,
+              "Z": -1.5760599999921396,
+              "Z_null_mean": -1.0,
+              "Z_null_sd": 1.999989999975,
+              "Z_normalised": -0.288031440156871,
+              "C_null_mean": 1666650000.0,
+              "C_null_sd": 33333.16666625,
+              "poisson_log10_p": -0.23689886274320476,
+              "prefix_i": 3
+            },
+            {
+              "T": 100000,
+              "log10_D": 0.7781512503836436,
+              "collisions_C": 833322495,
+              "n_distinct": 6,
+              "sum_Nx_Nx_minus_1": 1666644990,
+              "Z": -1.300600000002305,
+              "Z_null_mean": -1.0,
+              "Z_null_sd": 3.16226184874055,
+              "Z_normalised": -0.09505854175928743,
+              "C_null_mean": 833325000.0,
+              "C_null_sd": 26352.182072837913,
+              "poisson_log10_p": -0.2722852314842187,
+              "prefix_i": 4
+            },
+            {
+              "T": 100000,
+              "log10_D": 1.0,
+              "collisions_C": 499970392,
+              "n_distinct": 10,
+              "sum_Nx_Nx_minus_1": 999940784,
+              "Z": -5.92160000000149,
+              "Z_null_mean": -1.0,
+              "Z_null_sd": 4.242619473862816,
+              "Z_normalised": -1.1600380449676475,
+              "C_null_mean": 499995000.0,
+              "C_null_sd": 21213.09736931408,
+              "poisson_log10_p": -0.063447726451205,
+              "prefix_i": 5
+            }
+          ],
+          "eval_first_order_correct": 1.0,
+          "eval_pairwise_correct": 1.0,
+          "eval_anytime_correct": 1.0,
+          "eval_l1_final_correct": 1.0,
+          "eval_l1_anytime_correct": 1.0,
+          "eval_l1_collisions": 75741030.0,
+          "eval_l1_Z_normalised": -1.8278331337452216
+        },
+        {
+          "input": "Sampler S1n at n=12, k=2, T=100000 (matched panel, D=C(12,2)=66). Is the reservoir distribution a uniform k-subset at every prefix?",
+          "output": "NOT_UNIFORM",
+          "predict_exact_dp_ground_truth": "NOT_UNIFORM",
+          "predict_mc_final_first_order": "NOT_UNIFORM",
+          "predict_mc_final_pairwise": "NOT_UNIFORM",
+          "predict_mc_all_prefix_anytime": "NOT_UNIFORM",
+          "predict_l1_identity_final": "NOT_UNIFORM",
+          "predict_l1_identity_final_asymptotic": "NOT_UNIFORM",
+          "predict_l1_identity_anytime": "NOT_UNIFORM",
+          "metadata_panel": "matched_18_cells",
+          "metadata_candidate": "S1n",
+          "metadata_n": 12,
+          "metadata_k": 2,
+          "metadata_T": 100000,
+          "metadata_D": 66,
+          "metadata_i_first_fail": 3,
+          "metadata_first_order": {
+            "verdict": "NOT_UNIFORM",
+            "max_dev": 0.15097666666666665,
+            "mc_p": 0.004975124378109453
+          },
+          "metadata_pairwise": {
+            "verdict": "NOT_UNIFORM",
+            "max_abs_z": 42.03710133459947,
+            "mc_p": 0.004975124378109453,
+            "frac_zero_pairs": 0.15151515151515152,
+            "argmax_pair": [
+              2,
+              3
+            ]
+          },
+          "metadata_anytime": {
+            "verdict": "NOT_UNIFORM",
+            "max_z": 223.60679774997897,
+            "mc_p": 0.009900990099009901
+          },
+          "metadata_l1_final": {
+            "verdict": "NOT_UNIFORM",
+            "Z": 22453.577839999998,
+            "Z_normalised": 1969.4066035302262,
+            "collisions_C": 92767862,
+            "n_distinct": 56,
+            "mc_p": 0.001996007984031936,
+            "asymptotic_threshold_Z": 25.52431413956455,
+            "verdict_asymptotic": "NOT_UNIFORM"
+          },
+          "metadata_l1_anytime": {
+            "verdict": "NOT_UNIFORM",
+            "max_Z_normalised": 33508.75646420119,
+            "argmax_prefix": 3,
+            "mc_p": 0.001996007984031936
+          },
+          "metadata_l1_anytime_per_prefix": [
+            {
+              "T": 100000,
+              "log10_D": 0.47712125471966244,
+              "collisions_C": 2783602964,
+              "n_distinct": 2,
+              "sum_Nx_Nx_minus_1": 5567205928,
+              "Z": 67016.17784000002,
+              "Z_null_mean": -1.0,
+              "Z_null_sd": 1.999989999975,
+              "Z_normalised": 33508.75646420119,
+              "C_null_mean": 1666650000.0,
+              "C_null_sd": 33333.16666625,
+              "poisson_log10_p": -134996919.00907797,
+              "prefix_i": 3
+            },
+            {
+              "T": 100000,
+              "log10_D": 0.7781512503836436,
+              "collisions_C": 1391803356,
+              "n_distinct": 4,
+              "sum_Nx_Nx_minus_1": 2783606712,
+              "Z": 67016.40272000001,
+              "Z_null_mean": -1.0,
+              "Z_null_sd": 3.16226184874055,
+              "Z_normalised": 21192.86951100883,
+              "C_null_mean": 833325000.0,
+              "C_null_sd": 26352.182072837913,
+              "poisson_log10_p": -67498879.17462978,
+              "prefix_i": 4
+            },
+            {
+              "T": 100000,
+              "log10_D": 1.0,
+              "collisions_C": 768252028,
+              "n_distinct": 7,
+              "sum_Nx_Nx_minus_1": 1536504056,
+              "Z": 53650.4056,
+              "Z_null_mean": -1.0,
+              "Z_null_sd": 4.242619473862816,
+              "Z_normalised": 12645.820802578724,
+              "C_null_mean": 499995000.0,
+              "C_null_sd": 21213.09736931408,
+              "poisson_log10_p": -26805695.67209133,
+              "prefix_i": 5
+            }
+          ],
+          "eval_first_order_correct": 1.0,
+          "eval_pairwise_correct": 1.0,
+          "eval_anytime_correct": 1.0,
+          "eval_l1_final_correct": 1.0,
+          "eval_l1_anytime_correct": 1.0,
+          "eval_l1_collisions": 92767862.0,
+          "eval_l1_Z_normalised": 1969.4066035302262
+        }
+      ]
+    },
+    {
+      "dataset": "sample_complexity_separation",
+      "examples": [
+        {
+          "input": "Detector 'first-order max-deviation (the field-standard test)' on panel 'matched 18 cells (n<=14, k in {2,4}, T=1e5)': what state does it keep, is it streaming, does it localise the defect, what is it...",
+          "output": "O(n / eps_first_order^2) for a FIRST-ORDER-far alternative; NEVER, at any T, for an alternative whose first-order marginals are exact",
+          "predict_detector": "first-order max-deviation (the field-standard test)",
+          "predict_state_per_trial": "n counters (one per item)",
+          "predict_threshold_T_of_n_k": "O(n / eps_first_order^2) for a FIRST-ORDER-far alternative; NEVER, at any T, for an alternative whose first-order marginals are exact",
+          "metadata_panel": "matched 18 cells (n<=14, k in {2,4}, T=1e5)",
+          "metadata_total_memory_order": "O(n)",
+          "metadata_streaming_single_pass": true,
+          "metadata_memory_independent_of_T": true,
+          "metadata_localises_the_defect": false,
+          "metadata_T_required_worst_case_eps_0p1": "not applicable (no guarantee against joint defects)",
+          "metadata_T_required_worst_case_eps_measured_TV": "not applicable (no guarantee against joint defects)",
+          "metadata_T_required_worst_case_eps_0p1_log10": null,
+          "metadata_T_required_worst_case_eps_TV_log10": null,
+          "metadata_c_measured_in_T_eq_c_sqrtD_over_eps2": 5.494129514390963,
+          "eval_measured_recall_on_broken": 0.6666666666666666,
+          "eval_measured_false_alarm_rate": 0.0,
+          "eval_measured_accuracy": 0.8333333333333334
+        },
+        {
+          "input": "Detector 'pairwise co-inclusion (calibrated against its own simulated null)' on panel 'matched 18 cells (n<=14, k in {2,4}, T=1e5)': what state does it keep, is it streaming, does it localise the defe...",
+          "output": "O(n^2 / eps_pair^2)",
+          "predict_detector": "pairwise co-inclusion (calibrated against its own simulated null)",
+          "predict_state_per_trial": "C(n,2) pair counters",
+          "predict_threshold_T_of_n_k": "O(n^2 / eps_pair^2)",
+          "metadata_panel": "matched 18 cells (n<=14, k in {2,4}, T=1e5)",
+          "metadata_total_memory_order": "O(n^2)",
+          "metadata_streaming_single_pass": true,
+          "metadata_memory_independent_of_T": true,
+          "metadata_localises_the_defect": true,
+          "metadata_T_required_worst_case_eps_0p1": "not a full L1 test; bounds only the second-order marginals",
+          "metadata_T_required_worst_case_eps_measured_TV": "not a full L1 test; bounds only the second-order marginals",
+          "metadata_T_required_worst_case_eps_0p1_log10": null,
+          "metadata_T_required_worst_case_eps_TV_log10": null,
+          "metadata_c_measured_in_T_eq_c_sqrtD_over_eps2": 5.494129514390963,
+          "eval_measured_recall_on_broken": 1.0,
+          "eval_measured_false_alarm_rate": 0.0,
+          "eval_measured_accuracy": 1.0
+        },
+        {
+          "input": "Detector 'L1 identity / collision tester (ADK 2015 / DKN 2015)' on panel 'matched 18 cells (n<=14, k in {2,4}, T=1e5)': what state does it keep, is it streaming, does it localise the defect, what is i...",
+          "output": "Theta(sqrt(D)/eps^2), D = C(n,k)",
+          "predict_detector": "L1 identity / collision tester (ADK 2015 / DKN 2015)",
+          "predict_state_per_trial": "the multiset of observed k-subsets",
+          "predict_threshold_T_of_n_k": "Theta(sqrt(D)/eps^2), D = C(n,k)",
+          "metadata_panel": "matched 18 cells (n<=14, k in {2,4}, T=1e5)",
+          "metadata_total_memory_order": "O(min(T, D)) distinct keys",
+          "metadata_streaming_single_pass": true,
+          "metadata_memory_independent_of_T": false,
+          "metadata_localises_the_defect": false,
+          "metadata_T_required_worst_case_eps_0p1": 17382.647836282817,
+          "metadata_T_required_worst_case_eps_measured_TV": 178.7926993632852,
+          "metadata_T_required_worst_case_eps_0p1_log10": 4.240115931669552,
+          "metadata_T_required_worst_case_eps_TV_log10": 2.252349781288916,
+          "metadata_c_measured_in_T_eq_c_sqrtD_over_eps2": 5.494129514390963,
+          "eval_measured_recall_on_broken": 1.0,
+          "eval_measured_false_alarm_rate": 0.0,
+          "eval_measured_accuracy": 1.0
+        }
+      ]
+    },
+    {
+      "dataset": "claims_ledger",
+      "examples": [
+        {
+          "input": "Calibrated co-inclusion z separates correct from broken samplers: at most 2.23 for the correct ones versus at least 21.4 for the broken ones.",
+          "output": "MISMATCH",
+          "predict_status": "MISMATCH",
+          "predict_corrected_text": "On the 72-run replication panel (n=1000, k=10, T=1e6) the calibrated co-inclusion z lies in [-2.088, 2.279] for the 48 provably-correct runs and in [5.23e+05, 4.75e+06] for the 24 blind-spot runs -- a...",
+          "metadata_claim_id": "C01_coinclusion_separation",
+          "metadata_source_artifact": "E2",
+          "metadata_json_path": "metadata.replication_calibration.rows",
+          "metadata_tolerance": "exact min/max over the 72 replication rows",
+          "metadata_executed_value": {
+            "replication_panel_correct_z_min": -2.088361909899304,
+            "replication_panel_correct_z_max": 2.279234481979227,
+            "replication_panel_broken_z_min": 523270.2840523979,
+            "replication_panel_broken_z_max": 4747656.78594046,
+            "n_correct_rows": 48,
+            "n_broken_rows": 24,
+            "grid_panel_max_correct_z": 2.2340376853606894,
+            "grid_panel_min_broken_z": 21.383308927851225
+          },
+          "metadata_note": "Both numbers are real and both are in the artifact; the defect is a provenance conflation between the (n,k) grid and the 72-run panel.",
+          "metadata_path_resolution": {
+            "status": "RESOLVED",
+            "path": "metadata.replication_calibration.rows",
+            "type": "list",
+            "size": 72
+          },
+          "eval_is_match": 0.0,
+          "eval_is_mismatch": 1.0,
+          "eval_is_unavailable": 0.0
+        },
+        {
+          "input": "On non-divisible steps the minimum decays like k/(i-k): <= 0.333*log2(k) once i >= 2k -- 21 such steps.",
+          "output": "MATCH",
+          "predict_status": "MATCH",
+          "predict_corrected_text": "21 NON-DIVISIBLE steps satisfy i >= 2k (32 steps in total satisfy i >= 2k, of which 11 are divisible and carry minimum eviction entropy exactly 0), out of 41 analysed steps.",
+          "metadata_claim_id": "C02_21_steps_at_i_ge_2k",
+          "metadata_source_artifact": "E1",
+          "metadata_json_path": "datasets{dataset=eviction_step_minimum_entropy}.examples",
+          "metadata_tolerance": "exact integer count",
+          "metadata_executed_value": {
+            "n_nondivisible_steps_with_i_ge_2k": 21,
+            "n_all_steps_with_i_ge_2k": 32,
+            "n_divisible_steps_with_i_ge_2k": 11,
+            "n_steps_total": 41,
+            "metadata_declares": 21
+          },
+          "metadata_note": "The count is right but the printed sentence is ambiguous about whether the divisible steps are included; the corrected text disambiguates.",
+          "metadata_path_resolution": {
+            "status": "RESOLVED",
+            "path": "datasets{dataset=eviction_step_minimum_entropy}.examples",
+            "type": "list",
+            "size": 41
+          },
+          "eval_is_match": 1.0,
+          "eval_is_mismatch": 0.0,
+          "eval_is_unavailable": 0.0
+        },
+        {
+          "input": "Post-removal anytime overhead drops to 6.47x (k=10) and 4.80x (k=1000) at n=1e6.",
+          "output": "MISMATCH",
+          "predict_status": "MISMATCH",
+          "predict_corrected_text": "At n=1e6 the anytime overhead falls from 8.414x to 6.3859x at k=10 and from 9.849x to 4.1045x at k=1000 under the EXECUTED analytic eviction bracket (E1 bench 1). The figures 6.47x and 4.80x are EXTRA...",
+          "metadata_claim_id": "C03_anytime_overhead_post_removal",
+          "metadata_source_artifact": "E1+E2",
+          "metadata_json_path": "E1 datasets{dataset=fair_coin_bit_budgets} metadata_budget.anytime_overhead_optimal_upper  ||  E2 metadata.verdicts.MAIN.s1t_closed_form_budget",
+          "metadata_tolerance": "rel 1e-06",
+          "metadata_executed_value": {
+            "E1_executed_analytic_bracket_k10": 6.385943934674008,
+            "E1_executed_analytic_bracket_k1000": 4.104514272587692,
+            "E1_classical_k10": 8.41390409556857,
+            "E1_classical_k1000": 9.84900091460319,
+            "E2_fitC_derived_k10": 6.470346871439004,
+            "E2_fitC_derived_k1000": 4.79954725207994
+          },
+          "metadata_note": "6.47/4.80 are exactly S1t_total_bits / output_H at the fitted C; 6.3859/4.1045 are the executed analytic-bracket values for the SAME cells.",
+          "metadata_path_resolution": {
+            "status": "RESOLVED",
+            "path": "datasets{dataset=fair_coin_bit_budgets}",
+            "type": "dict",
+            "size": 2
+          },
+          "eval_is_match": 0.0,
+          "eval_is_mismatch": 1.0,
+          "eval_is_unavailable": 0.0
+        }
+      ]
+    }
+  ]
+}
